@@ -18,10 +18,11 @@ public class ConnectionPool {
 
   private static void configureDataSource() {
     try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
       Context initContext = new InitialContext();
       Context envContext  = (Context) initContext.lookup("java:/comp/env");
       ds = (DataSource) envContext.lookup("jdbc/elective");
-    } catch (NamingException e) {
+    } catch (NamingException | ClassNotFoundException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
     }

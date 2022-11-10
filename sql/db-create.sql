@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS teacher;
-DROP TABLE IF EXISTS account;
-DROP TABLE IF EXISTS student;
-DROP TABLE IF EXISTS course;
 DROP TABLE IF EXISTS course_student;
+DROP TABLE IF EXISTS course;
+DROP TABLE IF EXISTS teacher;
+DROP TABLE IF EXISTS student;
+DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS topic;
 
 CREATE TABLE account(
@@ -21,8 +21,8 @@ CREATE TABLE teacher(
 
 CREATE TABLE student(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
-    lastname VARCHAR(20) NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(20) NOT NULL,
     is_blocked BOOL NOT NULL DEFAULT FALSE,
     account_id INT NOT NULL,
     FOREIGN KEY (account_id) REFERENCES account(id)
