@@ -8,15 +8,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Title</title>
 </head>
 <body>
 <form method="post">
-    <input type="text" name="firstName"/>
-    <input type="text" name="lastName"/>
-    <input type="text" name="login"/>
-    <input type="password" name="password"/>
-    <input type="submit" value="Submit"/>
+    <div class="form-group">
+        <label for="fname">First Name</label>
+        <input type="text" name="firstName" id="fname" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input type="text" name="lastName" id="lname" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="username">username</label>
+        <input type="text" name="login" id="username" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </body>
 </html>

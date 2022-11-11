@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "main", value = "/")
+@WebServlet(value = "/main")
 public class MainPageServlet extends HttpServlet {
 
   @Override

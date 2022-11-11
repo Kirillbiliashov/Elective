@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     String password = req.getParameter("password");
     boolean isAccFound = AccountDAO.findByLoginAndPassword(login, password);
     if (isAccFound) {
-      resp.sendRedirect("main");
+      resp.sendRedirect("/elective/main");
     } else {
       req.setAttribute("errorMsg", "Incorrect login or password");
       req.getRequestDispatcher("login-form.jsp").forward(req, resp);
