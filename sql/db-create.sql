@@ -14,9 +14,9 @@ CREATE TABLE account(
 CREATE TABLE teacher(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
-    lastname VARCHAR(20) NOT NULL,
-    accountId INT NOT NULL,
-    FOREIGN KEY (accountId) REFERENCES account(id)
+    last_name VARCHAR(20) NOT NULL,
+    account_id INT NOT NULL,
+    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
 );
 
 CREATE TABLE student(
@@ -25,7 +25,7 @@ CREATE TABLE student(
     last_name VARCHAR(20) NOT NULL,
     is_blocked BOOL NOT NULL DEFAULT FALSE,
     account_id INT NOT NULL,
-    FOREIGN KEY (account_id) REFERENCES account(id)
+    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
 );
 
 CREATE TABLE topic(
@@ -40,8 +40,8 @@ CREATE TABLE course(
     duration SMALLINT NOT NULL,
     teacher_id INT NOT NULL,
     topic_id INT NOT NULL,
-    FOREIGN KEY (teacher_id) REFERENCES teacher(id),
-    FOREIGN KEY (topic_id) REFERENCES topic(id)
+    FOREIGN KEY (teacher_id) REFERENCES teacher(id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES topic(id) ON DELETE CASCADE
 );
 
 CREATE TABLE course_student(
@@ -51,8 +51,8 @@ CREATE TABLE course_student(
     grade SMALLINT(100),
     registration_date DATE NOT NULL,
     UNIQUE(course_id, student_id),
-    FOREIGN KEY (course_id) REFERENCES course(id),
-    FOREIGN KEY (student_id) REFERENCES student(id)
+    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE
 );
 
 INSERT INTO account(login, password) VALUES('admin', 'admin');

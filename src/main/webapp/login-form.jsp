@@ -24,22 +24,28 @@
 <form method="post">
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Username">
+        <input type="text" class="form-control" id="username" placeholder="Username" name="login">
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password">
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+    </div>
+    <div class="form-group">
+        <label for="roleSelect">I am: </label>
+        <select class="form-control" id="roleSelect" name="userType">
+            <option>Student</option>
+            <option>Teacher</option>
+            <option>Admin</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<div class="form-group">
-    <label for="exampleFormControlSelect1">I am: </label>
-    <select class="form-control" id="exampleFormControlSelect1">
-        <option>Student</option>
-        <option>Teacher</option>
-        <option>Admin</option>
-    </select>
-</div>
+<c:if test="${errorMsg != null}">
+    <div class="alert alert-warning" role="alert">
+        ${errorMsg}
+    </div>
+</c:if>
+
 <a href="signup">Sign up as a student</a>
 </body>
 </html>

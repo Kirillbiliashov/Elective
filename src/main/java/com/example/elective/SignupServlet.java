@@ -16,12 +16,14 @@ import java.io.IOException;
 public class SignupServlet extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     req.getRequestDispatcher("signup-form.jsp").forward(req, resp);
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws IOException {
     Account acc = mapRequestToAccount(req);
     AccountDAO.save(acc);
     Student student = mapRequestToStudent(req);

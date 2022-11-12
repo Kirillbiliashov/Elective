@@ -9,12 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="login and signup mechanisms were added">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Bootstrap was added for jsp pages">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TeacherDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Teacher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/db-create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db-create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/StudentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/StudentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,13 +60,15 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/admin/IdeaProjects/elective"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "mysql"
+    ],
+    "RunConfigurationTargetLRU": [
+      "f5e762f5-b40a-432c-a51a-56740d6644c0"
     ],
     "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
       "MySQL"
@@ -74,7 +84,10 @@
     <configuration name="db-create.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/sql/db-create.sql" />
       <script-mode>FILE</script-mode>
-      <method v="2" />
+      <data-source id="f5e762f5-b40a-432c-a51a-56740d6644c0" />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="Tomcat 9.0.68" run_configuration_type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" />
+      </method>
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <deployment>
@@ -178,7 +191,7 @@
       <updated>1667994183717</updated>
       <workItem from="1667994185723" duration="11117000" />
       <workItem from="1668092444368" duration="3918000" />
-      <workItem from="1668101742205" duration="2812000" />
+      <workItem from="1668101742205" duration="10472000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -201,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668102130927</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Bootstrap was added for jsp pages">
+      <created>1668197041895</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668197041895</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +254,7 @@
     <MESSAGE value="SQL script was added" />
     <MESSAGE value="Connection pool class was added" />
     <MESSAGE value="login and signup mechanisms were added" />
-    <option name="LAST_COMMIT_MESSAGE" value="login and signup mechanisms were added" />
+    <MESSAGE value="Bootstrap was added for jsp pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bootstrap was added for jsp pages" />
   </component>
 </project>
