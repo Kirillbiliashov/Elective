@@ -1,58 +1,56 @@
-DROP TABLE IF EXISTS course_student;
-DROP TABLE IF EXISTS course;
-DROP TABLE IF EXISTS teacher;
-DROP TABLE IF EXISTS student;
+DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS topic;
+DROP TABLE IF EXISTS course;
+DROP TABLE IF EXISTS journal;
 
-CREATE TABLE account(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    login VARCHAR(30) UNIQUE,
-    password VARCHAR(20) UNIQUE
+CREATE TABLE role
+(
+    id   INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL UNIQUE
 );
 
-CREATE TABLE teacher(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(20) NOT NULL,
-    account_id INT NOT NULL,
-    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
+CREATE TABLE account
+(
+    id         INT PRIMARY KEY AUTO_INCREMENT,
+    email      VARCHAR(50) NOT NULL UNIQUE,
+    password   VARCHAR(25) NOT NULL UNIQUE,
+    first_name VARCHAR(20),
+    last_name  VARCHAR(25),
+    is_blocked BOOLEAN     NOT NULL DEFAULT FALSE,
+    role_id    INT         NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE
 );
 
-CREATE TABLE student(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(20) NOT NULL,
-    is_blocked BOOL NOT NULL DEFAULT FALSE,
-    account_id INT NOT NULL,
-    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
+CREATE TABLE topic
+(
+    id   INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE topic(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(30)
+CREATE TABLE course
+(
+    id         INT PRIMARY KEY AUTO_INCREMENT,
+    name       VARCHAR(50) NOT NULL,
+    duration   SMALLINT    NOT NULL,
+    start_date DATE        NOT NULL,
+    topic_id   INT         NOT NULL,
+    teacher_id INT         NOT NULL,
+    FOREIGN KEY (teacher_id) REFERENCES account (id) ON DELETE CASCADE
 );
 
-CREATE TABLE course(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    start_date DATE NOT NULL,
-    duration SMALLINT NOT NULL,
-    teacher_id INT NOT NULL,
-    topic_id INT NOT NULL,
-    FOREIGN KEY (teacher_id) REFERENCES teacher(id) ON DELETE CASCADE,
-    FOREIGN KEY (topic_id) REFERENCES topic(id) ON DELETE CASCADE
+CREATE TABLE journal
+(
+    id              INT PRIMARY KEY AUTO_INCREMENT,
+    grade           INT(100),
+    enrollment_date DATE NOT NULL,
+    course_id       INT  NOT NULL,
+    student_id      INT  NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES course (id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES account (id) ON DELETE CASCADE,
+    UNIQUE (course_id, student_id)
 );
 
-CREATE TABLE course_student(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    course_id INT NOT NULL,
-    student_id INT NOT NULL,
-    grade SMALLINT(100),
-    registration_date DATE NOT NULL,
-    UNIQUE(course_id, student_id),
-    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
-    FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE
-);
-
-INSERT INTO account(login, password) VALUES('admin', 'admin');
+INSERT INTO role(name) VALUES ('Student');
+INSERT INTO role(name) VALUES ('Admin');
+INSERT INTO role(name) VALUES ('Teacher');

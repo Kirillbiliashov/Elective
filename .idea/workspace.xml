@@ -9,20 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Bootstrap was added for jsp pages">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TeacherDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Teacher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Login for different types of users and corresponding redirects were added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/db-create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db-create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/StudentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/StudentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,38 +45,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/admin/IdeaProjects/elective"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/admin/IdeaProjects/elective&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "f5e762f5-b40a-432c-a51a-56740d6644c0"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;f5e762f5-b40a-432c-a51a-56740d6644c0&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/META-INF" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
+  <component name="RunManager" selected="Database Script.db-create.sql">
     <configuration name="db-create.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/sql/db-create.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="f5e762f5-b40a-432c-a51a-56740d6644c0" />
-      <method v="2">
-        <option name="RunConfigurationTask" enabled="true" run_configuration_name="Tomcat 9.0.68" run_configuration_type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" />
-      </method>
+      <method v="2" />
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <deployment>
@@ -175,6 +162,10 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Database Script.db-create.sql" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Database Script.db-create.sql" />
@@ -191,7 +182,8 @@
       <updated>1667994183717</updated>
       <workItem from="1667994185723" duration="11117000" />
       <workItem from="1668092444368" duration="3918000" />
-      <workItem from="1668101742205" duration="10472000" />
+      <workItem from="1668101742205" duration="12946000" />
+      <workItem from="1668265371463" duration="112000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -221,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668197041895</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Login for different types of users and corresponding redirects were added">
+      <created>1668254598318</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668254598318</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +254,7 @@
     <MESSAGE value="Connection pool class was added" />
     <MESSAGE value="login and signup mechanisms were added" />
     <MESSAGE value="Bootstrap was added for jsp pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bootstrap was added for jsp pages" />
+    <MESSAGE value="Login for different types of users and corresponding redirects were added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login for different types of users and corresponding redirects were added" />
   </component>
 </project>
