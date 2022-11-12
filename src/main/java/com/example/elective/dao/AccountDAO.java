@@ -8,20 +8,28 @@ import java.util.Optional;
 
 public class AccountDAO {
 
-  public static void save(Account account) {
-    final String sqlStr = "INSERT INTO account(login, password) VALUES(?, ?)";
+  public static void save(Account acc) {
+    final String sqlStr = "INSERT INTO account(login, password, first_name," +
+        " last_name, role_id) VALUES(?, ?, ?, ?, ?)";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr, Statement.RETURN_GENERATED_KEYS)) {
-      int idx = 1;
-      ps.setString(idx++, account.getLogin());
-      ps.setString(idx++, account.getPassword());
+    PreparedStatement ps = conn.prepareStatement(sqlStr, Statement.RETURN_GENERATED_KEYS)) {
+      addMissingValuesToStatement(ps, acc);
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) account.setId(rs.getInt(1));
+      if (rs.next()) acc.setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
     }
+  }
+
+  private static void addMissingValuesToStatement(PreparedStatement ps, Account acc) throws SQLException {
+    int idx = 1;
+    ps.setString(idx++, acc.getLogin());
+    ps.setString(idx++, acc.getPassword());
+    ps.setString(idx++, acc.getFirstName());
+    ps.setString(idx++, acc.getLastName());
+    ps.setInt(idx++, acc.getRoleId());
   }
 
   public static Optional<Account> findByCredentials(String login, String password) {
@@ -31,21 +39,23 @@ public class AccountDAO {
       int idx = 1;
       ps.setString(idx++, login);
       ps.setString(idx++, password);
-      ResultSet rs = ps.executeQuery();
-      if (rs.next()) {
-        int id = rs.getInt(1);
-        Account acc = new Account();
-        acc.setId(id);
-        acc.setPassword(password);
-        acc.setLogin(login);
-        return Optional.of(acc);
-      }
-      return Optional.empty();
-
+      return mapResultSetToAccount(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
     }
+  }
+
+  private static Optional<Account> mapResultSetToAccount(ResultSet rs) throws SQLException {
+    if (!rs.next()) return Optional.empty();
+    final Account acc = new Account();
+    acc.setLogin(rs.getString("login"));
+    acc.setPassword(rs.getString("password"));
+    acc.setFirstName(rs.getString("first_name"));
+    acc.setLastName(rs.getString("last_name"));
+    acc.setBlocked(rs.getBoolean("is_blocked"));
+    acc.setRoleId(rs.getInt("role_id"));
+    return Optional.of(acc);
   }
 
 }

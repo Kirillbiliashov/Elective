@@ -25,17 +25,16 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     String login = req.getParameter("login");
     String password = req.getParameter("password");
-    String userType = req.getParameter("userType");
-    Optional<Account> acc = AccountDAO.findByCredentials(login, password);
-    if (acc.isPresent()) {
+    Optional<Account> optAccount = AccountDAO.findByCredentials(login, password);
+    if (optAccount.isPresent()) {
       HttpSession session = req.getSession();
-      session.setAttribute("accountId", acc.get().getId());
-      session.setAttribute("userType", userType);
+      session.setAttribute("account", optAccount.get());
       resp.sendRedirect("/elective/main");
     } else {
       req.setAttribute("errorMsg", "Login or password is incorrect");
       req.getRequestDispatcher("login-form.jsp").forward(req, resp);
     }
+
   }
 
 }

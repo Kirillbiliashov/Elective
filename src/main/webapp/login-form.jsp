@@ -30,14 +30,6 @@
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" placeholder="Password" name="password">
     </div>
-    <div class="form-group">
-        <label for="roleSelect">I am: </label>
-        <select class="form-control" id="roleSelect" name="userType">
-            <option>Student</option>
-            <option>Teacher</option>
-            <option>Admin</option>
-        </select>
-    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <c:if test="${errorMsg != null}">
