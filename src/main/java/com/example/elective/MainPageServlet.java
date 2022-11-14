@@ -23,15 +23,15 @@ public class MainPageServlet extends HttpServlet {
     Account account = (Account) session.getAttribute("account");
     int roleId = account.getRoleId();
     Optional<Role> optRole = RoleDAO.findById(roleId);
-    String jspPage = "error.jsp";
+    String servletUrl = "error.jsp";
     if (optRole.isPresent()) {
       Role role = optRole.get();
       String roleName = role.getName();
-      if (roleName.equals("Student")) jspPage = "student.jsp";
-      else if (roleName.equals("Teacher")) jspPage = "teacher.jsp";
-      else if (roleName.equals("Admin")) jspPage = "admin.jsp";
+      if (roleName.equals("Student")) servletUrl = "student.jsp";
+      else if (roleName.equals("Teacher")) servletUrl = "teacher.jsp";
+      else if (roleName.equals("Admin")) servletUrl = "/elective/admin";
     }
-    req.getRequestDispatcher(jspPage).forward(req, resp);
+    resp.sendRedirect(servletUrl);
   }
 
 }

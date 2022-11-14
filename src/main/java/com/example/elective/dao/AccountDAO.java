@@ -48,14 +48,13 @@ public class AccountDAO {
 
   private static Optional<Account> mapResultSetToAccount(ResultSet rs) throws SQLException {
     if (!rs.next()) return Optional.empty();
-    final Account acc = new Account();
-    acc.setLogin(rs.getString("login"));
-    acc.setPassword(rs.getString("password"));
-    acc.setFirstName(rs.getString("first_name"));
-    acc.setLastName(rs.getString("last_name"));
-    acc.setBlocked(rs.getBoolean("is_blocked"));
-    acc.setRoleId(rs.getInt("role_id"));
-    return Optional.of(acc);
+    return Optional.of(new Account()
+        .setLogin(rs.getString("login"))
+        .setPassword(rs.getString("password"))
+        .setFirstName(rs.getString("first_name"))
+        .setLastName(rs.getString("last_name"))
+        .setBlocked(rs.getBoolean("is_blocked"))
+        .setRoleId(rs.getInt("role_id")));
   }
 
 }

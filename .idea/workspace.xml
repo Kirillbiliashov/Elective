@@ -9,21 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="DB structure was modified">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/RoleDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Role.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="login/signup logic was modified according to new db structure">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/AdminServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/CourseServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/CourseDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TopicDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Topic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/new-course-form.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/db-create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db-create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/SignupServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/StudentDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TeacherDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Student.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Teacher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +193,8 @@
       <workItem from="1667994185723" duration="11117000" />
       <workItem from="1668092444368" duration="3918000" />
       <workItem from="1668101742205" duration="12946000" />
-      <workItem from="1668265371463" duration="4342000" />
+      <workItem from="1668265371463" duration="5221000" />
+      <workItem from="1668427096392" duration="5748000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -239,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668265700104</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="login/signup logic was modified according to new db structure">
+      <created>1668285979114</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668285979114</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,6 +281,7 @@
     <MESSAGE value="Bootstrap was added for jsp pages" />
     <MESSAGE value="Login for different types of users and corresponding redirects were added" />
     <MESSAGE value="DB structure was modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="DB structure was modified" />
+    <MESSAGE value="login/signup logic was modified according to new db structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="login/signup logic was modified according to new db structure" />
   </component>
 </project>

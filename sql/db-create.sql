@@ -35,7 +35,7 @@ CREATE TABLE course
     duration   SMALLINT    NOT NULL,
     start_date DATE        NOT NULL,
     topic_id   INT         NOT NULL,
-    teacher_id INT         NOT NULL,
+    teacher_id INT,
     FOREIGN KEY (teacher_id) REFERENCES account (id) ON DELETE CASCADE
 );
 
@@ -54,3 +54,6 @@ CREATE TABLE journal
 INSERT INTO role(name) VALUES ('Student');
 INSERT INTO role(name) VALUES ('Admin');
 INSERT INTO role(name) VALUES ('Teacher');
+INSERT INTO topic(name) VALUES('History');
+INSERT INTO topic(name) VALUES('Data Science');
+INSERT INTO topic(name) VALUES('Software development');
