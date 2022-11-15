@@ -29,7 +29,7 @@ public class MainPageServlet extends HttpServlet {
       String roleName = role.getName();
       if (roleName.equals("Student")) servletUrl = "student.jsp";
       else if (roleName.equals("Teacher")) servletUrl = "teacher.jsp";
-      else if (roleName.equals("Admin")) servletUrl = "/elective/admin";
+      else if (roleName.equals("Admin")) servletUrl = "admin";
     }
     resp.sendRedirect(servletUrl);
   }

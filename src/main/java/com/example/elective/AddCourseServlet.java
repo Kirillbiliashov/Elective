@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
-@WebServlet("/add_course")
-public class CourseServlet extends HttpServlet {
+@WebServlet("/courses/add")
+public class AddCourseServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     List<Topic> topics = TopicDAO.getAll();
     req.setAttribute("topics", topics);
-    req.getRequestDispatcher("new-course-form.jsp").forward(req, resp);
+    req.getRequestDispatcher("/add-course.jsp").forward(req, resp);
   }
 
   @Override

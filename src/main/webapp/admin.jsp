@@ -17,9 +17,14 @@
 <h2>Courses</h2>
 <ul class="list-group">
     <c:forEach items="${courses}" var="course">
-        <li class="list-group-item">${course.name}</li>
+        <li class="list-group-item">${course.name}
+            <a href="courses/edit/${course.id}" class="btn btn-light">Edit</a>
+            <form action="courses/delete/${course.id}" method="POST">
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+        </li>
     </c:forEach>
 </ul>
-<a href="add_course">Add course</a>
+<a href="courses/add">Add course</a>
 </body>
 </html>
