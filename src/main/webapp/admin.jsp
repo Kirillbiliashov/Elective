@@ -26,5 +26,22 @@
     </c:forEach>
 </ul>
 <a href="courses/add">Add course</a>
+<h2>Students</h2>
+<ul class="list-group">
+    <c:forEach items="${students}" var="student">
+        <li class="list-group-item">
+            ${student.login}
+            (${student.firstName} ${student.lastName})
+                <form action="students/changeBlock/${student.id}" method="POST">
+                    <c:if test="${student.blocked}">
+                        <input type="submit" class="btn btn-secondary" value="Unlock">
+                    </c:if>
+                    <c:if test="${!student.blocked}">
+                        <input type="submit" class="btn btn-dark" value="Block">
+                    </c:if>
+                </form>
+        </li>
+    </c:forEach>
+</ul>
 </body>
 </html>

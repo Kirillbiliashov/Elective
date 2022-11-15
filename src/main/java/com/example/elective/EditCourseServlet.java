@@ -20,7 +20,7 @@ public class EditCourseServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    int id = getIdFromPathInfo(req.getPathInfo());
+    int id = Utils.getIdFromPathInfo(req.getPathInfo());
     Optional<Course> optCourse = CourseDAO.getById(id);
     List<Topic> topics = TopicDAO.getAll();
     if (!optCourse.isPresent()) {
@@ -34,7 +34,7 @@ public class EditCourseServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    int id = getIdFromPathInfo(req.getPathInfo());
+    int id = Utils.getIdFromPathInfo(req.getPathInfo());
     Optional<Course> optCourse = CourseDAO.getById(id);
     if (optCourse.isPresent()) {
       Course course = optCourse.get();
@@ -44,10 +44,7 @@ public class EditCourseServlet extends HttpServlet {
     resp.sendRedirect("/elective/admin");
   }
 
-  private int getIdFromPathInfo(String pathInfo) {
-    int infoLength = pathInfo.length();
-    return Integer.parseInt(pathInfo.substring(infoLength - 1, infoLength));
-  }
+
 
   private void setReqParamsForCourse(Course course, HttpServletRequest req) {
     course.setName(req.getParameter("name"))

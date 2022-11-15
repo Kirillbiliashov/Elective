@@ -14,9 +14,7 @@ public class DeleteCourseServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    String pathInfo = req.getPathInfo();
-    int infoLength = pathInfo.length();
-    int id = Integer.parseInt(pathInfo.substring(infoLength - 1, infoLength));
+    int id = Utils.getIdFromPathInfo(req.getPathInfo());
     CourseDAO.delete(id);
     resp.sendRedirect("/elective/admin");
   }
