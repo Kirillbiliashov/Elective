@@ -1,7 +1,9 @@
 package com.example.elective;
 
+import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.TopicDAO;
+import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 
@@ -22,13 +24,15 @@ public class EditCourseServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
     Optional<Course> optCourse = CourseDAO.getById(id);
-    List<Topic> topics = TopicDAO.getAll();
     if (!optCourse.isPresent()) {
       resp.sendRedirect("/elective/admin");
       return;
     }
+    List<Topic> topics = TopicDAO.getAll();
+    List<Account> teachers = AccountDAO.getByRole("Teacher");
     req.setAttribute("course", optCourse.get());
     req.setAttribute("topics", topics);
+    req.setAttribute("teachers", teachers);
     req.getRequestDispatcher("/edit-course.jsp").forward(req, resp);
   }
 
@@ -50,7 +54,8 @@ public class EditCourseServlet extends HttpServlet {
     course.setName(req.getParameter("name"))
         .setDuration(Integer.parseInt(req.getParameter("duration")))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
-        .setTopicId(Integer.parseInt(req.getParameter("topicId")));
+        .setTopicId(Integer.parseInt(req.getParameter("topicId")))
+        .setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
   }
 
 }

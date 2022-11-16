@@ -27,11 +27,22 @@
     <label for="startDate">Start date</label>
     <input type="date" class="form-control" id="startDate" placeholder="Start date" name="startDate" value="${course.startDate}">
   </div>
+  <div class="form-group">
   <select class="form-control" id="topicSelect" name="topicId">
     <c:forEach items="${topics}" var="topic">
       <option value="${topic.id}" selected ="${topic.id == course.topicId}">${topic.name}</option>
     </c:forEach>
   </select>
+  </div>
+  <div class="form-group">
+    <select class="form-control" id="teacherSelect" name="teacherId">
+      <c:forEach items="${teachers}" var="teacher">
+        <option value="${teacher.id}" selected="${course.teacherId == teacher.id}">
+            ${teacher.firstName} ${teacher.lastName}
+        </option>
+      </c:forEach>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 </body>

@@ -35,6 +35,14 @@
       </c:forEach>
     </select>
   </div>
+  <div class="form-group">
+    <label for="teacherSelect">Teacher</label>
+    <select class="form-control" id="teacherSelect" name="teacherId">
+      <c:forEach items="${teachers}" var="teacher">
+        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+      </c:forEach>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Add</button>
 </form>
 </body>

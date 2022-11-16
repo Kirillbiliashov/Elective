@@ -1,7 +1,9 @@
 package com.example.elective;
 
+import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.TopicDAO;
+import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 
@@ -19,15 +21,18 @@ public class AddCourseServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     List<Topic> topics = TopicDAO.getAll();
+    List<Account> teachers = AccountDAO.getByRole("Teacher");
     req.setAttribute("topics", topics);
+    req.setAttribute("teachers", teachers);
     req.getRequestDispatcher("/add-course.jsp").forward(req, resp);
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws IOException {
     Course course = mapRequestToCourse(req);
     CourseDAO.save(course);
-    resp.sendRedirect("admin");
+    resp.sendRedirect("/elective/admin");
 
   }
 
@@ -36,6 +41,8 @@ public class AddCourseServlet extends HttpServlet {
         .setName(req.getParameter("name"))
         .setDuration(Integer.parseInt(req.getParameter("duration")))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
-        .setTopicId(Integer.parseInt(req.getParameter("topicId")));
+        .setTopicId(Integer.parseInt(req.getParameter("topicId")))
+        .setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
   }
+
 }

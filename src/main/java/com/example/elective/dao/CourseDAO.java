@@ -12,7 +12,7 @@ public class CourseDAO {
 
   public static void update(Course course) {
     final String sqlStr = "UPDATE course SET name = ?, duration = ?," +
-        " start_date = ?, topic_id = ? WHERE id = ?";
+        " start_date = ?, topic_id = ?, teacher_id = ? WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
       int idx = 1;
@@ -20,6 +20,7 @@ public class CourseDAO {
       ps.setInt(idx++, course.getDuration());
       ps.setDate(idx++, course.getStartDate());
       ps.setInt(idx++, course.getTopicId());
+      ps.setInt(idx++, course.getTeacherId());
       ps.setInt(idx, course.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
@@ -29,7 +30,7 @@ public class CourseDAO {
   }
 
   public static void save(Course course) {
-    final String sqlStr = "INSERT INTO course(name, duration, start_date, topic_id) VALUES(?,?,?,?)";
+    final String sqlStr = "INSERT INTO course(name, duration, start_date, topic_id, teacher_id) VALUES(?,?,?,?,?)";
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(sqlStr, Statement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
@@ -37,6 +38,7 @@ public class CourseDAO {
       ps.setInt(idx++, course.getDuration());
       ps.setDate(idx++, course.getStartDate());
       ps.setInt(idx++, course.getTopicId());
+      ps.setInt(idx, course.getTeacherId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) course.setId(rs.getInt(1));

@@ -15,15 +15,16 @@
 <body>
 <h1>Admin main page</h1>
 <div style="display: flex; justify-content: space-around ">
-    <div>
+    <div style="width: 300px">
         <h2>Courses</h2>
         <ul class="list-group">
             <c:forEach items="${courses}" var="course">
-                <li class="list-group-item">${course.key.name}
+                <li class="list-group-item">
+                    <h3>${course.key.name}</h3>
                     <br>
                     ${course.value.firstName} ${course.value.lastName}
                     <c:if test="${course.value == null}">
-                        <a href="courses/${course.key.id}/addTeacher">Assign teacher</a>
+                        <p>No teacher assigned</p>
                     </c:if>
                     <a href="courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
                     <form action="courses/delete/${course.key.id}" method="POST">
@@ -35,7 +36,7 @@
         </ul>
         <a href="courses/add">Add course</a>
     </div>
-    <div>
+    <div style="width: 300px">
         <h2>Students</h2>
         <ul class="list-group">
             <c:forEach items="${students}" var="student">
@@ -54,7 +55,7 @@
             </c:forEach>
         </ul>
     </div>
-    <div>
+    <div style="width: 300px">
         <h2>Teachers</h2>
         <ul class="list-group">
             <c:forEach items="${teachers}" var="teacher">
