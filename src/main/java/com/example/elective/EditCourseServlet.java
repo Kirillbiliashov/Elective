@@ -25,7 +25,7 @@ public class EditCourseServlet extends HttpServlet {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
     Optional<Course> optCourse = CourseDAO.getById(id);
     if (!optCourse.isPresent()) {
-      resp.sendRedirect("/elective/admin");
+      resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
       return;
     }
     List<Topic> topics = TopicDAO.getAll();
@@ -45,10 +45,8 @@ public class EditCourseServlet extends HttpServlet {
       setReqParamsForCourse(course, req);
       CourseDAO.update(course);
     }
-    resp.sendRedirect("/elective/admin");
+    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
   }
-
-
 
   private void setReqParamsForCourse(Course course, HttpServletRequest req) {
     course.setName(req.getParameter("name"))

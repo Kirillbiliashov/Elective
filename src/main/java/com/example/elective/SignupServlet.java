@@ -27,7 +27,7 @@ public class SignupServlet extends HttpServlet {
       throws IOException {
     Account acc = mapRequestToAccount(req);
     AccountDAO.save(acc);
-    resp.sendRedirect("/elective/login");
+    resp.sendRedirect("login");
   }
 
   private Account mapRequestToAccount(HttpServletRequest req) {

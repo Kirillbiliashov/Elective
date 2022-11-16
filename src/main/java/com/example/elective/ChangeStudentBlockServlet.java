@@ -23,7 +23,7 @@ public class ChangeStudentBlockServlet extends HttpServlet {
       acc.setBlocked(!acc.isBlocked());
       AccountDAO.update(acc);
     }
-    resp.sendRedirect("/elective/admin");
+    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
   }
 
 }

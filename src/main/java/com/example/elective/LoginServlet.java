@@ -29,12 +29,11 @@ public class LoginServlet extends HttpServlet {
     if (optAccount.isPresent()) {
       HttpSession session = req.getSession();
       session.setAttribute("account", optAccount.get());
-      resp.sendRedirect("/elective/main");
-    } else {
-      req.setAttribute("errorMsg", "Login or password is incorrect");
-      req.getRequestDispatcher("login-form.jsp").forward(req, resp);
+      resp.sendRedirect("main");
+      return;
     }
-
+    req.setAttribute("errorMsg", "Login or password is incorrect");
+    req.getRequestDispatcher("login-form.jsp").forward(req, resp);
   }
 
 }

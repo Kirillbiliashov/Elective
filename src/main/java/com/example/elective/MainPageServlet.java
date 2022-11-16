@@ -18,7 +18,7 @@ public class MainPageServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+      throws IOException {
     HttpSession session = req.getSession();
     Account account = (Account) session.getAttribute("account");
     int roleId = account.getRoleId();

@@ -18,6 +18,7 @@ import java.util.List;
 
 @WebServlet("/courses/add")
 public class AddCourseServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     List<Topic> topics = TopicDAO.getAll();
@@ -32,7 +33,7 @@ public class AddCourseServlet extends HttpServlet {
       throws IOException {
     Course course = mapRequestToCourse(req);
     CourseDAO.save(course);
-    resp.sendRedirect("/elective/admin");
+    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
 
   }
 

@@ -22,8 +22,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    System.out.println("post teacher");
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Account acc = mapReqToAccount(req);
     Optional<Role> optRole = RoleDAO.findByName("Teacher");
     acc.setRoleId(optRole.get().getId());
