@@ -10,6 +10,21 @@ import java.util.Optional;
 
 public class CourseDAO {
 
+  public static List<Course> getByTeacherId(int teacherId) {
+    final String sqlStr = "SELECT * FROM course WHERE teacher_id = ?";
+    try (Connection conn = ConnectionPool.getConnection();
+    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+      ps.setInt(1, teacherId);
+      ResultSet rs = ps.executeQuery();
+      List<Course> courses = new ArrayList<>();
+      while (rs.next()) courses.add(mapResultSetToCourse(rs));
+      return courses;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
+
   public static void update(Course course) {
     final String sqlStr = "UPDATE course SET name = ?, duration = ?," +
         " start_date = ?, topic_id = ?, teacher_id = ? WHERE id = ?";
@@ -59,6 +74,7 @@ public class CourseDAO {
       throw new RuntimeException();
     }
   }
+
   public static List<Course> getAll() {
     final String sqlStr = "SELECT * FROM course";
     try (Connection conn = ConnectionPool.getConnection();

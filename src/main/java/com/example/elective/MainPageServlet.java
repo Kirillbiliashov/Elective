@@ -27,7 +27,7 @@ public class MainPageServlet extends HttpServlet {
     if (optRole.isPresent()) {
       Role role = optRole.get();
       String roleName = role.getName();
-      if (roleName.equals("Student")) servletUrl = "student.jsp";
+      if (roleName.equals("Student")) servletUrl = "student";
       else if (roleName.equals("Teacher")) servletUrl = "teacher.jsp";
       else if (roleName.equals("Admin")) servletUrl = "admin";
     }
