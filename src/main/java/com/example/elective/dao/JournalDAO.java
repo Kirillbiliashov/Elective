@@ -9,8 +9,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class JournalDAO {
+
+  public static Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
+    final String sqlStr = "SELECT  * FROM journal WHERE course_id = ?" +
+        " AND student_id = ?";
+    try(Connection conn = ConnectionPool.getConnection();
+    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+      int idx = 1;
+      ps.setInt(idx++, courseId);
+      ps.setInt(idx, studentId);
+      return mapResultSetToOptionalJournal(ps.executeQuery());
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
 
   public static void save(Journal journal) {
     final String sqlStr = "INSERT INTO journal(enrollment_date, course_id," +
@@ -45,6 +61,11 @@ public class JournalDAO {
       e.printStackTrace();
       throw new RuntimeException();
     }
+  }
+
+  private static Optional<Journal> mapResultSetToOptionalJournal(ResultSet rs) throws SQLException {
+    if (!rs.next()) return Optional.empty();
+    return Optional.of(mapResultSetToJournal(rs));
   }
 
   private static Journal mapResultSetToJournal(ResultSet rs) throws SQLException {

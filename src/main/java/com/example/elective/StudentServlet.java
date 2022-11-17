@@ -25,21 +25,17 @@ public class StudentServlet extends HttpServlet {
       throws ServletException, IOException {
     HttpSession session = req.getSession();
     int studentId = ((Account) session.getAttribute("account")).getId();
-    List<Course> courses = CourseDAO.getAll();
-    Map<Course, Boolean> courseEnrolled = getCourseEnrolledMap(courses, studentId);
-    req.setAttribute("courseEnrolled", courseEnrolled);
+    Map<Course, Journal> courseJournalMap = getCourseJournalMap(CourseDAO.getAll(), studentId);
+    req.setAttribute("courseJournalMap", courseJournalMap);
     req.getRequestDispatcher("student.jsp").forward(req, resp);
   }
 
-  private Map<Course, Boolean> getCourseEnrolledMap(List<Course> courses, int studentId) {
-    Map<Course, Boolean> courseEnrolled = new LinkedHashMap<>();
+  private Map<Course, Journal> getCourseJournalMap(List<Course> courses, int studentId) {
+    Map<Course, Journal> map = new LinkedHashMap<>();
     for (final Course course: courses) {
-      List<Journal> journalList = JournalDAO.getByCourseId(course.getId());
-      courseEnrolled.put(course, journalList
-          .stream()
-          .anyMatch(journal -> journal.getStudentId() == studentId));
+      map.put(course, JournalDAO.findByCourseAndStudent(course.getId(), studentId).orElse(null));
     }
-    return courseEnrolled;
+    return map;
   }
 
 }

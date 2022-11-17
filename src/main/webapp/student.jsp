@@ -10,16 +10,18 @@
 <div>
     <h2>Courses</h2>
     <ul class="list-group">
-        <c:forEach items="${courseEnrolled}" var="entry">
+        <c:forEach items="${courseJournalMap}" var="entry">
             <li class="list-group-item">
                 <h3>${entry.key.name}</h3>
-                <c:if test="${!entry.value}">
+                <c:if test="${entry.value == null}">
                     <form action="courses/enroll/${entry.key.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Enroll">
                     </form>
                 </c:if>
-                <c:if test="${entry.value}">
-                    <button class="btn btn-block disabled">Enrolled</button>
+                <c:if test="${entry.value != null}">
+                    <button class="btn btn-primary disabled">Enrolled</button>
+                    <p>Registration date: ${entry.value.enrollmentDate}</p>
+                    <p>Grade: ${entry.value.grade}</p>
                 </c:if>
             </li>
         </c:forEach>

@@ -13,14 +13,6 @@
     <title>Title</title>
 </head>
 <body>
-<%--<form method="post">--%>
-<%--  <input type="text" name="login"/>--%>
-<%--  <input type="password" name="password"/>--%>
-<%--    <input type="submit" value="Login"/>--%>
-<%--    <c:if test="${errorMsg != null}">--%>
-<%--        <p>${errorMsg}</p>--%>
-<%--        </c:if>--%>
-<%--</form>--%>
 <form method="post">
     <div class="form-group">
         <label for="username">Username</label>

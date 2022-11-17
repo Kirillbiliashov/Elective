@@ -9,17 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Minor url improvements were made">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/CourseEnrollServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/StudentServlet.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Ability to enroll student into the course was added">
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/TeacherServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/JournalDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Journal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/MainPageServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/CourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/CourseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/StudentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/StudentServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/JournalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/JournalDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TopicDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TopicDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
     </list>
@@ -55,28 +53,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/admin/IdeaProjects/elective",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/admin/IdeaProjects/elective&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "f5e762f5-b40a-432c-a51a-56740d6644c0"
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;f5e762f5-b40a-432c-a51a-56740d6644c0&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/META-INF" />
@@ -252,7 +250,8 @@
       <workItem from="1668101742205" duration="12946000" />
       <workItem from="1668265371463" duration="5221000" />
       <workItem from="1668427096392" duration="9626000" />
-      <workItem from="1668502461483" duration="23581000" />
+      <workItem from="1668502461483" duration="24300000" />
+      <workItem from="1668692931951" duration="3053000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -345,7 +344,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668592764680</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Ability to enroll student into the course was added">
+      <created>1668630872548</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668630872548</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,6 +394,7 @@
     <MESSAGE value="Ability to add teachers and view course teachers was added" />
     <MESSAGE value="Ability to assign teacher to the course was added" />
     <MESSAGE value="Minor url improvements were made" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor url improvements were made" />
+    <MESSAGE value="Ability to enroll student into the course was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ability to enroll student into the course was added" />
   </component>
 </project>
