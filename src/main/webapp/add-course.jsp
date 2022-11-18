@@ -13,12 +13,12 @@
     <input type="text" class="form-control" id="name" placeholder="Name" name="name">
   </div>
   <div class="form-group">
-    <label for="duration">Duration</label>
-    <input type="text" class="form-control" id="duration" placeholder="Duration(in hours)" name="duration">
-  </div>
-  <div class="form-group">
     <label for="startDate">Start date</label>
     <input type="date" class="form-control" id="startDate" placeholder="Start date" name="startDate">
+  </div>
+  <div class="form-group">
+    <label for="endDate">End date</label>
+    <input type="date" class="form-control" id="endDate" placeholder="End date" name="endDate">
   </div>
   <div class="form-group">
     <label for="topicSelect">Topic</label>
@@ -31,6 +31,7 @@
   <div class="form-group">
     <label for="teacherSelect">Teacher</label>
     <select class="form-control" id="teacherSelect" name="teacherId">
+      <option value="0" selected>None</option>
       <c:forEach items="${teachers}" var="teacher">
         <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
       </c:forEach>

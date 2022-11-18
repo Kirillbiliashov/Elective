@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class TeacherServlet extends HttpServlet {
     int id = teacherAcc.getId();
     Map<Course, Map<Journal, Account>> journal = getJournal(id);
     req.setAttribute("journal", journal);
+    req.setAttribute("currDate", Date.valueOf(LocalDate.now(ZoneId.of("Paris/France"))));
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
   }
 

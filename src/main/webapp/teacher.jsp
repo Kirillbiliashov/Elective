@@ -9,7 +9,7 @@
 <h1>Teacher main page</h1>
 <c:forEach items="${journal}" var="entry">
     <h2>${entry.key.name}</h2>
-    <table class="table">
+    <table class="table" style="margin: 30px">
         <thead>
         <tr>
             <th scope="col">Student</th>

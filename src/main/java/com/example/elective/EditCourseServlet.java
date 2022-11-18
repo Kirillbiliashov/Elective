@@ -50,8 +50,8 @@ public class EditCourseServlet extends HttpServlet {
 
   private void setReqParamsForCourse(Course course, HttpServletRequest req) {
     course.setName(req.getParameter("name"))
-        .setDuration(Integer.parseInt(req.getParameter("duration")))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
+        .setEndDate(Date.valueOf(req.getParameter("endDate")))
         .setTopicId(Integer.parseInt(req.getParameter("topicId")))
         .setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
   }

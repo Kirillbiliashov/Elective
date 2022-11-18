@@ -30,4 +30,5 @@ public class TopicDAO {
     return new Topic().setId(rs.getInt("id"))
         .setName(rs.getString("name"));
   }
+
 }

@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Student main page</h1>
-<div>
+<div style="margin: 30px">
     <h2>Courses</h2>
     <ul class="list-group">
         <c:forEach items="${courseJournalMap}" var="entry">

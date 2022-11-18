@@ -38,10 +38,9 @@ public class AddCourseServlet extends HttpServlet {
   }
 
   private Course mapRequestToCourse(HttpServletRequest req) {
-    return new Course()
-        .setName(req.getParameter("name"))
-        .setDuration(Integer.parseInt(req.getParameter("duration")))
+    return new Course().setName(req.getParameter("name"))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
+        .setEndDate(Date.valueOf(req.getParameter("endDate")))
         .setTopicId(Integer.parseInt(req.getParameter("topicId")))
         .setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
   }

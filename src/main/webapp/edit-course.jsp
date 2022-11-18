@@ -13,12 +13,12 @@
     <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="${course.name}">
   </div>
   <div class="form-group">
-    <label for="duration">Duration</label>
-    <input type="text" class="form-control" id="duration" placeholder="Duration(in hours)" name="duration" value="${course.duration}">
-  </div>
-  <div class="form-group">
     <label for="startDate">Start date</label>
     <input type="date" class="form-control" id="startDate" placeholder="Start date" name="startDate" value="${course.startDate}">
+  </div>
+  <div class="form-group">
+    <label for="endDate">End date</label>
+    <input type="date" class="form-control" id="endDate" placeholder="End date" name="endDate" value="${course.endDate}">
   </div>
   <div class="form-group">
   <select class="form-control" id="topicSelect" name="topicId">

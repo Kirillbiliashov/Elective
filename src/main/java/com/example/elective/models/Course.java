@@ -5,8 +5,8 @@ import java.sql.Date;
 public class Course {
   private int id;
   private String name;
-  private int duration;
   private Date startDate;
+  private Date endDate;
   private int topicId;
   private int teacherId;
 
@@ -28,12 +28,12 @@ public class Course {
     return this;
   }
 
-  public int getDuration() {
-    return duration;
+  public Date getEndDate() {
+    return endDate;
   }
 
-  public Course setDuration(int duration) {
-    this.duration = duration;
+  public Course setEndDate(Date endDate) {
+    this.endDate = endDate;
     return this;
   }
 

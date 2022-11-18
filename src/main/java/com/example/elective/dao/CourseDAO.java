@@ -26,14 +26,14 @@ public class CourseDAO {
   }
 
   public static void update(Course course) {
-    final String sqlStr = "UPDATE course SET name = ?, duration = ?," +
-        " start_date = ?, topic_id = ?, teacher_id = ? WHERE id = ?";
+    final String sqlStr = "UPDATE course SET name = ?,start_date = ?," +
+        " end_date = ?, topic_id = ?, teacher_id = ? WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
       int idx = 1;
       ps.setString(idx++, course.getName());
-      ps.setInt(idx++, course.getDuration());
       ps.setDate(idx++, course.getStartDate());
+      ps.setDate(idx++, course.getEndDate());
       ps.setInt(idx++, course.getTopicId());
       ps.setInt(idx++, course.getTeacherId());
       ps.setInt(idx, course.getId());
@@ -45,15 +45,18 @@ public class CourseDAO {
   }
 
   public static void save(Course course) {
-    final String sqlStr = "INSERT INTO course(name, duration, start_date, topic_id, teacher_id) VALUES(?,?,?,?,?)";
+    final String sqlStr = "INSERT INTO course(name, start_date, end_date," +
+        " topic_id, teacher_id) VALUES(?,?,?,?,?)";
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(sqlStr, Statement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
       ps.setString(idx++, course.getName());
-      ps.setInt(idx++, course.getDuration());
       ps.setDate(idx++, course.getStartDate());
+      ps.setDate(idx++, course.getEndDate());
       ps.setInt(idx++, course.getTopicId());
-      ps.setInt(idx, course.getTeacherId());
+      int teacherId = course.getTeacherId();
+      if (teacherId == 0) ps.setNull(idx, Types.INTEGER);
+      else ps.setInt(idx, course.getTeacherId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) course.setId(rs.getInt(1));
@@ -111,8 +114,8 @@ public class CourseDAO {
     return new Course()
         .setId(rs.getInt("id"))
         .setName(rs.getString("name"))
-        .setDuration(rs.getInt("duration"))
         .setStartDate(rs.getDate("start_date"))
+        .setEndDate(rs.getDate("end_date"))
         .setTeacherId(rs.getInt("teacher_id"))
         .setTopicId(rs.getInt("topic_id"));
   }

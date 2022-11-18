@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Admin main page</h1>
-<div style="display: flex; justify-content: space-around ">
+<div style="display: flex; justify-content: space-around; margin: 30px ">
     <div style="width: 300px">
         <h2>Courses</h2>
         <ul class="list-group">

@@ -32,11 +32,12 @@ CREATE TABLE course
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     name       VARCHAR(50) NOT NULL,
-    duration   SMALLINT    NOT NULL,
     start_date DATE        NOT NULL,
+    end_date   DATE        NOT NULL,
     topic_id   INT         NOT NULL,
     teacher_id INT,
-    FOREIGN KEY (teacher_id) REFERENCES account (id) ON DELETE CASCADE
+    FOREIGN KEY (teacher_id) REFERENCES account (id) ON DELETE CASCADE,
+    CHECK ( end_date > start_date )
 );
 
 CREATE TABLE journal
