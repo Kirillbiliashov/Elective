@@ -9,18 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Ability to view e-journal for teacher was added">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="duration column was replaced with end_date column in course table">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/AddJournalGradeServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/db-create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db-create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/AddCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/AddCourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/EditCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/EditCourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/CourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/CourseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TopicDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TopicDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/TeacherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/TeacherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/JournalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/JournalDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +249,7 @@
       <workItem from="1668265371463" duration="5221000" />
       <workItem from="1668427096392" duration="9626000" />
       <workItem from="1668502461483" duration="24300000" />
-      <workItem from="1668692931951" duration="8675000" />
+      <workItem from="1668692931951" duration="13047000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -367,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668766325315</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="duration column was replaced with end_date column in course table">
+      <created>1668805790096</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1668805790096</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -413,6 +416,7 @@
     <MESSAGE value="Ability to enroll student into the course was added" />
     <MESSAGE value="Ability to display info for enrolled students is added" />
     <MESSAGE value="Ability to view e-journal for teacher was added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ability to view e-journal for teacher was added" />
+    <MESSAGE value="duration column was replaced with end_date column in course table" />
+    <option name="LAST_COMMIT_MESSAGE" value="duration column was replaced with end_date column in course table" />
   </component>
 </project>

@@ -20,7 +20,22 @@
         <c:forEach items="${entry.value}" var="journalData">
             <tr>
                 <td>${journalData.value.login}</td>
-                <td>${journalData.key.grade}</td>
+                <c:if test="${journalData.key.grade == -1}">
+                    <c:if test="${entry.key.endDate.after(currDate)}">
+                        <td>Course hasn't finished yet</td>
+                    </c:if>
+                    <c:if test="${entry.key.endDate.before(currDate)}">
+                        <td>
+                            <form method="post" action="journal/addGrade/${journalData.key.id}">
+                            <input type="number" min="0" max="100" name="grade" id="grade"/>
+                            <input type="submit" class="btn btn-primary" value="Add grade">
+                        </form>
+                        </td>
+                    </c:if>
+                </c:if>
+                <c:if test="${journalData.key.grade != -1}">
+                    <td>${journalData.key.grade}</td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>

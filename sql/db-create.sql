@@ -43,7 +43,7 @@ CREATE TABLE course
 CREATE TABLE journal
 (
     id              INT PRIMARY KEY AUTO_INCREMENT,
-    grade           INT(100),
+    grade           INT(100) DEFAULT -1,
     enrollment_date DATE NOT NULL,
     course_id       INT  NOT NULL,
     student_id      INT  NOT NULL,

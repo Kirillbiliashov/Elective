@@ -13,6 +13,34 @@ import java.util.Optional;
 
 public class JournalDAO {
 
+  public static void update(Journal journal) {
+    final String sqlStr = "UPDATE journal SET grade = ?, enrollment_date = ? WHERE id = ?";
+    try (Connection conn = ConnectionPool.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+      int idx = 1;
+      ps.setInt(idx++, journal.getGrade());
+      ps.setDate(idx++, journal.getEnrollmentDate());
+      ps.setInt(idx, journal.getId());
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+
+  }
+
+  public static Optional<Journal> getById(int journalId) {
+    final String sqlStr = "SELECT  * FROM journal WHERE id = ?";
+    try(Connection conn = ConnectionPool.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+      ps.setInt(1, journalId);
+      return mapResultSetToOptionalJournal(ps.executeQuery());
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
+
   public static Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
     final String sqlStr = "SELECT  * FROM journal WHERE course_id = ?" +
         " AND student_id = ?";

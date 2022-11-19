@@ -13,7 +13,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
+<form method="post" style="margin: 30px">
     <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" placeholder="Username" name="login">
