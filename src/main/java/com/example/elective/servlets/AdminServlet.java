@@ -2,6 +2,7 @@ package com.example.elective.servlets;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
+import com.example.elective.dao.JournalDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 
@@ -31,9 +32,20 @@ public class AdminServlet extends HttpServlet {
     Comparator<Course> courseComparator = null;
     if (sortType.equals("name")) {
       courseComparator = Comparator.comparing(Course::getName);
-    } else if (sortType.equals("duration")) {
+    } else if (sortType.equals("name_reverse")) {
+      courseComparator = Comparator.comparing(Course::getName).reversed();
+    } else if (sortType.equals("duration_asc")) {
       courseComparator = Comparator.comparing(c -> c.getEndDate().getTime() -
           c.getStartDate().getTime());
+    } else if (sortType.equals("duration_desc")) {
+      courseComparator = Collections.reverseOrder(Comparator.comparing(c ->
+          c.getEndDate().getTime() - c.getStartDate().getTime()));
+    } else if (sortType.equals("students_asc")) {
+      courseComparator = Comparator.comparing(c ->
+          JournalDAO.getByCourseId(c.getId()).size());
+    } else if (sortType.equals("students_desc")) {
+      courseComparator = Collections.reverseOrder(Comparator.comparing(c ->
+          JournalDAO.getByCourseId(c.getId()).size()));
     }
     courses.sort(courseComparator);
   }

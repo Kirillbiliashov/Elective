@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Servlets were moved to servlets package">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Ability to sort courses by name and duration was added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AdminServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
@@ -244,7 +244,7 @@
       <workItem from="1668265371463" duration="5221000" />
       <workItem from="1668427096392" duration="9626000" />
       <workItem from="1668502461483" duration="24300000" />
-      <workItem from="1668692931951" duration="20894000" />
+      <workItem from="1668692931951" duration="22295000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -386,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668938813563</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Ability to sort courses by name and duration was added">
+      <created>1668960070049</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1668960070049</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -436,6 +443,7 @@
     <MESSAGE value="Ability to edit e-journal for teacher was added" />
     <MESSAGE value="Ability to view courses depending on their state was added" />
     <MESSAGE value="Servlets were moved to servlets package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Servlets were moved to servlets package" />
+    <MESSAGE value="Ability to sort courses by name and duration was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ability to sort courses by name and duration was added" />
   </component>
 </project>

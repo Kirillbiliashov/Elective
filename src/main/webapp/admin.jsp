@@ -15,8 +15,12 @@
                     Sort By
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="admin?sort=name">Name</a>
-                    <a class="dropdown-item" href="admin?sort=duration">Duration</a>
+                    <a class="dropdown-item" href="admin?sort=name">Name (A-Z)</a>
+                    <a class="dropdown-item" href="admin?sort=name_reverse">Name (Z-A)</a>
+                    <a class="dropdown-item" href="admin?sort=duration_asc">Duration (from shortest)</a>
+                    <a class="dropdown-item" href="admin?sort=duration_desc">Duration (from longest)</a>
+                    <a class="dropdown-item" href="admin?sort=students_asc">Students enrolled (from least)</a>
+                    <a class="dropdown-item" href="admin?sort=students_desc">Students enrolled (from most)</a>
                 </div>
             </div>
         </h2>
