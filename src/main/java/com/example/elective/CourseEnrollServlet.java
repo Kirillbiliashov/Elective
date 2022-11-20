@@ -17,6 +17,7 @@ import java.time.ZoneId;
 
 @WebServlet("/courses/enroll/*")
 public class CourseEnrollServlet extends HttpServlet {
+
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Journal journal = mapRequestToJournal(req);
@@ -31,7 +32,7 @@ public class CourseEnrollServlet extends HttpServlet {
     return new Journal()
         .setCourseId(courseId)
         .setStudentId(studentId)
-        .setEnrollmentDate(Date.valueOf(LocalDate.now(ZoneId.of("Europe/Paris"))));
+        .setEnrollmentDate(Utils.CURRENT_DATE);
   }
 
 }

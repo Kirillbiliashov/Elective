@@ -31,8 +31,7 @@ public class TeacherServlet extends HttpServlet {
     int id = teacherAcc.getId();
     Map<Course, Map<Journal, Account>> journal = getJournal(id);
     req.setAttribute("journal", journal);
-    LocalDate localDate = LocalDate.now(ZoneId.of("Europe/Paris"));
-    req.setAttribute("currDate", Date.valueOf(localDate));
+    req.setAttribute("currDate", Utils.CURRENT_DATE);
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
   }
 

@@ -19,7 +19,8 @@ import java.util.Optional;
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     req.setAttribute("courses", getCourseAccountMap(CourseDAO.getAll()));
     req.setAttribute("students", AccountDAO.getByRole("Student"));
     req.setAttribute("teachers", AccountDAO.getByRole("Teacher"));

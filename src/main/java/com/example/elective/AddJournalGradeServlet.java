@@ -15,7 +15,8 @@ import java.util.Optional;
 public class AddJournalGradeServlet extends HttpServlet {
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws IOException {
     int journalId = Utils.getIdFromPathInfo(req.getPathInfo());
     Optional<Journal> optJournal = JournalDAO.getById(journalId);
     if (optJournal.isPresent()) {

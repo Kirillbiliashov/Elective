@@ -21,7 +21,8 @@ import java.util.Optional;
 public class EditCourseServlet extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
     Optional<Course> optCourse = CourseDAO.getById(id);
     if (!optCourse.isPresent()) {
