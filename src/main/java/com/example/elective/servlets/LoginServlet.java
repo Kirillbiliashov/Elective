@@ -1,4 +1,4 @@
-package com.example.elective;
+package com.example.elective.servlets;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.models.Account;

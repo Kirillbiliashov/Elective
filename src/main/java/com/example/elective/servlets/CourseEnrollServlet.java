@@ -1,5 +1,6 @@
-package com.example.elective;
+package com.example.elective.servlets;
 
+import com.example.elective.Utils;
 import com.example.elective.dao.JournalDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Journal;

@@ -1,4 +1,4 @@
-package com.example.elective;
+package com.example.elective.servlets;
 
 import com.example.elective.dao.RoleDAO;
 import com.example.elective.models.Account;

@@ -1,5 +1,6 @@
-package com.example.elective;
+package com.example.elective.servlets;
 
+import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.TopicDAO;
@@ -15,30 +16,42 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
-@WebServlet("/courses/add")
-public class AddCourseServlet extends HttpServlet {
+@WebServlet("/courses/edit/*")
+public class EditCourseServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    int id = Utils.getIdFromPathInfo(req.getPathInfo());
+    Optional<Course> optCourse = CourseDAO.getById(id);
+    if (!optCourse.isPresent()) {
+      resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
+      return;
+    }
     List<Topic> topics = TopicDAO.getAll();
     List<Account> teachers = AccountDAO.getByRole("Teacher");
+    req.setAttribute("course", optCourse.get());
     req.setAttribute("topics", topics);
     req.setAttribute("teachers", teachers);
-    req.getRequestDispatcher("/add-course.jsp").forward(req, resp);
+    req.getRequestDispatcher("/edit-course.jsp").forward(req, resp);
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
-    Course course = mapRequestToCourse(req);
-    CourseDAO.save(course);
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    int id = Utils.getIdFromPathInfo(req.getPathInfo());
+    Optional<Course> optCourse = CourseDAO.getById(id);
+    if (optCourse.isPresent()) {
+      Course course = optCourse.get();
+      setReqParamsForCourse(course, req);
+      CourseDAO.update(course);
+    }
     resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
   }
 
-  private Course mapRequestToCourse(HttpServletRequest req) {
-    return new Course().setName(req.getParameter("name"))
+  private void setReqParamsForCourse(Course course, HttpServletRequest req) {
+    course.setName(req.getParameter("name"))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
         .setEndDate(Date.valueOf(req.getParameter("endDate")))
         .setTopicId(Integer.parseInt(req.getParameter("topicId")))
