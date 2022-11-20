@@ -11,20 +11,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.setAttribute("courses", getCourseAccountMap(CourseDAO.getAll()));
+    List<Course> courses = CourseDAO.getAll();
+    String sortType = req.getParameter("sort");
+    if (sortType != null) sortCourses(sortType, courses);
+    req.setAttribute("courses", getCourseAccountMap(courses));
     req.setAttribute("students", AccountDAO.getByRole("Student"));
     req.setAttribute("teachers", AccountDAO.getByRole("Teacher"));
     req.getRequestDispatcher("admin.jsp").forward(req, resp);
+  }
+
+  private void sortCourses(String sortType, List<Course> courses) {
+    Comparator<Course> courseComparator = null;
+    if (sortType.equals("name")) {
+      courseComparator = Comparator.comparing(Course::getName);
+    } else if (sortType.equals("duration")) {
+      courseComparator = Comparator.comparing(c -> c.getEndDate().getTime() -
+          c.getStartDate().getTime());
+    }
+    courses.sort(courseComparator);
   }
 
   private Map<Course, Account> getCourseAccountMap(List<Course> courses) {

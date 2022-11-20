@@ -9,7 +9,18 @@
 <h1>Admin main page</h1>
 <div style="display: flex; justify-content: space-around; margin: 30px ">
     <div style="width: 300px">
-        <h2>Courses</h2>
+        <h2>Courses
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                    Sort By
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="admin?sort=name">Name</a>
+                    <a class="dropdown-item" href="admin?sort=duration">Duration</a>
+                </div>
+            </div>
+        </h2>
+
         <ul class="list-group">
             <c:forEach items="${courses}" var="course">
                 <li class="list-group-item">
@@ -61,5 +72,8 @@
         <a href="teachers/register">Register teacher</a>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
