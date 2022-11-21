@@ -29,26 +29,41 @@ public class AdminServlet extends HttpServlet {
   }
 
   private void sortCourses(String sortType, List<Course> courses) {
+    Comparator<Course> courseComparator = getCourseComparator(sortType);
+    if (courseComparator != null) courses.sort(courseComparator);
+  }
+
+  private Comparator<Course> getCourseComparator(String sortType) {
     Comparator<Course> courseComparator = null;
     if (sortType.equals("name")) {
-      courseComparator = Comparator.comparing(Course::getName);
+      courseComparator = getNameComparator();
     } else if (sortType.equals("name_reverse")) {
-      courseComparator = Comparator.comparing(Course::getName).reversed();
+      courseComparator = getNameComparator().reversed();
     } else if (sortType.equals("duration_asc")) {
-      courseComparator = Comparator.comparing(c -> c.getEndDate().getTime() -
-          c.getStartDate().getTime());
+      courseComparator = getDurationComparator();
     } else if (sortType.equals("duration_desc")) {
-      courseComparator = Collections.reverseOrder(Comparator.comparing(c ->
-          c.getEndDate().getTime() - c.getStartDate().getTime()));
+      courseComparator = Collections.reverseOrder(getDurationComparator());
     } else if (sortType.equals("students_asc")) {
-      courseComparator = Comparator.comparing(c ->
-          JournalDAO.getByCourseId(c.getId()).size());
+      courseComparator = getStudentComparator();
     } else if (sortType.equals("students_desc")) {
-      courseComparator = Collections.reverseOrder(Comparator.comparing(c ->
-          JournalDAO.getByCourseId(c.getId()).size()));
+      courseComparator = Collections.reverseOrder(getStudentComparator());
     }
-    courses.sort(courseComparator);
+    return courseComparator;
   }
+
+  private Comparator<Course> getNameComparator() {
+    return Comparator.comparing(Course::getName);
+  }
+
+  private Comparator<Course> getDurationComparator() {
+  return Comparator.comparing(c -> c.getEndDate().getTime() -
+      c.getStartDate().getTime());
+  }
+
+  private Comparator<Course> getStudentComparator() {
+    return Comparator.comparing(c -> JournalDAO.getByCourseId(c.getId()).size());
+  }
+
 
   private Map<Course, Account> getCourseAccountMap(List<Course> courses) {
     Map<Course, Account> map = new LinkedHashMap<>();

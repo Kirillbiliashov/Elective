@@ -34,18 +34,21 @@
             </c:forEach>
         </ul>
     </div>
-    <div>
-        <h3>Courses In Progress</h3>
-        <ul class="list-group">
-            <c:forEach items="${coursesInProgress.keySet()}" var="courseInProgress">
-                <li class="list-group-item">
-                    <h4>${courseInProgress.name}</h4>
-                    <p>Start date: ${courseInProgress.startDate}</p>
-                    <p>End date: ${courseInProgress.endDate}</p>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
+    <c:if test="${!coursesInProgress.isEmpty()}">
+        <div>
+            <h3>Courses In Progress</h3>
+            <ul class="list-group">
+                <c:forEach items="${coursesInProgress.keySet()}" var="courseInProgress">
+                    <li class="list-group-item">
+                        <h4>${courseInProgress.name}</h4>
+                        <p>Start date: ${courseInProgress.startDate}</p>
+                        <p>End date: ${courseInProgress.endDate}</p>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+
     <div>
         <h3>Completed courses</h3>
         <ul class="list-group">

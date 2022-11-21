@@ -20,7 +20,7 @@
             <tbody>
             <c:forEach items="${entry.value}" var="journalData">
                 <tr>
-                    <td>${journalData.value.login}</td>
+                    <td>${journalData.value.firstName} ${journalData.value.lastName}</td>
                     <c:if test="${journalData.key.grade == -1}">
                         <c:if test="${entry.key.endDate.after(currDate)}">
                             <td>Course hasn't finished yet</td>

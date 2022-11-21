@@ -27,14 +27,19 @@ public class LoginServlet extends HttpServlet {
     String login = req.getParameter("login");
     String password = req.getParameter("password");
     Optional<Account> optAccount = AccountDAO.findByCredentials(login, password);
-    if (optAccount.isPresent()) {
-      HttpSession session = req.getSession();
-      session.setAttribute("account", optAccount.get());
-      resp.sendRedirect("main");
-      return;
+    if (!optAccount.isPresent()) {
+      req.setAttribute("errorMsg", "Login or password is incorrect");
+      req.getRequestDispatcher("login-form.jsp").forward(req, resp);
     }
-    req.setAttribute("errorMsg", "Login or password is incorrect");
-    req.getRequestDispatcher("login-form.jsp").forward(req, resp);
+    Account acc = optAccount.get();
+    if (acc.isBlocked()) {
+      req.setAttribute("errorMsg", "Your account is blocked");
+      req.getRequestDispatcher("login-form.jsp").forward(req, resp);
+    }
+    HttpSession session = req.getSession();
+    session.setAttribute("account", acc);
+    resp.sendRedirect("main");
   }
+
 
 }
