@@ -3,8 +3,10 @@ package com.example.elective.servlets;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.dao.TopicDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
+import com.example.elective.models.Topic;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +15,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     List<Course> courses = CourseDAO.getAll();
+    String topicIdStr = req.getParameter("topic");
+    if (topicIdStr != null) {
+      int topicId = Integer.parseInt(req.getParameter("topic"));
+      courses = filterByTopicId(courses, topicId);
+    }
     String sortType = req.getParameter("sort");
     if (sortType != null) sortCourses(sortType, courses);
+    req.setAttribute("topics", TopicDAO.getAll());
     req.setAttribute("courses", getCourseAccountMap(courses));
     req.setAttribute("students", AccountDAO.getByRole("Student"));
     req.setAttribute("teachers", AccountDAO.getByRole("Teacher"));
     req.getRequestDispatcher("admin.jsp").forward(req, resp);
+  }
+
+  private List<Course> filterByTopicId(List<Course> courses, int topicId) {
+    return courses
+        .stream()
+        .filter(course -> course.getTopicId() == topicId)
+        .collect(Collectors.toList());
   }
 
   private void sortCourses(String sortType, List<Course> courses) {

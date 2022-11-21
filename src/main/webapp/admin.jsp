@@ -9,7 +9,8 @@
 <h1>Admin main page</h1>
 <div style="display: flex; justify-content: space-around; margin: 30px ">
     <div style="width: 300px">
-        <h2>Courses
+        <h2>Courses</h2>
+        <div style="display: flex;">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                     Sort By
@@ -23,7 +24,18 @@
                     <a class="dropdown-item" href="admin?sort=students_desc">Students enrolled (from most)</a>
                 </div>
             </div>
-        </h2>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                    Topic
+                </button>
+                <div class="dropdown-menu">
+                    <c:forEach items="${topics}" var="topic">
+                        <a class="dropdown-item" href="admin?topic=${topic.id}">${topic.name}</a>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+
 
         <ul class="list-group">
             <c:forEach items="${courses}" var="course">
