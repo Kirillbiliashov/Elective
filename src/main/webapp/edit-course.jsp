@@ -23,14 +23,14 @@
   <div class="form-group">
   <select class="form-control" id="topicSelect" name="topicId">
     <c:forEach items="${topics}" var="topic">
-      <option value="${topic.id}" selected ="${topic.id == course.topicId}">${topic.name}</option>
+      <option value="${topic.id}" <c:if test="${topic.id == course.topicId}">selected</c:if>>${topic.name}</option>
     </c:forEach>
   </select>
   </div>
   <div class="form-group">
     <select class="form-control" id="teacherSelect" name="teacherId">
       <c:forEach items="${teachers}" var="teacher">
-        <option value="${teacher.id}" selected="${course.teacherId == teacher.id}">
+        <option value="${teacher.id}" <c:if test="${teacher.id == course.teacherId}">selected</c:if>>
             ${teacher.firstName} ${teacher.lastName}
         </option>
       </c:forEach>
