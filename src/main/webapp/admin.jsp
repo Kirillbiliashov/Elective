@@ -34,6 +34,16 @@
                     </c:forEach>
                 </div>
             </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                    Teacher
+                </button>
+                <div class="dropdown-menu">
+                    <c:forEach items="${teachers}" var="teacher">
+                        <a class="dropdown-item" href="admin?teacher=${teacher.id}">${teacher.firstName} ${teacher.lastName}</a>
+                    </c:forEach>
+                </div>
+            </div>
         </div>
 
 

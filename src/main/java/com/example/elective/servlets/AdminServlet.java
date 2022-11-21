@@ -24,9 +24,15 @@ public class AdminServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     List<Course> courses = CourseDAO.getAll();
+    List<Account> teachers = AccountDAO.getByRole("Teacher");
+    String teacherIdStr = req.getParameter("teacher");
+    if (teacherIdStr != null) {
+      int teacherId = Integer.parseInt(teacherIdStr);
+      courses = filterByTeacherId(courses, teacherId);
+    }
     String topicIdStr = req.getParameter("topic");
     if (topicIdStr != null) {
-      int topicId = Integer.parseInt(req.getParameter("topic"));
+      int topicId = Integer.parseInt(topicIdStr);
       courses = filterByTopicId(courses, topicId);
     }
     String sortType = req.getParameter("sort");
@@ -34,8 +40,15 @@ public class AdminServlet extends HttpServlet {
     req.setAttribute("topics", TopicDAO.getAll());
     req.setAttribute("courses", getCourseAccountMap(courses));
     req.setAttribute("students", AccountDAO.getByRole("Student"));
-    req.setAttribute("teachers", AccountDAO.getByRole("Teacher"));
+    req.setAttribute("teachers", teachers);
     req.getRequestDispatcher("admin.jsp").forward(req, resp);
+  }
+
+  private List<Course> filterByTeacherId(List<Course> courses, int teacherId) {
+    return courses
+        .stream()
+        .filter(course -> course.getTeacherId() == teacherId)
+        .collect(Collectors.toList());
   }
 
   private List<Course> filterByTopicId(List<Course> courses, int topicId) {
