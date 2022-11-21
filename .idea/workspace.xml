@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Selection of courses by teacher was added">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Wrong selected option in edit course form was fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AdminServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -242,7 +246,7 @@
       <workItem from="1668265371463" duration="5221000" />
       <workItem from="1668427096392" duration="9626000" />
       <workItem from="1668502461483" duration="24300000" />
-      <workItem from="1668692931951" duration="28175000" />
+      <workItem from="1668692931951" duration="30170000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -419,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669023063100</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Wrong selected option in edit course form was fixed">
+      <created>1669023881504</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1669023881504</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -449,7 +460,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="SQL script was added" />
     <MESSAGE value="Connection pool class was added" />
     <MESSAGE value="login and signup mechanisms were added" />
     <MESSAGE value="Bootstrap was added for jsp pages" />
@@ -474,6 +484,7 @@
     <MESSAGE value="Minor code improvements were made" />
     <MESSAGE value="Selection of courses by topic was added" />
     <MESSAGE value="Selection of courses by teacher was added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Selection of courses by teacher was added" />
+    <MESSAGE value="Wrong selected option in edit course form was fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wrong selected option in edit course form was fixed" />
   </component>
 </project>

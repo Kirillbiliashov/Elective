@@ -11,42 +11,37 @@
     <div style="width: 300px">
         <h2>Courses</h2>
         <div style="display: flex;">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                    Sort By
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="admin?sort=name">Name (A-Z)</a>
-                    <a class="dropdown-item" href="admin?sort=name_reverse">Name (Z-A)</a>
-                    <a class="dropdown-item" href="admin?sort=duration_asc">Duration (from shortest)</a>
-                    <a class="dropdown-item" href="admin?sort=duration_desc">Duration (from longest)</a>
-                    <a class="dropdown-item" href="admin?sort=students_asc">Students enrolled (from least)</a>
-                    <a class="dropdown-item" href="admin?sort=students_desc">Students enrolled (from most)</a>
+            <form method="get">
+                <div class="form-group">
+                    <select class="form-control" name="sort">
+                        <option selected value="none">Sort By</option>
+                        <option value="name">Name (A-Z)</option>
+                        <option value="name_reverse">Name (Z-A)</option>
+                        <option value="duration_asc">Duration (from shortest)</option>
+                        <option value="duration_desc">Duration (from longest)</option>
+                        <option value="students_asc">Students enrolled (from least)</option>
+                        <option value="students_desc">Students enrolled (from most))</option>
+                    </select>
                 </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                    Topic
-                </button>
-                <div class="dropdown-menu">
-                    <c:forEach items="${topics}" var="topic">
-                        <a class="dropdown-item" href="admin?topic=${topic.id}">${topic.name}</a>
-                    </c:forEach>
+                <div class="form-group">
+                    <select class="form-control" name="topic">
+                        <option selected value="none">Topic</option>>
+                        <c:forEach items="${topics}" var="topic">
+                            <option value="${topic.id}">${topic.name}</option>
+                        </c:forEach>
+                    </select>
                 </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                    Teacher
-                </button>
-                <div class="dropdown-menu">
-                    <c:forEach items="${teachers}" var="teacher">
-                        <a class="dropdown-item" href="admin?teacher=${teacher.id}">${teacher.firstName} ${teacher.lastName}</a>
-                    </c:forEach>
+                <div class="form-group">
+                    <select class="form-control" name="teacher">
+                        <option selected value="none">Teacher</option>
+                        <c:forEach items="${teachers}" var="teacher">
+                            <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+                        </c:forEach>
+                    </select>
                 </div>
-            </div>
+                <input type="submit" class="btn btn-primary" value="Apply">
+            </form>
         </div>
-
-
         <ul class="list-group">
             <c:forEach items="${courses}" var="course">
                 <li class="list-group-item">
@@ -61,7 +56,6 @@
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
                 </li>
-
             </c:forEach>
         </ul>
         <a href="courses/add">Add course</a>

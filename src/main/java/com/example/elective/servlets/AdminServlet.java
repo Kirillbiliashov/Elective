@@ -1,5 +1,6 @@
 package com.example.elective.servlets;
 
+import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
@@ -26,12 +27,12 @@ public class AdminServlet extends HttpServlet {
     List<Course> courses = CourseDAO.getAll();
     List<Account> teachers = AccountDAO.getByRole("Teacher");
     String teacherIdStr = req.getParameter("teacher");
-    if (teacherIdStr != null) {
+    if (teacherIdStr != null && Utils.isNumeric(teacherIdStr)) {
       int teacherId = Integer.parseInt(teacherIdStr);
       courses = filterByTeacherId(courses, teacherId);
     }
     String topicIdStr = req.getParameter("topic");
-    if (topicIdStr != null) {
+    if (topicIdStr != null && Utils.isNumeric(topicIdStr)) {
       int topicId = Integer.parseInt(topicIdStr);
       courses = filterByTopicId(courses, topicId);
     }
