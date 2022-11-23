@@ -6,7 +6,22 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Admin main page</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h3>Admin</h3>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="admin">Courses<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="admin/students">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="admin/teachers">Teachers</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div style="display: flex; justify-content: space-around; margin: 30px ">
     <div style="width: 300px">
         <h2>Courses</h2>
@@ -59,37 +74,6 @@
             </c:forEach>
         </ul>
         <a href="courses/add">Add course</a>
-    </div>
-    <div style="width: 300px">
-        <h2>Students</h2>
-        <ul class="list-group">
-            <c:forEach items="${students}" var="student">
-                <li class="list-group-item">
-                        ${student.login}
-                    (${student.firstName} ${student.lastName})
-                    <form action="students/changeBlock/${student.id}" method="POST">
-                        <c:if test="${student.blocked}">
-                            <input type="submit" class="btn btn-secondary" value="Unlock">
-                        </c:if>
-                        <c:if test="${!student.blocked}">
-                            <input type="submit" class="btn btn-dark" value="Block">
-                        </c:if>
-                    </form>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
-    <div style="width: 300px">
-        <h2>Teachers</h2>
-        <ul class="list-group">
-            <c:forEach items="${teachers}" var="teacher">
-                <li class="list-group-item">
-                        ${teacher.login}
-                    (${teacher.firstName} ${teacher.lastName})
-                </li>
-            </c:forEach>
-        </ul>
-        <a href="teachers/register">Register teacher</a>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

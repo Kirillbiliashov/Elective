@@ -25,14 +25,13 @@ public class AdminServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     List<Course> courses = CourseDAO.getAll();
-    List<Account> teachers = AccountDAO.getByRole("Teacher");
     String teacherIdStr = req.getParameter("teacher");
-    if (teacherIdStr != null && Utils.isNumeric(teacherIdStr)) {
+    if (Utils.isNumeric(teacherIdStr)) {
       int teacherId = Integer.parseInt(teacherIdStr);
       courses = filterByTeacherId(courses, teacherId);
     }
     String topicIdStr = req.getParameter("topic");
-    if (topicIdStr != null && Utils.isNumeric(topicIdStr)) {
+    if (Utils.isNumeric(topicIdStr)) {
       int topicId = Integer.parseInt(topicIdStr);
       courses = filterByTopicId(courses, topicId);
     }
@@ -40,9 +39,8 @@ public class AdminServlet extends HttpServlet {
     if (sortType != null) sortCourses(sortType, courses);
     req.setAttribute("topics", TopicDAO.getAll());
     req.setAttribute("courses", getCourseAccountMap(courses));
-    req.setAttribute("students", AccountDAO.getByRole("Student"));
-    req.setAttribute("teachers", teachers);
-    req.getRequestDispatcher("admin.jsp").forward(req, resp);
+    req.setAttribute("teachers", AccountDAO.getByRole("Teacher"));
+    req.getRequestDispatcher("/admin.jsp").forward(req, resp);
   }
 
   private List<Course> filterByTeacherId(List<Course> courses, int teacherId) {
