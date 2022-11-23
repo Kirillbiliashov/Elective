@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/teacher")
+@WebServlet(value = "/teacher", name = "teacher")
 public class TeacherServlet extends HttpServlet {
 
   @Override

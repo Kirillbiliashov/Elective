@@ -55,6 +55,11 @@ CREATE TABLE journal
 INSERT INTO role(name) VALUES ('Student');
 INSERT INTO role(name) VALUES ('Admin');
 INSERT INTO role(name) VALUES ('Teacher');
+
 INSERT INTO topic(name) VALUES('History');
 INSERT INTO topic(name) VALUES('Data Science');
 INSERT INTO topic(name) VALUES('Software development');
+INSERT INTO topic(name) VALUES('Math');
+INSERT INTO topic(name) VALUES('Mobile development');
+
+INSERT INTO account(login, password, role_id) VALUES('admin', 'admin', 2);

@@ -9,14 +9,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Form is used for selection/sort of courses instead of dropdown">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/StudentsServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/TeachersServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Navbar was created for separating content from single page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/db-create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db-create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AddCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AddCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AddJournalGradeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AddJournalGradeServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/AdminServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/ChangeStudentBlockServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/ChangeStudentBlockServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/CourseEnrollServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/CourseEnrollServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/DeleteCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/DeleteCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/EditCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/EditCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainPageServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/StudentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/StudentServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/TeacherRegistrationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/TeacherRegistrationServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/TeacherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/TeacherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +263,7 @@
       <workItem from="1668692931951" duration="31611000" />
       <workItem from="1669110334023" duration="58000" />
       <workItem from="1669191714965" duration="452000" />
-      <workItem from="1669198843471" duration="2690000" />
+      <workItem from="1669198843471" duration="8283000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -442,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669025835420</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Navbar was created for separating content from single page">
+      <created>1669232121954</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1669232121954</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +491,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login and signup mechanisms were added" />
     <MESSAGE value="Bootstrap was added for jsp pages" />
     <MESSAGE value="Login for different types of users and corresponding redirects were added" />
     <MESSAGE value="DB structure was modified" />
@@ -497,6 +515,7 @@
     <MESSAGE value="Selection of courses by teacher was added" />
     <MESSAGE value="Wrong selected option in edit course form was fixed" />
     <MESSAGE value="Form is used for selection/sort of courses instead of dropdown" />
-    <option name="LAST_COMMIT_MESSAGE" value="Form is used for selection/sort of courses instead of dropdown" />
+    <MESSAGE value="Navbar was created for separating content from single page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Navbar was created for separating content from single page" />
   </component>
 </project>

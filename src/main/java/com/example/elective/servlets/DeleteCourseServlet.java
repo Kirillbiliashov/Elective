@@ -17,7 +17,7 @@ public class DeleteCourseServlet extends HttpServlet {
       throws IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
     CourseDAO.delete(id);
-    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
+    resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 
 }

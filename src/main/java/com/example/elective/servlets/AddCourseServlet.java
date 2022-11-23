@@ -35,7 +35,7 @@ public class AddCourseServlet extends HttpServlet {
       throws IOException {
     Course course = mapRequestToCourse(req);
     CourseDAO.save(course);
-    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
+    resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 
   private Course mapRequestToCourse(HttpServletRequest req) {

@@ -4,7 +4,6 @@ import com.example.elective.dao.RoleDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(value = "/main")
-public class MainPageServlet extends HttpServlet {
+@WebServlet(value = "/", name = "main")
+public class MainServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -4,7 +4,6 @@ import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.models.Account;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ public class ChangeStudentBlockServlet extends HttpServlet {
       acc.setBlocked(!acc.isBlocked());
       AccountDAO.update(acc);
     }
-    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
+    resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 
 }

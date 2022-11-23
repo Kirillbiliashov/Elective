@@ -22,17 +22,19 @@
         </ul>
     </div>
 </nav>
-<div style="width: 300px">
-    <h2>Teachers</h2>
+<div style="margin: 30px">
+    <div style="display: flex; width: 300px; justify-content: space-between; align-items: center">
+        <h2>Teachers</h2>
+        <a href="teachers/register">Register teacher</a>
+    </div>
     <ul class="list-group">
         <c:forEach items="${teachers}" var="teacher">
-            <li class="list-group-item">
-                    ${teacher.login}
-                (${teacher.firstName} ${teacher.lastName})
+            <li class="list-group-item" style="margin: 10px">
+                <p>${teacher.firstName} ${teacher.lastName} (${teacher.login})</p>
             </li>
         </c:forEach>
     </ul>
-    <a href="teachers/register">Register teacher</a>
+
 </div>
 </body>
 </html>

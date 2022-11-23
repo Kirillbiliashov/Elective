@@ -13,23 +13,25 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" style="margin: 30px">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Username" name="login">
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<div style="margin: 30px">
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" name="login">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a href="signup">Sign up as a student</a>
+</div>
 <c:if test="${errorMsg != null}">
     <div class="alert alert-warning" role="alert">
         ${errorMsg}
     </div>
 </c:if>
 
-<a href="signup">Sign up as a student</a>
 </body>
 </html>

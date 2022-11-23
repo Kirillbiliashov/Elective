@@ -28,7 +28,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
     Optional<Role> optRole = RoleDAO.findByName("Teacher");
     acc.setRoleId(optRole.get().getId());
     AccountDAO.save(acc);
-    resp.sendRedirect(Utils.ADMIN_REDIRECT_URL);
+    resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 
   private Account mapReqToAccount(HttpServletRequest req) {

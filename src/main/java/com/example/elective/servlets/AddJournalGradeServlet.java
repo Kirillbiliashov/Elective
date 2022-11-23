@@ -4,7 +4,6 @@ import com.example.elective.Utils;
 import com.example.elective.dao.JournalDAO;
 import com.example.elective.models.Journal;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ public class AddJournalGradeServlet extends HttpServlet {
       journal.setGrade(Integer.parseInt(req.getParameter("grade")));
       JournalDAO.update(journal);
     }
-    resp.sendRedirect(Utils.TEACHER_REDIRECT_URL);
+    resp.sendRedirect(Utils.TEACHER_SERVLET_NAME);
   }
 
 }

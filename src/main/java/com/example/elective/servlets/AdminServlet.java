@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@WebServlet("/admin")
+@WebServlet(value = "/admin", name = "admin")
 public class AdminServlet extends HttpServlet {
 
   @Override

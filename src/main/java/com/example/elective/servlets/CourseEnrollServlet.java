@@ -23,7 +23,7 @@ public class CourseEnrollServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Journal journal = mapRequestToJournal(req);
     JournalDAO.save(journal);
-    resp.sendRedirect("/elective/student");
+    resp.sendRedirect("student");
   }
 
   private Journal mapRequestToJournal(HttpServletRequest req) {

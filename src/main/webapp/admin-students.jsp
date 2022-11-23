@@ -22,21 +22,22 @@
         </ul>
     </div>
 </nav>
-<div style="width: 300px">
+<div style="margin: 30px">
     <h2>Students</h2>
     <ul class="list-group">
         <c:forEach items="${students}" var="student">
-            <li class="list-group-item" style="margin: 20px">
-                    ${student.login}
-                (${student.firstName} ${student.lastName})
-                <form action="students/changeBlock/${student.id}" method="POST">
-                    <c:if test="${student.blocked}">
-                        <input type="submit" class="btn btn-secondary" value="Unlock">
-                    </c:if>
-                    <c:if test="${!student.blocked}">
-                        <input type="submit" class="btn btn-dark" value="Block">
-                    </c:if>
-                </form>
+            <li class="list-group-item" style="margin: 10px">
+                <div style="display: flex; justify-content: space-between">
+                    <h6>${student.firstName} ${student.lastName} (${student.login})</h6>
+                    <form action="students/changeBlock/${student.id}" method="POST">
+                        <c:if test="${student.blocked}">
+                            <input type="submit" class="btn btn-secondary" value="Unlock">
+                        </c:if>
+                        <c:if test="${!student.blocked}">
+                            <input type="submit" class="btn btn-dark" value="Block">
+                        </c:if>
+                    </form>
+                </div>
             </li>
         </c:forEach>
     </ul>
