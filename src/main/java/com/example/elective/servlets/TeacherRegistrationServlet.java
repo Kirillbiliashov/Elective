@@ -3,6 +3,8 @@ package com.example.elective.servlets;
 import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.RoleDAO;
+import com.example.elective.mappers.AccountRequestMapper;
+import com.example.elective.mappers.RequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 
@@ -17,6 +19,8 @@ import java.util.Optional;
 @WebServlet("/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {
 
+  private RequestMapper<Account> accountMapper = new AccountRequestMapper();
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     req.getRequestDispatcher("/signup-form.jsp").forward(req, resp);
@@ -24,19 +28,11 @@ public class TeacherRegistrationServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    Account acc = mapReqToAccount(req);
+    Account acc = accountMapper.map(req);
     Optional<Role> optRole = RoleDAO.findByName("Teacher");
     acc.setRoleId(optRole.get().getId());
     AccountDAO.save(acc);
     resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
-  }
-
-  private Account mapReqToAccount(HttpServletRequest req) {
-    return new Account()
-        .setLogin(req.getParameter("login"))
-        .setPassword(req.getParameter("password"))
-        .setFirstName(req.getParameter("firstName"))
-        .setLastName(req.getParameter("lastName"));
   }
 
 }

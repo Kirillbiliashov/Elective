@@ -4,6 +4,8 @@ import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.TopicDAO;
+import com.example.elective.mappers.CourseRequestMapper;
+import com.example.elective.mappers.RequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
@@ -20,6 +22,8 @@ import java.util.List;
 @WebServlet("/courses/add")
 public class AddCourseServlet extends HttpServlet {
 
+  private RequestMapper<Course> courseMapper = new CourseRequestMapper();
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -33,17 +37,9 @@ public class AddCourseServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    Course course = mapRequestToCourse(req);
+    Course course = courseMapper.map(req);
     CourseDAO.save(course);
     resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
-  }
-
-  private Course mapRequestToCourse(HttpServletRequest req) {
-    return new Course().setName(req.getParameter("name"))
-        .setStartDate(Date.valueOf(req.getParameter("startDate")))
-        .setEndDate(Date.valueOf(req.getParameter("endDate")))
-        .setTopicId(Integer.parseInt(req.getParameter("topicId")))
-        .setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
   }
 
 }

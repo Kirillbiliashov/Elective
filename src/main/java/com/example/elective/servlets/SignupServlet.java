@@ -2,6 +2,8 @@ package com.example.elective.servlets;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.RoleDAO;
+import com.example.elective.mappers.RequestMapper;
+import com.example.elective.mappers.StudentRequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 
@@ -16,6 +18,8 @@ import java.util.Optional;
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 
+  private RequestMapper<Account> studentMapper = new StudentRequestMapper();
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -25,20 +29,9 @@ public class SignupServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    Account acc = mapRequestToAccount(req);
+    Account acc = studentMapper.map(req);
     AccountDAO.save(acc);
     resp.sendRedirect("login");
-  }
-
-  private Account mapRequestToAccount(HttpServletRequest req) {
-    Account acc = new Account();
-    acc.setLogin(req.getParameter("login"));
-    acc.setPassword(req.getParameter("password"));
-    acc.setFirstName(req.getParameter("firstName"));
-    acc.setLastName(req.getParameter("lastName"));
-    Optional<Role> studentRole = RoleDAO.findByName("Student");
-    studentRole.ifPresent(role -> acc.setRoleId(role.getId()));
-    return acc;
   }
 
 }
