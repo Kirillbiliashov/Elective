@@ -7,12 +7,12 @@ import com.example.elective.models.Role;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class StudentRequestMapper extends AccountRequestMapper {
+public class TeacherRequestMapper extends AccountRequestMapper {
 
   @Override
   public Account map(HttpServletRequest req) {
     Account acc = super.map(req);
-    setAccountRole(acc, "Student");
+    setAccountRole(acc, "Teacher");
     return acc;
   }
 

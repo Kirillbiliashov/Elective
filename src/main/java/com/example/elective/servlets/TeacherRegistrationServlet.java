@@ -5,6 +5,7 @@ import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.RoleDAO;
 import com.example.elective.mappers.AccountRequestMapper;
 import com.example.elective.mappers.RequestMapper;
+import com.example.elective.mappers.TeacherRequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("/teachers/register")
+@WebServlet("/admin/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {
 
-  private RequestMapper<Account> accountMapper = new AccountRequestMapper();
+  private RequestMapper<Account> teacherMapper = new TeacherRequestMapper();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,11 +29,9 @@ public class TeacherRegistrationServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    Account acc = accountMapper.map(req);
-    Optional<Role> optRole = RoleDAO.findByName("Teacher");
-    acc.setRoleId(optRole.get().getId());
+    Account acc = teacherMapper.map(req);
     AccountDAO.save(acc);
-    resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
+    resp.sendRedirect("/elective/admin/teachers");
   }
 
 }

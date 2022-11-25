@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet(value = "/student", name = "student")
+@WebServlet(value = "/student")
 public class StudentServlet extends HttpServlet {
 
   @Override
