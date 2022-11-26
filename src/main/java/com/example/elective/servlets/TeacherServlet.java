@@ -9,6 +9,7 @@ import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.JournalService;
+import com.example.elective.services.TeacherService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +25,7 @@ import java.util.Map;
 @WebServlet(value = "/teacher", name = "teacher")
 public class TeacherServlet extends HttpServlet {
 
-  private JournalService journalService = new JournalService();
-  private CourseService courseService = new CourseService();
+  private TeacherService teacherService = new TeacherService();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -33,19 +33,10 @@ public class TeacherServlet extends HttpServlet {
     HttpSession session = req.getSession();
     Account teacherAcc = (Account) session.getAttribute("account");
     int id = teacherAcc.getId();
-    Map<Course, Map<Journal, Account>> journal = getJournal(id);
+    Map<Course, Map<Journal, Account>> journal = teacherService.getJournal(id);
     req.setAttribute("journal", journal);
     req.setAttribute("currDate", Utils.CURRENT_DATE);
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
-  }
-
-  private Map<Course, Map<Journal, Account>> getJournal(int teacherId) {
-    Map<Course, Map<Journal, Account>> map = new LinkedHashMap<>();
-    List<Course> courses = courseService.getByTeacherId(teacherId);
-    for (final Course course: courses) {
-      map.put(course, journalService.getJournalStudent(course.getId()));
-    }
-    return map;
   }
 
 }

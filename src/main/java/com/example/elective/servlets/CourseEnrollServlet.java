@@ -26,7 +26,8 @@ public class CourseEnrollServlet extends HttpServlet {
   private JournalService journalService = new JournalService();
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws IOException {
     Journal journal = journalMapper.map(req);
     journalService.save(journal);
     resp.sendRedirect("/elective/student");

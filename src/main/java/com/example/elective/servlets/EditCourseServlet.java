@@ -9,6 +9,7 @@ import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
+import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
 
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ import java.util.Optional;
 public class EditCourseServlet extends HttpServlet {
 
   private CourseService courseService = new CourseService();
-  private AccountService accService = new AccountService();
+  private TeacherService teacherService = new TeacherService();
   private TopicService topicService = new TopicService();
 
   @Override
@@ -38,7 +39,7 @@ public class EditCourseServlet extends HttpServlet {
       return;
     }
     List<Topic> topics = topicService.getAll();
-    List<Account> teachers = accService.getByRole("Teacher");
+    List<Account> teachers = teacherService.getAll();
     req.setAttribute("course", optCourse.get());
     req.setAttribute("topics", topics);
     req.setAttribute("teachers", teachers);

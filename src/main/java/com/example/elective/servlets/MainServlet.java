@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(value = "/", name = "main")
+@WebServlet(value = "/")
 public class MainServlet extends HttpServlet {
 
   private RoleService roleService = new RoleService();

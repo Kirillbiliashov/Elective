@@ -3,6 +3,7 @@ package com.example.elective.servlets;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.models.Account;
 import com.example.elective.services.AccountService;
+import com.example.elective.services.TeacherService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +16,12 @@ import java.util.List;
 @WebServlet("/admin/teachers")
 public class TeachersServlet extends HttpServlet {
 
-  private AccountService accService = new AccountService();
+  private TeacherService teacherService = new TeacherService();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.setAttribute("teachers", accService.getByRole("Teacher"));
+    req.setAttribute("teachers", teacherService.getAll());
     req.getRequestDispatcher("/admin-teachers.jsp").forward(req, resp);
   }
 

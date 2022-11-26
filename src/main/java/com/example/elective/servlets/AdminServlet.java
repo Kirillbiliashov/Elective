@@ -8,10 +8,7 @@ import com.example.elective.dao.TopicDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
-import com.example.elective.services.AccountService;
-import com.example.elective.services.CourseService;
-import com.example.elective.services.JournalService;
-import com.example.elective.services.TopicService;
+import com.example.elective.services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +23,7 @@ import java.util.stream.Collectors;
 public class AdminServlet extends HttpServlet {
 
   private CourseService courseService = new CourseService();
-  private AccountService accService = new AccountService();
+  private TeacherService teacherService = new TeacherService();
   private TopicService topicService = new TopicService();
   private JournalService journalService = new JournalService();
 
@@ -48,7 +45,7 @@ public class AdminServlet extends HttpServlet {
     if (sortType != null) sortCourses(sortType, courses);
     req.setAttribute("topics", topicService.getAll());
     req.setAttribute("courses", courseService.getCourseTeacher(courses));
-    req.setAttribute("teachers", accService.getByRole("Teacher"));
+    req.setAttribute("teachers", teacherService.getAll());
     req.getRequestDispatcher("/admin.jsp").forward(req, resp);
   }
 

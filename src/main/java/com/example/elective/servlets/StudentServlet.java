@@ -7,6 +7,7 @@ import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.services.CourseService;
+import com.example.elective.services.StudentService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,14 +24,14 @@ import java.util.stream.Collectors;
 @WebServlet(value = "/student")
 public class StudentServlet extends HttpServlet {
 
-  private CourseService courseService = new CourseService();
+  private StudentService studentService = new StudentService();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     HttpSession session = req.getSession();
     int studentId = ((Account) session.getAttribute("account")).getId();
-    Map<Course, Journal> courseJournal = courseService.getCourseJournal(studentId);
+    Map<Course, Journal> courseJournal = studentService.getCourseJournal(studentId);
     req.setAttribute("unregisteredCourses", getUnregisteredCourses(courseJournal));
     req.setAttribute("coursesInProgress", getCoursesInProgressMap(courseJournal));
     req.setAttribute("completedCourses", getCompletedCoursesMap(courseJournal));

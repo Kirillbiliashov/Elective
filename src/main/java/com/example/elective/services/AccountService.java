@@ -29,13 +29,4 @@ public class AccountService {
     dao.save(acc);
   }
 
-  public void changeBlockStatus(int id) {
-    Optional<Account> optAcc = dao.getById(id);
-    if (optAcc.isPresent()) {
-      Account acc = optAcc.get();
-      acc.setBlocked(!acc.isBlocked());
-      dao.update(acc);
-    }
-  }
-
 }

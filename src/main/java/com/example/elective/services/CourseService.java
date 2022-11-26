@@ -45,8 +45,6 @@ public class CourseService {
         .setTeacherId(teacherId);
   }
 
-
-
   public void save(Course course) {
     dao.save(course);
   }
@@ -59,10 +57,6 @@ public class CourseService {
     return dao.getAll();
   }
 
-  public List<Course> getByTeacherId(int teacherId) {
-    return dao.getByTeacherId(teacherId);
-  }
-
   public Optional<Course> getById(int id) {
     return dao.getById(id);
   }
@@ -73,16 +67,6 @@ public class CourseService {
     AccountDAO accDao = new AccountDAO();
     courses.forEach(course -> map.put(course,
         accDao.getById(course.getTeacherId()).orElse(null)));
-    return map;
-  }
-
-  public Map<Course, Journal> getCourseJournal(int studentId) {
-    List<Course> courses = this.getAll();
-    Map<Course, Journal> map = new LinkedHashMap<>();
-    JournalDAO journalDao = new JournalDAO();
-    for (final Course course: courses) {
-      map.put(course, journalDao.findByCourseAndStudent(course.getId(), studentId).orElse(null));
-    }
     return map;
   }
 
