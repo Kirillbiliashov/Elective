@@ -3,6 +3,7 @@ package com.example.elective.servlets;
 import com.example.elective.Utils;
 import com.example.elective.dao.JournalDAO;
 import com.example.elective.models.Journal;
+import com.example.elective.services.JournalService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +15,14 @@ import java.util.Optional;
 @WebServlet("/journal/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {
 
+  private JournalService journalService = new JournalService();
+
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     int journalId = Utils.getIdFromPathInfo(req.getPathInfo());
-    Optional<Journal> optJournal = JournalDAO.getById(journalId);
-    if (optJournal.isPresent()) {
-      Journal journal = optJournal.get();
-      journal.setGrade(Integer.parseInt(req.getParameter("grade")));
-      JournalDAO.update(journal);
-    }
+    String gradeStr = req.getParameter("grade");
+    journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));
     resp.sendRedirect(Utils.TEACHER_SERVLET_NAME);
   }
 

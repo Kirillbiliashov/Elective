@@ -6,6 +6,7 @@ import com.example.elective.mappers.JournalRequestMapper;
 import com.example.elective.mappers.RequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Journal;
+import com.example.elective.services.JournalService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +23,12 @@ import java.time.ZoneId;
 public class CourseEnrollServlet extends HttpServlet {
 
   private RequestMapper<Journal> journalMapper = new JournalRequestMapper();
+  private JournalService journalService = new JournalService();
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    System.out.println("i am here");
     Journal journal = journalMapper.map(req);
-    JournalDAO.save(journal);
+    journalService.save(journal);
     resp.sendRedirect("/elective/student");
   }
 

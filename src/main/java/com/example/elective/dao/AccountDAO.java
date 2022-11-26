@@ -68,13 +68,14 @@ public class AccountDAO {
     }
   }
 
-  private static void addMissingValuesToStatement(PreparedStatement ps, Account acc) throws SQLException {
+  private static void addMissingValuesToStatement(PreparedStatement ps, Account acc)
+      throws SQLException {
     int idx = 1;
     ps.setString(idx++, acc.getLogin());
     ps.setString(idx++, acc.getPassword());
     ps.setString(idx++, acc.getFirstName());
     ps.setString(idx++, acc.getLastName());
-    ps.setInt(idx++, acc.getRoleId());
+    ps.setInt(idx, acc.getRoleId());
   }
 
   public static Optional<Account> findByCredentials(String login, String password) {

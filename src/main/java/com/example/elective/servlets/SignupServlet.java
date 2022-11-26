@@ -6,6 +6,7 @@ import com.example.elective.mappers.RequestMapper;
 import com.example.elective.mappers.StudentRequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
+import com.example.elective.services.AccountService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class SignupServlet extends HttpServlet {
 
   private RequestMapper<Account> studentMapper = new StudentRequestMapper();
+  private AccountService accService = new AccountService();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -30,7 +32,7 @@ public class SignupServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     Account acc = studentMapper.map(req);
-    AccountDAO.save(acc);
+    accService.save(acc);
     resp.sendRedirect("login");
   }
 

@@ -7,6 +7,9 @@ import com.example.elective.dao.TopicDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
+import com.example.elective.services.AccountService;
+import com.example.elective.services.CourseService;
+import com.example.elective.services.TopicService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,17 +24,21 @@ import java.util.Optional;
 @WebServlet("/courses/edit/*")
 public class EditCourseServlet extends HttpServlet {
 
+  private CourseService courseService = new CourseService();
+  private AccountService accService = new AccountService();
+  private TopicService topicService = new TopicService();
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
-    Optional<Course> optCourse = CourseDAO.getById(id);
+    Optional<Course> optCourse = courseService.getById(id);
     if (!optCourse.isPresent()) {
       resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
       return;
     }
-    List<Topic> topics = TopicDAO.getAll();
-    List<Account> teachers = AccountDAO.getByRole("Teacher");
+    List<Topic> topics = topicService.getAll();
+    List<Account> teachers = accService.getByRole("Teacher");
     req.setAttribute("course", optCourse.get());
     req.setAttribute("topics", topics);
     req.setAttribute("teachers", teachers);
@@ -41,21 +48,12 @@ public class EditCourseServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
-    Optional<Course> optCourse = CourseDAO.getById(id);
-    if (optCourse.isPresent()) {
-      Course course = optCourse.get();
-      setReqParamsForCourse(course, req);
-      CourseDAO.update(course);
-    }
+    courseService.updateById(id, req.getParameter("name"),
+        req.getParameter("startDate"),
+        req.getParameter("endDate"),
+        req.getParameter("topicId"),
+        req.getParameter("teacherId"));
     resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
-  }
-
-  private void setReqParamsForCourse(Course course, HttpServletRequest req) {
-    course.setName(req.getParameter("name"))
-        .setStartDate(Date.valueOf(req.getParameter("startDate")))
-        .setEndDate(Date.valueOf(req.getParameter("endDate")))
-        .setTopicId(Integer.parseInt(req.getParameter("topicId")))
-        .setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
   }
 
 }

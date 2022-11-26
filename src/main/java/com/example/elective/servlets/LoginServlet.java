@@ -2,6 +2,7 @@ package com.example.elective.servlets;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.models.Account;
+import com.example.elective.services.AccountService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,8 @@ import java.util.Optional;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+  private AccountService accService =  new AccountService();
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -26,7 +29,7 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     String login = req.getParameter("login");
     String password = req.getParameter("password");
-    Optional<Account> optAccount = AccountDAO.findByCredentials(login, password);
+    Optional<Account> optAccount = accService.findByCredentials(login, password);
     if (!optAccount.isPresent()) {
       req.setAttribute("errorMsg", "Login or password is incorrect");
       req.getRequestDispatcher("login-form.jsp").forward(req, resp);

@@ -8,6 +8,9 @@ import com.example.elective.dao.TopicDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
+import com.example.elective.services.AccountService;
+import com.example.elective.services.CourseService;
+import com.example.elective.services.TopicService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,10 +24,14 @@ import java.util.stream.Collectors;
 @WebServlet(value = "/admin", name = "admin")
 public class AdminServlet extends HttpServlet {
 
+  private CourseService courseService = new CourseService();
+  private AccountService accService = new AccountService();
+  private TopicService topicService = new TopicService();
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    List<Course> courses = CourseDAO.getAll();
+    List<Course> courses = courseService.getAll();
     String teacherIdStr = req.getParameter("teacher");
     if (Utils.isNumeric(teacherIdStr)) {
       int teacherId = Integer.parseInt(teacherIdStr);
@@ -37,9 +44,9 @@ public class AdminServlet extends HttpServlet {
     }
     String sortType = req.getParameter("sort");
     if (sortType != null) sortCourses(sortType, courses);
-    req.setAttribute("topics", TopicDAO.getAll());
-    req.setAttribute("courses", getCourseAccountMap(courses));
-    req.setAttribute("teachers", AccountDAO.getByRole("Teacher"));
+    req.setAttribute("topics", topicService.getAll());
+    req.setAttribute("courses", courseService.getCourseTeacher(courses));
+    req.setAttribute("teachers", accService.getByRole("Teacher"));
     req.getRequestDispatcher("/admin.jsp").forward(req, resp);
   }
 
@@ -91,14 +98,6 @@ public class AdminServlet extends HttpServlet {
 
   private Comparator<Course> getStudentComparator() {
     return Comparator.comparing(c -> JournalDAO.getByCourseId(c.getId()).size());
-  }
-
-
-  private Map<Course, Account> getCourseAccountMap(List<Course> courses) {
-    Map<Course, Account> map = new LinkedHashMap<>();
-    courses.forEach(course -> map.put(course,
-        AccountDAO.getById(course.getTeacherId()).orElse(null)));
-    return map;
   }
 
 }
