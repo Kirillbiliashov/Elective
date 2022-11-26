@@ -7,11 +7,13 @@ import java.util.Optional;
 
 public class RoleService {
 
+  private RoleDAO dao = new RoleDAO();
+
   public Optional<Role> getById(int id) {
-    return RoleDAO.findById(id);
+    return dao.findById(id);
   }
 
   public Optional<Role> getByName(String name) {
-    return RoleDAO.findByName(name);
+    return dao.findByName(name);
   }
 }

@@ -7,6 +7,7 @@ import com.example.elective.dao.JournalDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
+import com.example.elective.services.CourseService;
 import com.example.elective.services.JournalService;
 
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class TeacherServlet extends HttpServlet {
 
   private JournalService journalService = new JournalService();
+  private CourseService courseService = new CourseService();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -39,7 +41,7 @@ public class TeacherServlet extends HttpServlet {
 
   private Map<Course, Map<Journal, Account>> getJournal(int teacherId) {
     Map<Course, Map<Journal, Account>> map = new LinkedHashMap<>();
-    List<Course> courses = CourseDAO.getByTeacherId(teacherId);
+    List<Course> courses = courseService.getByTeacherId(teacherId);
     for (final Course course: courses) {
       map.put(course, journalService.getJournalStudent(course.getId()));
     }

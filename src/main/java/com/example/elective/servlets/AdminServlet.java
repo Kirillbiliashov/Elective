@@ -10,6 +10,7 @@ import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
+import com.example.elective.services.JournalService;
 import com.example.elective.services.TopicService;
 
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ public class AdminServlet extends HttpServlet {
   private CourseService courseService = new CourseService();
   private AccountService accService = new AccountService();
   private TopicService topicService = new TopicService();
+  private JournalService journalService = new JournalService();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -97,7 +99,7 @@ public class AdminServlet extends HttpServlet {
   }
 
   private Comparator<Course> getStudentComparator() {
-    return Comparator.comparing(c -> JournalDAO.getByCourseId(c.getId()).size());
+    return Comparator.comparing(c -> journalService.getByCourseIdCount(c.getId()));
   }
 
 }

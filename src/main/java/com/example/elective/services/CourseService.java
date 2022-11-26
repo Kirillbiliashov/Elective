@@ -15,17 +15,20 @@ import java.util.Optional;
 
 public class CourseService {
 
+  private CourseDAO dao = new CourseDAO();
+
  private static final int NAME_IDX = 0;
  private static final int START_DATE_IDX = 1;
  private static final int END_DATE_IDX = 2;
  private static final int TOPIC_ID_IDX = 3;
   private static final int TEACHER_ID_IDX = 4;
+
   public void updateById(int id, String... updValues) {
-    Optional<Course> optCourse = CourseDAO.getById(id);
+    Optional<Course> optCourse = dao.getById(id);
     if (optCourse.isPresent()) {
       Course course = optCourse.get();
       updateFields(course, updValues);
-      CourseDAO.update(course);
+      dao.update(course);
     }
   }
 
@@ -45,34 +48,40 @@ public class CourseService {
 
 
   public void save(Course course) {
-    CourseDAO.save(course);
+    dao.save(course);
   }
 
   public void delete(int id) {
-    CourseDAO.delete(id);
+    dao.delete(id);
   }
 
   public List<Course> getAll() {
-    return CourseDAO.getAll();
+    return dao.getAll();
+  }
+
+  public List<Course> getByTeacherId(int teacherId) {
+    return dao.getByTeacherId(teacherId);
   }
 
   public Optional<Course> getById(int id) {
-    return CourseDAO.getById(id);
+    return dao.getById(id);
   }
 
 
   public Map<Course, Account> getCourseTeacher(List<Course> courses) {
     Map<Course, Account> map = new LinkedHashMap<>();
+    AccountDAO accDao = new AccountDAO();
     courses.forEach(course -> map.put(course,
-        AccountDAO.getById(course.getTeacherId()).orElse(null)));
+        accDao.getById(course.getTeacherId()).orElse(null)));
     return map;
   }
 
   public Map<Course, Journal> getCourseJournal(int studentId) {
     List<Course> courses = this.getAll();
     Map<Course, Journal> map = new LinkedHashMap<>();
+    JournalDAO journalDao = new JournalDAO();
     for (final Course course: courses) {
-      map.put(course, JournalDAO.findByCourseAndStudent(course.getId(), studentId).orElse(null));
+      map.put(course, journalDao.findByCourseAndStudent(course.getId(), studentId).orElse(null));
     }
     return map;
   }

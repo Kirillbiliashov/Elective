@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class CourseDAO {
 
-  public static List<Course> getByTeacherId(int teacherId) {
+  public List<Course> getByTeacherId(int teacherId) {
     final String sqlStr = "SELECT * FROM course WHERE teacher_id = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -25,7 +25,7 @@ public class CourseDAO {
     }
   }
 
-  public static void update(Course course) {
+  public void update(Course course) {
     final String sqlStr = "UPDATE course SET name = ?,start_date = ?," +
         " end_date = ?, topic_id = ?, teacher_id = ? WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
@@ -44,7 +44,7 @@ public class CourseDAO {
     }
   }
 
-  public static void save(Course course) {
+  public void save(Course course) {
     final String sqlStr = "INSERT INTO course(name, start_date, end_date," +
         " topic_id, teacher_id) VALUES(?,?,?,?,?)";
     try (Connection conn = ConnectionPool.getConnection();
@@ -66,7 +66,7 @@ public class CourseDAO {
     }
   }
 
-  public static void delete(int id) {
+  public void delete(int id) {
     final String sqlStr = "DELETE FROM course WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -78,7 +78,7 @@ public class CourseDAO {
     }
   }
 
-  public static List<Course> getAll() {
+  public List<Course> getAll() {
     final String sqlStr = "SELECT * FROM course";
     try (Connection conn = ConnectionPool.getConnection();
          Statement stmt = conn.createStatement()) {
@@ -92,7 +92,7 @@ public class CourseDAO {
     }
   }
 
-  public static Optional<Course> getById(int id) {
+  public Optional<Course> getById(int id) {
     final String sqlStr = "SELECT * FROM course WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -104,13 +104,13 @@ public class CourseDAO {
     }
   }
 
-  private static Optional<Course> mapResultSetToOptionalCourse(ResultSet rs)
+  private Optional<Course> mapResultSetToOptionalCourse(ResultSet rs)
       throws SQLException {
     if (!rs.next()) return Optional.empty();
     return Optional.of(mapResultSetToCourse(rs));
   }
 
-  private static Course mapResultSetToCourse(ResultSet rs) throws SQLException {
+  private Course mapResultSetToCourse(ResultSet rs) throws SQLException {
     return new Course()
         .setId(rs.getInt("id"))
         .setName(rs.getString("name"))

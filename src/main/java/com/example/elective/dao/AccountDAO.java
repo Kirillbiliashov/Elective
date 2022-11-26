@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class AccountDAO {
 
-  public static Optional<Account> getById(int id) {
+  public Optional<Account> getById(int id) {
     final String sqlStr = "SELECT * FROM account WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -22,7 +22,7 @@ public class AccountDAO {
     }
   }
 
-  public static void update(Account acc) {
+  public void update(Account acc) {
     final String sqlStr = "UPDATE account SET is_blocked = ? WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -36,7 +36,7 @@ public class AccountDAO {
     }
   }
 
-  public static List<Account> getByRole(String roleName) {
+  public List<Account> getByRole(String roleName) {
     final String sqlStr = "SELECT * FROM account WHERE role_id = " +
         "(SELECT id FROM role WHERE name = ?)";
     try (Connection conn = ConnectionPool.getConnection();
@@ -52,7 +52,7 @@ public class AccountDAO {
     }
   }
 
-  public static void save(Account acc) {
+  public void save(Account acc) {
     final String sqlStr = "INSERT INTO account(login, password, first_name," +
         " last_name, role_id) VALUES(?, ?, ?, ?, ?)";
     try (Connection conn = ConnectionPool.getConnection();
@@ -68,7 +68,7 @@ public class AccountDAO {
     }
   }
 
-  private static void addMissingValuesToStatement(PreparedStatement ps, Account acc)
+  private void addMissingValuesToStatement(PreparedStatement ps, Account acc)
       throws SQLException {
     int idx = 1;
     ps.setString(idx++, acc.getLogin());
@@ -78,7 +78,7 @@ public class AccountDAO {
     ps.setInt(idx, acc.getRoleId());
   }
 
-  public static Optional<Account> findByCredentials(String login, String password) {
+  public Optional<Account> findByCredentials(String login, String password) {
     final String sqlStr = "SELECT * FROM account WHERE login = ? AND password = ?";
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -92,13 +92,13 @@ public class AccountDAO {
     }
   }
 
-  private static Optional<Account> mapResultSetToOptionalAccount(ResultSet rs)
+  private Optional<Account> mapResultSetToOptionalAccount(ResultSet rs)
       throws SQLException {
     if (!rs.next()) return Optional.empty();
     return Optional.of(mapResultSetToAccount(rs));
   }
 
-  private static Account mapResultSetToAccount(ResultSet rs) throws SQLException {
+  private Account mapResultSetToAccount(ResultSet rs) throws SQLException {
     return new Account()
         .setId(rs.getInt("id"))
         .setLogin(rs.getString("login"))

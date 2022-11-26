@@ -12,24 +12,32 @@ import java.util.Optional;
 
 public class JournalService {
 
+  private JournalDAO dao = new JournalDAO();
+
   public void save(Journal journal) {
-    JournalDAO.save(journal);
+    dao.save(journal);
   }
 
   public void updateGradeById(int id, int grade) {
-    Optional<Journal> optJournal = JournalDAO.getById(id);
+    Optional<Journal> optJournal = dao.getById(id);
     if (optJournal.isPresent()) {
       Journal journal = optJournal.get();
       journal.setGrade(grade);
-      JournalDAO.update(journal);
+      dao.update(journal);
     }
+  }
+
+  public int getByCourseIdCount(int courseId) {
+    return dao.getByCourseId(courseId).size();
   }
 
   public Map<Journal, Account> getJournalStudent(int courseId) {
     Map<Journal, Account> map = new LinkedHashMap<>();
-    List<Journal> journalList = JournalDAO.getByCourseId(courseId);
+    AccountService accountService = new AccountService();
+    List<Journal> journalList = dao.getByCourseId(courseId);
     for (final Journal journal: journalList) {
-      Account student = AccountDAO.getById(journal.getStudentId()).orElse(null);
+      int studentId = journal.getStudentId();
+      Account student = accountService.getById(studentId).orElse(null);
       map.put(journal, student);
     }
     return map;

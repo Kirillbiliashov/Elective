@@ -7,8 +7,10 @@ import java.util.List;
 
 public class TopicService {
 
+  private TopicDAO dao = new TopicDAO();
+
   public List<Topic> getAll() {
-    return TopicDAO.getAll();
+    return dao.getAll();
   }
 
 }

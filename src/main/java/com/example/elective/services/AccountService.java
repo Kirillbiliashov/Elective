@@ -11,24 +11,30 @@ import java.util.Optional;
 
 public class AccountService {
 
+  private AccountDAO dao = new AccountDAO();
+
+  public Optional<Account> getById(int id) {
+    return dao.getById(id);
+  }
+
   public Optional<Account> findByCredentials(String login, String password) {
-    return AccountDAO.findByCredentials(login, password);
+    return dao.findByCredentials(login, password);
   }
 
   public List<Account> getByRole(String roleName) {
-    return AccountDAO.getByRole(roleName);
+    return dao.getByRole(roleName);
   }
 
   public void save(Account acc) {
-    AccountDAO.save(acc);
+    dao.save(acc);
   }
 
   public void changeBlockStatus(int id) {
-    Optional<Account> optAcc = AccountDAO.getById(id);
+    Optional<Account> optAcc = dao.getById(id);
     if (optAcc.isPresent()) {
       Account acc = optAcc.get();
       acc.setBlocked(!acc.isBlocked());
-      AccountDAO.update(acc);
+      dao.update(acc);
     }
   }
 

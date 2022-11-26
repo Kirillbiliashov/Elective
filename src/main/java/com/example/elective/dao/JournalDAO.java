@@ -13,8 +13,9 @@ import java.util.Optional;
 
 public class JournalDAO {
 
-  public static void update(Journal journal) {
-    final String sqlStr = "UPDATE journal SET grade = ?, enrollment_date = ? WHERE id = ?";
+  public void update(Journal journal) {
+    final String sqlStr = "UPDATE journal SET grade = ?, enrollment_date = ?" +
+        " WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(sqlStr)) {
       int idx = 1;
@@ -29,7 +30,7 @@ public class JournalDAO {
 
   }
 
-  public static Optional<Journal> getById(int journalId) {
+  public Optional<Journal> getById(int journalId) {
     final String sqlStr = "SELECT  * FROM journal WHERE id = ?";
     try(Connection conn = ConnectionPool.getConnection();
         PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -41,7 +42,7 @@ public class JournalDAO {
     }
   }
 
-  public static Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
+  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
     final String sqlStr = "SELECT  * FROM journal WHERE course_id = ?" +
         " AND student_id = ?";
     try(Connection conn = ConnectionPool.getConnection();
@@ -56,11 +57,12 @@ public class JournalDAO {
     }
   }
 
-  public static void save(Journal journal) {
+  public void save(Journal journal) {
     final String sqlStr = "INSERT INTO journal(enrollment_date, course_id," +
         " student_id) VALUES(?, ?, ?)";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr, PreparedStatement.RETURN_GENERATED_KEYS)) {
+         PreparedStatement ps = conn.prepareStatement(sqlStr,
+             PreparedStatement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
       ps.setDate(idx++, journal.getEnrollmentDate());
       ps.setInt(idx++, journal.getCourseId());
@@ -72,11 +74,10 @@ public class JournalDAO {
       e.printStackTrace();
       throw new RuntimeException();
     }
-
   }
 
 
-  public static List<Journal> getByCourseId(int courseId) {
+  public List<Journal> getByCourseId(int courseId) {
     final String sqlStr = "SELECT * FROM journal WHERE course_id = ?";
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(sqlStr)) {
@@ -91,12 +92,13 @@ public class JournalDAO {
     }
   }
 
-  private static Optional<Journal> mapResultSetToOptionalJournal(ResultSet rs) throws SQLException {
+  private Optional<Journal> mapResultSetToOptionalJournal(ResultSet rs)
+      throws SQLException {
     if (!rs.next()) return Optional.empty();
     return Optional.of(mapResultSetToJournal(rs));
   }
 
-  private static Journal mapResultSetToJournal(ResultSet rs) throws SQLException {
+  private Journal mapResultSetToJournal(ResultSet rs) throws SQLException {
     return new Journal()
         .setId(rs.getInt("id"))
         .setGrade(rs.getInt("grade"))
@@ -104,4 +106,5 @@ public class JournalDAO {
         .setCourseId(rs.getInt("course_id"))
         .setStudentId(rs.getInt("student_id"));
   }
+
 }
