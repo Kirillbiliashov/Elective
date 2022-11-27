@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AccountDAO {
+public class AccountDAO extends AbstractDAO<Account> {
 
   private static final String GET_BY_ID = "SELECT * FROM account WHERE id = ?";
   private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
@@ -20,7 +20,8 @@ public class AccountDAO {
   private static final String FIND_BY_CREDENTIALS = "SELECT * FROM account" +
       " WHERE login = ? AND password = ?";
 
-  public Optional<Account> getById(int id) {
+  @Override
+  public Optional<Account> find(int id) {
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
@@ -31,6 +32,7 @@ public class AccountDAO {
     }
   }
 
+  @Override
   public void update(Account acc) {
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(UPDATE)) {
@@ -38,6 +40,31 @@ public class AccountDAO {
       ps.setBoolean(idx++, acc.isBlocked());
       ps.setInt(idx, acc.getId());
       ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
+
+  @Override
+  public void delete(int id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public List<Account> findAll() {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void save(Account acc) {
+    try (Connection conn = ConnectionPool.getConnection();
+         PreparedStatement ps = conn.prepareStatement(SAVE,
+             Statement.RETURN_GENERATED_KEYS)) {
+      addMissingValuesToStatement(ps, acc);
+      ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
+      if (rs.next()) acc.setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -52,20 +79,6 @@ public class AccountDAO {
       List<Account> accounts = new ArrayList<>();
       while (rs.next()) accounts.add(mapResultSetToAccount(rs));
       return accounts;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new RuntimeException();
-    }
-  }
-
-  public void save(Account acc) {
-    try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(SAVE,
-        Statement.RETURN_GENERATED_KEYS)) {
-      addMissingValuesToStatement(ps, acc);
-      ps.executeUpdate();
-      ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) acc.setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();

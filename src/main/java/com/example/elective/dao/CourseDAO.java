@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CourseDAO {
+public class CourseDAO extends AbstractDAO<Course> {
 
   private static final String GET_BY_TEACHER_ID = "SELECT * FROM course" +
       " WHERE teacher_id = ?";
@@ -35,6 +35,7 @@ public class CourseDAO {
     }
   }
 
+  @Override
   public void update(Course course) {
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(UPDATE)) {
@@ -52,6 +53,7 @@ public class CourseDAO {
     }
   }
 
+  @Override
   public void save(Course course) {
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS)) {
@@ -72,6 +74,7 @@ public class CourseDAO {
     }
   }
 
+  @Override
   public void delete(int id) {
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(DELETE)) {
@@ -83,7 +86,8 @@ public class CourseDAO {
     }
   }
 
-  public List<Course> getAll() {
+  @Override
+  public List<Course> findAll() {
     try (Connection conn = ConnectionPool.getConnection();
          Statement stmt = conn.createStatement()) {
       ResultSet rs = stmt.executeQuery(GET_ALL);
@@ -96,7 +100,8 @@ public class CourseDAO {
     }
   }
 
-  public Optional<Course> getById(int id) {
+  @Override
+  public Optional<Course> find(int id) {
     try (Connection conn = ConnectionPool.getConnection();
     PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);

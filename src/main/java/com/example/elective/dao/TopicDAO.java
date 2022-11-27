@@ -9,12 +9,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class TopicDAO {
+public class TopicDAO extends AbstractDAO<Topic> {
 
   private static final String GET_ALL = "SELECT * FROM topic";
 
-  public static List<Topic> getAll() {
+  @Override
+  public List<Topic> findAll() {
     try (Connection conn = ConnectionPool.getConnection();
     Statement stmt = conn.createStatement()) {
       ResultSet rs = stmt.executeQuery(GET_ALL);
@@ -25,6 +27,26 @@ public class TopicDAO {
       e.printStackTrace();
       throw new RuntimeException();
     }
+  }
+
+  @Override
+  public Optional<Topic> find(int id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void save(Topic entity) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void update(Topic entity) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void delete(int id) {
+    throw new UnsupportedOperationException();
   }
 
   private static Topic mapResultSetToTopic(ResultSet rs) throws SQLException {

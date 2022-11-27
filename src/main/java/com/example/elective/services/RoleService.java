@@ -10,7 +10,7 @@ public class RoleService {
   private RoleDAO dao = new RoleDAO();
 
   public Optional<Role> getById(int id) {
-    return dao.findById(id);
+    return dao.find(id);
   }
 
   public Optional<Role> getByName(String name) {

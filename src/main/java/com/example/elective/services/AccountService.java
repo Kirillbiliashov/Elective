@@ -2,11 +2,8 @@ package com.example.elective.services;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.models.Account;
-import com.example.elective.models.Course;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class AccountService {
@@ -14,7 +11,7 @@ public class AccountService {
   private AccountDAO dao = new AccountDAO();
 
   public Optional<Account> getById(int id) {
-    return dao.getById(id);
+    return dao.find(id);
   }
 
   public Optional<Account> findByCredentials(String login, String password) {

@@ -35,7 +35,7 @@ public class TeacherService {
     List<Journal> journalList = journalDao.getByCourseId(courseId);
     for (final Journal journal: journalList) {
       int studentId = journal.getStudentId();
-      Account student = accDao.getById(studentId).orElse(null);
+      Account student = accDao.find(studentId).orElse(null);
       map.put(journal, student);
     }
     return map;

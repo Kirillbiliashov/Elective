@@ -10,7 +10,7 @@ public class TopicService {
   private TopicDAO dao = new TopicDAO();
 
   public List<Topic> getAll() {
-    return dao.getAll();
+    return dao.findAll();
   }
 
 }

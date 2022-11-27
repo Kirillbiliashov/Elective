@@ -2,10 +2,8 @@ package com.example.elective.services;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
-import com.example.elective.dao.JournalDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
-import com.example.elective.models.Journal;
 
 import java.sql.Date;
 import java.util.LinkedHashMap;
@@ -24,7 +22,7 @@ public class CourseService {
   private static final int TEACHER_ID_IDX = 4;
 
   public void updateById(int id, String... updValues) {
-    Optional<Course> optCourse = dao.getById(id);
+    Optional<Course> optCourse = dao.find(id);
     if (optCourse.isPresent()) {
       Course course = optCourse.get();
       updateFields(course, updValues);
@@ -54,11 +52,11 @@ public class CourseService {
   }
 
   public List<Course> getAll() {
-    return dao.getAll();
+    return dao.findAll();
   }
 
   public Optional<Course> getById(int id) {
-    return dao.getById(id);
+    return dao.find(id);
   }
 
 
@@ -66,7 +64,7 @@ public class CourseService {
     Map<Course, Account> map = new LinkedHashMap<>();
     AccountDAO accDao = new AccountDAO();
     courses.forEach(course -> map.put(course,
-        accDao.getById(course.getTeacherId()).orElse(null)));
+        accDao.find(course.getTeacherId()).orElse(null)));
     return map;
   }
 

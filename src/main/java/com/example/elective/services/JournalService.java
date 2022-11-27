@@ -1,8 +1,6 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.JournalDAO;
-import com.example.elective.models.Account;
 import com.example.elective.models.Journal;
 
 import java.util.Optional;
@@ -16,7 +14,7 @@ public class JournalService {
   }
 
   public void updateGradeById(int id, int grade) {
-    Optional<Journal> optJournal = dao.getById(id);
+    Optional<Journal> optJournal = dao.find(id);
     if (optJournal.isPresent()) {
       Journal journal = optJournal.get();
       journal.setGrade(grade);

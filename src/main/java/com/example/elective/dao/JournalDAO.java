@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class JournalDAO {
+public class JournalDAO extends AbstractDAO<Journal> {
 
   private static final String UPDATE = "UPDATE journal SET grade = ?," +
       " enrollment_date = ? WHERE id = ?";
@@ -24,7 +24,19 @@ public class JournalDAO {
   private static final String GET_BY_COURSE_ID = "SELECT * FROM journal" +
       " WHERE course_id = ?";
 
+  @Override
+  public Optional<Journal> find(int journalId) {
+    try(Connection conn = ConnectionPool.getConnection();
+        PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
+      ps.setInt(1, journalId);
+      return mapResultSetToOptionalJournal(ps.executeQuery());
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
 
+  @Override
   public void update(Journal journal) {
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(UPDATE)) {
@@ -39,30 +51,7 @@ public class JournalDAO {
     }
   }
 
-  public Optional<Journal> getById(int journalId) {
-    try(Connection conn = ConnectionPool.getConnection();
-        PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
-      ps.setInt(1, journalId);
-      return mapResultSetToOptionalJournal(ps.executeQuery());
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new RuntimeException();
-    }
-  }
-
-  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
-    try(Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
-      int idx = 1;
-      ps.setInt(idx++, courseId);
-      ps.setInt(idx, studentId);
-      return mapResultSetToOptionalJournal(ps.executeQuery());
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new RuntimeException();
-    }
-  }
-
+  @Override
   public void save(Journal journal) {
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(SAVE,
@@ -80,6 +69,28 @@ public class JournalDAO {
     }
   }
 
+  @Override
+  public void delete(int id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public List<Journal> findAll() {
+    throw new UnsupportedOperationException();
+  }
+
+  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
+    try(Connection conn = ConnectionPool.getConnection();
+    PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
+      int idx = 1;
+      ps.setInt(idx++, courseId);
+      ps.setInt(idx, studentId);
+      return mapResultSetToOptionalJournal(ps.executeQuery());
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
 
   public List<Journal> getByCourseId(int courseId) {
     try (Connection conn = ConnectionPool.getConnection();

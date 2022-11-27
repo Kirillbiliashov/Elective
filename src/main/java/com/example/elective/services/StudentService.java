@@ -19,7 +19,7 @@ public class StudentService {
   private JournalDAO journalDao = new JournalDAO();
 
   public void changeBlockStatus(int id) {
-    Optional<Account> optAcc = accDao.getById(id);
+    Optional<Account> optAcc = accDao.find(id);
     if (optAcc.isPresent()) {
       Account acc = optAcc.get();
       acc.setBlocked(!acc.isBlocked());
@@ -32,7 +32,7 @@ public class StudentService {
   }
 
   public Map<Course, Journal> getCourseJournal(int studentId) {
-    List<Course> courses = courseDao.getAll();
+    List<Course> courses = courseDao.findAll();
     Map<Course, Journal> map = new LinkedHashMap<>();
     for (final Course course: courses) {
       map.put(course, journalDao.findByCourseAndStudent(course.getId(), studentId).orElse(null));
