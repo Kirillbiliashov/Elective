@@ -12,11 +12,12 @@ import java.util.List;
 
 public class TopicDAO {
 
+  private static final String GET_ALL = "SELECT * FROM topic";
+
   public static List<Topic> getAll() {
-    final String sqlStr = "SELECT * FROM topic";
     try (Connection conn = ConnectionPool.getConnection();
     Statement stmt = conn.createStatement()) {
-      ResultSet rs = stmt.executeQuery(sqlStr);
+      ResultSet rs = stmt.executeQuery(GET_ALL);
       List<Topic> topics = new ArrayList<>();
       while (rs.next()) topics.add(mapResultSetToTopic(rs));
       return topics;

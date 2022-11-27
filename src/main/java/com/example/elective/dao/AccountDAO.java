@@ -10,10 +10,19 @@ import java.util.Optional;
 
 public class AccountDAO {
 
+  private static final String GET_BY_ID = "SELECT * FROM account WHERE id = ?";
+  private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
+      " WHERE id = ?";
+  private static final String GET_BY_ROLE = "SELECT * FROM account" +
+      " WHERE role_id = (SELECT id FROM role WHERE name = ?)";
+  private static final String SAVE = "INSERT INTO account(login, password," +
+      " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?)";
+  private static final String FIND_BY_CREDENTIALS = "SELECT * FROM account" +
+      " WHERE login = ? AND password = ?";
+
   public Optional<Account> getById(int id) {
-    final String sqlStr = "SELECT * FROM account WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+         PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
       return mapResultSetToOptionalAccount(ps.executeQuery());
     } catch (SQLException e) {
@@ -23,9 +32,8 @@ public class AccountDAO {
   }
 
   public void update(Account acc) {
-    final String sqlStr = "UPDATE account SET is_blocked = ? WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setBoolean(idx++, acc.isBlocked());
       ps.setInt(idx, acc.getId());
@@ -37,10 +45,8 @@ public class AccountDAO {
   }
 
   public List<Account> getByRole(String roleName) {
-    final String sqlStr = "SELECT * FROM account WHERE role_id = " +
-        "(SELECT id FROM role WHERE name = ?)";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(GET_BY_ROLE)) {
       ps.setString(1, roleName);
       ResultSet rs = ps.executeQuery();
       List<Account> accounts = new ArrayList<>();
@@ -53,10 +59,8 @@ public class AccountDAO {
   }
 
   public void save(Account acc) {
-    final String sqlStr = "INSERT INTO account(login, password, first_name," +
-        " last_name, role_id) VALUES(?, ?, ?, ?, ?)";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr,
+    PreparedStatement ps = conn.prepareStatement(SAVE,
         Statement.RETURN_GENERATED_KEYS)) {
       addMissingValuesToStatement(ps, acc);
       ps.executeUpdate();
@@ -79,9 +83,8 @@ public class AccountDAO {
   }
 
   public Optional<Account> findByCredentials(String login, String password) {
-    final String sqlStr = "SELECT * FROM account WHERE login = ? AND password = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
       int idx = 1;
       ps.setString(idx++, login);
       ps.setString(idx++, password);

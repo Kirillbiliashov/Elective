@@ -11,10 +11,13 @@ import java.util.Optional;
 
 public class RoleDAO {
 
+  private static final String FIND_BY_NAME = "SELECT * FROM role" +
+      " WHERE name = ?";
+  private static final String FIND_BY_ID = "SELECT * FROM role WHERE id = ?";
+
   public Optional<Role> findByName(String name) {
-    final String sqlStr = "SELECT * FROM role WHERE name = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME)) {
       ps.setString(1, name);
       return mapResultSetToRole(ps.executeQuery());
     } catch (SQLException e) {
@@ -24,9 +27,8 @@ public class RoleDAO {
   }
 
   public Optional<Role> findById(int id) {
-    final String sqlStr = "SELECT * FROM role WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+         PreparedStatement ps = conn.prepareStatement(FIND_BY_ID)) {
       ps.setInt(1, id);
       return mapResultSetToRole(ps.executeQuery());
     } catch (SQLException e) {

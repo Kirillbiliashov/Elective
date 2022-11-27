@@ -10,10 +10,20 @@ import java.util.Optional;
 
 public class CourseDAO {
 
+  private static final String GET_BY_TEACHER_ID = "SELECT * FROM course" +
+      " WHERE teacher_id = ?";
+  private static final String UPDATE = "UPDATE course SET name = ?," +
+      "start_date = ?, end_date = ?, topic_id = ?, teacher_id = ? " +
+      "WHERE id = ?";
+  private static final String SAVE = "INSERT INTO course(name, start_date," +
+      " end_date, topic_id, teacher_id) VALUES(?,?,?,?,?)";
+  private static final String DELETE = "DELETE FROM course WHERE id = ?";
+  private static final String GET_ALL = "SELECT * FROM course";
+  private static final String GET_BY_ID = "SELECT * FROM course WHERE id = ?";
+
   public List<Course> getByTeacherId(int teacherId) {
-    final String sqlStr = "SELECT * FROM course WHERE teacher_id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID)) {
       ps.setInt(1, teacherId);
       ResultSet rs = ps.executeQuery();
       List<Course> courses = new ArrayList<>();
@@ -26,10 +36,8 @@ public class CourseDAO {
   }
 
   public void update(Course course) {
-    final String sqlStr = "UPDATE course SET name = ?,start_date = ?," +
-        " end_date = ?, topic_id = ?, teacher_id = ? WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setString(idx++, course.getName());
       ps.setDate(idx++, course.getStartDate());
@@ -45,10 +53,8 @@ public class CourseDAO {
   }
 
   public void save(Course course) {
-    final String sqlStr = "INSERT INTO course(name, start_date, end_date," +
-        " topic_id, teacher_id) VALUES(?,?,?,?,?)";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr, Statement.RETURN_GENERATED_KEYS)) {
+         PreparedStatement ps = conn.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
       ps.setString(idx++, course.getName());
       ps.setDate(idx++, course.getStartDate());
@@ -67,9 +73,8 @@ public class CourseDAO {
   }
 
   public void delete(int id) {
-    final String sqlStr = "DELETE FROM course WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(DELETE)) {
       ps.setInt(1, id);
       ps.executeUpdate();
     } catch(SQLException e) {
@@ -79,10 +84,9 @@ public class CourseDAO {
   }
 
   public List<Course> getAll() {
-    final String sqlStr = "SELECT * FROM course";
     try (Connection conn = ConnectionPool.getConnection();
          Statement stmt = conn.createStatement()) {
-      ResultSet rs = stmt.executeQuery(sqlStr);
+      ResultSet rs = stmt.executeQuery(GET_ALL);
       List<Course> courses = new ArrayList<>();
       while (rs.next()) courses.add(mapResultSetToCourse(rs));
       return courses;
@@ -93,9 +97,8 @@ public class CourseDAO {
   }
 
   public Optional<Course> getById(int id) {
-    final String sqlStr = "SELECT * FROM course WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
       return mapResultSetToOptionalCourse(ps.executeQuery());
     } catch (SQLException e) {

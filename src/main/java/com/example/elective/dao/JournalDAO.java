@@ -13,11 +13,21 @@ import java.util.Optional;
 
 public class JournalDAO {
 
+  private static final String UPDATE = "UPDATE journal SET grade = ?," +
+      " enrollment_date = ? WHERE id = ?";
+  private static final String GET_BY_ID = "SELECT  * FROM journal" +
+      " WHERE id = ?";
+  private static final String FIND_BY_COURSE_AND_STUDENT = "SELECT  * FROM " +
+      "journal WHERE course_id = ? AND student_id = ?";
+  private static final String SAVE = "INSERT INTO journal(enrollment_date," +
+      " course_id, student_id) VALUES(?, ?, ?)";
+  private static final String GET_BY_COURSE_ID = "SELECT * FROM journal" +
+      " WHERE course_id = ?";
+
+
   public void update(Journal journal) {
-    final String sqlStr = "UPDATE journal SET grade = ?, enrollment_date = ?" +
-        " WHERE id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+         PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setInt(idx++, journal.getGrade());
       ps.setDate(idx++, journal.getEnrollmentDate());
@@ -27,13 +37,11 @@ public class JournalDAO {
       e.printStackTrace();
       throw new RuntimeException();
     }
-
   }
 
   public Optional<Journal> getById(int journalId) {
-    final String sqlStr = "SELECT  * FROM journal WHERE id = ?";
     try(Connection conn = ConnectionPool.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+        PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, journalId);
       return mapResultSetToOptionalJournal(ps.executeQuery());
     } catch (SQLException e) {
@@ -43,10 +51,8 @@ public class JournalDAO {
   }
 
   public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
-    final String sqlStr = "SELECT  * FROM journal WHERE course_id = ?" +
-        " AND student_id = ?";
     try(Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+    PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
       int idx = 1;
       ps.setInt(idx++, courseId);
       ps.setInt(idx, studentId);
@@ -58,10 +64,8 @@ public class JournalDAO {
   }
 
   public void save(Journal journal) {
-    final String sqlStr = "INSERT INTO journal(enrollment_date, course_id," +
-        " student_id) VALUES(?, ?, ?)";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr,
+         PreparedStatement ps = conn.prepareStatement(SAVE,
              PreparedStatement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
       ps.setDate(idx++, journal.getEnrollmentDate());
@@ -78,9 +82,8 @@ public class JournalDAO {
 
 
   public List<Journal> getByCourseId(int courseId) {
-    final String sqlStr = "SELECT * FROM journal WHERE course_id = ?";
     try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sqlStr)) {
+         PreparedStatement ps = conn.prepareStatement(GET_BY_COURSE_ID)) {
       ps.setInt(1, courseId);
       ResultSet rs = ps.executeQuery();
       List<Journal> journalList = new ArrayList<>();
