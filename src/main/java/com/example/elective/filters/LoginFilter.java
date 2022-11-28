@@ -33,6 +33,7 @@ public class LoginFilter extends HttpFilter {
     boolean isSignupPath = req.getServletPath().equals(signupPath);
     boolean isLoggedIn = session.getAttribute("account") != null;
     if (!(isLoggedIn || isLoginPath || isSignupPath)) {
+      System.out.println("redirect to login");
       res.sendRedirect("/elective/login");
     } else {
       chain.doFilter(req, res);

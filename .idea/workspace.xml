@@ -9,9 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Pagination for teacher journal was added">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/LoginFilter.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Login filter was added">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/RoleFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/error-403.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/LoginFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/LoginFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -248,7 +253,7 @@
       <workItem from="1669110334023" duration="58000" />
       <workItem from="1669191714965" duration="452000" />
       <workItem from="1669198843471" duration="23602000" />
-      <workItem from="1669563222164" duration="10007000" />
+      <workItem from="1669563222164" duration="14306000" />
     </task>
     <task id="LOCAL-00001" summary="SQL script was added">
       <created>1668025356009</created>
@@ -509,7 +514,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669627256826</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Login filter was added">
+      <created>1669635192165</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1669635192165</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,7 +551,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Minor url improvements were made" />
     <MESSAGE value="Ability to enroll student into the course was added" />
     <MESSAGE value="Ability to display info for enrolled students is added" />
     <MESSAGE value="Ability to view e-journal for teacher was added" />
@@ -564,6 +575,7 @@
     <MESSAGE value="SQL queries were moved from methods to class members" />
     <MESSAGE value="DAO layer was improved by adding AbstractDAO class" />
     <MESSAGE value="Pagination for teacher journal was added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pagination for teacher journal was added" />
+    <MESSAGE value="Login filter was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login filter was added" />
   </component>
 </project>

@@ -29,6 +29,7 @@ public class MainServlet extends HttpServlet {
     if (optRole.isPresent()) {
       Role role = optRole.get();
       servletUrl = role.getName().toLowerCase();
+      session.setAttribute("homeUrl",  servletUrl);
     }
     if (servletUrl.equals("teacher")) servletUrl += "?page=1";
     resp.sendRedirect(servletUrl);
