@@ -17,17 +17,18 @@ public class TeacherService {
   private CourseDAO courseDao = new CourseDAO();
   private JournalDAO journalDao = new JournalDAO();
 
+  public int getPagesCount(int teacherId) {
+    return courseDao.getByTeacherId(teacherId).size();
+  }
+
   public List<Account> getAll() {
     return accDao.getByRole("Teacher");
   }
 
-  public Map<Course, Map<Journal, Account>> getJournal(int teacherId) {
-    Map<Course, Map<Journal, Account>> map = new LinkedHashMap<>();
+  public Map.Entry<Course, Map<Journal, Account>> getJournal(int teacherId, int page) {
     List<Course> courses = courseDao.getByTeacherId(teacherId);
-    for (final Course course: courses) {
-      map.put(course, getJournalStudent(course.getId()));
-    }
-    return map;
+    Course course = courses.get(page - 1);
+    return Map.entry(course, getJournalStudent(course.getId()));
   }
 
   private Map<Journal, Account> getJournalStudent(int courseId) {

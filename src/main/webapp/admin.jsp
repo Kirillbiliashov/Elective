@@ -35,7 +35,7 @@
                             <option value="duration_asc">Duration (from shortest)</option>
                             <option value="duration_desc">Duration (from longest)</option>
                             <option value="students_asc">Students enrolled (from least)</option>
-                            <option value="students_desc">Students enrolled (from most))</option>
+                            <option value="students_desc">Students enrolled (from most)</option>
                         </select>
                     </div>
                     <div class="form-group">

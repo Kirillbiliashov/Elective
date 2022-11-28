@@ -25,6 +25,7 @@ public class AccountDAO extends AbstractDAO<Account> {
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
+
       return mapResultSetToOptionalAccount(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();

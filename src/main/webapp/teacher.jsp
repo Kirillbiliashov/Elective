@@ -5,11 +5,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Title</title>
 </head>
-<body>
+<body style="margin: 20px">
 <h1>Teacher main page</h1>
-<c:forEach items="${journal}" var="entry">
     <div style="margin: 30px;">
-        <h2>${entry.key.name}</h2>
+        <h2>Course: ${journal.key.name}</h2>
         <table class="table" style="margin: 30px">
             <thead>
             <tr>
@@ -18,14 +17,14 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${entry.value}" var="journalData">
+            <c:forEach items="${journal.value}" var="journalData">
                 <tr>
                     <td>${journalData.value.firstName} ${journalData.value.lastName}</td>
                     <c:if test="${journalData.key.grade == -1}">
-                        <c:if test="${entry.key.endDate.after(currDate)}">
+                        <c:if test="${journal.key.endDate.after(currDate)}">
                             <td>Course hasn't finished yet</td>
                         </c:if>
-                        <c:if test="${entry.key.endDate.before(currDate)}">
+                        <c:if test="${journal.key.endDate.before(currDate)}">
                             <td>
                                 <form method="post" action="journal/addGrade/${journalData.key.id}">
                                     <input type="number" min="0" max="100" name="grade" id="grade"/>
@@ -42,7 +41,6 @@
             </tbody>
         </table>
     </div>
-
-</c:forEach>
+<c:import url="journal-pagination.jsp"/>
 </body>
 </html>

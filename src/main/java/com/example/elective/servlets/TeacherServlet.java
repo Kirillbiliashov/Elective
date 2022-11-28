@@ -33,10 +33,27 @@ public class TeacherServlet extends HttpServlet {
     HttpSession session = req.getSession();
     Account teacherAcc = (Account) session.getAttribute("account");
     int id = teacherAcc.getId();
-    Map<Course, Map<Journal, Account>> journal = teacherService.getJournal(id);
+    int page = getPageNumber(req);
+    setPageAttributes(req, page);
+    req.setAttribute("pagesCount", teacherService.getPagesCount(id));
+    Map.Entry<Course, Map<Journal, Account>> journal = teacherService.getJournal(id, page);
     req.setAttribute("journal", journal);
     req.setAttribute("currDate", Utils.CURRENT_DATE);
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
   }
+
+  private void setPageAttributes(HttpServletRequest req, int currPage) {
+    int nextPage = currPage + 1;
+    int prevPage = currPage - 1;
+    req.setAttribute("next", nextPage);
+    req.setAttribute("prev", prevPage);
+  }
+
+  private int getPageNumber(HttpServletRequest request) {
+    String pageParam = request.getParameter("page");
+    if (!Utils.isNumeric(pageParam)) return 1;
+    return Integer.parseInt(pageParam);
+  }
+
 
 }
