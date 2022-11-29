@@ -1,8 +1,7 @@
 package com.example.elective.models;
 
-public class Account {
+public class Account extends Entity {
 
-  private int id;
   private String login;
   private String password;
   private String firstName;
@@ -10,12 +9,9 @@ public class Account {
   private boolean isBlocked;
   private int roleId;
 
-  public int getId() {
-    return id;
-  }
-
+  @Override
   public Account setId(int id) {
-    this.id = id;
+    super.setId(id);
     return this;
   }
 
@@ -72,4 +68,5 @@ public class Account {
     this.roleId = roleId;
     return this;
   }
+
 }

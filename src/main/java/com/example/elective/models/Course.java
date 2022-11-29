@@ -2,20 +2,17 @@ package com.example.elective.models;
 
 import java.sql.Date;
 
-public class Course {
-  private int id;
+public class Course extends Entity {
+
   private String name;
   private Date startDate;
   private Date endDate;
   private int topicId;
   private int teacherId;
 
-  public int getId() {
-    return id;
-  }
-
+  @Override
   public Course setId(int id) {
-    this.id = id;
+    super.setId(id);
     return this;
   }
 

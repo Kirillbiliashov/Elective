@@ -25,7 +25,6 @@ public class AccountDAO extends AbstractDAO<Account> {
     try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
-
       return mapResultSetToOptionalAccount(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();
@@ -101,7 +100,7 @@ public class AccountDAO extends AbstractDAO<Account> {
     PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
       int idx = 1;
       ps.setString(idx++, login);
-      ps.setString(idx++, password);
+      ps.setString(idx, password);
       return mapResultSetToOptionalAccount(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();

@@ -31,7 +31,7 @@ CREATE TABLE topic
 CREATE TABLE course
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
-    name       VARCHAR(50) NOT NULL,
+    name       VARCHAR(50) NOT NULL UNIQUE,
     start_date DATE        NOT NULL,
     end_date   DATE        NOT NULL,
     topic_id   INT         NOT NULL,

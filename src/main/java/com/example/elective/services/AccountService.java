@@ -10,10 +10,6 @@ public class AccountService {
 
   private AccountDAO dao = new AccountDAO();
 
-  public Optional<Account> getById(int id) {
-    return dao.find(id);
-  }
-
   public Optional<Account> findByCredentials(String login, String password) {
     return dao.findByCredentials(login, password);
   }

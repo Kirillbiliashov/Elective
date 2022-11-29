@@ -1,17 +1,15 @@
 package com.example.elective.models;
 
-public class Role {
-  private int id;
+public class Role extends Entity {
+
   private String name;
 
-  public int getId() {
-    return id;
-  }
-
+  @Override
   public Role setId(int id) {
-    this.id = id;
+    super.setId(id);
     return this;
   }
+
 
   public String getName() {
     return name;
