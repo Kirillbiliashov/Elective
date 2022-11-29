@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@WebServlet(value = "/admin", name = "admin")
+@WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
   private CourseService courseService = new CourseService();

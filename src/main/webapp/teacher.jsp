@@ -26,7 +26,7 @@
                         </c:if>
                         <c:if test="${journal.key.endDate.before(currDate)}">
                             <td>
-                                <form method="post" action="journal/addGrade/${journalData.key.id}">
+                                <form method="post" action="teacher/journal/addGrade/${journalData.key.id}">
                                     <input type="number" min="0" max="100" name="grade" id="grade"/>
                                     <input type="submit" class="btn btn-primary" value="Add grade">
                                 </form>

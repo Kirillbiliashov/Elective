@@ -17,7 +17,7 @@
                         <li class="list-group-item" style="margin: 10px">
                             <h4>${course.name}</h4>
                             <p>Start Date: ${course.startDate}</p>
-                            <form action="courses/enroll/${course.id}" method="post">
+                            <form action="student/courses/enroll/${course.id}" method="post">
                                 <input type="submit" class="btn btn-primary" value="Enroll">
                             </form>
                         </li>

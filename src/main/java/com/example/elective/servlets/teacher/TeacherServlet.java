@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.teacher;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(value = "/teacher", name = "teacher")
+@WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
 
   private TeacherService teacherService = new TeacherService();

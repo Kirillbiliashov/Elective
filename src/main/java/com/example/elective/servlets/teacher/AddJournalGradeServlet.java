@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.teacher;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.JournalDAO;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("/journal/addGrade/*")
+@WebServlet("/teacher/journal/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {
 
   private JournalService journalService = new JournalService();

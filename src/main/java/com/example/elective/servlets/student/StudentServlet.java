@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.student;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.CourseDAO;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet(value = "/student")
+@WebServlet("/student")
 public class StudentServlet extends HttpServlet {
 
   private StudentService studentService = new StudentService();

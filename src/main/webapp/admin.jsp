@@ -71,8 +71,8 @@
                             </c:if>
                         </div>
                         <div style="display: flex">
-                            <a href="courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
-                            <form action="courses/delete/${course.key.id}" method="POST">
+                            <a href="admin/courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
+                            <form action="admin/courses/delete/${course.key.id}" method="POST">
                                 <input type="submit" class="btn btn-danger" value="Delete">
                             </form>
                         </div>

@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
 import com.example.elective.services.AccountService;

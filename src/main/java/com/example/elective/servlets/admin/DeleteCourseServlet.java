@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.CourseDAO;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/courses/delete/*")
+@WebServlet("/admin/courses/delete/*")
 public class DeleteCourseServlet extends HttpServlet {
 
   private CourseService courseService = new CourseService();

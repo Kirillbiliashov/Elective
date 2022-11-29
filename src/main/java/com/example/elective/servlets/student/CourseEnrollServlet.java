@@ -1,4 +1,4 @@
-package com.example.elective.servlets;
+package com.example.elective.servlets.student;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.JournalDAO;
@@ -19,7 +19,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-@WebServlet("/courses/enroll/*")
+@WebServlet("/student/courses/enroll/*")
 public class CourseEnrollServlet extends HttpServlet {
 
   private RequestMapper<Journal> journalMapper = new JournalRequestMapper();
