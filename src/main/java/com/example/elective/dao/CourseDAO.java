@@ -12,6 +12,7 @@ public class CourseDAO extends AbstractDAO<Course> {
 
   private static final String GET_BY_TEACHER_ID = "SELECT * FROM course" +
       " WHERE teacher_id = ?";
+  private static final String GET_BY_TEACHER_ID_AT_POS = GET_BY_TEACHER_ID + " LIMIT ?,1";
   private static final String UPDATE = "UPDATE course SET name = ?," +
       "start_date = ?, end_date = ?, topic_id = ?, teacher_id = ? " +
       "WHERE id = ?";
@@ -29,6 +30,19 @@ public class CourseDAO extends AbstractDAO<Course> {
       List<Course> courses = new ArrayList<>();
       while (rs.next()) courses.add(mapResultSetToCourse(rs));
       return courses;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException();
+    }
+  }
+
+  public Optional<Course> getByTeacherIdAtPosition(int teacherId, int position) {
+    try (Connection conn = ConnectionPool.getConnection();
+         PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID_AT_POS)) {
+      ps.setInt(1, teacherId);
+      ps.setInt(2, position - 1);
+      ResultSet rs = ps.executeQuery();
+      return mapResultSetToOptionalCourse(rs);
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();

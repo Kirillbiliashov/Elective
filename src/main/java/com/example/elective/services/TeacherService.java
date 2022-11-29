@@ -10,6 +10,7 @@ import com.example.elective.models.Journal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class TeacherService {
 
@@ -26,8 +27,9 @@ public class TeacherService {
   }
 
   public Map.Entry<Course, Map<Journal, Account>> getJournal(int teacherId, int page) {
-    List<Course> courses = courseDao.getByTeacherId(teacherId);
-    Course course = courses.get(page - 1);
+    Optional<Course> optCourse = courseDao.getByTeacherIdAtPosition(teacherId, page);
+    if (!optCourse.isPresent()) return null;
+    Course course = optCourse.get();
     return Map.entry(course, getJournalStudent(course.getId()));
   }
 

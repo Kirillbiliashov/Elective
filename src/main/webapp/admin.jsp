@@ -6,23 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h3>Admin</h3>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="admin">Courses<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="admin/students">Students</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="admin/teachers">Teachers</a>
-            </li>
-        </ul>
-    </div>
-    <a href="/elective/logout" class="btn btn-primary">Log out</a>
-</nav>
+<c:import url="admin-navbar.jsp"/>
     <div style="margin: 30px">
         <h2>Courses</h2>
         <div style="display: flex; justify-content: space-between; margin: 30px">
