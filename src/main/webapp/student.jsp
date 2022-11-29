@@ -6,7 +6,11 @@
     <title>Title</title>
 </head>
 <body>
-<div style="margin: 20px">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h3>Student</h3>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent"/>
+        <a href="/elective/logout" class="btn btn-primary">Log out</a>
+    </nav>
     <h2>Courses</h2>
     <div style="display: flex; justify-content: space-around">
             <div style="margin: 15px">

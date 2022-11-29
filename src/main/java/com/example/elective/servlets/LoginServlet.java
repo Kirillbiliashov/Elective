@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
       req.getRequestDispatcher("login-form.jsp").forward(req, resp);
     }
     HttpSession session = req.getSession();
+    System.out.println("session(new) id: " + session.getId());
     session.setAttribute("account", acc);
     resp.sendRedirect("main");
   }

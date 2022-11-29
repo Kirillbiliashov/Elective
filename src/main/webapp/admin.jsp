@@ -21,6 +21,7 @@
             </li>
         </ul>
     </div>
+    <a href="/elective/logout" class="btn btn-primary">Log out</a>
 </nav>
     <div style="margin: 30px">
         <h2>Courses</h2>
