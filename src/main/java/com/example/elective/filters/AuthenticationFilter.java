@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*", initParams = {@WebInitParam(name = "loginPath", value = "/login"),
-    @WebInitParam(name = "signupPath", value = "/signup")})
 public class AuthenticationFilter extends HttpFilter {
 
   private String loginPath;

@@ -7,4 +7,30 @@
         <error-code>403</error-code>
         <location>/error-403.jsp</location>
     </error-page>
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.example.elective.filters.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>loginPath</param-name>
+            <param-value>/login</param-value>
+        </init-param>
+        <init-param>
+            <param-name>signupPath</param-name>
+            <param-value>/signup</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>com.example.elective.filters.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/teacher/*</url-pattern>
+        <url-pattern>/student/*</url-pattern>
+    </filter-mapping>
 </web-app>
