@@ -1,6 +1,5 @@
 package com.example.elective.filters;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -14,7 +13,7 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = "/*", initParams = {@WebInitParam(name = "loginPath", value = "/login"),
     @WebInitParam(name = "signupPath", value = "/signup")})
-public class LoginFilter extends HttpFilter {
+public class AuthenticationFilter extends HttpFilter {
 
   private String loginPath;
   private String signupPath;
@@ -32,12 +31,17 @@ public class LoginFilter extends HttpFilter {
     boolean isLoginPath = req.getServletPath().equals(loginPath);
     boolean isSignupPath = req.getServletPath().equals(signupPath);
     boolean isLoggedIn = session.getAttribute("account") != null;
-    if (!(isLoggedIn || isLoginPath || isSignupPath)) {
-      System.out.println("redirect to login");
-      res.sendRedirect("/elective/login");
-    } else {
-      chain.doFilter(req, res);
+    boolean isLegalPath = isLoginPath || isSignupPath;
+    if (!isLoggedIn) {
+      if (!isLegalPath) {
+        res.sendRedirect("/elective/login");
+        return;
+      }
+    } else if (isLegalPath) {
+      res.sendRedirect((String) session.getAttribute("homeUrl"));
+      return;
     }
+    chain.doFilter(req, res);
   }
 
 }

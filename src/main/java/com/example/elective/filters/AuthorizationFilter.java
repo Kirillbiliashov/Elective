@@ -1,8 +1,5 @@
 package com.example.elective.filters;
 
-import com.example.elective.services.RoleService;
-
-import javax.servlet.DispatcherType;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/admin/*", "/student/*", "/teacher/*"})
-public class RoleFilter extends HttpFilter {
+public class AuthorizationFilter extends HttpFilter {
 
   @Override
   protected void doFilter(HttpServletRequest req, HttpServletResponse res,
