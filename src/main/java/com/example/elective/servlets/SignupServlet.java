@@ -1,11 +1,8 @@
 package com.example.elective.servlets;
 
-import com.example.elective.dao.AccountDAO;
-import com.example.elective.dao.RoleDAO;
-import com.example.elective.mappers.RequestMapper;
-import com.example.elective.mappers.StudentRequestMapper;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.requestMappers.StudentRequestMapper;
 import com.example.elective.models.Account;
-import com.example.elective.models.Role;
 import com.example.elective.services.AccountService;
 
 import javax.servlet.ServletException;
@@ -14,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 
-  private RequestMapper<Account> studentMapper = new StudentRequestMapper();
+  private Mapper<HttpServletRequest, Account> studentMapper =
+      new StudentRequestMapper();
   private AccountService accService = new AccountService();
 
   @Override

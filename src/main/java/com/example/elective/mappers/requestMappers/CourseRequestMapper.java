@@ -1,5 +1,6 @@
-package com.example.elective.mappers;
+package com.example.elective.mappers.requestMappers;
 
+import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
 import javax.servlet.http.HttpServletRequest;

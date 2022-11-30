@@ -1,11 +1,9 @@
-package com.example.elective.mappers;
+package com.example.elective.mappers.requestMappers;
 
-import com.example.elective.dao.RoleDAO;
+import com.example.elective.mappers.requestMappers.AccountRequestMapper;
 import com.example.elective.models.Account;
-import com.example.elective.models.Role;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 public class TeacherRequestMapper extends AccountRequestMapper {
 

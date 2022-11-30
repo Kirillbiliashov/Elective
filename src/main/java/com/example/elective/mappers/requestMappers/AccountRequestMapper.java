@@ -1,6 +1,6 @@
-package com.example.elective.mappers;
+package com.example.elective.mappers.requestMappers;
 
-import com.example.elective.dao.RoleDAO;
+import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.RoleService;
@@ -8,7 +8,7 @@ import com.example.elective.services.RoleService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public abstract class AccountRequestMapper implements RequestMapper<Account>{
+public abstract class AccountRequestMapper implements RequestMapper<Account> {
 
   @Override
   public Account map(HttpServletRequest req) {

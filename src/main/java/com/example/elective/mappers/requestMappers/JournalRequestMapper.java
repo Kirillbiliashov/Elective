@@ -1,6 +1,7 @@
-package com.example.elective.mappers;
+package com.example.elective.mappers.requestMappers;
 
 import com.example.elective.Utils;
+import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Journal;
 

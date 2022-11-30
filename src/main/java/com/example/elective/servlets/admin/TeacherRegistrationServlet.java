@@ -1,13 +1,8 @@
 package com.example.elective.servlets.admin;
 
-import com.example.elective.Utils;
-import com.example.elective.dao.AccountDAO;
-import com.example.elective.dao.RoleDAO;
-import com.example.elective.mappers.AccountRequestMapper;
-import com.example.elective.mappers.RequestMapper;
-import com.example.elective.mappers.TeacherRequestMapper;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.requestMappers.TeacherRequestMapper;
 import com.example.elective.models.Account;
-import com.example.elective.models.Role;
 import com.example.elective.services.AccountService;
 
 import javax.servlet.ServletException;
@@ -16,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet("/admin/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {
 
-  private RequestMapper<Account> teacherMapper = new TeacherRequestMapper();
+  private Mapper<HttpServletRequest, Account> teacherMapper =
+      new TeacherRequestMapper();
   private AccountService accService = new AccountService();
 
   @Override

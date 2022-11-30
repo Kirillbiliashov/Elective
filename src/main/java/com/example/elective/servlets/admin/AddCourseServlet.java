@@ -1,12 +1,8 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
-import com.example.elective.dao.AccountDAO;
-import com.example.elective.dao.CourseDAO;
-import com.example.elective.dao.TopicDAO;
-import com.example.elective.mappers.CourseRequestMapper;
-import com.example.elective.mappers.RequestMapper;
-import com.example.elective.models.Account;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.requestMappers.CourseRequestMapper;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 import com.example.elective.services.AccountService;
@@ -24,7 +20,8 @@ import java.util.List;
 @WebServlet("/admin/courses/add")
 public class AddCourseServlet extends HttpServlet {
 
-  private RequestMapper<Course> courseMapper = new CourseRequestMapper();
+  private Mapper<HttpServletRequest, Course> courseMapper =
+      new CourseRequestMapper();
   private AccountService accService = new AccountService();
   private CourseService courseService = new CourseService();
   private TopicService topicService = new TopicService();
