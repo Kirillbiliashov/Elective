@@ -1,6 +1,8 @@
 package com.example.elective.dao;
 
 import com.example.elective.ConnectionPool;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.resultSetMappers.TopicResultSetMapper;
 import com.example.elective.models.Topic;
 
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class TopicDAO extends AbstractDAO<Topic> {
 
   private static final String GET_ALL = "SELECT * FROM topic";
+  private Mapper<ResultSet, Topic> mapper = new TopicResultSetMapper();
 
   @Override
   public List<Topic> findAll() {
@@ -21,7 +24,7 @@ public class TopicDAO extends AbstractDAO<Topic> {
     Statement stmt = conn.createStatement()) {
       ResultSet rs = stmt.executeQuery(GET_ALL);
       List<Topic> topics = new ArrayList<>();
-      while (rs.next()) topics.add(mapResultSetToTopic(rs));
+      while (rs.next()) topics.add(mapper.map(rs));
       return topics;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -47,10 +50,6 @@ public class TopicDAO extends AbstractDAO<Topic> {
   @Override
   public void delete(int id) {
     throw new UnsupportedOperationException();
-  }
-
-  private static Topic mapResultSetToTopic(ResultSet rs) throws SQLException {
-    return new Topic(rs.getInt("id"), rs.getString("name"));
   }
 
 }

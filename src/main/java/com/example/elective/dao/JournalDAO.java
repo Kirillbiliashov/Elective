@@ -1,6 +1,8 @@
 package com.example.elective.dao;
 
 import com.example.elective.ConnectionPool;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.resultSetMappers.JournalResultSetMapper;
 import com.example.elective.models.Journal;
 
 import java.sql.Connection;
@@ -24,12 +26,15 @@ public class JournalDAO extends AbstractDAO<Journal> {
   private static final String GET_BY_COURSE_ID = "SELECT * FROM journal" +
       " WHERE course_id = ?";
 
+  private Mapper<ResultSet, Journal> mapper = new JournalResultSetMapper();
+
   @Override
   public Optional<Journal> find(int journalId) {
-    try(Connection conn = ConnectionPool.getConnection();
-        PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
+    try(PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, journalId);
-      return mapResultSetToOptionalJournal(ps.executeQuery());
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) return Optional.empty();
+      return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -38,8 +43,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
 
   @Override
   public void update(Journal journal) {
-    try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(UPDATE)) {
+    try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setInt(idx++, journal.getGrade());
       ps.setDate(idx++, journal.getEnrollmentDate());
@@ -53,8 +57,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
 
   @Override
   public void save(Journal journal) {
-    try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(SAVE,
+    try (PreparedStatement ps = conn.prepareStatement(SAVE,
              PreparedStatement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
       ps.setDate(idx++, journal.getEnrollmentDate());
@@ -80,12 +83,13 @@ public class JournalDAO extends AbstractDAO<Journal> {
   }
 
   public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
-    try(Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
+    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
       int idx = 1;
       ps.setInt(idx++, courseId);
       ps.setInt(idx, studentId);
-      return mapResultSetToOptionalJournal(ps.executeQuery());
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) return Optional.empty();
+      return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -93,33 +97,16 @@ public class JournalDAO extends AbstractDAO<Journal> {
   }
 
   public List<Journal> getByCourseId(int courseId) {
-    try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(GET_BY_COURSE_ID)) {
+    try (PreparedStatement ps = conn.prepareStatement(GET_BY_COURSE_ID)) {
       ps.setInt(1, courseId);
       ResultSet rs = ps.executeQuery();
       List<Journal> journalList = new ArrayList<>();
-      while (rs.next()) journalList.add(mapResultSetToJournal(rs));
+      while (rs.next()) journalList.add(mapper.map(rs));
       return journalList;
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
     }
-  }
-
-  private Optional<Journal> mapResultSetToOptionalJournal(ResultSet rs)
-      throws SQLException {
-    if (!rs.next()) return Optional.empty();
-    return Optional.of(mapResultSetToJournal(rs));
-  }
-
-  private Journal mapResultSetToJournal(ResultSet rs) throws SQLException {
-    return new Journal.JournalBuilder()
-        .setId(rs.getInt("id"))
-        .setGrade(rs.getInt("grade"))
-        .setEnrollmentDate(rs.getDate("enrollment_date"))
-        .setCourseId(rs.getInt("course_id"))
-        .setStudentId(rs.getInt("student_id"))
-        .build();
   }
 
 }

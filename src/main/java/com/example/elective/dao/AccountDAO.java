@@ -1,6 +1,8 @@
 package com.example.elective.dao;
 
 import com.example.elective.ConnectionPool;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.resultSetMappers.AccountResultSetMapper;
 import com.example.elective.models.Account;
 
 import java.sql.*;
@@ -19,13 +21,15 @@ public class AccountDAO extends AbstractDAO<Account> {
       " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?)";
   private static final String FIND_BY_CREDENTIALS = "SELECT * FROM account" +
       " WHERE login = ? AND password = ?";
+  private Mapper<ResultSet, Account> mapper = new AccountResultSetMapper();
 
   @Override
   public Optional<Account> find(int id) {
-    try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
+    try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
-      return mapResultSetToOptionalAccount(ps.executeQuery());
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) return Optional.empty();
+      return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -34,8 +38,7 @@ public class AccountDAO extends AbstractDAO<Account> {
 
   @Override
   public void update(Account acc) {
-    try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(UPDATE)) {
+    try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setBoolean(idx++, acc.isBlocked());
       ps.setInt(idx, acc.getId());
@@ -58,8 +61,7 @@ public class AccountDAO extends AbstractDAO<Account> {
 
   @Override
   public void save(Account acc) {
-    try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(SAVE,
+    try (PreparedStatement ps = conn.prepareStatement(SAVE,
              Statement.RETURN_GENERATED_KEYS)) {
       addMissingValuesToStatement(ps, acc);
       ps.executeUpdate();
@@ -72,12 +74,11 @@ public class AccountDAO extends AbstractDAO<Account> {
   }
 
   public List<Account> getByRole(String roleName) {
-    try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(GET_BY_ROLE)) {
+    try (PreparedStatement ps = conn.prepareStatement(GET_BY_ROLE)) {
       ps.setString(1, roleName);
       ResultSet rs = ps.executeQuery();
       List<Account> accounts = new ArrayList<>();
-      while (rs.next()) accounts.add(mapResultSetToAccount(rs));
+      while (rs.next()) accounts.add(mapper.map(rs));
       return accounts;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -96,34 +97,17 @@ public class AccountDAO extends AbstractDAO<Account> {
   }
 
   public Optional<Account> findByCredentials(String login, String password) {
-    try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
+    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
       int idx = 1;
       ps.setString(idx++, login);
       ps.setString(idx, password);
-      return mapResultSetToOptionalAccount(ps.executeQuery());
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) return Optional.empty();
+      return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
     }
-  }
-
-  private Optional<Account> mapResultSetToOptionalAccount(ResultSet rs)
-      throws SQLException {
-    if (!rs.next()) return Optional.empty();
-    return Optional.of(mapResultSetToAccount(rs));
-  }
-
-  private Account mapResultSetToAccount(ResultSet rs) throws SQLException {
-    return Account.newBuilder()
-        .setId(rs.getInt("id"))
-        .setLogin(rs.getString("login"))
-        .setPassword(rs.getString("password"))
-        .setFirstName(rs.getString("first_name"))
-        .setLastName(rs.getString("last_name"))
-        .setBlocked(rs.getBoolean("is_blocked"))
-        .setRoleId(rs.getInt("role_id"))
-        .build();
   }
 
 }

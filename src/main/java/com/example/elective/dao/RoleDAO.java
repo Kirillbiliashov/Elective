@@ -1,6 +1,8 @@
 package com.example.elective.dao;
 
 import com.example.elective.ConnectionPool;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.resultSetMappers.RoleResultSetMapper;
 import com.example.elective.models.Role;
 
 import java.sql.Connection;
@@ -15,12 +17,14 @@ public class RoleDAO extends AbstractDAO<Role> {
   private static final String FIND_BY_NAME = "SELECT * FROM role" +
       " WHERE name = ?";
   private static final String FIND_BY_ID = "SELECT * FROM role WHERE id = ?";
+  private Mapper<ResultSet, Role> mapper = new RoleResultSetMapper();
 
   public Optional<Role> findByName(String name) {
-    try (Connection conn = ConnectionPool.getConnection();
-    PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME)) {
+    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME)) {
       ps.setString(1, name);
-      return mapResultSetToRole(ps.executeQuery());
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) return Optional.empty();
+      return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -29,10 +33,11 @@ public class RoleDAO extends AbstractDAO<Role> {
 
   @Override
   public Optional<Role> find(int id) {
-    try (Connection conn = ConnectionPool.getConnection();
-         PreparedStatement ps = conn.prepareStatement(FIND_BY_ID)) {
+    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ID)) {
       ps.setInt(1, id);
-      return mapResultSetToRole(ps.executeQuery());
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) return Optional.empty();
+      return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -46,23 +51,17 @@ public class RoleDAO extends AbstractDAO<Role> {
 
   @Override
   public void save(Role entity) {
-
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public void update(Role entity) {
-
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public void delete(int id) {
-
-  }
-
-  private Optional<Role> mapResultSetToRole(ResultSet rs) throws SQLException {
-    if (!rs.next()) return Optional.empty();
-    Role role = new Role(rs.getInt("id"), rs.getString("name"));
-    return Optional.of(role);
+    throw new UnsupportedOperationException();
   }
 
 }

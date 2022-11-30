@@ -1,18 +1,15 @@
 package com.example.elective.dao;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<T> implements DAO<T> {
 
-  public abstract List<T> findAll();
+  protected Connection conn;
 
-  public abstract Optional<T> find(int id);
-
-  public abstract void save(T entity);
-
-  public abstract void update(T entity);
-
-  public abstract void delete(int id);
+  public void setConnection(Connection conn) {
+    this.conn = conn;
+  }
 
 }
