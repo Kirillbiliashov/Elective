@@ -7,10 +7,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h3>Student</h3>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"/>
+        <h3>Student</h3>
         <a href="/elective/logout" class="btn btn-primary">Log out</a>
-    </nav>
+</nav>
     <h2>Courses</h2>
     <div style="display: flex; justify-content: space-around">
             <div style="margin: 15px">
@@ -77,7 +76,5 @@
             </div>
     </div>
 </div>
-
-
 </body>
 </html>

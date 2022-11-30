@@ -42,7 +42,7 @@
                     <input type="submit" class="btn btn-primary" value="Apply">
                 </div>
             </form>
-            <a href="courses/add">Add course</a>
+            <a href="admin/courses/add">Add course</a>
         </div>
         <ul class="list-group">
             <c:forEach items="${courses}" var="course">
