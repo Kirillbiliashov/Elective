@@ -36,7 +36,8 @@ public class CourseService {
     Date endDate = Date.valueOf(values[END_DATE_IDX]);
     int topicId = Integer.parseInt(values[TOPIC_ID_IDX]);
     int teacherId = Integer.parseInt(values[TEACHER_ID_IDX]);
-    course.setName(name)
+    course.getBuilder()
+        .setName(name)
         .setStartDate(startDate)
         .setEndDate(endDate)
         .setTopicId(topicId)

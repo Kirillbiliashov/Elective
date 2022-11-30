@@ -8,46 +8,69 @@ public class Journal extends Entity {
   private Date enrollmentDate;
   private int courseId;
   private int studentId;
+  private JournalBuilder builder;
 
-  @Override
-  public Journal setId(int id) {
-    super.setId(id);
-    return this;
+  public Journal(JournalBuilder builder) {
+    this.builder = builder;
+  }
+
+  public JournalBuilder getBuilder() {
+    return builder;
   }
 
   public int getGrade() {
     return grade;
   }
 
-  public Journal setGrade(int grade) {
-    this.grade = grade;
-    return this;
-  }
-
   public Date getEnrollmentDate() {
     return enrollmentDate;
-  }
-
-  public Journal setEnrollmentDate(Date enrollmentDate) {
-    this.enrollmentDate = enrollmentDate;
-    return this;
   }
 
   public int getCourseId() {
     return courseId;
   }
 
-  public Journal setCourseId(int courseId) {
-    this.courseId = courseId;
-    return this;
-  }
-
   public int getStudentId() {
     return studentId;
   }
 
-  public Journal setStudentId(int studentId) {
-    this.studentId = studentId;
-    return this;
+  public static JournalBuilder newBuilder() {
+    return new JournalBuilder();
   }
+
+
+  public static class JournalBuilder {
+    private final Journal journal = new Journal(this);
+
+    public JournalBuilder setId(int id) {
+      if (journal.id == 0) journal.id = id;
+      return this;
+    }
+
+    public JournalBuilder setGrade(int grade) {
+      journal.grade = grade;
+      return this;
+    }
+
+    public JournalBuilder setEnrollmentDate(Date enrollmentDate) {
+      journal.enrollmentDate = enrollmentDate;
+      return this;
+    }
+
+    public JournalBuilder setCourseId(int courseId) {
+      journal.courseId = courseId;
+      return this;
+    }
+
+    public JournalBuilder setStudentId(int studentId) {
+      journal.studentId = studentId;
+      return this;
+    }
+
+    public Journal build() {
+      return journal;
+    }
+
+  }
+
 }

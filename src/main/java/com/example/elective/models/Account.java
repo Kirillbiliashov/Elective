@@ -8,65 +8,86 @@ public class Account extends Entity {
   private String lastName;
   private boolean isBlocked;
   private int roleId;
+  private AccountBuilder builder;
 
-  @Override
-  public Account setId(int id) {
-    super.setId(id);
-    return this;
+  public Account(AccountBuilder builder) {
+    this.builder = builder;
+  }
+
+  public AccountBuilder getBuilder() {
+    return builder;
   }
 
   public String getLogin() {
     return login;
   }
 
-  public Account setLogin(String login) {
-    this.login = login;
-    return this;
-  }
-
   public String getPassword() {
     return password;
-  }
-
-  public Account setPassword(String password) {
-    this.password = password;
-    return this;
   }
 
   public String getFirstName() {
     return firstName;
   }
 
-  public Account setFirstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
-
   public String getLastName() {
     return lastName;
-  }
-
-  public Account setLastName(String lastName) {
-    this.lastName = lastName;
-    return this;
   }
 
   public boolean isBlocked() {
     return isBlocked;
   }
 
-  public Account setBlocked(boolean blocked) {
-    isBlocked = blocked;
-    return this;
-  }
-
   public int getRoleId() {
     return roleId;
   }
 
-  public Account setRoleId(int roleId) {
-    this.roleId = roleId;
-    return this;
+  public static AccountBuilder newBuilder() {
+    return new AccountBuilder();
+  }
+
+  public static class AccountBuilder {
+    private final Account account = new Account(this);
+
+    public AccountBuilder setId(int id) {
+      if (account.id == 0) account.id = id;
+      return this;
+    }
+
+    public AccountBuilder setLogin(String login) {
+      account.login = login;
+      return this;
+    }
+
+    public AccountBuilder setPassword(String password) {
+      account.password = password;
+      return this;
+    }
+
+    public AccountBuilder setFirstName(String firstName) {
+      account.firstName = firstName;
+      return this;
+    }
+
+    public AccountBuilder setLastName(String lastName) {
+      account.lastName = lastName;
+      return this;
+    }
+
+    public AccountBuilder setBlocked(boolean isBlocked) {
+      account.isBlocked = isBlocked;
+      return this;
+    }
+
+    public AccountBuilder setRoleId(int roleId) {
+      account.roleId = roleId;
+      return this;
+    }
+
+    public Account build() {
+      return account;
+    }
+
   }
 
 }

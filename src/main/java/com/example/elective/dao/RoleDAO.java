@@ -61,9 +61,7 @@ public class RoleDAO extends AbstractDAO<Role> {
 
   private Optional<Role> mapResultSetToRole(ResultSet rs) throws SQLException {
     if (!rs.next()) return Optional.empty();
-    Role role = new Role();
-    role.setId(rs.getInt("id"));
-    role.setName(rs.getString("name"));
+    Role role = new Role(rs.getInt("id"), rs.getString("name"));
     return Optional.of(role);
   }
 

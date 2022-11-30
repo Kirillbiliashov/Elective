@@ -9,11 +9,14 @@ public class Course extends Entity {
   private Date endDate;
   private int topicId;
   private int teacherId;
+  private CourseBuilder builder;
 
-  @Override
-  public Course setId(int id) {
-    super.setId(id);
-    return this;
+  public Course(CourseBuilder builder) {
+    this.builder = builder;
+  }
+
+  public CourseBuilder getBuilder() {
+    return builder;
   }
 
   public String getName() {
@@ -29,36 +32,61 @@ public class Course extends Entity {
     return endDate;
   }
 
-  public Course setEndDate(Date endDate) {
-    this.endDate = endDate;
-    return this;
-  }
-
   public Date getStartDate() {
     return startDate;
-  }
-
-  public Course setStartDate(Date startDate) {
-    this.startDate = startDate;
-    return this;
   }
 
   public int getTopicId() {
     return topicId;
   }
 
-  public Course setTopicId(int topicId) {
-    this.topicId = topicId;
-    return this;
-  }
-
   public int getTeacherId() {
     return teacherId;
   }
 
-  public Course setTeacherId(int teacherId) {
-    this.teacherId = teacherId;
-    return this;
+  public static CourseBuilder newBuilder() {
+    return new CourseBuilder();
+  }
+
+
+  public static class CourseBuilder {
+
+    private final Course course = new Course(this);
+
+    public CourseBuilder setId(int id) {
+      if (course.id == 0) course.id = id;
+      return this;
+    }
+
+    public CourseBuilder setName(String name) {
+      course.name = name;
+      return this;
+    }
+
+    public CourseBuilder setStartDate(Date startDate) {
+      course.startDate = startDate;
+      return this;
+    }
+
+    public  CourseBuilder setEndDate(Date endDate) {
+      course.endDate = endDate;
+      return this;
+    }
+
+    public CourseBuilder setTopicId(int topicId) {
+      course.topicId = topicId;
+      return this;
+    }
+
+    public CourseBuilder setTeacherId(int teacherId) {
+      course.teacherId = teacherId;
+      return this;
+    }
+
+    public Course build() {
+      return course;
+    }
+
   }
 
 }

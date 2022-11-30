@@ -12,17 +12,18 @@ public abstract class AccountRequestMapper implements RequestMapper<Account>{
 
   @Override
   public Account map(HttpServletRequest req) {
-    return new Account()
+    return Account.newBuilder()
         .setLogin(req.getParameter("login"))
         .setPassword(req.getParameter("password"))
         .setFirstName(req.getParameter("firstName"))
-        .setLastName(req.getParameter("lastName"));
+        .setLastName(req.getParameter("lastName"))
+        .build();
   }
 
   protected void setAccountRole(Account acc, String roleName) {
     RoleService roleService = new RoleService();
     Optional<Role> optRole = roleService.getByName(roleName);
-    optRole.ifPresent(role -> acc.setRoleId(role.getId()));
+    optRole.ifPresent(role -> acc.getBuilder().setRoleId(role.getId()));
   }
 
 }

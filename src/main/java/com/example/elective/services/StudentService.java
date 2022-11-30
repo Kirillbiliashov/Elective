@@ -22,7 +22,7 @@ public class StudentService {
     Optional<Account> optAcc = accDao.find(id);
     if (optAcc.isPresent()) {
       Account acc = optAcc.get();
-      acc.setBlocked(!acc.isBlocked());
+      acc.getBuilder().setBlocked(!acc.isBlocked());
       accDao.update(acc);
     }
   }

@@ -14,10 +14,11 @@ public class JournalRequestMapper implements RequestMapper<Journal> {
     int courseId = Utils.getIdFromPathInfo(req.getPathInfo());
     HttpSession session = req.getSession();
     int studentId = ((Account) session.getAttribute("account")).getId();
-    return new Journal()
+    return Journal.newBuilder()
         .setCourseId(courseId)
         .setStudentId(studentId)
-        .setEnrollmentDate(Utils.CURRENT_DATE);
+        .setEnrollmentDate(Utils.CURRENT_DATE)
+        .build();
   }
 
 }

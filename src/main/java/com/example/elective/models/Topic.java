@@ -4,14 +4,13 @@ public class Topic extends Entity {
 
   private String name;
 
-  public String getName() {
-    return name;
+  public Topic(int id, String name) {
+    this.id = id;
+    this.name = name;
   }
 
-  @Override
-  public Topic setId(int id) {
-    super.setId(id);
-    return this;
+  public String getName() {
+    return name;
   }
 
   public Topic setName(String name) {

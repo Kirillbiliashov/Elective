@@ -81,7 +81,7 @@ public class CourseDAO extends AbstractDAO<Course> {
       else ps.setInt(idx, course.getTeacherId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) course.setId(rs.getInt(1));
+      if (rs.next()) course.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -133,12 +133,13 @@ public class CourseDAO extends AbstractDAO<Course> {
   }
 
   private Course mapResultSetToCourse(ResultSet rs) throws SQLException {
-    return new Course()
+    return Course.newBuilder()
         .setId(rs.getInt("id"))
         .setName(rs.getString("name"))
         .setStartDate(rs.getDate("start_date"))
         .setEndDate(rs.getDate("end_date"))
         .setTeacherId(rs.getInt("teacher_id"))
-        .setTopicId(rs.getInt("topic_id"));
+        .setTopicId(rs.getInt("topic_id"))
+        .build();
   }
 }

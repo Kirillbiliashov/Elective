@@ -62,7 +62,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
       ps.setInt(idx, journal.getStudentId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) journal.setId(rs.getInt(1));
+      if (rs.next()) journal.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -113,12 +113,13 @@ public class JournalDAO extends AbstractDAO<Journal> {
   }
 
   private Journal mapResultSetToJournal(ResultSet rs) throws SQLException {
-    return new Journal()
+    return new Journal.JournalBuilder()
         .setId(rs.getInt("id"))
         .setGrade(rs.getInt("grade"))
         .setEnrollmentDate(rs.getDate("enrollment_date"))
         .setCourseId(rs.getInt("course_id"))
-        .setStudentId(rs.getInt("student_id"));
+        .setStudentId(rs.getInt("student_id"))
+        .build();
   }
 
 }

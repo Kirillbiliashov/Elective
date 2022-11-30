@@ -17,7 +17,7 @@ public class JournalService {
     Optional<Journal> optJournal = dao.find(id);
     if (optJournal.isPresent()) {
       Journal journal = optJournal.get();
-      journal.setGrade(grade);
+      journal.getBuilder().setGrade(grade);
       dao.update(journal);
     }
   }

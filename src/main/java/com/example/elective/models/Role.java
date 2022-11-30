@@ -4,12 +4,10 @@ public class Role extends Entity {
 
   private String name;
 
-  @Override
-  public Role setId(int id) {
-    super.setId(id);
-    return this;
+  public Role(int id, String name) {
+    this.id = id;
+    this.name = name;
   }
-
 
   public String getName() {
     return name;

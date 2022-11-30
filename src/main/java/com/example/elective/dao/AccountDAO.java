@@ -64,7 +64,7 @@ public class AccountDAO extends AbstractDAO<Account> {
       addMissingValuesToStatement(ps, acc);
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) acc.setId(rs.getInt(1));
+      if (rs.next()) acc.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -115,14 +115,15 @@ public class AccountDAO extends AbstractDAO<Account> {
   }
 
   private Account mapResultSetToAccount(ResultSet rs) throws SQLException {
-    return new Account()
+    return Account.newBuilder()
         .setId(rs.getInt("id"))
         .setLogin(rs.getString("login"))
         .setPassword(rs.getString("password"))
         .setFirstName(rs.getString("first_name"))
         .setLastName(rs.getString("last_name"))
         .setBlocked(rs.getBoolean("is_blocked"))
-        .setRoleId(rs.getInt("role_id"));
+        .setRoleId(rs.getInt("role_id"))
+        .build();
   }
 
 }

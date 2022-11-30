@@ -50,8 +50,7 @@ public class TopicDAO extends AbstractDAO<Topic> {
   }
 
   private static Topic mapResultSetToTopic(ResultSet rs) throws SQLException {
-    return new Topic().setId(rs.getInt("id"))
-        .setName(rs.getString("name"));
+    return new Topic(rs.getInt("id"), rs.getString("name"));
   }
 
 }
