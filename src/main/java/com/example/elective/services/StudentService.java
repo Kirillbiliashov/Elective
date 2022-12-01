@@ -1,5 +1,6 @@
 package com.example.elective.services;
 
+import com.example.elective.TransactionManager;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
@@ -17,26 +18,37 @@ public class StudentService {
   private AccountDAO accDao = new AccountDAO();
   private CourseDAO courseDao = new CourseDAO();
   private JournalDAO journalDao = new JournalDAO();
+  private TransactionManager transactionManager = new TransactionManager();
 
   public void changeBlockStatus(int id) {
+    transactionManager.initTransaction(accDao);
     Optional<Account> optAcc = accDao.find(id);
     if (optAcc.isPresent()) {
       Account acc = optAcc.get();
       acc.getBuilder().setBlocked(!acc.isBlocked());
       accDao.update(acc);
     }
+    transactionManager.commitTransaction();
+    transactionManager.endTransaction();
   }
 
   public List<Account> getAll() {
-    return accDao.getByRole("Student");
+    transactionManager.initTransaction(accDao);
+    List<Account> accountList = accDao.getByRole("Student");
+    transactionManager.commitTransaction();
+    transactionManager.endTransaction();
+    return accountList;
   }
 
   public Map<Course, Journal> getCourseJournal(int studentId) {
+    transactionManager.initTransaction(courseDao, journalDao);
     List<Course> courses = courseDao.findAll();
     Map<Course, Journal> map = new LinkedHashMap<>();
     for (final Course course: courses) {
       map.put(course, journalDao.findByCourseAndStudent(course.getId(), studentId).orElse(null));
     }
+    transactionManager.commitTransaction();
+    transactionManager.endTransaction();
     return map;
   }
 
