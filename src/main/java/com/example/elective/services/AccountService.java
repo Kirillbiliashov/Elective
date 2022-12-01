@@ -1,17 +1,14 @@
 package com.example.elective.services;
 
-import com.example.elective.TransactionManager;
-import com.example.elective.dao.AbstractDAO;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.models.Account;
 
 import java.util.List;
 import java.util.Optional;
 
-public class AccountService {
+public class AccountService extends AbstractService {
 
   private AccountDAO dao = new AccountDAO();
-  private TransactionManager transactionManager = new TransactionManager();
 
   public Optional<Account> findByCredentials(String login, String password) {
     transactionManager.initTransaction(dao);
@@ -32,8 +29,7 @@ public class AccountService {
   public void save(Account acc) {
     transactionManager.initTransaction(dao);
     dao.save(acc);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
+    performWriteOperation(() -> dao.save(acc));
   }
 
 }

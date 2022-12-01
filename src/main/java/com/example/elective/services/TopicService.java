@@ -6,10 +6,9 @@ import com.example.elective.models.Topic;
 
 import java.util.List;
 
-public class TopicService {
+public class TopicService extends AbstractService {
 
   private TopicDAO dao = new TopicDAO();
-  private TransactionManager transactionManager = new TransactionManager();
 
   public List<Topic> getAll() {
     transactionManager.initTransaction(dao);

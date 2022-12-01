@@ -6,10 +6,9 @@ import com.example.elective.models.Role;
 
 import java.util.Optional;
 
-public class RoleService {
+public class RoleService extends AbstractService {
 
   private RoleDAO dao = new RoleDAO();
-  private TransactionManager transactionManager = new TransactionManager();
 
   public Optional<Role> getById(int id) {
     transactionManager.initTransaction(dao);

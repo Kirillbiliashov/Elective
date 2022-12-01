@@ -13,23 +13,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class StudentService {
+public class StudentService extends AbstractService {
 
   private AccountDAO accDao = new AccountDAO();
   private CourseDAO courseDao = new CourseDAO();
   private JournalDAO journalDao = new JournalDAO();
-  private TransactionManager transactionManager = new TransactionManager();
 
   public void changeBlockStatus(int id) {
     transactionManager.initTransaction(accDao);
-    Optional<Account> optAcc = accDao.find(id);
-    if (optAcc.isPresent()) {
-      Account acc = optAcc.get();
-      acc.getBuilder().setBlocked(!acc.isBlocked());
-      accDao.update(acc);
-    }
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
+    performWriteOperation(() -> {
+      Optional<Account> optAcc = accDao.find(id);
+      if (optAcc.isPresent()) {
+        Account acc = optAcc.get();
+        acc.getBuilder().setBlocked(!acc.isBlocked());
+        accDao.update(acc);
+      }
+    });
   }
 
   public List<Account> getAll() {

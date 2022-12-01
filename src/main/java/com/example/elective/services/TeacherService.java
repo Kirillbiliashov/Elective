@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class TeacherService {
+public class TeacherService extends AbstractService {
 
   private AccountDAO accDao = new AccountDAO();
   private CourseDAO courseDao = new CourseDAO();
   private JournalDAO journalDao = new JournalDAO();
-  private TransactionManager transactionManager = new TransactionManager();
 
   public int getPagesCount(int teacherId) {
     transactionManager.initTransaction(courseDao);

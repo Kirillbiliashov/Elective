@@ -9,10 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="TransactionManager class for handling mysql transactions was created">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AbstractDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/DAO.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Services were modified so that they use transaction manager for handling connection">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" afterDir="false" />
@@ -261,14 +259,7 @@
       <workItem from="1669191714965" duration="452000" />
       <workItem from="1669198843471" duration="23602000" />
       <workItem from="1669563222164" duration="38349000" />
-      <workItem from="1669889469402" duration="2703000" />
-    </task>
-    <task id="LOCAL-00002" summary="Connection pool class was added">
-      <created>1668073605103</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1668073605103</updated>
+      <workItem from="1669889469402" duration="3473000" />
     </task>
     <task id="LOCAL-00003" summary="login and signup mechanisms were added">
       <created>1668102130927</created>
@@ -606,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669840338946</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Services were modified so that they use transaction manager for handling connection">
+      <created>1669894349359</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1669894349360</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +634,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Wrong selected option in edit course form was fixed" />
     <MESSAGE value="Form is used for selection/sort of courses instead of dropdown" />
     <MESSAGE value="Navbar was created for separating content from single page" />
     <MESSAGE value="Minor overall improvements were made" />
@@ -661,6 +658,7 @@
     <MESSAGE value="result set mappers layer was added" />
     <MESSAGE value="DAO layer was abstracted from instantiating connection" />
     <MESSAGE value="TransactionManager class for handling mysql transactions was created" />
-    <option name="LAST_COMMIT_MESSAGE" value="TransactionManager class for handling mysql transactions was created" />
+    <MESSAGE value="Services were modified so that they use transaction manager for handling connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Services were modified so that they use transaction manager for handling connection" />
   </component>
 </project>

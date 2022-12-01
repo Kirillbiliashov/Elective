@@ -1,6 +1,5 @@
 package com.example.elective.services;
 
-import com.example.elective.TransactionManager;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.models.Account;
@@ -12,11 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CourseService {
+public class CourseService extends AbstractService {
 
   private CourseDAO dao = new CourseDAO();
   private AccountDAO accDao = new AccountDAO();
-  private TransactionManager transactionManager = new TransactionManager();
  private static final int NAME_IDX = 0;
  private static final int START_DATE_IDX = 1;
  private static final int END_DATE_IDX = 2;
@@ -25,14 +23,14 @@ public class CourseService {
 
   public void updateById(int id, String... updValues) {
     transactionManager.initTransaction(dao);
-    Optional<Course> optCourse = dao.find(id);
-    if (optCourse.isPresent()) {
-      Course course = optCourse.get();
-      updateFields(course, updValues);
-      dao.update(course);
-    }
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
+    performWriteOperation(() -> {
+      Optional<Course> optCourse = dao.find(id);
+      if (optCourse.isPresent()) {
+        Course course = optCourse.get();
+        updateFields(course, updValues);
+        dao.update(course);
+      }
+    });
   }
 
   private void updateFields(Course course, String... values) {
@@ -51,16 +49,12 @@ public class CourseService {
 
   public void save(Course course) {
     transactionManager.initTransaction(dao);
-    dao.save(course);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
+    performWriteOperation(() -> dao.save(course));
   }
 
   public void delete(int id) {
     transactionManager.initTransaction(dao);
-    dao.delete(id);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
+    performWriteOperation(() -> dao.delete(id));
   }
 
   public List<Course> getAll() {

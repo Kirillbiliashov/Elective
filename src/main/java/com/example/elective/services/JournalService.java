@@ -6,27 +6,25 @@ import com.example.elective.models.Journal;
 
 import java.util.Optional;
 
-public class JournalService {
+public class JournalService extends AbstractService {
 
   private JournalDAO dao = new JournalDAO();
-  private TransactionManager transactionManager = new TransactionManager();
 
   public void save(Journal journal) {
     transactionManager.initTransaction(dao);
-    dao.save(journal);
-    transactionManager.commitTransaction();
+    performWriteOperation(() -> dao.save(journal));
   }
 
   public void updateGradeById(int id, int grade) {
     transactionManager.initTransaction(dao);
-    Optional<Journal> optJournal = dao.find(id);
-    if (optJournal.isPresent()) {
-      Journal journal = optJournal.get();
-      journal.getBuilder().setGrade(grade);
-      dao.update(journal);
-    }
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
+    performWriteOperation(() -> {
+      Optional<Journal> optJournal = dao.find(id);
+      if (optJournal.isPresent()) {
+        Journal journal = optJournal.get();
+        journal.getBuilder().setGrade(grade);
+        dao.update(journal);
+      }
+    });
   }
 
   public int getByCourseIdCount(int courseId) {
