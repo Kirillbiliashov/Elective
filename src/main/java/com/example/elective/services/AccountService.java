@@ -12,18 +12,12 @@ public class AccountService extends AbstractService {
 
   public Optional<Account> findByCredentials(String login, String password) {
     transactionManager.initTransaction(dao);
-    Optional<Account> optAccounts = dao.findByCredentials(login, password);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return optAccounts;
+    return performReadOperation(() -> dao.findByCredentials(login, password));
   }
 
   public List<Account> getByRole(String roleName) {
     transactionManager.initTransaction(dao);
-    List<Account> accountList = dao.getByRole(roleName);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return accountList;
+    return performReadOperation(() -> dao.getByRole(roleName));
   }
 
   public void save(Account acc) {

@@ -33,22 +33,21 @@ public class StudentService extends AbstractService {
 
   public List<Account> getAll() {
     transactionManager.initTransaction(accDao);
-    List<Account> accountList = accDao.getByRole("Student");
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return accountList;
+    return performReadOperation(() -> accDao.getByRole("Student"));
   }
 
   public Map<Course, Journal> getCourseJournal(int studentId) {
     transactionManager.initTransaction(courseDao, journalDao);
-    List<Course> courses = courseDao.findAll();
-    Map<Course, Journal> map = new LinkedHashMap<>();
-    for (final Course course: courses) {
-      map.put(course, journalDao.findByCourseAndStudent(course.getId(), studentId).orElse(null));
-    }
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return map;
+    return performReadOperation(() -> {
+      List<Course> courses = courseDao.findAll();
+      Map<Course, Journal> map = new LinkedHashMap<>();
+      for (final Course course: courses) {
+        map.put(course, journalDao
+            .findByCourseAndStudent(course.getId(), studentId)
+            .orElse(null));
+      }
+      return map;
+    });
   }
 
 }

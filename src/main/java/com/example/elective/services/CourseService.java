@@ -59,29 +59,23 @@ public class CourseService extends AbstractService {
 
   public List<Course> getAll() {
     transactionManager.initTransaction(dao);
-    List<Course> courses = dao.findAll();
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return courses;
+    return performReadOperation(() -> dao.findAll());
   }
 
   public Optional<Course> getById(int id) {
     transactionManager.initTransaction(dao);
-    Optional<Course> optCourse = dao.find(id);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return optCourse;
+    return performReadOperation(() -> dao.find(id));
   }
 
 
   public Map<Course, Account> getCourseTeacher(List<Course> courses) {
     transactionManager.initTransaction(accDao);
-    Map<Course, Account> map = new LinkedHashMap<>();
-    courses.forEach(course -> map.put(course,
-        accDao.find(course.getTeacherId()).orElse(null)));
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return map;
+    return performReadOperation(() -> {
+      Map<Course, Account> map = new LinkedHashMap<>();
+      courses.forEach(course -> map.put(course,
+          accDao.find(course.getTeacherId()).orElse(null)));
+      return map;
+    });
   }
 
 }

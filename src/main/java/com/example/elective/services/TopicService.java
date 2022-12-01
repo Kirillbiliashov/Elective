@@ -12,10 +12,7 @@ public class TopicService extends AbstractService {
 
   public List<Topic> getAll() {
     transactionManager.initTransaction(dao);
-    List<Topic> topics = dao.findAll();
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return topics;
+    return performReadOperation(() -> dao.findAll());
   }
 
 }

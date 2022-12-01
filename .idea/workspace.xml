@@ -9,8 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Services were modified so that they use transaction manager for handling connection">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="AbstractService class was created">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" afterDir="false" />
@@ -259,14 +259,7 @@
       <workItem from="1669191714965" duration="452000" />
       <workItem from="1669198843471" duration="23602000" />
       <workItem from="1669563222164" duration="38349000" />
-      <workItem from="1669889469402" duration="3473000" />
-    </task>
-    <task id="LOCAL-00003" summary="login and signup mechanisms were added">
-      <created>1668102130927</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1668102130927</updated>
+      <workItem from="1669889469402" duration="4183000" />
     </task>
     <task id="LOCAL-00004" summary="Bootstrap was added for jsp pages">
       <created>1668197041895</created>
@@ -604,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669894349360</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="AbstractService class was created">
+      <created>1669894901632</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1669894901632</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +634,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Form is used for selection/sort of courses instead of dropdown" />
     <MESSAGE value="Navbar was created for separating content from single page" />
     <MESSAGE value="Minor overall improvements were made" />
     <MESSAGE value="RequestMapper interface and its inheritors were added" />
@@ -659,6 +658,7 @@
     <MESSAGE value="DAO layer was abstracted from instantiating connection" />
     <MESSAGE value="TransactionManager class for handling mysql transactions was created" />
     <MESSAGE value="Services were modified so that they use transaction manager for handling connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Services were modified so that they use transaction manager for handling connection" />
+    <MESSAGE value="AbstractService class was created" />
+    <option name="LAST_COMMIT_MESSAGE" value="AbstractService class was created" />
   </component>
 </project>

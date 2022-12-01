@@ -12,18 +12,12 @@ public class RoleService extends AbstractService {
 
   public Optional<Role> getById(int id) {
     transactionManager.initTransaction(dao);
-    Optional<Role> optRole = dao.find(id);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return optRole;
+    return performReadOperation(() -> dao.find(id));
   }
 
   public Optional<Role> getByName(String name) {
     transactionManager.initTransaction(dao);
-    Optional<Role> optRole = dao.findByName(name);
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return optRole;
+    return performReadOperation(() -> dao.findByName(name));
   }
 
 }

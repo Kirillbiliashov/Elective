@@ -29,10 +29,7 @@ public class JournalService extends AbstractService {
 
   public int getByCourseIdCount(int courseId) {
     transactionManager.initTransaction(dao);
-    int count = dao.getByCourseId(courseId).size();
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return count;
+    return performReadOperation(() -> dao.getByCourseId(courseId).size());
   }
 
 }
