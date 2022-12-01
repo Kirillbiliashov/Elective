@@ -1,6 +1,5 @@
 package com.example.elective.services;
 
-import com.example.elective.TransactionManager;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
@@ -24,30 +23,28 @@ public class TeacherService extends AbstractService {
     return performReadOperation(() -> courseDao.getByTeacherId(teacherId).size());
   }
 
+  public Optional<Course> getCourseAtPage(int teacherId, int page) {
+    transactionManager.initTransaction(courseDao);
+    return performReadOperation(() ->
+        courseDao.getByTeacherIdAtPosition(teacherId, page));
+  }
+
   public List<Account> getAll() {
     transactionManager.initTransaction(accDao);
     return performReadOperation(() -> accDao.getByRole("Teacher"));
   }
 
-  public Map.Entry<Course, Map<Journal, Account>> getJournal(int teacherId, int page) {
-    transactionManager.initTransaction(courseDao, accDao, journalDao);
+  public Map<Journal, Account> getJournalForCourse(int courseId) {
+    transactionManager.initTransaction(accDao, journalDao);
     return performReadOperation(() -> {
-      Optional<Course> optCourse = courseDao.getByTeacherIdAtPosition(teacherId, page);
-      if (!optCourse.isPresent()) return null;
-      Course course = optCourse.get();
-      return Map.entry(course, getJournalStudent(course.getId()));
+      Map<Journal, Account> map = new LinkedHashMap<>();
+      List<Journal> journalList = journalDao.getByCourseId(courseId);
+      for (final Journal journal: journalList) {
+        Account student = accDao.find(journal.getStudentId()).orElse(null);
+        map.put(journal, student);
+      }
+      return map;
     });
-  }
-
-  private Map<Journal, Account> getJournalStudent(int courseId) {
-    Map<Journal, Account> map = new LinkedHashMap<>();
-    List<Journal> journalList = journalDao.getByCourseId(courseId);
-    for (final Journal journal: journalList) {
-      int studentId = journal.getStudentId();
-      Account student = accDao.find(studentId).orElse(null);
-      map.put(journal, student);
-    }
-    return map;
   }
 
 }

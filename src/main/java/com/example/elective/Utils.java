@@ -14,8 +14,7 @@ public class Utils {
   private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
   public static int getIdFromPathInfo(String pathInfo) {
-    int infoLength = pathInfo.length();
-    return Integer.parseInt(pathInfo.substring(infoLength - 1, infoLength));
+    return Integer.parseInt(pathInfo.substring(1));
   }
 
   public static boolean isNumeric(String str) {

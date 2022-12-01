@@ -1,4 +1,4 @@
-package com.example.elective;
+package com.example.elective.connection;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

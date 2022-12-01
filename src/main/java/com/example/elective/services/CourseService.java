@@ -67,7 +67,6 @@ public class CourseService extends AbstractService {
     return performReadOperation(() -> dao.find(id));
   }
 
-
   public Map<Course, Account> getCourseTeacher(List<Course> courses) {
     transactionManager.initTransaction(accDao);
     return performReadOperation(() -> {

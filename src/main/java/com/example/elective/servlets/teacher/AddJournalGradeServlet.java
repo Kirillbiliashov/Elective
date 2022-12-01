@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("/teacher/journal/addGrade/*")
+@WebServlet("/teacher/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {
 
   private JournalService journalService = new JournalService();
@@ -23,7 +23,7 @@ public class AddJournalGradeServlet extends HttpServlet {
     int journalId = Utils.getIdFromPathInfo(req.getPathInfo());
     String gradeStr = req.getParameter("grade");
     journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));
-    resp.sendRedirect(Utils.TEACHER_SERVLET_NAME);
+    resp.sendRedirect("/elective/teacher?page=1");
   }
 
 }

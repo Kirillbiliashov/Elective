@@ -1,6 +1,5 @@
 package com.example.elective.dao;
 
-import com.example.elective.ConnectionPool;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.CourseResultSetMapper;
 import com.example.elective.models.Course;

@@ -1,4 +1,4 @@
-package com.example.elective;
+package com.example.elective.connection;
 
 import com.example.elective.dao.AbstractDAO;
 import com.example.elective.models.Entity;

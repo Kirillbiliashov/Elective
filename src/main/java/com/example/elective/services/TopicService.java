@@ -1,6 +1,5 @@
 package com.example.elective.services;
 
-import com.example.elective.TransactionManager;
 import com.example.elective.dao.TopicDAO;
 import com.example.elective.models.Topic;
 

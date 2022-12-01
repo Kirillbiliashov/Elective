@@ -13,7 +13,7 @@
 </nav>
 
     <div style="margin: 30px;">
-        <h2>Course: ${journal.key.name}</h2>
+        <h2>Course: ${course.name}</h2>
         <table class="table" style="margin: 30px">
             <thead>
             <tr>
@@ -22,24 +22,24 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${journal.value}" var="journalData">
+            <c:forEach items="${journal}" var="entry">
                 <tr>
-                    <td>${journalData.value.firstName} ${journalData.value.lastName}</td>
-                    <c:if test="${journalData.key.grade == -1}">
-                        <c:if test="${journal.key.endDate.after(currDate)}">
+                    <td>${entry.value.firstName} ${entry.value.lastName}</td>
+                    <c:if test="${entry.key.grade == -1}">
+                        <c:if test="${course.endDate.after(currDate)}">
                             <td>Course hasn't finished yet</td>
                         </c:if>
-                        <c:if test="${journal.key.endDate.before(currDate)}">
+                        <c:if test="${course.endDate.before(currDate)}">
                             <td>
-                                <form method="post" action="teacher/journal/addGrade/${journalData.key.id}">
+                                <form method="post" action="teacher/addGrade/${entry.key.id}">
                                     <input type="number" min="0" max="100" name="grade" id="grade"/>
                                     <input type="submit" class="btn btn-primary" value="Add grade">
                                 </form>
                             </td>
                         </c:if>
                     </c:if>
-                    <c:if test="${journalData.key.grade != -1}">
-                        <td>${journalData.key.grade}</td>
+                    <c:if test="${entry.key.grade != -1}">
+                        <td>${entry.key.grade}</td>
                     </c:if>
                 </tr>
             </c:forEach>

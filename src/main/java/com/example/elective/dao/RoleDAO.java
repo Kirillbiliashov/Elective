@@ -1,11 +1,9 @@
 package com.example.elective.dao;
 
-import com.example.elective.ConnectionPool;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.RoleResultSetMapper;
 import com.example.elective.models.Role;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

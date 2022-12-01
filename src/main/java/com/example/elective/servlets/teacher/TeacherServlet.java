@@ -36,8 +36,10 @@ public class TeacherServlet extends HttpServlet {
     int page = getPageNumber(req);
     setPageAttributes(req, page);
     req.setAttribute("pagesCount", teacherService.getPagesCount(id));
-    Map.Entry<Course, Map<Journal, Account>> journal = teacherService.getJournal(id, page);
+    Course course = teacherService.getCourseAtPage(id, page).get();
+    Map<Journal, Account> journal = teacherService.getJournalForCourse(course.getId());
     req.setAttribute("journal", journal);
+    req.setAttribute("course", course);
     req.setAttribute("currDate", Utils.CURRENT_DATE);
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
   }
