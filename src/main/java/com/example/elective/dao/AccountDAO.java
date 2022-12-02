@@ -21,15 +21,16 @@ public class AccountDAO extends AbstractDAO<Account> {
       " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?)";
   private static final String FIND_BY_CREDENTIALS = "SELECT * FROM account" +
       " WHERE login = ? AND password = ?";
-  private Mapper<ResultSet, Account> mapper = new AccountResultSetMapper();
+
+  public AccountDAO() {
+    this.mapper = new AccountResultSetMapper();
+  }
 
   @Override
   public Optional<Account> find(int id) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
-      ps.setInt(1, id);
-      ResultSet rs = ps.executeQuery();
-      if (!rs.next()) return Optional.empty();
-      return Optional.of(mapper.map(rs));
+      addValuesToPreparedStatement(ps, id);
+      return getOptionalEntity(ps.executeQuery());
     } catch (SQLException e) {
       throw new DAOException("unable to find account", e);
     }
@@ -38,9 +39,7 @@ public class AccountDAO extends AbstractDAO<Account> {
   @Override
   public void update(Account acc) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
-      int idx = 1;
-      ps.setBoolean(idx++, acc.isBlocked());
-      ps.setInt(idx, acc.getId());
+      addValuesToPreparedStatement(ps, acc.isBlocked(), acc.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new DAOException("unable to update account", e);
@@ -61,7 +60,9 @@ public class AccountDAO extends AbstractDAO<Account> {
   public void save(Account acc) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
              Statement.RETURN_GENERATED_KEYS)) {
-      addMissingValuesToStatement(ps, acc);
+      addValuesToPreparedStatement(ps, acc.getLogin(),
+          acc.getPassword(), acc.getFirstName(),
+          acc.getLastName(), acc.getRoleId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) acc.getBuilder().setId(rs.getInt(1));
@@ -72,38 +73,22 @@ public class AccountDAO extends AbstractDAO<Account> {
 
   public List<Account> findByRole(String roleName) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ROLE)) {
-      ps.setString(1, roleName);
-      ResultSet rs = ps.executeQuery();
-      List<Account> accounts = new ArrayList<>();
-      while (rs.next()) accounts.add(mapper.map(rs));
-      return accounts;
+      addValuesToPreparedStatement(ps, roleName);
+      return getEntitiesList(ps.executeQuery());
     } catch (SQLException e) {
-      throw new DAOException("unable to find accounts by role", e);
+      throw new DAOException("unable to find accounts", e);
     }
-  }
-
-  private void addMissingValuesToStatement(PreparedStatement ps, Account acc)
-      throws SQLException {
-    int idx = 1;
-    ps.setString(idx++, acc.getLogin());
-    ps.setString(idx++, acc.getPassword());
-    ps.setString(idx++, acc.getFirstName());
-    ps.setString(idx++, acc.getLastName());
-    ps.setInt(idx, acc.getRoleId());
   }
 
   public Optional<Account> findByCredentials(String login, String password) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
-      int idx = 1;
-      ps.setString(idx++, login);
-      ps.setString(idx, password);
-      ResultSet rs = ps.executeQuery();
-      if (!rs.next()) return Optional.empty();
-      return Optional.of(mapper.map(rs));
+      addValuesToPreparedStatement(ps, login, password);
+      return getOptionalEntity(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new DAOException("unable to find account by credentials", e);
+      throw new DAOException("unable to find account", e);
     }
   }
+
 
 }

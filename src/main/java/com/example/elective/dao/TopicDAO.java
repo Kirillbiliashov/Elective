@@ -17,16 +17,15 @@ import java.util.Optional;
 public class TopicDAO extends AbstractDAO<Topic> {
 
   private static final String FIND_ALL = "SELECT * FROM topic";
-  private Mapper<ResultSet, Topic> mapper = new TopicResultSetMapper();
+
+  public TopicDAO() {
+    this.mapper = new TopicResultSetMapper();
+  }
 
   @Override
   public List<Topic> findAll() throws DAOException {
-    try (Connection conn = ConnectionPool.getConnection();
-    Statement stmt = conn.createStatement()) {
-      ResultSet rs = stmt.executeQuery(FIND_ALL);
-      List<Topic> topics = new ArrayList<>();
-      while (rs.next()) topics.add(mapper.map(rs));
-      return topics;
+    try (Statement stmt = conn.createStatement()) {
+      return getEntitiesList(stmt.executeQuery(FIND_ALL));
     } catch (SQLException e) {
       e.printStackTrace();
       throw new DAOException("unable to find topics", e);
@@ -34,22 +33,22 @@ public class TopicDAO extends AbstractDAO<Topic> {
   }
 
   @Override
-  public Optional<Topic> find(int id) throws DAOException {
+  public Optional<Topic> find(int id) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void save(Topic entity) throws DAOException {
+  public void save(Topic entity) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void update(Topic entity) throws DAOException {
+  public void update(Topic entity) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void delete(int id) throws DAOException {
+  public void delete(int id) {
     throw new UnsupportedOperationException();
   }
 

@@ -15,15 +15,16 @@ public class RoleDAO extends AbstractDAO<Role> {
 
   private static final String FIND_BY_NAME = "SELECT * FROM role" +
       " WHERE name = ?";
-  private static final String FIND_BY_ID = "SELECT * FROM role WHERE id = ?";
-  private Mapper<ResultSet, Role> mapper = new RoleResultSetMapper();
+  private static final String FIND = "SELECT * FROM role WHERE id = ?";
+
+  public RoleDAO() {
+    this.mapper = new RoleResultSetMapper();
+  }
 
   public Optional<Role> findByName(String name) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME)) {
-      ps.setString(1, name);
-      ResultSet rs = ps.executeQuery();
-      if (!rs.next()) return Optional.empty();
-      return Optional.of(mapper.map(rs));
+      addValuesToPreparedStatement(ps, name);
+      return getOptionalEntity(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();
       throw new DAOException("unable to find role by its name", e);
@@ -32,11 +33,9 @@ public class RoleDAO extends AbstractDAO<Role> {
 
   @Override
   public Optional<Role> find(int id) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ID)) {
-      ps.setInt(1, id);
-      ResultSet rs = ps.executeQuery();
-      if (!rs.next()) return Optional.empty();
-      return Optional.of(mapper.map(rs));
+    try (PreparedStatement ps = conn.prepareStatement(FIND)) {
+      addValuesToPreparedStatement(ps, id);
+      return getOptionalEntity(ps.executeQuery());
     } catch (SQLException e) {
       e.printStackTrace();
       throw new DAOException("unable to find role", e);
