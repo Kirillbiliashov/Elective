@@ -29,8 +29,7 @@ public abstract class AbstractDAO<T extends Entity> implements DAO<T> {
     }
   }
 
-  protected Optional<T> getOptionalEntity(ResultSet rs)
-      throws SQLException {
+  protected Optional<T> getOptionalEntity(ResultSet rs) throws SQLException {
     if (!rs.next()) return Optional.empty();
     return Optional.of(mapper.map(rs));
   }
