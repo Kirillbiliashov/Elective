@@ -1,6 +1,7 @@
 package com.example.elective.dao;
 
 import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.JournalResultSetMapper;
 import com.example.elective.models.Journal;
@@ -34,7 +35,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       addValuesToPreparedStatement(ps, journalId);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find journal entry", e);
     }
@@ -82,7 +83,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
       addValuesToPreparedStatement(ps, courseId, studentId);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find journal entry for given course and student", e);
     }
@@ -92,7 +93,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_COURSE_ID)) {
       addValuesToPreparedStatement(ps, courseId);
       return getEntitiesList(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find journal entries for course", e);
     }

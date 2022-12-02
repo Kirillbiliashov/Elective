@@ -1,5 +1,6 @@
 package com.example.elective.dao;
 
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 import com.example.elective.models.Entity;
@@ -29,12 +30,12 @@ public abstract class AbstractDAO<T extends Entity> implements DAO<T> {
     }
   }
 
-  protected Optional<T> getOptionalEntity(ResultSet rs) throws SQLException {
+  protected Optional<T> getOptionalEntity(ResultSet rs) throws SQLException, MappingException {
     if (!rs.next()) return Optional.empty();
     return Optional.of(mapper.map(rs));
   }
 
-  protected List<T> getEntitiesList(ResultSet rs) throws SQLException {
+  protected List<T> getEntitiesList(ResultSet rs) throws SQLException, MappingException {
     List<T> entities = new ArrayList<>();
     while (rs.next()) entities.add(mapper.map(rs));
     return entities;

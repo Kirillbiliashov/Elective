@@ -1,5 +1,6 @@
 package com.example.elective.mappers.resultSetMappers;
 
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Account;
 
@@ -16,7 +17,7 @@ public class AccountResultSetMapper extends ResultSetMapper<Account> {
   private static final String ROLE_ID_COL_NAME = "role_id";
 
   @Override
-  public Account map(ResultSet rs) {
+  public Account map(ResultSet rs) throws MappingException {
     try {
       return Account.newBuilder()
           .setId(rs.getInt(ID_COL_NAME))
@@ -28,7 +29,7 @@ public class AccountResultSetMapper extends ResultSetMapper<Account> {
           .setRoleId(rs.getInt(ROLE_ID_COL_NAME))
           .build();
     } catch (SQLException e) {
-      throw new RuntimeException(e);
+      throw new MappingException(e);
     }
   }
 

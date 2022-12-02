@@ -1,6 +1,7 @@
 package com.example.elective.dao;
 
 import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.CourseResultSetMapper;
 import com.example.elective.models.Course;
@@ -32,7 +33,7 @@ public class CourseDAO extends AbstractDAO<Course> {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID)) {
       addValuesToPreparedStatement(ps, teacherId);
       return getEntitiesList(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find teacher courses", e);
     }
@@ -43,7 +44,7 @@ public class CourseDAO extends AbstractDAO<Course> {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID_AT_POS)) {
       addValuesToPreparedStatement(ps, teacherId, position - 1);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find teacher's course", e);
     }
@@ -94,7 +95,7 @@ public class CourseDAO extends AbstractDAO<Course> {
   public List<Course> findAll() throws DAOException {
     try (Statement stmt = conn.createStatement()) {
       return getEntitiesList(stmt.executeQuery(GET_ALL));
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find courses", e);
     }
@@ -105,7 +106,7 @@ public class CourseDAO extends AbstractDAO<Course> {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       addValuesToPreparedStatement(ps, id);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find course", e);
     }

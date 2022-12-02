@@ -3,6 +3,7 @@ package com.example.elective.servlets.admin;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.AccountRequestMapper;
+import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.AccountService;
@@ -19,8 +20,7 @@ import java.util.Optional;
 @WebServlet("/admin/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {
 
-  private Mapper<HttpServletRequest, Account> accountMapper =
-      new AccountRequestMapper();
+  private RequestMapper<Account> accountMapper = new AccountRequestMapper();
   private AccountService accService = new AccountService();
   private RoleService roleService = new RoleService();
 

@@ -3,6 +3,7 @@ package com.example.elective.servlets.student;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.JournalRequestMapper;
+import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Journal;
 import com.example.elective.services.JournalService;
 
@@ -15,8 +16,7 @@ import java.io.IOException;
 @WebServlet("/student/courses/enroll/*")
 public class CourseEnrollServlet extends HttpServlet {
 
-  private Mapper<HttpServletRequest, Journal> journalMapper =
-      new JournalRequestMapper();
+  private RequestMapper<Journal> journalMapper = new JournalRequestMapper();
   private JournalService journalService = new JournalService();
 
   @Override

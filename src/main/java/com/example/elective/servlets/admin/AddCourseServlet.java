@@ -4,6 +4,7 @@ import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.CourseRequestMapper;
+import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 import com.example.elective.services.AccountService;
@@ -21,7 +22,7 @@ import java.util.List;
 @WebServlet("/admin/courses/add")
 public class AddCourseServlet extends HttpServlet {
 
-  private Mapper<HttpServletRequest, Course> courseMapper =
+  private RequestMapper<Course> courseMapper =
       new CourseRequestMapper();
   private AccountService accService = new AccountService();
   private CourseService courseService = new CourseService();

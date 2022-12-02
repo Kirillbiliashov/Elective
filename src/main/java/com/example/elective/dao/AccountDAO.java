@@ -1,6 +1,7 @@
 package com.example.elective.dao;
 
 import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.AccountResultSetMapper;
 import com.example.elective.models.Account;
@@ -31,7 +32,7 @@ public class AccountDAO extends AbstractDAO<Account> {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       addValuesToPreparedStatement(ps, id);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       throw new DAOException("unable to find account", e);
     }
   }
@@ -75,7 +76,7 @@ public class AccountDAO extends AbstractDAO<Account> {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ROLE)) {
       addValuesToPreparedStatement(ps, roleName);
       return getEntitiesList(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       throw new DAOException("unable to find accounts", e);
     }
   }
@@ -84,11 +85,10 @@ public class AccountDAO extends AbstractDAO<Account> {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
       addValuesToPreparedStatement(ps, login, password);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find account", e);
     }
   }
-
 
 }

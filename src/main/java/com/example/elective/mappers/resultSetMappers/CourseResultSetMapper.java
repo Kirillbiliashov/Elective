@@ -1,5 +1,6 @@
 package com.example.elective.mappers.resultSetMappers;
 
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
@@ -15,7 +16,7 @@ public class CourseResultSetMapper extends ResultSetMapper<Course> {
   private static final String TOPIC_ID_COL_NAME = "topic_id";
 
   @Override
-  public Course map(ResultSet rs) {
+  public Course map(ResultSet rs) throws MappingException {
     try {
       return Course.newBuilder()
           .setId(rs.getInt(ID_COL_NAME))
@@ -26,7 +27,7 @@ public class CourseResultSetMapper extends ResultSetMapper<Course> {
           .setTopicId(rs.getInt(TOPIC_ID_COL_NAME))
           .build();
     } catch (SQLException e) {
-      throw new RuntimeException(e);
+      throw new MappingException(e);
     }
   }
 

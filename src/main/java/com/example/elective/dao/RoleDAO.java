@@ -1,6 +1,7 @@
 package com.example.elective.dao;
 
 import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.RoleResultSetMapper;
 import com.example.elective.models.Role;
@@ -25,7 +26,7 @@ public class RoleDAO extends AbstractDAO<Role> {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME)) {
       addValuesToPreparedStatement(ps, name);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find role by its name", e);
     }
@@ -36,7 +37,7 @@ public class RoleDAO extends AbstractDAO<Role> {
     try (PreparedStatement ps = conn.prepareStatement(FIND)) {
       addValuesToPreparedStatement(ps, id);
       return getOptionalEntity(ps.executeQuery());
-    } catch (SQLException e) {
+    } catch (SQLException | MappingException e) {
       e.printStackTrace();
       throw new DAOException("unable to find role", e);
     }
