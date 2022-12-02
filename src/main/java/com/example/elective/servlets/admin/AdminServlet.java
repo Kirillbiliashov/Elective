@@ -1,13 +1,8 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
-import com.example.elective.dao.AccountDAO;
-import com.example.elective.dao.CourseDAO;
-import com.example.elective.dao.JournalDAO;
-import com.example.elective.dao.TopicDAO;
-import com.example.elective.models.Account;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
-import com.example.elective.models.Topic;
 import com.example.elective.services.*;
 
 import javax.servlet.ServletException;
@@ -30,22 +25,26 @@ public class AdminServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    List<Course> courses = courseService.getAll();
-    String teacherIdStr = req.getParameter("teacher");
-    if (Utils.isNumeric(teacherIdStr)) {
-      int teacherId = Integer.parseInt(teacherIdStr);
-      courses = filterByTeacherId(courses, teacherId);
+    try {
+      List<Course> courses = courseService.getAll();
+      String teacherIdStr = req.getParameter("teacher");
+      if (Utils.isNumeric(teacherIdStr)) {
+        int teacherId = Integer.parseInt(teacherIdStr);
+        courses = filterByTeacherId(courses, teacherId);
+      }
+      String topicIdStr = req.getParameter("topic");
+      if (Utils.isNumeric(topicIdStr)) {
+        int topicId = Integer.parseInt(topicIdStr);
+        courses = filterByTopicId(courses, topicId);
+      }
+      String sortType = req.getParameter("sort");
+      if (sortType != null) sortCourses(sortType, courses);
+      req.setAttribute("topics", topicService.getAll());
+      req.setAttribute("courses", courseService.getCourseTeacher(courses));
+      req.setAttribute("teachers", teacherService.getAll());
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    String topicIdStr = req.getParameter("topic");
-    if (Utils.isNumeric(topicIdStr)) {
-      int topicId = Integer.parseInt(topicIdStr);
-      courses = filterByTopicId(courses, topicId);
-    }
-    String sortType = req.getParameter("sort");
-    if (sortType != null) sortCourses(sortType, courses);
-    req.setAttribute("topics", topicService.getAll());
-    req.setAttribute("courses", courseService.getCourseTeacher(courses));
-    req.setAttribute("teachers", teacherService.getAll());
     req.getRequestDispatcher("/admin.jsp").forward(req, resp);
   }
 
@@ -96,7 +95,13 @@ public class AdminServlet extends HttpServlet {
   }
 
   private Comparator<Course> getStudentComparator() {
-    return Comparator.comparing(c -> journalService.getByCourseIdCount(c.getId()));
+    return Comparator.comparing(c -> {
+      try {
+        return journalService.getByCourseIdCount(c.getId());
+      } catch (ServiceException e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 
 }

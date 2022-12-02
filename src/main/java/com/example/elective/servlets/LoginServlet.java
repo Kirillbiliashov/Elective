@@ -1,6 +1,7 @@
 package com.example.elective.servlets;
 
 import com.example.elective.dao.AccountDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.RoleService;
@@ -30,7 +31,12 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     String login = req.getParameter("login");
     String password = req.getParameter("password");
-    Optional<Account> optAccount = accService.findByCredentials(login, password);
+    Optional<Account> optAccount = null;
+    try {
+      optAccount = accService.findByCredentials(login, password);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     if (!optAccount.isPresent()) {
       req.setAttribute("errorMsg", "Login or password is incorrect");
       req.getRequestDispatcher("login-form.jsp").forward(req, resp);

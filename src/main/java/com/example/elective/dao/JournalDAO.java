@@ -1,5 +1,6 @@
 package com.example.elective.dao;
 
+import com.example.elective.exceptions.DAOException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.JournalResultSetMapper;
 import com.example.elective.models.Journal;
@@ -27,7 +28,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
   private Mapper<ResultSet, Journal> mapper = new JournalResultSetMapper();
 
   @Override
-  public Optional<Journal> find(int journalId) {
+  public Optional<Journal> find(int journalId) throws DAOException {
     try(PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, journalId);
       ResultSet rs = ps.executeQuery();
@@ -35,12 +36,12 @@ public class JournalDAO extends AbstractDAO<Journal> {
       return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find journal entry", e);
     }
   }
 
   @Override
-  public void update(Journal journal) {
+  public void update(Journal journal) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setInt(idx++, journal.getGrade());
@@ -49,12 +50,12 @@ public class JournalDAO extends AbstractDAO<Journal> {
       ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to update journal entry", e);
     }
   }
 
   @Override
-  public void save(Journal journal) {
+  public void save(Journal journal) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
              PreparedStatement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
@@ -66,7 +67,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
       if (rs.next()) journal.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to save journal entry", e);
     }
   }
 
@@ -80,7 +81,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
     throw new UnsupportedOperationException();
   }
 
-  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
+  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
       int idx = 1;
       ps.setInt(idx++, courseId);
@@ -90,11 +91,11 @@ public class JournalDAO extends AbstractDAO<Journal> {
       return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find journal entry for given course and student", e);
     }
   }
 
-  public List<Journal> getByCourseId(int courseId) {
+  public List<Journal> getByCourseId(int courseId) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_COURSE_ID)) {
       ps.setInt(1, courseId);
       ResultSet rs = ps.executeQuery();
@@ -103,7 +104,7 @@ public class JournalDAO extends AbstractDAO<Journal> {
       return journalList;
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find journal entries for course", e);
     }
   }
 

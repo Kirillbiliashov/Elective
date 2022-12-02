@@ -1,5 +1,6 @@
 package com.example.elective.mappers.requestMappers;
 
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
@@ -22,7 +23,12 @@ public abstract class AccountRequestMapper implements RequestMapper<Account> {
 
   protected void setAccountRole(Account acc, String roleName) {
     RoleService roleService = new RoleService();
-    Optional<Role> optRole = roleService.getByName(roleName);
+    Optional<Role> optRole = null;
+    try {
+      optRole = roleService.getByName(roleName);
+    } catch (ServiceException e) {
+      throw new RuntimeException(e);
+    }
     optRole.ifPresent(role -> acc.getBuilder().setRoleId(role.getId()));
   }
 

@@ -1,6 +1,8 @@
 package com.example.elective.services;
 
 import com.example.elective.connection.TransactionManager;
+import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.ServiceException;
 
 import java.util.function.Supplier;
 
@@ -8,15 +10,25 @@ public abstract class AbstractService {
 
   protected TransactionManager transactionManager = new TransactionManager();
 
-  public <T> T performReadOperation(Supplier<T> supplier) {
-    T res = supplier.get();
+  protected <T> T performDaoReadOperation(DAOReadOperation<T> operation) throws ServiceException {
+    T res = null;
+    try {
+      res = operation.read();
+    } catch (DAOException e) {
+      e.printStackTrace();
+      throw new ServiceException(e);
+    }
     transactionManager.commitTransaction();
     transactionManager.endTransaction();
     return res;
   }
 
-  public void performWriteOperation(Runnable func) {
-    func.run();
+  protected void performDaoWriteOperation(DAOWriteOperation operation) throws ServiceException {
+    try {
+      operation.write();
+    } catch (DAOException e) {
+      throw new ServiceException(e);
+    }
     transactionManager.commitTransaction();
     transactionManager.endTransaction();
   }

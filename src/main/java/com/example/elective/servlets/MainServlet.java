@@ -1,6 +1,7 @@
 package com.example.elective.servlets;
 
 import com.example.elective.dao.RoleDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.RoleService;
@@ -24,7 +25,12 @@ public class MainServlet extends HttpServlet {
     HttpSession session = req.getSession();
     Account account = (Account) session.getAttribute("account");
     int roleId = account.getRoleId();
-    Optional<Role> optRole = roleService.getById(roleId);
+    Optional<Role> optRole = null;
+    try {
+      optRole = roleService.getById(roleId);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     String servletUrl = "error.jsp";
     if (optRole.isPresent()) {
       Role role = optRole.get();

@@ -2,6 +2,8 @@ package com.example.elective.services;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
+import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 
@@ -21,9 +23,9 @@ public class CourseService extends AbstractService {
  private static final int TOPIC_ID_IDX = 3;
   private static final int TEACHER_ID_IDX = 4;
 
-  public void updateById(int id, String... updValues) {
+  public void updateById(int id, String... updValues) throws ServiceException {
     transactionManager.initTransaction(dao);
-    performWriteOperation(() -> {
+    performDaoWriteOperation(() -> {
       Optional<Course> optCourse = dao.find(id);
       if (optCourse.isPresent()) {
         Course course = optCourse.get();
@@ -47,32 +49,34 @@ public class CourseService extends AbstractService {
         .setTeacherId(teacherId);
   }
 
-  public void save(Course course) {
+  public void save(Course course) throws ServiceException {
     transactionManager.initTransaction(dao);
-    performWriteOperation(() -> dao.save(course));
+    performDaoWriteOperation(() -> dao.save(course));
   }
 
-  public void delete(int id) {
+  public void delete(int id) throws ServiceException {
     transactionManager.initTransaction(dao);
-    performWriteOperation(() -> dao.delete(id));
+    performDaoWriteOperation(() -> dao.delete(id));
   }
 
-  public List<Course> getAll() {
+  public List<Course> getAll() throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performReadOperation(() -> dao.findAll());
+    return performDaoReadOperation(() -> dao.findAll());
   }
 
-  public Optional<Course> getById(int id) {
+  public Optional<Course> getById(int id) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performReadOperation(() -> dao.find(id));
+    return performDaoReadOperation(() -> dao.find(id));
   }
 
-  public Map<Course, Account> getCourseTeacher(List<Course> courses) {
+  public Map<Course, Account> getCourseTeacher(List<Course> courses) throws ServiceException {
     transactionManager.initTransaction(accDao);
-    return performReadOperation(() -> {
+    return performDaoReadOperation(() -> {
       Map<Course, Account> map = new LinkedHashMap<>();
-      courses.forEach(course -> map.put(course,
-          accDao.find(course.getTeacherId()).orElse(null)));
+      for (final Course course : courses) {
+        map.put(course,
+            accDao.find(course.getTeacherId()).orElse(null));
+      }
       return map;
     });
   }

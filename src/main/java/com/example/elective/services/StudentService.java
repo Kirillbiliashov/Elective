@@ -3,6 +3,7 @@ package com.example.elective.services;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
@@ -18,9 +19,9 @@ public class StudentService extends AbstractService {
   private CourseDAO courseDao = new CourseDAO();
   private JournalDAO journalDao = new JournalDAO();
 
-  public void changeBlockStatus(int id) {
+  public void changeBlockStatus(int id) throws ServiceException {
     transactionManager.initTransaction(accDao);
-    performWriteOperation(() -> {
+    performDaoWriteOperation(() -> {
       Optional<Account> optAcc = accDao.find(id);
       if (optAcc.isPresent()) {
         Account acc = optAcc.get();
@@ -30,14 +31,14 @@ public class StudentService extends AbstractService {
     });
   }
 
-  public List<Account> getAll() {
+  public List<Account> getAll() throws ServiceException {
     transactionManager.initTransaction(accDao);
-    return performReadOperation(() -> accDao.getByRole("Student"));
+    return performDaoReadOperation(() -> accDao.findByRole("Student"));
   }
 
-  public Map<Course, Journal> getCourseJournal(int studentId) {
+  public Map<Course, Journal> getCourseJournal(int studentId) throws ServiceException {
     transactionManager.initTransaction(courseDao, journalDao);
-    return performReadOperation(() -> {
+    return performDaoReadOperation(() -> {
       List<Course> courses = courseDao.findAll();
       Map<Course, Journal> map = new LinkedHashMap<>();
       for (final Course course: courses) {

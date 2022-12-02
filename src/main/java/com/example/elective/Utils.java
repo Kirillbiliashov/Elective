@@ -1,5 +1,9 @@
 package com.example.elective;
 
+import com.example.elective.models.Account;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -20,6 +24,11 @@ public class Utils {
   public static boolean isNumeric(String str) {
     if (str == null) return false;
     return pattern.matcher(str).matches();
+  }
+
+  public static int getCurrentUserId(HttpServletRequest req) {
+    HttpSession session = req.getSession();
+    return ((Account) session.getAttribute("account")).getId();
   }
 
 }

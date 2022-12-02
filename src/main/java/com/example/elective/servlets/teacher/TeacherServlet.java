@@ -4,6 +4,7 @@ import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
@@ -30,17 +31,19 @@ public class TeacherServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    HttpSession session = req.getSession();
-    Account teacherAcc = (Account) session.getAttribute("account");
-    int id = teacherAcc.getId();
+    int id = Utils.getCurrentUserId(req);
     int page = getPageNumber(req);
     setPageAttributes(req, page);
-    req.setAttribute("pagesCount", teacherService.getPagesCount(id));
-    Course course = teacherService.getCourseAtPage(id, page).get();
-    Map<Journal, Account> journal = teacherService.getJournalForCourse(course.getId());
-    req.setAttribute("journal", journal);
-    req.setAttribute("course", course);
-    req.setAttribute("currDate", Utils.CURRENT_DATE);
+    try {
+      req.setAttribute("pagesCount", teacherService.getPagesCount(id));
+      Course course = teacherService.getCourseAtPage(id, page).get();
+      Map<Journal, Account> journal = teacherService.getJournalForCourse(course.getId());
+      req.setAttribute("journal", journal);
+      req.setAttribute("course", course);
+      req.setAttribute("currDate", Utils.CURRENT_DATE);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
   }
 
@@ -56,6 +59,5 @@ public class TeacherServlet extends HttpServlet {
     if (!Utils.isNumeric(pageParam)) return 1;
     return Integer.parseInt(pageParam);
   }
-
 
 }

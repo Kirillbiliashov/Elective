@@ -1,5 +1,6 @@
 package com.example.elective.servlets;
 
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.StudentRequestMapper;
 import com.example.elective.models.Account;
@@ -29,7 +30,11 @@ public class SignupServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     Account acc = studentMapper.map(req);
-    accService.save(acc);
+    try {
+      accService.save(acc);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect("login");
   }
 

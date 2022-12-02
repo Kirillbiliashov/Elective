@@ -1,6 +1,8 @@
 package com.example.elective.services;
 
 import com.example.elective.dao.AccountDAO;
+import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 
 import java.util.List;
@@ -10,20 +12,19 @@ public class AccountService extends AbstractService {
 
   private AccountDAO dao = new AccountDAO();
 
-  public Optional<Account> findByCredentials(String login, String password) {
+  public Optional<Account> findByCredentials(String login, String password) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performReadOperation(() -> dao.findByCredentials(login, password));
+    return performDaoReadOperation(() -> dao.findByCredentials(login, password));
   }
 
-  public List<Account> getByRole(String roleName) {
+  public List<Account> getByRole(String roleName) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performReadOperation(() -> dao.getByRole(roleName));
+    return performDaoReadOperation(() -> dao.findByRole(roleName));
   }
 
-  public void save(Account acc) {
+  public void save(Account acc) throws ServiceException {
     transactionManager.initTransaction(dao);
-    dao.save(acc);
-    performWriteOperation(() -> dao.save(acc));
+    performDaoWriteOperation(() -> dao.save(acc));
   }
 
 }

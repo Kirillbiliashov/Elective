@@ -1,6 +1,7 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.StudentService;
 
@@ -19,7 +20,11 @@ public class ChangeStudentBlockServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
-    studentService.changeBlockStatus(id);
+    try {
+      studentService.changeBlockStatus(id);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 

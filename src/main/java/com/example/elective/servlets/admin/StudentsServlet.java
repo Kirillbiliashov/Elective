@@ -1,6 +1,7 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.dao.AccountDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.StudentService;
 
@@ -19,7 +20,11 @@ public class StudentsServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.setAttribute("students", studentService.getAll());
+    try {
+      req.setAttribute("students", studentService.getAll());
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     req.getRequestDispatcher("/admin-students.jsp").forward(req, resp);
   }
 

@@ -3,6 +3,7 @@ package com.example.elective.services;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
@@ -18,28 +19,28 @@ public class TeacherService extends AbstractService {
   private CourseDAO courseDao = new CourseDAO();
   private JournalDAO journalDao = new JournalDAO();
 
-  public int getPagesCount(int teacherId) {
+  public int getPagesCount(int teacherId) throws ServiceException {
     transactionManager.initTransaction(courseDao);
-    return performReadOperation(() -> courseDao.getByTeacherId(teacherId).size());
+    return performDaoReadOperation(() -> courseDao.getByTeacherId(teacherId).size());
   }
 
-  public Optional<Course> getCourseAtPage(int teacherId, int page) {
+  public Optional<Course> getCourseAtPage(int teacherId, int page) throws ServiceException {
     transactionManager.initTransaction(courseDao);
-    return performReadOperation(() ->
+    return performDaoReadOperation(() ->
         courseDao.getByTeacherIdAtPosition(teacherId, page));
   }
 
-  public List<Account> getAll() {
+  public List<Account> getAll() throws ServiceException {
     transactionManager.initTransaction(accDao);
-    return performReadOperation(() -> accDao.getByRole("Teacher"));
+    return performDaoReadOperation(() -> accDao.findByRole("Teacher"));
   }
 
-  public Map<Journal, Account> getJournalForCourse(int courseId) {
+  public Map<Journal, Account> getJournalForCourse(int courseId) throws ServiceException {
     transactionManager.initTransaction(accDao, journalDao);
-    return performReadOperation(() -> {
+    return performDaoReadOperation(() -> {
       Map<Journal, Account> map = new LinkedHashMap<>();
       List<Journal> journalList = journalDao.getByCourseId(courseId);
-      for (final Journal journal: journalList) {
+      for (final Journal journal : journalList) {
         Account student = accDao.find(journal.getStudentId()).orElse(null);
         map.put(journal, student);
       }

@@ -1,5 +1,6 @@
 package com.example.elective.servlets.admin;
 
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.TeacherRequestMapper;
 import com.example.elective.models.Account;
@@ -28,7 +29,11 @@ public class TeacherRegistrationServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Account acc = teacherMapper.map(req);
-    accService.save(acc);
+    try {
+      accService.save(acc);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect("/elective/admin/teachers");
   }
 

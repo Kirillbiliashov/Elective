@@ -1,5 +1,6 @@
 package com.example.elective.dao;
 
+import com.example.elective.exceptions.DAOException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.CourseResultSetMapper;
 import com.example.elective.models.Course;
@@ -25,7 +26,7 @@ public class CourseDAO extends AbstractDAO<Course> {
 
   private Mapper<ResultSet, Course> mapper = new CourseResultSetMapper();
 
-  public List<Course> getByTeacherId(int teacherId) {
+  public List<Course> getByTeacherId(int teacherId) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID)) {
       ps.setInt(1, teacherId);
       ResultSet rs = ps.executeQuery();
@@ -34,11 +35,11 @@ public class CourseDAO extends AbstractDAO<Course> {
       return courses;
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find teacher courses", e);
     }
   }
 
-  public Optional<Course> getByTeacherIdAtPosition(int teacherId, int position) {
+  public Optional<Course> getByTeacherIdAtPosition(int teacherId, int position) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID_AT_POS)) {
       ps.setInt(1, teacherId);
       ps.setInt(2, position - 1);
@@ -47,12 +48,12 @@ public class CourseDAO extends AbstractDAO<Course> {
       return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find teacher's course", e);
     }
   }
 
   @Override
-  public void update(Course course) {
+  public void update(Course course) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       int idx = 1;
       ps.setString(idx++, course.getName());
@@ -64,12 +65,12 @@ public class CourseDAO extends AbstractDAO<Course> {
       ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to update course", e);
     }
   }
 
   @Override
-  public void save(Course course) {
+  public void save(Course course) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
         Statement.RETURN_GENERATED_KEYS)) {
       int idx = 1;
@@ -85,23 +86,23 @@ public class CourseDAO extends AbstractDAO<Course> {
       if (rs.next()) course.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to save course", e);
     }
   }
 
   @Override
-  public void delete(int id) {
+  public void delete(int id) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(DELETE)) {
       ps.setInt(1, id);
       ps.executeUpdate();
     } catch(SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to delete course", e);
     }
   }
 
   @Override
-  public List<Course> findAll() {
+  public List<Course> findAll() throws DAOException {
     try (Statement stmt = conn.createStatement()) {
       ResultSet rs = stmt.executeQuery(GET_ALL);
       List<Course> courses = new ArrayList<>();
@@ -109,12 +110,12 @@ public class CourseDAO extends AbstractDAO<Course> {
       return courses;
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find courses", e);
     }
   }
 
   @Override
-  public Optional<Course> find(int id) {
+  public Optional<Course> find(int id) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
       ps.setInt(1, id);
       ResultSet rs = ps.executeQuery();
@@ -122,7 +123,7 @@ public class CourseDAO extends AbstractDAO<Course> {
       return Optional.of(mapper.map(rs));
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException();
+      throw new DAOException("unable to find course", e);
     }
   }
 

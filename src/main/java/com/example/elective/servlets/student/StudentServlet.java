@@ -3,6 +3,7 @@ package com.example.elective.servlets.student;
 import com.example.elective.Utils;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
@@ -29,9 +30,13 @@ public class StudentServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    HttpSession session = req.getSession();
-    int studentId = ((Account) session.getAttribute("account")).getId();
-    Map<Course, Journal> courseJournal = studentService.getCourseJournal(studentId);
+    int studentId = Utils.getCurrentUserId(req);
+    Map<Course, Journal> courseJournal = null;
+    try {
+      courseJournal = studentService.getCourseJournal(studentId);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     req.setAttribute("unregisteredCourses", getUnregisteredCourses(courseJournal));
     req.setAttribute("coursesInProgress", getCoursesInProgressMap(courseJournal));
     req.setAttribute("completedCourses", getCompletedCoursesMap(courseJournal));

@@ -1,5 +1,6 @@
 package com.example.elective.servlets.student;
 
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.JournalRequestMapper;
 import com.example.elective.models.Journal;
@@ -22,7 +23,11 @@ public class CourseEnrollServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     Journal journal = journalMapper.map(req);
-    journalService.save(journal);
+    try {
+      journalService.save(journal);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect("/elective/student");
   }
 

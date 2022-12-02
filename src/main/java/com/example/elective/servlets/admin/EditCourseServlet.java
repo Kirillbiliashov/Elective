@@ -4,6 +4,7 @@ import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
 import com.example.elective.dao.TopicDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
@@ -33,27 +34,35 @@ public class EditCourseServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
-    Optional<Course> optCourse = courseService.getById(id);
-    if (!optCourse.isPresent()) {
-      resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
-      return;
+    try {
+      Optional<Course> optCourse = courseService.getById(id);
+      if (!optCourse.isPresent()) {
+        resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
+        return;
+      }
+      List<Topic> topics = topicService.getAll();
+      List<Account> teachers = teacherService.getAll();
+      req.setAttribute("course", optCourse.get());
+      req.setAttribute("topics", topics);
+      req.setAttribute("teachers", teachers);
+      req.getRequestDispatcher("/edit-course.jsp").forward(req, resp);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    List<Topic> topics = topicService.getAll();
-    List<Account> teachers = teacherService.getAll();
-    req.setAttribute("course", optCourse.get());
-    req.setAttribute("topics", topics);
-    req.setAttribute("teachers", teachers);
-    req.getRequestDispatcher("/edit-course.jsp").forward(req, resp);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     int id = Utils.getIdFromPathInfo(req.getPathInfo());
-    courseService.updateById(id, req.getParameter("name"),
-        req.getParameter("startDate"),
-        req.getParameter("endDate"),
-        req.getParameter("topicId"),
-        req.getParameter("teacherId"));
+    try {
+      courseService.updateById(id, req.getParameter("name"),
+          req.getParameter("startDate"),
+          req.getParameter("endDate"),
+          req.getParameter("topicId"),
+          req.getParameter("teacherId"));
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 

@@ -2,6 +2,7 @@ package com.example.elective.servlets.teacher;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Journal;
 import com.example.elective.services.JournalService;
 
@@ -22,7 +23,11 @@ public class AddJournalGradeServlet extends HttpServlet {
       throws IOException {
     int journalId = Utils.getIdFromPathInfo(req.getPathInfo());
     String gradeStr = req.getParameter("grade");
-    journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));
+    try {
+      journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect("/elective/teacher?page=1");
   }
 

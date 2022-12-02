@@ -1,6 +1,7 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.CourseRequestMapper;
 import com.example.elective.models.Course;
@@ -29,9 +30,13 @@ public class AddCourseServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    List<Topic> topics = topicService.getAll();
-    req.setAttribute("topics", topics);
-    req.setAttribute("teachers", accService.getByRole("Teacher"));
+    try {
+      List<Topic> topics = topicService.getAll();
+      req.setAttribute("topics", topics);
+      req.setAttribute("teachers", accService.getByRole("Teacher"));
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     req.getRequestDispatcher("/add-course.jsp").forward(req, resp);
   }
 
@@ -39,7 +44,11 @@ public class AddCourseServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     Course course = courseMapper.map(req);
-    courseService.save(course);
+    try {
+      courseService.save(course);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
     resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
   }
 

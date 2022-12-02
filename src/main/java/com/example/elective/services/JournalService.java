@@ -1,6 +1,7 @@
 package com.example.elective.services;
 
 import com.example.elective.dao.JournalDAO;
+import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Journal;
 
 import java.util.Optional;
@@ -9,14 +10,14 @@ public class JournalService extends AbstractService {
 
   private JournalDAO dao = new JournalDAO();
 
-  public void save(Journal journal) {
+  public void save(Journal journal) throws ServiceException {
     transactionManager.initTransaction(dao);
-    performWriteOperation(() -> dao.save(journal));
+    performDaoWriteOperation(() -> dao.save(journal));
   }
 
-  public void updateGradeById(int id, int grade) {
+  public void updateGradeById(int id, int grade) throws ServiceException {
     transactionManager.initTransaction(dao);
-    performWriteOperation(() -> {
+    performDaoWriteOperation(() -> {
       Optional<Journal> optJournal = dao.find(id);
       if (optJournal.isPresent()) {
         Journal journal = optJournal.get();
@@ -26,9 +27,9 @@ public class JournalService extends AbstractService {
     });
   }
 
-  public int getByCourseIdCount(int courseId) {
+  public int getByCourseIdCount(int courseId) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performReadOperation(() -> dao.getByCourseId(courseId).size());
+    return performDaoReadOperation(() -> dao.getByCourseId(courseId).size());
   }
 
 }
