@@ -10,27 +10,33 @@ public abstract class AbstractService {
 
   protected TransactionManager transactionManager = new TransactionManager();
 
-  protected <T> T performDaoReadOperation(DAOReadOperation<T> operation) throws ServiceException {
-    T res = null;
+  protected <T> T performDaoReadOperation(DAOReadOperation<T> operation)
+      throws ServiceException {
     try {
-      res = operation.read();
+      T res = operation.read();
+      transactionManager.commitTransaction();
+      return res;
     } catch (DAOException e) {
       e.printStackTrace();
+      transactionManager.rollbackTransaction();
       throw new ServiceException(e);
+    } finally {
+      transactionManager.endTransaction();
     }
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
-    return res;
   }
 
-  protected void performDaoWriteOperation(DAOWriteOperation operation) throws ServiceException {
+  protected void performDaoWriteOperation(DAOWriteOperation operation)
+      throws ServiceException {
     try {
       operation.write();
+      transactionManager.commitTransaction();
     } catch (DAOException e) {
+      e.printStackTrace();
+      transactionManager.rollbackTransaction();
       throw new ServiceException(e);
+    } finally {
+      transactionManager.endTransaction();
     }
-    transactionManager.commitTransaction();
-    transactionManager.endTransaction();
   }
 
 }

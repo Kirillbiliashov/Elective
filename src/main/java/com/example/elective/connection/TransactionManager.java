@@ -11,15 +11,14 @@ public class TransactionManager {
   private Connection conn;
 
   @SafeVarargs
-  public final void initTransaction(AbstractDAO<? extends Entity>... daos)  {
+  public final void initTransaction(AbstractDAO<? extends Entity>... daos) {
     try {
       if (conn == null) conn = ConnectionPool.getConnection();
       conn.setAutoCommit(false);
-      for (AbstractDAO<? extends Entity> dao: daos) dao.setConnection(conn);
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException(e);
     }
+    for (AbstractDAO<? extends Entity> dao: daos) dao.setConnection(conn);
   }
 
   public void commitTransaction() {
@@ -28,7 +27,6 @@ public class TransactionManager {
       conn.commit();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException(e);
     }
   }
 
@@ -37,7 +35,7 @@ public class TransactionManager {
     try {
       conn.rollback();
     } catch (SQLException e) {
-      throw new RuntimeException(e);
+      e.printStackTrace();
     }
   }
 
@@ -48,7 +46,6 @@ public class TransactionManager {
       conn.close();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new RuntimeException(e);
     }
     conn = null;
   }
