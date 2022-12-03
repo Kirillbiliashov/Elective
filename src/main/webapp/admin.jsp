@@ -16,10 +16,10 @@
                         <select class="form-control" name="sort">
                             <option selected value="none">Sort By</option>
                             <option value="name">Name (A-Z)</option>
-                            <option value="name_reverse">Name (Z-A)</option>
-                            <option value="duration_asc">Duration (from shortest)</option>
+                            <option value="name_desc">Name (Z-A)</option>
+                            <option value="duration">Duration (from shortest)</option>
                             <option value="duration_desc">Duration (from longest)</option>
-                            <option value="students_asc">Students enrolled (from least)</option>
+                            <option value="students">Students enrolled (from least)</option>
                             <option value="students_desc">Students enrolled (from most)</option>
                         </select>
                     </div>

@@ -31,24 +31,34 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     String login = req.getParameter("login");
     String password = req.getParameter("password");
-    Optional<Account> optAccount = null;
+    Optional<Account> optAccount = Optional.empty();
     try {
       optAccount = accService.findByCredentials(login, password);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    if (!optAccount.isPresent()) {
-      req.setAttribute("errorMsg", "Login or password is incorrect");
-      req.getRequestDispatcher("login-form.jsp").forward(req, resp);
-    }
+    if (!optAccount.isPresent()) handleAbsentAccount(req, resp);
     Account acc = optAccount.get();
-    if (acc.isBlocked()) {
-      req.setAttribute("errorMsg", "Your account is blocked");
-      req.getRequestDispatcher("login-form.jsp").forward(req, resp);
-    }
+    if (acc.isBlocked()) handleBlockedAccount(req, resp);
+    addAccountToSession(req, acc);
+    resp.sendRedirect("main");
+  }
+
+  private void handleAbsentAccount(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    req.setAttribute("errorMsg", "Login or password is incorrect");
+    req.getRequestDispatcher("login-form.jsp").forward(req, resp);
+  }
+
+  private void handleBlockedAccount(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    req.setAttribute("errorMsg", "Your account is blocked");
+    req.getRequestDispatcher("login-form.jsp").forward(req, resp);
+  }
+
+  private void addAccountToSession(HttpServletRequest req, Account acc) {
     HttpSession session = req.getSession();
     session.setAttribute("account", acc);
-    resp.sendRedirect("main");
   }
 
 }

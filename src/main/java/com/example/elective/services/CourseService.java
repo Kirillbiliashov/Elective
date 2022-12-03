@@ -1,8 +1,9 @@
 package com.example.elective.services;
 
+import com.example.elective.CourseSelection;
+import static com.example.elective.CourseSelection.SortType;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
-import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
@@ -12,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CourseService extends AbstractService {
 
@@ -79,6 +81,25 @@ public class CourseService extends AbstractService {
       }
       return map;
     });
+  }
+
+  public List<Course> getBySelection(CourseSelection selection) throws ServiceException {
+    transactionManager.initTransaction(dao);
+    List<Course> sortedCourses = performDaoReadOperation(() -> {
+      SortType sort = selection.getSort();
+      if (sort == SortType.STUDENTS || sort == SortType.STUDENTS_DESC) {
+        return dao.getAllOrderedByStudentCount(sort == SortType.STUDENTS);
+      }
+      if (sort == SortType.NONE) return dao.findAll();
+      return dao.getOrderedBy(sort.getOrderBy());
+    });
+    int topicId = selection.getTopicId();
+    int teacherId = selection.getTeacherId();
+    return sortedCourses
+        .stream()
+        .filter(c -> c.getTopicId() == topicId || topicId == 0)
+        .filter(c -> c.getTeacherId() == teacherId || teacherId == 0)
+        .collect(Collectors.toList());
   }
 
 }

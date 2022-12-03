@@ -6,7 +6,7 @@ import com.example.elective.models.Entity;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface RequestMapper<T extends Entity> extends Mapper<HttpServletRequest, T> {
+public interface RequestMapper<T> extends Mapper<HttpServletRequest, T> {
 
   @Override
   T map(HttpServletRequest inpType);

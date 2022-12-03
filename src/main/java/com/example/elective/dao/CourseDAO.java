@@ -2,12 +2,10 @@ package com.example.elective.dao;
 
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
-import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.CourseResultSetMapper;
 import com.example.elective.models.Course;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +22,34 @@ public class CourseDAO extends AbstractDAO<Course> {
   private static final String DELETE = "DELETE FROM course WHERE id = ?";
   private static final String GET_ALL = "SELECT * FROM course";
   private static final String GET_BY_ID = "SELECT * FROM course WHERE id = ?";
+  private static final String GET_ORDERED_BY = "SELECT * FROM course ORDER BY ";
+  private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT course.id," +
+      " course.name, course.start_date, course.end_date, course.topic_id," +
+      " course.teacher_id FROM course JOIN journal ON" +
+      " course.id = journal.course_id " +
+      "GROUP BY (course.id) ORDER BY COUNT(course.id)";
 
   public CourseDAO() {
     this.mapper = new CourseResultSetMapper();
+  }
+
+  public List<Course> getAllOrderedByStudentCount(boolean isAsc) throws DAOException {
+    String ascStr = isAsc ? "" : " DESC";
+    try (Statement stmt = conn.createStatement()) {
+      return getEntitiesList(stmt.executeQuery(GET_ORDERED_BY_STUDENT_COUNT + ascStr));
+    } catch (SQLException | MappingException e) {
+      e.printStackTrace();
+      throw new DAOException("unable to retrieve courses", e);
+    }
+  }
+
+  public List<Course> getOrderedBy(String orderBy) throws DAOException {
+    try (Statement stmt = conn.createStatement()) {
+      return getEntitiesList(stmt.executeQuery(GET_ORDERED_BY + orderBy));
+    } catch (SQLException | MappingException e) {
+      e.printStackTrace();
+      throw new DAOException("unable to retrieve courses", e);
+    }
   }
 
   public List<Course> getByTeacherId(int teacherId) throws DAOException {
@@ -113,3 +136,4 @@ public class CourseDAO extends AbstractDAO<Course> {
   }
 
 }
+//SELECT course.id FROM course JOIN journal ON course.id = journal.course_id GROUP BY (course.id) ORDER BY COUNT(course.id);

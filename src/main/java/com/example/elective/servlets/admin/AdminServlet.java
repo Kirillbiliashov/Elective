@@ -1,7 +1,10 @@
 package com.example.elective.servlets.admin;
 
+import com.example.elective.CourseSelection;
 import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
+import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Course;
 import com.example.elective.services.*;
 
@@ -20,25 +23,16 @@ public class AdminServlet extends HttpServlet {
   private CourseService courseService = new CourseService();
   private TeacherService teacherService = new TeacherService();
   private TopicService topicService = new TopicService();
-  private JournalService journalService = new JournalService();
+  private RequestMapper<CourseSelection> selectionMapper = new CourseSelectionRequestMapper();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      List<Course> courses = courseService.getAll();
-      String teacherIdStr = req.getParameter("teacher");
-      if (Utils.isNumeric(teacherIdStr)) {
-        int teacherId = Integer.parseInt(teacherIdStr);
-        courses = filterByTeacherId(courses, teacherId);
-      }
-      String topicIdStr = req.getParameter("topic");
-      if (Utils.isNumeric(topicIdStr)) {
-        int topicId = Integer.parseInt(topicIdStr);
-        courses = filterByTopicId(courses, topicId);
-      }
-      String sortType = req.getParameter("sort");
-      if (sortType != null) sortCourses(sortType, courses);
+      CourseSelection courseSelection = selectionMapper.map(req);
+      System.out.println("course selection: " + courseSelection);
+      List<Course> courses = courseSelection == null ? courseService.getAll() :
+          courseService.getBySelection(courseSelection);
       req.setAttribute("topics", topicService.getAll());
       req.setAttribute("courses", courseService.getCourseTeacher(courses));
       req.setAttribute("teachers", teacherService.getAll());
@@ -46,62 +40,6 @@ public class AdminServlet extends HttpServlet {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     req.getRequestDispatcher("/admin.jsp").forward(req, resp);
-  }
-
-  private List<Course> filterByTeacherId(List<Course> courses, int teacherId) {
-    return courses
-        .stream()
-        .filter(course -> course.getTeacherId() == teacherId)
-        .collect(Collectors.toList());
-  }
-
-  private List<Course> filterByTopicId(List<Course> courses, int topicId) {
-    return courses
-        .stream()
-        .filter(course -> course.getTopicId() == topicId)
-        .collect(Collectors.toList());
-  }
-
-  private void sortCourses(String sortType, List<Course> courses) {
-    Comparator<Course> courseComparator = getCourseComparator(sortType);
-    if (courseComparator != null) courses.sort(courseComparator);
-  }
-
-  private Comparator<Course> getCourseComparator(String sortType) {
-    Comparator<Course> courseComparator = null;
-    if (sortType.equals("name")) {
-      courseComparator = getNameComparator();
-    } else if (sortType.equals("name_reverse")) {
-      courseComparator = getNameComparator().reversed();
-    } else if (sortType.equals("duration_asc")) {
-      courseComparator = getDurationComparator();
-    } else if (sortType.equals("duration_desc")) {
-      courseComparator = Collections.reverseOrder(getDurationComparator());
-    } else if (sortType.equals("students_asc")) {
-      courseComparator = getStudentComparator();
-    } else if (sortType.equals("students_desc")) {
-      courseComparator = Collections.reverseOrder(getStudentComparator());
-    }
-    return courseComparator;
-  }
-
-  private Comparator<Course> getNameComparator() {
-    return Comparator.comparing(Course::getName);
-  }
-
-  private Comparator<Course> getDurationComparator() {
-  return Comparator.comparing(c -> c.getEndDate().getTime() -
-      c.getStartDate().getTime());
-  }
-
-  private Comparator<Course> getStudentComparator() {
-    return Comparator.comparing(c -> {
-      try {
-        return journalService.getByCourseIdCount(c.getId());
-      } catch (ServiceException e) {
-        throw new RuntimeException(e);
-      }
-    });
   }
 
 }

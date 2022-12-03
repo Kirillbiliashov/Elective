@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(value = "/")
+@WebServlet("/")
 public class MainServlet extends HttpServlet {
 
   private RoleService roleService = new RoleService();
@@ -25,20 +25,24 @@ public class MainServlet extends HttpServlet {
     HttpSession session = req.getSession();
     Account account = (Account) session.getAttribute("account");
     int roleId = account.getRoleId();
-    Optional<Role> optRole = null;
+    Optional<Role> optRole = Optional.empty();
     try {
       optRole = roleService.getById(roleId);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    String servletUrl = "error.jsp";
+    String homeUrl = getHomeUrl(optRole);
+    session.setAttribute("homeUrl",  homeUrl);
+    resp.sendRedirect(homeUrl);
+  }
+
+  private String getHomeUrl(Optional<Role> optRole) {
+    String homeUrl = "/elective/login";
     if (optRole.isPresent()) {
       Role role = optRole.get();
-      servletUrl = role.getName().toLowerCase();
-      session.setAttribute("homeUrl",  servletUrl);
+      homeUrl = role.getName().toLowerCase();
     }
-    if (servletUrl.equals("teacher")) servletUrl += "?page=1";
-    resp.sendRedirect(servletUrl);
+    return homeUrl;
   }
 
 }
