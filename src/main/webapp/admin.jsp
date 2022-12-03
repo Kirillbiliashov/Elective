@@ -13,8 +13,9 @@
             <form method="get">
                 <div style="display: flex; justify-content: center">
                     <div class="form-group">
-                        <select class="form-control" name="sort">
-                            <option selected value="none">Sort By</option>
+                        <label for="sort">Sort By</label>
+                        <select class="form-control" name="sort" id="sort">
+                            <option selected value="none">None</option>
                             <option value="name">Name (A-Z)</option>
                             <option value="name_desc">Name (Z-A)</option>
                             <option value="duration">Duration (from shortest)</option>
@@ -24,16 +25,19 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="topic">
-                            <option selected value="none">Topic</option>>
+                        <label for="topic">Topic</label>
+                        <select class="form-control" name="topic" id="topic">
+                            <option selected value="any">Any</option>>
                             <c:forEach items="${topics}" var="topic">
                                 <option value="${topic.id}">${topic.name}</option>
+                                <option
                             </c:forEach>
                         </select>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="teacher">
-                            <option selected value="none">Teacher</option>
+                        <label for="teacher">Teacher</label>
+                        <select class="form-control" name="teacher" id="teacher">
+                            <option selected value="any">Any</option>
                             <c:forEach items="${teachers}" var="teacher">
                                 <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
                             </c:forEach>

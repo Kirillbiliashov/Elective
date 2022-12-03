@@ -12,12 +12,10 @@ public class CourseSelectionRequestMapper implements RequestMapper<CourseSelecti
     String teacherIdStr = req.getParameter("teacher");
     String topicIdStr = req.getParameter("topic");
     String sort = req.getParameter("sort");
-    boolean isTeacherNull = teacherIdStr == null;
-    boolean isTopicNull = topicIdStr == null;
     boolean isSortNull = sort == null;
-    if (isSortNull && isTopicNull && isTeacherNull) return null;
     int teacherId = Utils.isNumeric(teacherIdStr) ? Integer.parseInt(teacherIdStr) : 0;
     int topicId = Utils.isNumeric(topicIdStr) ? Integer.parseInt(topicIdStr) : 0;
+    if (isSortNull) return new CourseSelection(teacherId, topicId);
     return new CourseSelection(teacherId, topicId, sort);
   }
 

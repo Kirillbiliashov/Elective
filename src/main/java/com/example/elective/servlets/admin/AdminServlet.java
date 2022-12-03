@@ -30,9 +30,7 @@ public class AdminServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
-      System.out.println("course selection: " + courseSelection);
-      List<Course> courses = courseSelection == null ? courseService.getAll() :
-          courseService.getBySelection(courseSelection);
+      List<Course> courses = courseService.getBySelection(courseSelection);
       req.setAttribute("topics", topicService.getAll());
       req.setAttribute("courses", courseService.getCourseTeacher(courses));
       req.setAttribute("teachers", teacherService.getAll());

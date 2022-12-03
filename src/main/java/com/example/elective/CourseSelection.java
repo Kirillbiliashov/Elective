@@ -1,15 +1,29 @@
 package com.example.elective;
 
+import java.util.Arrays;
+
 public class CourseSelection {
 
   private int teacherId;
   private int topicId;
-  private SortType sort;
+  private SortType sort = SortType.NONE;
 
-  public CourseSelection(int teacherId, int topicId, String sort) {
+  public CourseSelection(int teacherId, int topicId) {
     this.teacherId = teacherId;
     this.topicId = topicId;
-    this.sort = SortType.valueOf(sort.toUpperCase());
+  }
+
+  public CourseSelection(int teacherId, int topicId, String sort) {
+    this(teacherId, topicId);
+    if (isSortValid(sort)) {
+      this.sort = SortType.valueOf(sort.toUpperCase());
+    }
+  }
+
+  private boolean isSortValid(String sort) {
+    return Arrays
+        .stream(SortType.values())
+        .anyMatch(val -> val.toString().equals(sort.toUpperCase()));
   }
 
   public int getTeacherId() {

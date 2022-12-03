@@ -85,14 +85,7 @@ public class CourseService extends AbstractService {
 
   public List<Course> getBySelection(CourseSelection selection) throws ServiceException {
     transactionManager.initTransaction(dao);
-    List<Course> sortedCourses = performDaoReadOperation(() -> {
-      SortType sort = selection.getSort();
-      if (sort == SortType.STUDENTS || sort == SortType.STUDENTS_DESC) {
-        return dao.getAllOrderedByStudentCount(sort == SortType.STUDENTS);
-      }
-      if (sort == SortType.NONE) return dao.findAll();
-      return dao.getOrderedBy(sort.getOrderBy());
-    });
+    List<Course> sortedCourses = getSortedCourses(selection.getSort());
     int topicId = selection.getTopicId();
     int teacherId = selection.getTeacherId();
     return sortedCourses
@@ -100,6 +93,16 @@ public class CourseService extends AbstractService {
         .filter(c -> c.getTopicId() == topicId || topicId == 0)
         .filter(c -> c.getTeacherId() == teacherId || teacherId == 0)
         .collect(Collectors.toList());
+  }
+
+  private List<Course> getSortedCourses(SortType sort) throws ServiceException {
+    return performDaoReadOperation(() -> {
+      if (sort == SortType.STUDENTS || sort == SortType.STUDENTS_DESC) {
+        return dao.getAllOrderedByStudentCount(sort == SortType.STUDENTS);
+      }
+      if (sort == SortType.NONE) return dao.findAll();
+      return dao.getOrderedBy(sort.getOrderBy());
+    });
   }
 
 }
