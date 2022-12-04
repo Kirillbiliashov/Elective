@@ -19,36 +19,10 @@ public class CourseService extends AbstractService {
 
   private CourseDAO dao = new CourseDAO();
   private AccountDAO accDao = new AccountDAO();
- private static final int NAME_IDX = 0;
- private static final int START_DATE_IDX = 1;
- private static final int END_DATE_IDX = 2;
- private static final int TOPIC_ID_IDX = 3;
-  private static final int TEACHER_ID_IDX = 4;
 
-  public void updateById(int id, String... updValues) throws ServiceException {
+  public void update(Course course) throws ServiceException {
     transactionManager.initTransaction(dao);
-    performDaoWriteOperation(() -> {
-      Optional<Course> optCourse = dao.find(id);
-      if (optCourse.isPresent()) {
-        Course course = optCourse.get();
-        updateFields(course, updValues);
-        dao.update(course);
-      }
-    });
-  }
-
-  private void updateFields(Course course, String... values) {
-    String name = values[NAME_IDX];
-    Date startDate = Date.valueOf(values[START_DATE_IDX]);
-    Date endDate = Date.valueOf(values[END_DATE_IDX]);
-    int topicId = Integer.parseInt(values[TOPIC_ID_IDX]);
-    int teacherId = Integer.parseInt(values[TEACHER_ID_IDX]);
-    course.getBuilder()
-        .setName(name)
-        .setStartDate(startDate)
-        .setEndDate(endDate)
-        .setTopicId(topicId)
-        .setTeacherId(teacherId);
+    performDaoWriteOperation(() -> dao.update(course));
   }
 
   public void save(Course course) throws ServiceException {

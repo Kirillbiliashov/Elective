@@ -38,6 +38,7 @@
       </c:forEach>
     </select>
   </div>
+  <input type="hidden" value="${course.id}" name="id"/>
   <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 </body>

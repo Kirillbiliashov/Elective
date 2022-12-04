@@ -23,7 +23,8 @@ public class AdminServlet extends HttpServlet {
   private CourseService courseService = new CourseService();
   private TeacherService teacherService = new TeacherService();
   private TopicService topicService = new TopicService();
-  private RequestMapper<CourseSelection> selectionMapper = new CourseSelectionRequestMapper();
+  private RequestMapper<CourseSelection> selectionMapper =
+      new CourseSelectionRequestMapper();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

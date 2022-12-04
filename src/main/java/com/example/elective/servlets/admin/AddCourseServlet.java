@@ -22,8 +22,7 @@ import java.util.List;
 @WebServlet("/admin/courses/add")
 public class AddCourseServlet extends HttpServlet {
 
-  private RequestMapper<Course> courseMapper =
-      new CourseRequestMapper();
+  private RequestMapper<Course> courseMapper = new CourseRequestMapper();
   private AccountService accService = new AccountService();
   private CourseService courseService = new CourseService();
   private TopicService topicService = new TopicService();

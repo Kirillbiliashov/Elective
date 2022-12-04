@@ -10,7 +10,9 @@ public class CourseRequestMapper implements RequestMapper<Course> {
 
   @Override
   public Course map(HttpServletRequest req) {
+    String idStr = req.getParameter("id");
     return Course.newBuilder()
+        .setId(idStr == null ? 0 : Integer.parseInt(idStr))
         .setName(req.getParameter("name"))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
         .setEndDate(Date.valueOf(req.getParameter("endDate")))
