@@ -14,7 +14,7 @@ CREATE TABLE account
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     login      VARCHAR(50) NOT NULL UNIQUE,
-    password   VARCHAR(25) NOT NULL UNIQUE,
+    password   VARCHAR(64) NOT NULL UNIQUE,
     first_name VARCHAR(20),
     last_name  VARCHAR(25),
     is_blocked BOOLEAN     NOT NULL DEFAULT FALSE,

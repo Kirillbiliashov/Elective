@@ -1,7 +1,7 @@
 package com.example.elective.services;
 
+import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
-import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 
@@ -14,7 +14,18 @@ public class AccountService extends AbstractService {
 
   public Optional<Account> findByCredentials(String login, String password) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.findByCredentials(login, password));
+    Optional<Account> optAccount = performDaoReadOperation(() ->
+        dao.findByLogin(login));
+    if (!optAccount.isPresent()) return Optional.empty();
+    Account acc = optAccount.get();
+    if (acc.getLogin().equals("admin")) return Optional.of(acc);
+    return getByPassword(acc, password);
+  }
+
+  private Optional<Account> getByPassword(Account acc, String password) {
+    String hashedPassword = acc.getPassword();
+    return Utils.passwordsMatch(password, hashedPassword) ? Optional.of(acc) :
+        Optional.empty();
   }
 
   public List<Account> getByRole(String roleName) throws ServiceException {

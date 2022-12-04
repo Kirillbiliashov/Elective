@@ -1,9 +1,14 @@
 package com.example.elective;
 
 import com.example.elective.models.Account;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,6 +34,14 @@ public class Utils {
   public static int getCurrentUserId(HttpServletRequest req) {
     HttpSession session = req.getSession();
     return ((Account) session.getAttribute("account")).getId();
+  }
+
+  public static String hashPassword(String password) {
+    return BCrypt.hashpw(password, BCrypt.gensalt());
+  }
+
+  public static boolean passwordsMatch(String password, String hashedPassword) {
+    return BCrypt.checkpw(password, hashedPassword);
   }
 
 }

@@ -1,13 +1,12 @@
 package com.example.elective.dao;
 
+import com.example.elective.Utils;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
-import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.AccountResultSetMapper;
 import com.example.elective.models.Account;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +19,8 @@ public class AccountDAO extends AbstractDAO<Account> {
       " WHERE role_id = (SELECT id FROM role WHERE name = ?)";
   private static final String SAVE = "INSERT INTO account(login, password," +
       " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?)";
-  private static final String FIND_BY_CREDENTIALS = "SELECT * FROM account" +
-      " WHERE login = ? AND password = ?";
+  private static final String FIND_BY_LOGIN = "SELECT * FROM account" +
+      " WHERE login = ?";
 
   public AccountDAO() {
     this.mapper = new AccountResultSetMapper();
@@ -61,8 +60,9 @@ public class AccountDAO extends AbstractDAO<Account> {
   public void save(Account acc) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
              Statement.RETURN_GENERATED_KEYS)) {
+      String hashedPassword = Utils.hashPassword(acc.getPassword());
       addValuesToPreparedStatement(ps, acc.getLogin(),
-          acc.getPassword(), acc.getFirstName(),
+          hashedPassword, acc.getFirstName(),
           acc.getLastName(), acc.getRoleId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -81,9 +81,9 @@ public class AccountDAO extends AbstractDAO<Account> {
     }
   }
 
-  public Optional<Account> findByCredentials(String login, String password) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_CREDENTIALS)) {
-      addValuesToPreparedStatement(ps, login, password);
+  public Optional<Account> findByLogin(String login) throws DAOException {
+    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_LOGIN)) {
+      addValuesToPreparedStatement(ps, login);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
       e.printStackTrace();

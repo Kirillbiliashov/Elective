@@ -19,6 +19,7 @@
           <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.31" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: de.svenkubiak:jBCrypt:0.4.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
