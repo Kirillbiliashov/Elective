@@ -23,11 +23,20 @@ public class CourseDAO extends AbstractDAO<Course> {
   private static final String GET_ALL = "SELECT * FROM course";
   private static final String GET_BY_ID = "SELECT * FROM course WHERE id = ?";
   private static final String GET_ORDERED_BY = "SELECT * FROM course ORDER BY ";
-  private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT course.id," +
-      " course.name, course.start_date, course.end_date, course.topic_id," +
-      " course.teacher_id FROM course JOIN journal ON" +
-      " course.id = journal.course_id " +
+  private static final String SELECT_JOIN_JOURNAL = "SELECT course.id," +
+      " name, start_date, end_date, topic_id, teacher_id " +
+      "FROM course JOIN journal ON course.id = course_id ";
+  private static final String GET_ORDERED_BY_STUDENT_COUNT = SELECT_JOIN_JOURNAL +
       "GROUP BY (course.id) ORDER BY COUNT(course.id)";
+  private static final String FIND_COMPLETED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
+      "WHERE student_id = ? AND end_date < CURRENT_DATE()";
+  private static final String FIND_IN_PROGRESS_FOR_STUDENT = SELECT_JOIN_JOURNAL +
+      "WHERE student_id = ? AND CURRENT_DATE() BETWEEN start_date AND end_date";
+  private static final String FIND_REGISTERED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
+      "WHERE student_id = ? AND start_date > CURRENT_DATE()";
+  private static final String FIND_AVAILABLE_FOR_STUDENT = "SELECT" +
+      " * FROM course WHERE id != ALL (SELECT course.id FROM course " +
+      "JOIN journal ON course_id = course.id WHERE student_id = ?)";
 
   public CourseDAO() {
     this.mapper = new CourseResultSetMapper();
@@ -135,5 +144,51 @@ public class CourseDAO extends AbstractDAO<Course> {
     }
   }
 
+  public List<Course> findCompletedForStudent(int studentId) throws DAOException {
+    try (PreparedStatement ps =
+             conn.prepareStatement(FIND_COMPLETED_FOR_STUDENT)) {
+      addValuesToPreparedStatement(ps, studentId);
+      return getEntitiesList(ps.executeQuery());
+    } catch (SQLException | MappingException e) {
+      e.printStackTrace();
+      throw new DAOException("unable to find courses", e);
+    }
+  }
+
+  public List<Course> findInProgressForStudent(int studentId)
+      throws DAOException {
+    try (PreparedStatement ps =
+             conn.prepareStatement(FIND_IN_PROGRESS_FOR_STUDENT)) {
+      addValuesToPreparedStatement(ps, studentId);
+      return getEntitiesList(ps.executeQuery());
+    } catch (SQLException | MappingException e) {
+      e.printStackTrace();
+      throw new DAOException("unable to find courses in progress", e);
+    }
+  }
+
+  public List<Course> findRegisteredForStudent(int studentId)
+      throws DAOException {
+    try (PreparedStatement ps =
+             conn.prepareStatement(FIND_REGISTERED_FOR_STUDENT)) {
+      addValuesToPreparedStatement(ps, studentId);
+      return getEntitiesList(ps.executeQuery());
+    } catch (SQLException | MappingException e) {
+      e.printStackTrace();
+      throw new DAOException("unable to find registered courses", e);
+    }
+  }
+
+  public List<Course> findAvailableForStudent(int studentId)
+      throws DAOException {
+    try (PreparedStatement ps =
+             conn.prepareStatement(FIND_AVAILABLE_FOR_STUDENT)) {
+      addValuesToPreparedStatement(ps, studentId);
+      return getEntitiesList(ps.executeQuery());
+    } catch (SQLException | MappingException e) {
+      e.printStackTrace();
+      throw new DAOException("unable to find available courses", e);
+    }
+  }
+
 }
-//SELECT course.id FROM course JOIN journal ON course.id = journal.course_id GROUP BY (course.id) ORDER BY COUNT(course.id);

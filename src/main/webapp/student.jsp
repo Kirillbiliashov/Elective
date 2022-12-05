@@ -14,9 +14,9 @@
     <div style="display: flex; justify-content: space-around">
             <div style="margin: 15px">
                 <h3>Available</h3>
-            <c:if test="${!unregisteredCourses.isEmpty()}">
+            <c:if test="${!availableCourses.isEmpty()}">
                 <ul class="list-group">
-                    <c:forEach items="${unregisteredCourses}" var="course">
+                    <c:forEach items="${availableCourses}" var="course">
                         <li class="list-group-item" style="margin: 10px">
                             <h4>${course.name}</h4>
                             <p>Start Date: ${course.startDate}</p>
@@ -27,7 +27,7 @@
                     </c:forEach>
                 </ul>
             </c:if>
-                <c:if test="${unregisteredCourses.isEmpty()}"><p>No available courses</p></c:if>
+                <c:if test="${availableCourses.isEmpty()}"><p>No available courses</p></c:if>
             </div>
             <div style="margin: 15px">
                 <h3>Registered</h3>
@@ -48,11 +48,11 @@
                     <h3>In progress</h3>
                 <c:if test="${!coursesInProgress.isEmpty()}">
                     <ul class="list-group">
-                        <c:forEach items="${coursesInProgress.keySet()}" var="courseInProgress">
+                        <c:forEach items="${coursesInProgress}" var="course">
                             <li class="list-group-item" style="margin: 10px">
-                                <h4>${courseInProgress.name}</h4>
-                                <p>Start date: ${courseInProgress.startDate}</p>
-                                <p>End date: ${courseInProgress.endDate}</p>
+                                <h4>${course.name}</h4>
+                                <p>Start date: ${course.startDate}</p>
+                                <p>End date: ${course.endDate}</p>
                             </li>
                         </c:forEach>
                     </ul>

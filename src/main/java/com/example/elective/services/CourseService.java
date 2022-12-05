@@ -2,13 +2,16 @@ package com.example.elective.services;
 
 import com.example.elective.CourseSelection;
 import static com.example.elective.CourseSelection.SortType;
+
+import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
+import com.example.elective.dao.JournalDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
+import com.example.elective.models.Journal;
 
-import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
