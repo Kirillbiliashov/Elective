@@ -1,0 +1,38 @@
+.login-page-container, .post-form {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 5%;
+}
+.submit-btn {
+    margin-left: 40%;
+}
+.signup-ref {
+    margin-left: 30%;
+}
+.form-header {
+    text-align: center;
+}
+.admin-page-container {
+    margin: 30px;
+}
+.admin-heading-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.add-course-ref {
+    margin-left: 20px;
+}
+.selection-form-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    align-items: center;
+}
+.list-group-item {
+    margin: 10px;
+}
+.course-content-container {
+    display: flex;
+    justify-content: space-between;
+}

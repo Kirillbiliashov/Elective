@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Title</title>
 </head>
-<body style="margin: 20px">
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h3>Teacher</h3>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"/>
-    <a href="/elective/logout" class="btn btn-primary">Log out</a>
+    <div style="display: flex; justify-content: space-between">
+        <h3>Teacher</h3>
+        <a href="/elective/logout" class="btn btn-primary">Log out</a>
+    </div>
 </nav>
-
     <div style="margin: 30px;">
         <h2>Course: ${course.name}</h2>
         <table class="table" style="margin: 30px">

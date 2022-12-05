@@ -21,6 +21,7 @@
             </li>
         </ul>
     </div>
+    <a href="/elective/logout" class="btn btn-primary">Log out</a>
 </nav>
 <div style="margin: 30px">
     <div style="display: flex; width: 300px; justify-content: space-between; align-items: center">
@@ -34,7 +35,6 @@
             </li>
         </c:forEach>
     </ul>
-
 </div>
 </body>
 </html>
