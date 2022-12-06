@@ -10,14 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Student course selection was refactored">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,6 +257,7 @@
       <workItem from="1669563222164" duration="38349000" />
       <workItem from="1669889469402" duration="13922000" />
       <workItem from="1669982277531" duration="40746000" />
+      <workItem from="1670356049349" duration="2883000" />
     </task>
     <task id="LOCAL-00016" summary="Ability to view e-journal for teacher was added">
       <created>1668766325315</created>

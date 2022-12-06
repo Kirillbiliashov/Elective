@@ -51,27 +51,28 @@
     </form>
         </div>
         <ul class="list-group">
-            <c:forEach items="${courses}" var="course">
-                <li class="list-group-item">
-                    <div class="course-content-container">
-                        <div>
-                            <h3>${course.key.name}</h3>
+            <div class="grid-container">
+                <c:forEach items="${courses}" var="course">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h3 class="card-title">${course.key.name}</h3>
                             <p>Teacher: ${course.value.firstName} ${course.value.lastName}</p>
                             <c:if test="${course.value == null}">
                                 <p>No teacher assigned</p>
                             </c:if>
                             <p>Start date: ${course.key.startDate}</p>
                             <p>End date: ${course.key.endDate}</p>
-                        </div>
-                        <div style="display: flex">
-                            <a href="admin/courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
-                            <form action="admin/courses/delete/${course.key.id}" method="POST">
-                                <input type="submit" class="btn btn-danger" value="Delete">
-                            </form>
+                            <div style="display: flex; align-items: center; justify-content: space-around">
+                                <a href="admin/courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
+                                <form action="admin/courses/delete/${course.key.id}" method="POST">
+                                    <input type="submit" class="btn btn-danger" value="Delete" style="margin-top: 15px">
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </li>
-            </c:forEach>
+                </c:forEach>
+            </div>
+
         </ul>
     </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
