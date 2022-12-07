@@ -2,8 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Students</title>
+    <style>
+        <%@include file="style.css" %>
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,24 +27,28 @@
     </div>
     <a href="/elective/logout" class="btn btn-primary">Log out</a>
 </nav>
-<div style="margin: 30px">
+<div class="page-container">
     <h2>Students</h2>
     <ul class="list-group">
-        <c:forEach items="${students}" var="student">
-            <li class="list-group-item" style="margin: 10px">
-                <div style="display: flex; justify-content: space-between">
-                    <h6>${student.firstName} ${student.lastName} (${student.login})</h6>
-                    <form action="students/changeBlock/${student.id}" method="POST">
-                        <c:if test="${student.blocked}">
-                            <input type="submit" class="btn btn-secondary" value="Unlock">
-                        </c:if>
-                        <c:if test="${!student.blocked}">
-                            <input type="submit" class="btn btn-dark" value="Block">
-                        </c:if>
-                    </form>
+        <div class="grid-container">
+            <c:forEach items="${students}" var="student">
+                <div class="card student-card">
+                    <div class="card-body">
+                        <h5>${student.firstName} ${student.lastName} (${student.login})</h5>
+                        <div style="align-items: center; justify-content: center; display: flex">
+                            <form action="students/changeBlock/${student.id}" method="POST">
+                                <c:if test="${student.blocked}">
+                                    <input type="submit" class="btn btn-secondary" value="Unlock">
+                                </c:if>
+                                <c:if test="${!student.blocked}">
+                                    <input type="submit" class="btn btn-dark" value="Block">
+                                </c:if>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </li>
-        </c:forEach>
+            </c:forEach>
+        </div>
     </ul>
 </div>
 </body>

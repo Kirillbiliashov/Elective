@@ -3,12 +3,12 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Title</title>
+    <title>Admin</title>
     <style><%@include file="style.css" %></style>
 </head>
 <body>
 <c:import url="admin-navbar.jsp"/>
-    <div class="admin-page-container">
+    <div class="page-container">
         <div class="admin-heading-container">
             <h2>Courses</h2>
             <a href="admin/courses/add" class="add-course-ref">Add course</a>
@@ -53,7 +53,7 @@
         <ul class="list-group">
             <div class="grid-container">
                 <c:forEach items="${courses}" var="course">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card course-card">
                         <div class="card-body">
                             <h3 class="card-title">${course.key.name}</h3>
                             <p>Teacher: ${course.value.firstName} ${course.value.lastName}</p>
@@ -62,17 +62,16 @@
                             </c:if>
                             <p>Start date: ${course.key.startDate}</p>
                             <p>End date: ${course.key.endDate}</p>
-                            <div style="display: flex; align-items: center; justify-content: space-around">
+                            <div class="course-btn-container">
                                 <a href="admin/courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
                                 <form action="admin/courses/delete/${course.key.id}" method="POST">
-                                    <input type="submit" class="btn btn-danger" value="Delete" style="margin-top: 15px">
+                                    <input type="submit" class="btn btn-danger delete-course-btn" value="Delete">
                                 </form>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
             </div>
-
         </ul>
     </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

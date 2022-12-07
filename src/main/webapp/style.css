@@ -3,44 +3,93 @@
     margin-right: 35%;
     margin-top: 5%;
 }
+
 .submit-btn {
     margin-left: 40%;
 }
+
 .signup-ref {
     margin-left: 30%;
 }
+
 .form-header {
     text-align: center;
 }
-.admin-page-container {
+
+.page-container {
     margin: 30px;
 }
+
 .admin-heading-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
+
 .add-course-ref {
     margin-left: 20px;
 }
+
 .selection-form-container {
     display: flex;
     justify-content: space-between;
     margin: 30px;
     align-items: center;
 }
+
 .list-group-item {
     margin: 10px;
 }
+
 .course-content-container {
     display: flex;
     justify-content: space-between;
 }
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 75px;
 }
+
 p {
     font-size: 18px;
+}
+
+.course-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.course-card {
+    width: 18rem;
+}
+
+.delete-course-btn {
+    margin-top: 15px;
+}
+
+.student-card {
+    width: 16rem;
+}
+
+.student-card form {
+    margin-top: 10px;
+}
+
+.admin-teachers-header {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teacher-grid-container {
+    margin-top: 20px;
+}
+
+.teacher-card {
+    width: 16rem;
+    height: 6rem;
 }

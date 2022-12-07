@@ -8,7 +8,7 @@
       <c:if test="${prev != 0}">
         <li class="page-item"><a class="page-link" href="?page=${prev}">${prev}</a></li>
       </c:if>
-      <li class="page-item active"><a class="page-link" href="?page=${param.get("page")}">${param.get("page")}</a></li>
+      <li class="page-item active"><a class="page-link" href="?page=${page}">${page}</a></li>
       <c:if test="${next <= pagesCount}">
         <li class="page-item"><a class="page-link" href="?page=${next}">${next}</a></li>
       </c:if>

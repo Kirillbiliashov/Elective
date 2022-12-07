@@ -8,8 +8,6 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
-import com.example.elective.services.CourseService;
-import com.example.elective.services.JournalService;
 import com.example.elective.services.TeacherService;
 
 import javax.servlet.ServletException;
@@ -19,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/teacher")
@@ -33,6 +29,7 @@ public class TeacherServlet extends HttpServlet {
       throws ServletException, IOException {
     int id = Utils.getCurrentUserId(req);
     int page = getPageNumber(req);
+    System.out.println("page: " + page);
     setPageAttributes(req, page);
     try {
       req.setAttribute("pagesCount", teacherService.getPagesCount(id));
@@ -50,6 +47,7 @@ public class TeacherServlet extends HttpServlet {
   private void setPageAttributes(HttpServletRequest req, int currPage) {
     int nextPage = currPage + 1;
     int prevPage = currPage - 1;
+    req.setAttribute("page", currPage);
     req.setAttribute("next", nextPage);
     req.setAttribute("prev", prevPage);
   }

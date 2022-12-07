@@ -16,11 +16,9 @@ public class AuthorizationFilter extends HttpFilter {
                           FilterChain chain) throws IOException, ServletException {
     HttpSession session = req.getSession();
     String homeUrl = (String) session.getAttribute("homeUrl");
-    if (req.getServletPath().contains(homeUrl)) {
-      chain.doFilter(req, res);
-    } else {
-      res.sendError(403);
-    }
+    String url = req.getServletPath() + "?" + req.getQueryString();
+    if (url.contains(homeUrl)) chain.doFilter(req, res);
+    else res.sendError(403);
   }
 
 }
