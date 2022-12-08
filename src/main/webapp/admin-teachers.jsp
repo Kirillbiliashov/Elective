@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -10,23 +11,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h3>Admin</h3>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="../">Courses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="students">Students</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="teachers">Teachers</a>
-            </li>
-        </ul>
-    </div>
-    <a href="/elective/logout" class="btn btn-primary">Log out</a>
-</nav>
+<admin:navbar adminUrl="../" studentsUrl="students" teachersUrl="teachers" activeNavItem="teachers"/>
 <div class="page-container">
     <div class="admin-teachers-header">
         <h2>Teachers</h2>

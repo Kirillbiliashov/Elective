@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="student" tagdir="/WEB-INF/tags/student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,24 +8,9 @@
     <style><%@include file="style.css" %></style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h3>${account.login}</h3>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="">Available courses<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="student/registered_courses">Registered courses</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="student/courses_in_progress">Courses in progress</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="student/completed_courses">Completed courses</a>
-        </li>
-    </ul>
-    <a href="/elective/logout" class="btn btn-primary">Log out</a>
-</nav>
+<student:navbar studentUrl="" registeredCoursesUrl="student/registered_courses"
+                coursesInProgressUrl="student/courses_in_progress"
+                completedCoursesUrl="tudent/completed_courses" activeNavItem="student"/>
 <div class="page-container">
     <h2>Available courses</h2>
     <c:if test="${!availableCourses.isEmpty()}">
