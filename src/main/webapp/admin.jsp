@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix = "teacher" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en"/>
+<fmt:setBundle basename="text"/>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -12,44 +15,44 @@
 <admin:navbar adminUrl="" studentsUrl="admin/students" teachersUrl="admin/teachers" activeNavItem="admin"/>
     <div class="page-container">
         <div class="admin-heading-container">
-            <h2>Courses</h2>
-            <a href="admin/courses/add" class="add-course-ref">Add course</a>
+            <h2><fmt:message key="courses" /></h2>
+            <a href="admin/courses/add" class="add-course-ref"><fmt:message key="add_course" /></a>
         </div>
         <div class="selection-form-container">
     <form>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="sort">Sort By</label>
+                <label for="sort"><fmt:message key="sort.sort_by" /></label>
                 <select class="form-control" name="sort" id="sort">
-                    <option selected value="none">None</option>
-                    <option value="name">Name (A-Z)</option>
-                    <option value="name_desc">Name (Z-A)</option>
-                    <option value="duration">Duration (from shortest)</option>
-                    <option value="duration_desc">Duration (from longest)</option>
-                    <option value="students">Students enrolled (from least)</option>
-                    <option value="students_desc">Students enrolled (from most)</option>
+                    <option selected value="none"><fmt:message key="sort.none" /></option>
+                    <option value="name"><fmt:message key="sort.name_asc" /></option>
+                    <option value="name_desc"><fmt:message key="sort.name_desc" /></option>
+                    <option value="duration"><fmt:message key="sort.duration_asc" /></option>
+                    <option value="duration_desc"><fmt:message key="sort.duration_desc"/></option>
+                    <option value="students"><fmt:message key="sort.students_asc" /></option>
+                    <option value="students_desc"><fmt:message key="sort.students_desc" /></option>
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="teacher">Teacher</label>
+                <label for="teacher"><fmt:message key="teacher"/></label>
                 <select class="form-control" name="teacher" id="teacher">
-                    <option selected value="any">Any</option>
+                    <option selected value="any"><fmt:message key="teacher.any" /></option>
                     <c:forEach items="${teachers}" var="teacher">
                         <option value="${teacher.id}"><teacher:fullName target="${teacher}"/></option>
                     </c:forEach>
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="topic">Topic</label>
+                <label for="topic"><fmt:message key="topic" /></label>
                 <select class="form-control" name="topic" id="topic">
-                    <option selected value="any">Any</option>
+                    <option selected value="any"><fmt:message key="topic.any"/></option>
                     <c:forEach items="${topics}" var="topic">
                         <option value="${topic.id}">${topic.name}</option>
                     </c:forEach>
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Apply</button>
+        <button type="submit" class="btn btn-primary"><fmt:message key="apply"/></button>
     </form>
         </div>
         <ul class="list-group">
@@ -62,12 +65,12 @@
                             <c:if test="${course.value == null}">
                                 <p>No teacher assigned</p>
                             </c:if>
-                            <p>Start date: ${course.key.startDate}</p>
-                            <p>End date: ${course.key.endDate}</p>
+                            <p><fmt:message key="start_date"/>: ${course.key.startDate}</p>
+                            <p><fmt:message key="end_date"/>: ${course.key.endDate}</p>
                             <div class="course-btn-container">
-                                <a href="admin/courses/edit/${course.key.id}" class="btn btn-light">Edit</a>
+                                <a href="admin/courses/edit/${course.key.id}" class="btn btn-light"><fmt:message key="edit"/></a>
                                 <form action="admin/courses/delete/${course.key.id}" method="POST">
-                                    <input type="submit" class="btn btn-danger delete-course-btn" value="Delete">
+                                    <input type="submit" class="btn btn-danger delete-course-btn" value="<fmt:message key="delete"/>">
                                 </form>
                             </div>
                         </div>

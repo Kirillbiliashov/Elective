@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en"/>
+<fmt:setBundle basename="text"/>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -14,7 +17,7 @@
 <body>
 <admin:navbar adminUrl="../" studentsUrl="students" teachersUrl="teachers" activeNavItem="students"/>
 <div class="page-container">
-    <h2>Students</h2>
+    <h2><fmt:message key="students" /></h2>
     <ul class="list-group">
         <div class="grid-container">
             <c:forEach items="${students}" var="student">
@@ -24,10 +27,10 @@
                         <div style="align-items: center; justify-content: center; display: flex">
                             <form action="students/changeBlock/${student.id}" method="POST">
                                 <c:if test="${student.blocked}">
-                                    <input type="submit" class="btn btn-secondary" value="Unlock">
+                                    <input type="submit" class="btn btn-secondary" value="<fmt:message key="unlock"/>">
                                 </c:if>
                                 <c:if test="${!student.blocked}">
-                                    <input type="submit" class="btn btn-dark" value="Block">
+                                    <input type="submit" class="btn btn-dark" value="<fmt:message key="block"/>">
                                 </c:if>
                             </form>
                         </div>

@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="acc" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en"/>
+<fmt:setBundle basename="text"/>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -14,12 +17,12 @@
     </div>
 </nav>
     <div style="margin: 30px;">
-        <h2>Course: ${course.name}</h2>
+        <h2><fmt:message key="course"/>: ${course.name}</h2>
         <table class="table" style="margin: 30px">
             <thead>
             <tr>
-                <th scope="col">Student</th>
-                <th scope="col">Grade</th>
+                <th scope="col"><fmt:message key="student"/></th>
+                <th scope="col"><fmt:message key="grade"/></th>
             </tr>
             </thead>
             <tbody>
@@ -28,7 +31,7 @@
                     <td><acc:fullName target="${entry.value}"/></td>
                     <c:if test="${entry.key.grade == -1}">
                         <c:if test="${course.endDate.after(currDate)}">
-                            <td>Course hasn't finished yet</td>
+                            <td><fmt:message key="course_not_finished"/></td>
                         </c:if>
                         <c:if test="${course.endDate.before(currDate)}">
                             <td>
