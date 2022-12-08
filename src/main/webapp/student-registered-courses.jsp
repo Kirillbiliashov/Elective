@@ -22,7 +22,7 @@
                             <h4>${entry.key.name}</h4>
                             <p>Registration date: ${entry.value.enrollmentDate}</p>
                             <p>Start date: ${entry.key.startDate}</p>
-                            <p>Start date: ${entry.key.endDate}</p>
+                            <p>End date: ${entry.key.endDate}</p>
                         </div>
                     </div>
                 </c:forEach>
@@ -31,6 +31,5 @@
     </c:if>
     <c:if test="${registeredCourses.isEmpty()}"><p>No registered courses</p></c:if>
 </div>
-
 </body>
 </html>

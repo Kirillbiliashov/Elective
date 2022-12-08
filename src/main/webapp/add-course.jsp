@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -33,7 +34,7 @@
     <select class="form-control" id="teacherSelect" name="teacherId">
       <option value="0" selected>None</option>
       <c:forEach items="${teachers}" var="teacher">
-        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+        <option value="${teacher.id}"><teacher:fullName target="${teacher}"/></option>
       </c:forEach>
     </select>
   </div>

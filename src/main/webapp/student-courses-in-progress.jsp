@@ -16,7 +16,6 @@
 <c:if test="${!coursesInProgress.isEmpty()}">
     <ul class="list-group">
         <div class="grid-container">
-
                 <c:forEach items="${coursesInProgress}" var="course">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
@@ -26,7 +25,6 @@
                         </div>
                     </div>
                 </c:forEach>
-
         </div>
     </ul>
     </c:if>

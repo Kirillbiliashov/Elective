@@ -1,0 +1,27 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>Account TLD</short-name>
+    <tag>
+        <name>fullName</name>
+        <tag-class>com.example.elective.customTags.FullNameTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>target</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>com.example.elective.models.Account</type>
+        </attribute>
+    </tag>
+    <tag>
+        <name>info</name>
+        <tag-class>com.example.elective.customTags.InfoTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>target</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>com.example.elective.models.Account</type>
+        </attribute>
+    </tag>
+</taglib>

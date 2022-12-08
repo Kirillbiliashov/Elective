@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
+<%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -19,7 +20,7 @@
             <c:forEach items="${students}" var="student">
                 <div class="card student-card">
                     <div class="card-body">
-                        <h5>${student.firstName} ${student.lastName} (${student.login})</h5>
+                        <h5><student:info target="${student}"/></h5>
                         <div style="align-items: center; justify-content: center; display: flex">
                             <form action="students/changeBlock/${student.id}" method="POST">
                                 <c:if test="${student.blocked}">

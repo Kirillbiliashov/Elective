@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
+<%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -22,7 +23,7 @@
             <c:forEach items="${teachers}" var="teacher">
                 <div class="card teacher-card">
                     <div class="card-body">
-                        <p>${teacher.firstName} ${teacher.lastName} (${teacher.login})</p>
+                        <p><teacher:info target="${teacher}"/></p>
                     </div>
                 </div>
             </c:forEach>

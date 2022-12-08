@@ -3,8 +3,9 @@
 <%@ attribute name="coursesInProgressUrl" %>
 <%@ attribute name="registeredCoursesUrl" %>
 <%@ attribute name="studentUrl" %>
+<%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h3>${account.login}</h3>
+    <h3><student:info target="${account}"/></h3>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item ${activeNavItem.equals("student") ? "active" : ""}">
             <a class="nav-link" href=${studentUrl}>Available courses<span class="sr-only">(current)</span></a>

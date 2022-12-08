@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
+<%@ taglib prefix = "teacher" uri="/WEB-INF/tld/account.tld" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -34,7 +35,7 @@
                 <select class="form-control" name="teacher" id="teacher">
                     <option selected value="any">Any</option>
                     <c:forEach items="${teachers}" var="teacher">
-                        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+                        <option value="${teacher.id}"><teacher:fullName target="${teacher}"/></option>
                     </c:forEach>
                 </select>
             </div>
@@ -57,7 +58,7 @@
                     <div class="card course-card">
                         <div class="card-body">
                             <h3 class="card-title">${course.key.name}</h3>
-                            <p>Teacher: ${course.value.firstName} ${course.value.lastName}</p>
+                            <p>Teacher: <teacher:fullName target="${course.value}"/></p>
                             <c:if test="${course.value == null}">
                                 <p>No teacher assigned</p>
                             </c:if>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="acc" uri="/WEB-INF/tld/account.tld" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -8,7 +9,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div style="display: flex; justify-content: space-between">
-        <h3>Teacher</h3>
+        <h3><acc:info target="${account}"/></h3>
         <a href="/elective/logout" class="btn btn-primary">Log out</a>
     </div>
 </nav>
@@ -24,7 +25,7 @@
             <tbody>
             <c:forEach items="${journal}" var="entry">
                 <tr>
-                    <td>${entry.value.firstName} ${entry.value.lastName}</td>
+                    <td><acc:fullName target="${entry.value}"/></td>
                     <c:if test="${entry.key.grade == -1}">
                         <c:if test="${course.endDate.after(currDate)}">
                             <td>Course hasn't finished yet</td>
