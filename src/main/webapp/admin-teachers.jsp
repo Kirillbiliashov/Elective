@@ -3,7 +3,7 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -19,7 +19,7 @@
 <div class="page-container">
     <div class="admin-teachers-header">
         <h2><fmt:message key="teachers" /></h2>
-        <a href="teachers/register"><fmt:message key="register_teacher" /></a>
+        <a href="teachers/register?lang=${param.lang}"><fmt:message key="register_teacher" /></a>
     </div>
     <ul class="list-group">
         <div class="grid-container teacher-grid-container">

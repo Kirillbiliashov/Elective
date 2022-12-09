@@ -2,7 +2,7 @@
 <%@ taglib prefix="student" tagdir="/WEB-INF/tags/student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>

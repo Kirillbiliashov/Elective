@@ -3,7 +3,7 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <h5><student:info target="${student}"/></h5>
                         <div style="align-items: center; justify-content: center; display: flex">
-                            <form action="students/changeBlock/${student.id}" method="POST">
+                            <form action="students/changeBlock/${student.id}?lang=${param.lang}" method="POST">
                                 <c:if test="${student.blocked}">
                                     <input type="submit" class="btn btn-secondary" value="<fmt:message key="unlock"/>">
                                 </c:if>

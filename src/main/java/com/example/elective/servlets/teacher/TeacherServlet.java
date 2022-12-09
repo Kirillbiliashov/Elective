@@ -29,7 +29,6 @@ public class TeacherServlet extends HttpServlet {
       throws ServletException, IOException {
     int id = Utils.getCurrentUserId(req);
     int page = getPageNumber(req);
-    System.out.println("page: " + page);
     setPageAttributes(req, page);
     try {
       req.setAttribute("pagesCount", teacherService.getPagesCount(id));

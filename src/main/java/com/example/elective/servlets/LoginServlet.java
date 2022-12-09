@@ -1,5 +1,6 @@
 package com.example.elective.servlets;
 
+import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.Optional;
 
 @WebServlet("/login")
@@ -41,7 +43,7 @@ public class LoginServlet extends HttpServlet {
     Account acc = optAccount.get();
     if (acc.isBlocked()) handleBlockedAccount(req, resp);
     addAccountToSession(req, acc);
-    resp.sendRedirect("main");
+    resp.sendRedirect(Utils.getRedirectUrl(req, "main"));
   }
 
   private void handleAbsentAccount(HttpServletRequest req, HttpServletResponse resp)

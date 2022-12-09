@@ -12,12 +12,12 @@ import java.security.SecureRandom;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class Utils {
 
   public static final String ADMIN_SERVLET_NAME = "/elective/admin";
-  public static final String TEACHER_SERVLET_NAME = "teacher";
   private static final String ZONE = "Europe/Paris";
   public static final Date CURRENT_DATE = Date.valueOf(LocalDate.now(ZoneId.of(ZONE)));
   private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
@@ -42,6 +42,12 @@ public class Utils {
 
   public static boolean passwordsMatch(String password, String hashedPassword) {
     return BCrypt.checkpw(password, hashedPassword);
+  }
+
+  public static String getRedirectUrl(HttpServletRequest req, String url) {
+    String currLang = req.getParameter("lang");
+    String langQueryParam = currLang == null ? "?lang=en" : "?lang=" + currLang;
+    return url + langQueryParam;
   }
 
 }

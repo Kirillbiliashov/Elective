@@ -2,7 +2,7 @@
 <%@ taglib prefix="student" tagdir="/WEB-INF/tags/student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -26,9 +26,9 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h4>${course.name}</h4>
-                            <p>Start Date: ${course.startDate}</p>
-                            <p>End Date: ${course.endDate}</p>
-                            <form action="student/courses/enroll/${course.id}" method="post">
+                            <p><fmt:message key="start_date" />: ${course.startDate}</p>
+                            <p><fmt:message key="end_date" />: ${course.endDate}</p>
+                            <form action="student/courses/enroll/${course.id}?lang=${param.lang}" method="post">
                                 <input type="submit" class="btn btn-primary" value="<fmt:message key="enroll" />">
                             </form>
                         </div>

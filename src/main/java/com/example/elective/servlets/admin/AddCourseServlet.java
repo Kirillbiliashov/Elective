@@ -49,7 +49,7 @@ public class AddCourseServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
+    resp.sendRedirect(Utils.getRedirectUrl(req, Utils.ADMIN_SERVLET_NAME));
   }
 
 }

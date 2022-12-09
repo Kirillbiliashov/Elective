@@ -1,4 +1,7 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="text"/>
 <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" class="form-control" id="username" placeholder="Username" name="login">
+    <label for="username"><fmt:message key="username" /></label>
+    <input type="text" class="form-control" id="username" placeholder=<fmt:message key="username" /> name="login">
 </div>

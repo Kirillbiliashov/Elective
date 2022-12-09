@@ -2,7 +2,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -13,7 +13,7 @@
 <body>
 <div class="post-form">
     <h1 class="form-header"><fmt:message key="signup" /></h1>
-    <form method="post">
+    <form method="post" action="?lang=${param.lang}">
         <form:firstName/>
         <form:lastName/>
         <form:username/>

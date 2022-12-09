@@ -1,5 +1,6 @@
 package com.example.elective.servlets;
 
+import com.example.elective.Utils;
 import com.example.elective.dao.RoleDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
@@ -34,7 +35,7 @@ public class MainServlet extends HttpServlet {
     }
     String homeUrl = getHomeUrl(optRole);
     session.setAttribute("homeUrl",  homeUrl);
-    resp.sendRedirect(homeUrl);
+    resp.sendRedirect(Utils.getRedirectUrl(req, homeUrl));
   }
 
   private String getHomeUrl(Optional<Role> optRole) {

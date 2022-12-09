@@ -2,7 +2,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "teacher" uri = "/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -11,7 +11,7 @@
 </head>
 <body style="margin: 30px">
 <h1><fmt:message key="edit"/></h1>
-<form method="post">
+<form method="post" action="?lang=${param.lang}">
   <div class="form-group">
     <label for="name"><fmt:message key="name"/></label>
     <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="${course.name}">

@@ -3,7 +3,7 @@
 <%@taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix = "teacher" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="en"/>
+<fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -16,7 +16,7 @@
     <div class="page-container">
         <div class="admin-heading-container">
             <h2><fmt:message key="courses" /></h2>
-            <a href="admin/courses/add" class="add-course-ref"><fmt:message key="add_course" /></a>
+            <a href="admin/courses/add?lang=${param.lang}" class="add-course-ref"><fmt:message key="add_course" /></a>
         </div>
         <div class="selection-form-container">
     <form>
@@ -52,6 +52,7 @@
                 </select>
             </div>
         </div>
+        <input type="hidden" name="lang" value="${param.lang}" />
         <button type="submit" class="btn btn-primary"><fmt:message key="apply"/></button>
     </form>
         </div>
@@ -61,15 +62,15 @@
                     <div class="card course-card">
                         <div class="card-body">
                             <h3 class="card-title">${course.key.name}</h3>
-                            <p>Teacher: <teacher:fullName target="${course.value}"/></p>
+                            <p><fmt:message key="teacher" />: <teacher:fullName target="${course.value}"/></p>
                             <c:if test="${course.value == null}">
-                                <p>No teacher assigned</p>
+                                <p><fmt:message key="no_teacher_assigned"/> </p>
                             </c:if>
                             <p><fmt:message key="start_date"/>: ${course.key.startDate}</p>
                             <p><fmt:message key="end_date"/>: ${course.key.endDate}</p>
                             <div class="course-btn-container">
-                                <a href="admin/courses/edit/${course.key.id}" class="btn btn-light"><fmt:message key="edit"/></a>
-                                <form action="admin/courses/delete/${course.key.id}" method="POST">
+                                <a href="admin/courses/edit/${course.key.id}?lang=${param.lang}" class="btn btn-light"><fmt:message key="edit"/></a>
+                                <form action="admin/courses/delete/${course.key.id}?lang=${param.lang}" method="POST">
                                     <input type="submit" class="btn btn-danger delete-course-btn" value="<fmt:message key="delete"/>">
                                 </form>
                             </div>
