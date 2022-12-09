@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
@@ -11,6 +12,7 @@
     <style><%@include file="style.css" %></style>
 </head>
 <body>
+<element:lang-dropdown/>
 <div class="post-form">
     <h1 class="form-header"><fmt:message key="signup" /></h1>
     <form method="post" action="?lang=${param.lang}">

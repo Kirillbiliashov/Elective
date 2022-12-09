@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="acc" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
@@ -10,9 +11,11 @@
     <title>Title</title>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div style="display: flex; justify-content: space-between">
         <h3><acc:info target="${account}"/></h3>
+        <element:lang-dropdown/>
         <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout" /></a>
     </div>
 </nav>

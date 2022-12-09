@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
@@ -10,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<element:lang-dropdown/>
 <h1><fmt:message key="add_course" /></h1>
 <form method="post" action="?lang=${param.lang}">
   <div class="form-group">

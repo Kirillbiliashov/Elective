@@ -1,4 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <%@ attribute name="activeNavItem" %>
@@ -20,5 +22,8 @@
             </li>
         </ul>
     </div>
-    <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout"/></a>
+    <div>
+        <element:lang-dropdown/>
+        <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout"/></a>
+    </div>
 </nav>

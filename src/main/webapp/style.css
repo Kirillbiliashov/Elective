@@ -93,3 +93,9 @@ p {
     width: 16rem;
     height: 6rem;
 }
+
+.language-dropdown {
+    position: absolute;
+    left: 90%;
+    top: 10px;
+}
