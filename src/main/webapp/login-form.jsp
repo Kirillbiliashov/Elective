@@ -15,7 +15,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<element:lang-dropdown/>
+<div class="dropdown-container"><element:lang-dropdown/></div>
 <div class="login-page-container">
     <h1 class="form-header"><fmt:message key="login"/></h1>
     <div>

@@ -15,7 +15,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div style="display: flex; justify-content: space-between">
         <h3><acc:info target="${account}"/></h3>
-        <element:lang-dropdown/>
+            <element:lang-dropdown/>
         <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout" /></a>
     </div>
 </nav>

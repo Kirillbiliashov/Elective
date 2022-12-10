@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body style="margin: 30px">
-<element:lang-dropdown/>
+<div class="dropdown-container"><element:lang-dropdown/></div>
 <h1><fmt:message key="edit"/></h1>
 <form method="post" action="?lang=${param.lang}">
   <div class="form-group">

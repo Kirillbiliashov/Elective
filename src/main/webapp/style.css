@@ -95,7 +95,10 @@ p {
 }
 
 .language-dropdown {
-    position: absolute;
-    left: 90%;
-    top: 10px;
+    margin-right: 10px;
+}
+.dropdown-container {
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
 }

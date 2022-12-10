@@ -22,8 +22,6 @@
             </li>
         </ul>
     </div>
-    <div>
         <element:lang-dropdown/>
         <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout"/></a>
-    </div>
 </nav>
