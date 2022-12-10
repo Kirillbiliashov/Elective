@@ -2,6 +2,8 @@ package com.example.elective.services;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
+import com.example.elective.dao.mysql.AccountMySqlDAO;
+import com.example.elective.dao.mysql.CourseMySqlDAO;
 import com.example.elective.dao.JournalDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
@@ -15,9 +17,9 @@ import java.util.Optional;
 
 public class TeacherService extends AbstractService {
 
-  private AccountDAO accDao = new AccountDAO();
-  private CourseDAO courseDao = new CourseDAO();
-  private JournalDAO journalDao = new JournalDAO();
+  private AccountDAO accDao = daoFactory.getAccountDAO();
+  private CourseDAO courseDao = daoFactory.getCourseDAO();
+  private JournalDAO journalDao = daoFactory.getJournalDAO();
 
   public int getPagesCount(int teacherId) throws ServiceException {
     transactionManager.initTransaction(courseDao);

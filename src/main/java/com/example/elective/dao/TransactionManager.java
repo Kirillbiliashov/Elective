@@ -1,6 +1,8 @@
-package com.example.elective.connection;
+package com.example.elective.dao;
 
 import com.example.elective.dao.AbstractDAO;
+import com.example.elective.dao.DAO;
+import com.example.elective.dao.mysql.MySqlDAOFactory;
 import com.example.elective.models.Entity;
 
 import java.sql.Connection;
@@ -10,15 +12,14 @@ public class TransactionManager {
 
   private Connection conn;
 
-  @SafeVarargs
-  public final void initTransaction(AbstractDAO<? extends Entity>... daos) {
+  public final void initTransaction(DAO... daos) {
     try {
-      if (conn == null) conn = ConnectionPool.getConnection();
+      if (conn == null) conn = MySqlDAOFactory.getConnection();
       conn.setAutoCommit(false);
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    for (AbstractDAO<? extends Entity> dao: daos) dao.setConnection(conn);
+    for (DAO dao: daos) dao.setConnection(conn);
   }
 
   public void commitTransaction() {

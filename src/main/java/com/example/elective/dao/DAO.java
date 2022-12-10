@@ -3,10 +3,13 @@ package com.example.elective.dao;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.models.Entity;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
 public interface DAO<T extends Entity> {
+
+   void setConnection(Connection conn);
 
    List<T> findAll() throws DAOException;
 

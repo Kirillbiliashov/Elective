@@ -2,6 +2,8 @@ package com.example.elective.services;
 
 import com.example.elective.dao.AccountDAO;
 import com.example.elective.dao.CourseDAO;
+import com.example.elective.dao.mysql.AccountMySqlDAO;
+import com.example.elective.dao.mysql.CourseMySqlDAO;
 import com.example.elective.dao.JournalDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
@@ -13,14 +15,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class StudentService extends AbstractService {
 
-  private AccountDAO accDao = new AccountDAO();
-  private CourseDAO courseDao = new CourseDAO();
-  private JournalDAO journalDao = new JournalDAO();
+  private AccountDAO accDao = daoFactory.getAccountDAO();
+  private CourseDAO courseDao = daoFactory.getCourseDAO();
+  private JournalDAO journalDao = daoFactory.getJournalDAO();
 
   public void changeBlockStatus(int id) throws ServiceException {
     transactionManager.initTransaction(accDao);

@@ -1,7 +1,6 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.Utils;
-import com.example.elective.dao.CourseDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.CourseService;
 

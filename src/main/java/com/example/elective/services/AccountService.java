@@ -2,6 +2,7 @@ package com.example.elective.services;
 
 import com.example.elective.Utils;
 import com.example.elective.dao.AccountDAO;
+import com.example.elective.dao.mysql.AccountMySqlDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public class AccountService extends AbstractService {
 
-  private AccountDAO dao = new AccountDAO();
+  private AccountDAO dao = daoFactory.getAccountDAO();
 
   public Optional<Account> findByCredentials(String login, String password) throws ServiceException {
     transactionManager.initTransaction(dao);

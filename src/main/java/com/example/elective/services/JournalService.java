@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class JournalService extends AbstractService {
 
-  private JournalDAO dao = new JournalDAO();
+  private JournalDAO dao = daoFactory.getJournalDAO();
 
   public void save(Journal journal) throws ServiceException {
     transactionManager.initTransaction(dao);

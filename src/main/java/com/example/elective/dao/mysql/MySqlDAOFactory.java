@@ -1,4 +1,6 @@
-package com.example.elective.connection;
+package com.example.elective.dao.mysql;
+
+import com.example.elective.dao.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -7,7 +9,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class ConnectionPool {
+public class MySqlDAOFactory extends DAOFactory {
 
   private static DataSource ds;
 
@@ -26,6 +28,31 @@ public class ConnectionPool {
       e.printStackTrace();
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public AccountDAO getAccountDAO() {
+    return new AccountMySqlDAO();
+  }
+
+  @Override
+  public CourseDAO getCourseDAO() {
+    return new CourseMySqlDAO();
+  }
+
+  @Override
+  public JournalDAO getJournalDAO() {
+    return new JournalMySqlDAO();
+  }
+
+  @Override
+  public RoleDAO getRoleDAO() {
+    return new RoleMysqlDAO();
+  }
+
+  @Override
+  public TopicDAO getTopicDAO() {
+    return new TopicMysqlDAO();
   }
 
 }

@@ -1,14 +1,14 @@
 package com.example.elective.services;
 
-import com.example.elective.connection.TransactionManager;
+import com.example.elective.dao.TransactionManager;
+import com.example.elective.dao.DAOFactory;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
-
-import java.util.function.Supplier;
 
 public abstract class AbstractService {
 
   protected TransactionManager transactionManager = new TransactionManager();
+  protected DAOFactory daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL);
 
   protected <T> T performDaoReadOperation(DAOReadOperation<T> operation)
       throws ServiceException {
