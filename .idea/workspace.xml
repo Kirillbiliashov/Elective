@@ -9,13 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="dropdown for choosing langiage was added">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="language dropdown was refactored">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/admin/navbar.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/admin/navbar.tag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/student/navbar.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/student/navbar.tag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/LanguageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/LanguageFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/firstName.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/firstName.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/lastName.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/lastName.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +27,8 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -264,14 +264,7 @@
       <workItem from="1669982277531" duration="40746000" />
       <workItem from="1670356049349" duration="14220000" />
       <workItem from="1670489685690" duration="15480000" />
-      <workItem from="1670528907800" duration="16107000" />
-    </task>
-    <task id="LOCAL-00026" summary="Wrong selected option in edit course form was fixed">
-      <created>1669023881504</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1669023881504</updated>
+      <workItem from="1670528907800" duration="18075000" />
     </task>
     <task id="LOCAL-00027" summary="Form is used for selection/sort of courses instead of dropdown">
       <created>1669025835420</created>
@@ -609,7 +602,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670620261836</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="language dropdown was refactored">
+      <created>1670671970172</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1670671970172</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -639,7 +639,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="TransactionManager class for handling mysql transactions was created" />
     <MESSAGE value="Services were modified so that they use transaction manager for handling connection" />
     <MESSAGE value="AbstractService class was created" />
     <MESSAGE value="Method for performing dao read operation in service was added" />
@@ -664,7 +663,8 @@
     <MESSAGE value="Multilingual feature was incorporated into application" />
     <MESSAGE value="LanguageFilter class was added" />
     <MESSAGE value="dropdown for choosing langiage was added" />
-    <option name="LAST_COMMIT_MESSAGE" value="dropdown for choosing langiage was added" />
+    <MESSAGE value="language dropdown was refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="language dropdown was refactored" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
