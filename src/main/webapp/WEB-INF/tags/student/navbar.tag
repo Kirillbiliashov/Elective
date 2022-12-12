@@ -12,20 +12,18 @@
     <h3><student:info target="${account}"/></h3>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item ${activeNavItem.equals("student") ? "active" : ""}">
-            <a class="nav-link" href="${studentUrl}?lang=${param.lang}"><fmt:message key="available_courses" /><span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="${studentUrl}?lang=${param.lang}"><fmt:message key="student.available_courses" /><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item ${activeNavItem.equals("registeredCourses") ? "active" : ""}">
-            <a class="nav-link" href="${registeredCoursesUrl}?lang=${param.lang}"><fmt:message key="registered_courses" /></a>
+            <a class="nav-link" href="${registeredCoursesUrl}?lang=${param.lang}"><fmt:message key="student.registered_courses" /></a>
         </li>
         <li class="nav-item ${activeNavItem.equals("coursesInProgress") ? "active" : ""}">
-            <a class="nav-link" href="${coursesInProgressUrl}?lang=${param.lang}"><fmt:message key="courses_in_progress" /></a>
+            <a class="nav-link" href="${coursesInProgressUrl}?lang=${param.lang}"><fmt:message key="student.courses_in_progress" /></a>
         </li>
         <li class="nav-item ${activeNavItem.equals("completedCourses") ? "active" : ""}">
-            <a class="nav-link" href="${completedCoursesUrl}?lang=${param.lang}"><fmt:message key="completed_courses" /></a>
+            <a class="nav-link" href="${completedCoursesUrl}?lang=${param.lang}"><fmt:message key="student.completed_courses" /></a>
         </li>
     </ul>
-    <div class="dropdown-container">
         <element:lang-dropdown/>
-    </div>
     <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout"/></a>
 </nav>

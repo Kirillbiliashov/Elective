@@ -15,7 +15,7 @@
                 coursesInProgressUrl="courses_in_progress" completedCoursesUrl=""
                 activeNavItem="completedCourses"/>
 <div class="page-container">
-    <h2><fmt:message key="completed_courses"/></h2>
+    <h2><fmt:message key="student.completed_courses"/></h2>
     <c:if test="${!completedCourses.isEmpty()}">
         <ul class="list-group">
             <div class="grid-container">
@@ -23,8 +23,8 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h4>${entry.key.name}</h4>
-                            <p><fmt:message key="start_date"/>: ${entry.key.startDate}</p>
-                            <p><fmt:message key="end_date"/>: ${entry.key.endDate}</p>
+                            <p><fmt:message key="course.start_date"/>: ${entry.key.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${entry.key.endDate}</p>
                             <p><fmt:message key="grade"/>: ${entry.value.grade}</p>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
             </div>
         </ul>
     </c:if>
-    <c:if test="${completedCourses.isEmpty()}"><p><fmt:message key="no_completed_courses"/></p></c:if>
+    <c:if test="${completedCourses.isEmpty()}"><p><fmt:message key="student.no_completed_courses"/></p></c:if>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

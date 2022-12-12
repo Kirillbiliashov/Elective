@@ -53,7 +53,7 @@
             </div>
         </div>
         <input type="hidden" name="lang" value="${param.lang}" />
-        <button type="submit" class="btn btn-primary"><fmt:message key="apply"/></button>
+        <button type="submit" class="btn btn-primary"><fmt:message key="selection.apply"/></button>
     </form>
         </div>
         <ul class="list-group">
@@ -66,12 +66,12 @@
                             <c:if test="${course.value == null}">
                                 <p><fmt:message key="no_teacher_assigned"/> </p>
                             </c:if>
-                            <p><fmt:message key="start_date"/>: ${course.key.startDate}</p>
-                            <p><fmt:message key="end_date"/>: ${course.key.endDate}</p>
+                            <p><fmt:message key="course.start_date"/>: ${course.key.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${course.key.endDate}</p>
                             <div class="course-btn-container">
-                                <a href="admin/courses/edit/${course.key.id}?lang=${param.lang}" class="btn btn-light"><fmt:message key="edit"/></a>
+                                <a href="admin/courses/edit/${course.key.id}?lang=${param.lang}" class="btn btn-light"><fmt:message key="course.edit"/></a>
                                 <form action="admin/courses/delete/${course.key.id}?lang=${param.lang}" method="POST">
-                                    <input type="submit" class="btn btn-danger delete-course-btn" value="<fmt:message key="delete"/>">
+                                    <input type="submit" class="btn btn-danger delete-course-btn" value="<fmt:message key="course.delete"/>">
                                 </form>
                             </div>
                         </div>

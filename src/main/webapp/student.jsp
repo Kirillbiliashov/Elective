@@ -18,7 +18,7 @@
                 coursesInProgressUrl="student/courses_in_progress"
                 completedCoursesUrl="tudent/completed_courses" activeNavItem="student"/>
 <div class="page-container">
-    <h2><fmt:message key="available_courses"/></h2>
+    <h2><fmt:message key="student.available_courses"/></h2>
     <c:if test="${!availableCourses.isEmpty()}">
         <ul class="list-group">
             <div class="grid-container">
@@ -26,10 +26,10 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h4>${course.name}</h4>
-                            <p><fmt:message key="start_date" />: ${course.startDate}</p>
-                            <p><fmt:message key="end_date" />: ${course.endDate}</p>
+                            <p><fmt:message key="course.start_date" />: ${course.startDate}</p>
+                            <p><fmt:message key="course.end_date" />: ${course.endDate}</p>
                             <form action="student/courses/enroll/${course.id}?lang=${param.lang}" method="post">
-                                <input type="submit" class="btn btn-primary" value="<fmt:message key="enroll" />">
+                                <input type="submit" class="btn btn-primary" value="<fmt:message key="student.enroll" />">
                             </form>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
             </div>
         </ul>
     </c:if>
-    <c:if test="${availableCourses.isEmpty()}"><p><fmt:message key="no_available_courses"/></p></c:if>
+    <c:if test="${availableCourses.isEmpty()}"><p><fmt:message key="student.no_available_courses"/></p></c:if>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

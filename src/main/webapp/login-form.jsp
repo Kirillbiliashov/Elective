@@ -17,7 +17,7 @@
 <body>
 <div class="dropdown-container"><element:lang-dropdown/></div>
 <div class="login-page-container">
-    <h1 class="form-header"><fmt:message key="login"/></h1>
+    <h1 class="form-header"><fmt:message key="user.login"/></h1>
     <div>
         <form method="post">
             <form:username/>
@@ -25,7 +25,9 @@
             <form:button text="Login"/>
         </form>
     </div>
-    <a href="signup?lang=${param.lang}" class="signup-ref"><fmt:message key="signup_ref"/></a>
+    <div class="form-btn-container">
+        <a href="signup?lang=${param.lang}"><fmt:message key="user.signup_ref"/></a>
+    </div>
 </div>
 <c:if test="${errorMsg != null}">
     <div class="alert alert-warning" role="alert">

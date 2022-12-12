@@ -2,6 +2,6 @@
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <div class="form-group">
-    <label for="username"><fmt:message key="username" /></label>
-    <input type="text" class="form-control" id="username" required minlength="5" maxlength="50" placeholder=<fmt:message key="username"/> name="login">
+    <label for="username"><fmt:message key="user.username" /></label>
+    <input type="text" class="form-control" id="username" required minlength="5" maxlength="50" placeholder=<fmt:message key="user.username"/> name="login">
 </div>

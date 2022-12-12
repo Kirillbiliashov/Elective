@@ -27,10 +27,10 @@
                         <div style="align-items: center; justify-content: center; display: flex">
                             <form action="students/changeBlock/${student.id}?lang=${param.lang}" method="POST">
                                 <c:if test="${student.blocked}">
-                                    <input type="submit" class="btn btn-secondary" value="<fmt:message key="unlock"/>">
+                                    <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
                                 </c:if>
                                 <c:if test="${!student.blocked}">
-                                    <input type="submit" class="btn btn-dark" value="<fmt:message key="block"/>">
+                                    <input type="submit" class="btn btn-dark" value="<fmt:message key="students.block"/>">
                                 </c:if>
                             </form>
                         </div>

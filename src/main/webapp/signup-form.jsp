@@ -14,7 +14,7 @@
 <body>
 <div class="dropdown-container"><element:lang-dropdown/></div>
 <div class="post-form">
-    <h1 class="form-header"><fmt:message key="signup" /></h1>
+    <h1 class="form-header"><fmt:message key="user.signup" /></h1>
     <form method="post" action="?lang=${param.lang}">
         <form:firstName/>
         <form:lastName/>

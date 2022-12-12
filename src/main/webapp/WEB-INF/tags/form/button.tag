@@ -2,4 +2,6 @@
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
 <%@ attribute name="text" %>
-<button type="submit" class="btn btn-primary submit-btn">${text}</button>
+<div class="form-btn-container">
+    <button type="submit" class="btn btn-primary">${text}</button>
+</div>

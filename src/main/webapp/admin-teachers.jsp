@@ -19,7 +19,7 @@
 <div class="page-container">
     <div class="admin-teachers-header">
         <h2><fmt:message key="teachers" /></h2>
-        <a href="teachers/register?lang=${param.lang}"><fmt:message key="register_teacher" /></a>
+        <a href="teachers/register?lang=${param.lang}"><fmt:message key="teachers.register" /></a>
     </div>
     <ul class="list-group">
         <div class="grid-container teacher-grid-container">

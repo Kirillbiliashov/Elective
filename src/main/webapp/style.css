@@ -1,11 +1,11 @@
-.login-page-container, .post-form {
+.login-page-container, .post-form, .add-course-form, .edit-course-form {
     margin-left: 35%;
     margin-right: 35%;
     margin-top: 5%;
 }
 
-.submit-btn {
-    margin-left: 40%;
+.form-btn-container {
+    text-align: center;
 }
 
 .signup-ref {
@@ -101,4 +101,5 @@ p {
     width: 100%;
     justify-content: flex-end;
     display: flex;
+    margin-top: 10px;
 }

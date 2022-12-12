@@ -2,6 +2,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix = "teacher" uri = "/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form/course" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
@@ -11,44 +12,24 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Title</title>
+  <style><%@include file="style.css" %></style>
 </head>
-<body style="margin: 30px">
+<body>
 <div class="dropdown-container"><element:lang-dropdown/></div>
-<h1><fmt:message key="edit"/></h1>
-<form method="post" action="?lang=${param.lang}" onsubmit="return validateForm()">
-  <div class="form-group">
-    <label for="name"><fmt:message key="name"/></label>
-    <input type="text" class="form-control" id="name" required  maxlength="50" placeholder="Name" name="name" value="${course.name}">
-  </div>
-  <div class="form-group">
-    <label for="startDate"><fmt:message key="start_date"/></label>
-    <input type="date" class="form-control" id="startDate" min="${minDate}" placeholder="Start date" name="startDate" value="${course.startDate}">
-  </div>
-  <div class="form-group">
-    <label for="endDate"><fmt:message key="end_date"/></label>
-    <input type="date" class="form-control" id="endDate" min="${minDate}" placeholder="End date" name="endDate" value="${course.endDate}">
-  </div>
-  <div class="form-group">
-    <label for="topicSelect"><fmt:message key="topic"/></label>
-  <select class="form-control" id="topicSelect" name="topicId">
-    <c:forEach items="${topics}" var="topic">
-      <option value="${topic.id}" <c:if test="${topic.id == course.topicId}">selected</c:if>>${topic.name}</option>
-    </c:forEach>
-  </select>
-  </div>
-  <div class="form-group">
-    <label for="teacherSelect"><fmt:message key="teacher"/></label>
-    <select class="form-control" id="teacherSelect" name="teacherId">
-      <c:forEach items="${teachers}" var="teacher">
-        <option value="${teacher.id}" <c:if test="${teacher.id == course.teacherId}">selected</c:if>>
-            <teacher:fullName target="${teacher}"/>
-        </option>
-      </c:forEach>
-    </select>
-  </div>
-  <input type="hidden" value="${course.id}" name="id"/>
-  <button type="submit" class="btn btn-primary"><fmt:message key="edit"/></button>
-</form>
+<div class="edit-course-form">
+  <h1><fmt:message key="course.edit"/></h1>
+  <form method="post" action="?lang=${param.lang}" onsubmit="return validateForm()">
+      <form:name/>
+      <form:startDate/>
+      <form:endDate/>
+      <form:topic/>
+      <form:teacher/>
+      <input type="hidden" value="${course.id}" name="id"/>
+      <div class="form-btn-container">
+          <button type="submit" class="btn btn-primary"><fmt:message key="course.edit"/></button>
+      </div>
+  </form>
+</div>
 </body>
 <script type="application/javascript"><%@include file="WEB-INF/js/datesValidation.js" %></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

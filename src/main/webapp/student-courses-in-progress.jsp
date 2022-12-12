@@ -15,7 +15,7 @@
                 coursesInProgressUrl="" completedCoursesUrl="completed_courses"
                 activeNavItem="coursesInProgress"/>
 <div class="page-container">
-    <h2><fmt:message key="courses_in_progress"/></h2>
+    <h2><fmt:message key="student.courses_in_progress"/></h2>
 <c:if test="${!coursesInProgress.isEmpty()}">
     <ul class="list-group">
         <div class="grid-container">
@@ -23,15 +23,15 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h4>${course.name}</h4>
-                            <p><fmt:message key="start_date"/>: ${course.startDate}</p>
-                            <p><fmt:message key="end_date"/>: ${course.endDate}</p>
+                            <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
                         </div>
                     </div>
                 </c:forEach>
         </div>
     </ul>
     </c:if>
-    <c:if test="${coursesInProgress.isEmpty()}"><p><fmt:message key="no_courses_in_progress"/></p></c:if>
+    <c:if test="${coursesInProgress.isEmpty()}"><p><fmt:message key="student.no_courses_in_progress"/></p></c:if>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
