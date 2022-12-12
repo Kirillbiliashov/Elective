@@ -9,34 +9,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="DAO layer was refactored">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SqlDAOFactory.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="SQL and MySql packages were added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/AbstractDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/CourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/CourseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/DAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/DAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/JournalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/JournalDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/RoleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/RoleDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TopicDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/TopicDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/AccountMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/CourseMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/JournalMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/JournalMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/MySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/MySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/MySqlDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/MySqlDAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/RoleMysqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/RoleMysqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/mysql/TopicMysqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/TopicMysqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/RoleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/firstName.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/firstName.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/lastName.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/lastName.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/password.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/password.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/username.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/username.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,14 +275,7 @@
       <workItem from="1670356049349" duration="14220000" />
       <workItem from="1670489685690" duration="15480000" />
       <workItem from="1670528907800" duration="24447000" />
-      <workItem from="1670833473304" duration="1798000" />
-    </task>
-    <task id="LOCAL-00029" summary="Minor overall improvements were made">
-      <created>1669238031844</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1669238031844</updated>
+      <workItem from="1670833473304" duration="4884000" />
     </task>
     <task id="LOCAL-00030" summary="RequestMapper interface and its inheritors were added">
       <created>1669367767722</created>
@@ -631,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670707414647</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="SQL and MySql packages were added">
+      <created>1670837371818</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1670837371820</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -661,7 +650,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="AbstractService class was created" />
     <MESSAGE value="Method for performing dao read operation in service was added" />
     <MESSAGE value="Various issues were fixed" />
     <MESSAGE value="Exception handling was added" />
@@ -686,7 +674,8 @@
     <MESSAGE value="language dropdown was refactored" />
     <MESSAGE value="Minor improvements for localization were made" />
     <MESSAGE value="DAO layer was refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="DAO layer was refactored" />
+    <MESSAGE value="SQL and MySql packages were added" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQL and MySql packages were added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

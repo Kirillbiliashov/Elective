@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="minDate" value="${now}" pattern="yyyy-MM-dd" />
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -16,15 +18,15 @@
 <form method="post" action="?lang=${param.lang}">
   <div class="form-group">
     <label for="name"><fmt:message key="name" /></label>
-    <input type="text" class="form-control" id="name" placeholder=<fmt:message key="name" /> name="name">
+    <input type="text" class="form-control" id="name"  maxlength="50" required placeholder=<fmt:message key="name" /> name="name">
   </div>
   <div class="form-group">
     <label for="startDate"><fmt:message key="start_date" /></label>
-    <input type="date" class="form-control" id="startDate" placeholder=<fmt:message key="start_date" /> name="startDate">
+    <input type="date" class="form-control" id="startDate" min="${minDate}" placeholder=<fmt:message key="start_date" /> name="startDate">
   </div>
   <div class="form-group">
     <label for="endDate"><fmt:message key="end_date" /></label>
-    <input type="date" class="form-control" id="endDate" placeholder=<fmt:message key="end_date" /> name="endDate">
+    <input type="date" class="form-control" id="endDate" min="${minDate}"placeholder=<fmt:message key="end_date" /> name="endDate">
   </div>
   <div class="form-group">
     <label for="topicSelect"><fmt:message key="topic" /></label>
@@ -46,4 +48,7 @@
   <button type="submit" class="btn btn-primary"><fmt:message key="add" /></button>
 </form>
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>

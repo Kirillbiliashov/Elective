@@ -3,5 +3,5 @@
 <fmt:setBundle basename="text"/>
 <div class="form-group">
     <label for="username"><fmt:message key="username" /></label>
-    <input type="text" class="form-control" id="username" placeholder=<fmt:message key="username" /> name="login">
+    <input type="text" class="form-control" id="username" required minlength="5" maxlength="50" placeholder=<fmt:message key="username"/> name="login">
 </div>
