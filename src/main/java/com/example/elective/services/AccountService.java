@@ -1,8 +1,7 @@
 package com.example.elective.services;
 
 import com.example.elective.Utils;
-import com.example.elective.dao.AccountDAO;
-import com.example.elective.dao.mysql.AccountMySqlDAO;
+import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 

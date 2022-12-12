@@ -1,7 +1,6 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.TopicDAO;
-import com.example.elective.dao.mysql.TopicMysqlDAO;
+import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Topic;
 

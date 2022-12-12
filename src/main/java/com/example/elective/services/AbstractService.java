@@ -1,6 +1,6 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.TransactionManager;
+import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.dao.DAOFactory;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;

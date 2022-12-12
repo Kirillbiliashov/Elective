@@ -1,6 +1,6 @@
-package com.example.elective.dao.mysql;
+package com.example.elective.dao.sql;
 
-import com.example.elective.dao.*;
+import com.example.elective.dao.DAOFactory;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class MySqlDAOFactory extends DAOFactory {
+public abstract class SqlDAOFactory extends DAOFactory {
 
   private static DataSource ds;
 
@@ -20,39 +20,12 @@ public class MySqlDAOFactory extends DAOFactory {
 
   private static void configureDataSource() {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
       Context initContext = new InitialContext();
       Context envContext  = (Context) initContext.lookup("java:/comp/env");
       ds = (DataSource) envContext.lookup("jdbc/elective");
-    } catch (NamingException | ClassNotFoundException e) {
+    } catch (NamingException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
     }
   }
-
-  @Override
-  public AccountDAO getAccountDAO() {
-    return new AccountMySqlDAO();
-  }
-
-  @Override
-  public CourseDAO getCourseDAO() {
-    return new CourseMySqlDAO();
-  }
-
-  @Override
-  public JournalDAO getJournalDAO() {
-    return new JournalMySqlDAO();
-  }
-
-  @Override
-  public RoleDAO getRoleDAO() {
-    return new RoleMysqlDAO();
-  }
-
-  @Override
-  public TopicDAO getTopicDAO() {
-    return new TopicMysqlDAO();
-  }
-
 }

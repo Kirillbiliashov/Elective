@@ -1,4 +1,4 @@
-package com.example.elective.dao;
+package com.example.elective.dao.interfaces;
 
 import com.example.elective.models.Topic;
 

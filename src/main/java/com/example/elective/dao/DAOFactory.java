@@ -1,6 +1,7 @@
 package com.example.elective.dao;
 
-import com.example.elective.dao.mysql.MySqlDAOFactory;
+import com.example.elective.dao.interfaces.*;
+import com.example.elective.dao.sql.mysql.MySqlDAOFactory;
 
 public abstract class DAOFactory {
 
@@ -17,4 +18,5 @@ public abstract class DAOFactory {
     if (dbms == 1) return new MySqlDAOFactory();
     return null;
   }
+
 }

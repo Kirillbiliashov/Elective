@@ -1,7 +1,6 @@
-package com.example.elective.dao.mysql;
+package com.example.elective.dao.sql.mysql;
 
-import com.example.elective.dao.AbstractDAO;
-import com.example.elective.dao.RoleDAO;
+import com.example.elective.dao.interfaces.RoleDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.resultSetMappers.RoleResultSetMapper;

@@ -1,4 +1,4 @@
-package com.example.elective.dao;
+package com.example.elective.dao.sql;
 
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;

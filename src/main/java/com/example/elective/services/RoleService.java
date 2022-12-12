@@ -1,7 +1,6 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.RoleDAO;
-import com.example.elective.dao.mysql.RoleMysqlDAO;
+import com.example.elective.dao.interfaces.RoleDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Role;
 

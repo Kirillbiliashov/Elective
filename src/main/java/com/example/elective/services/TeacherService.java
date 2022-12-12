@@ -1,10 +1,8 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.AccountDAO;
-import com.example.elective.dao.CourseDAO;
-import com.example.elective.dao.mysql.AccountMySqlDAO;
-import com.example.elective.dao.mysql.CourseMySqlDAO;
-import com.example.elective.dao.JournalDAO;
+import com.example.elective.dao.interfaces.AccountDAO;
+import com.example.elective.dao.interfaces.CourseDAO;
+import com.example.elective.dao.interfaces.JournalDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;

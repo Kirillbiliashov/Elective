@@ -1,6 +1,6 @@
-package com.example.elective.dao.mysql;
+package com.example.elective.dao.sql.mysql;
 
-import com.example.elective.dao.CourseDAO;
+import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.resultSetMappers.CourseResultSetMapper;

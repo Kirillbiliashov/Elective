@@ -1,10 +1,9 @@
-package com.example.elective.dao.mysql;
+package com.example.elective.dao.sql.mysql;
 
-import com.example.elective.dao.AbstractDAO;
+import com.example.elective.dao.sql.AbstractDAO;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,4 +33,5 @@ public abstract class MySqlDAO<T> extends AbstractDAO {
     while (rs.next()) entities.add(mapper.map(rs));
     return entities;
   }
+
 }

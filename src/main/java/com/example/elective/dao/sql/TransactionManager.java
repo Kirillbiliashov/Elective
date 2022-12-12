@@ -1,9 +1,7 @@
-package com.example.elective.dao;
+package com.example.elective.dao.sql;
 
-import com.example.elective.dao.AbstractDAO;
-import com.example.elective.dao.DAO;
-import com.example.elective.dao.mysql.MySqlDAOFactory;
-import com.example.elective.models.Entity;
+import com.example.elective.dao.interfaces.DAO;
+import com.example.elective.dao.sql.mysql.MySqlDAOFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +12,7 @@ public class TransactionManager {
 
   public final void initTransaction(DAO... daos) {
     try {
-      if (conn == null) conn = MySqlDAOFactory.getConnection();
+      if (conn == null) conn = SqlDAOFactory.getConnection();
       conn.setAutoCommit(false);
     } catch (SQLException e) {
       e.printStackTrace();

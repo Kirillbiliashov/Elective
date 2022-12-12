@@ -1,6 +1,6 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.JournalDAO;
+import com.example.elective.dao.interfaces.JournalDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Journal;
 
