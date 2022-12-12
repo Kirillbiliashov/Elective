@@ -9,23 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="SQL and MySql packages were added">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="validation constraints were added">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/datesValidation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/firstName.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/firstName.tag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/lastName.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/lastName.tag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/password.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/password.tag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/username.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/username.tag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +27,7 @@
         <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -275,14 +264,7 @@
       <workItem from="1670356049349" duration="14220000" />
       <workItem from="1670489685690" duration="15480000" />
       <workItem from="1670528907800" duration="24447000" />
-      <workItem from="1670833473304" duration="4884000" />
-    </task>
-    <task id="LOCAL-00030" summary="RequestMapper interface and its inheritors were added">
-      <created>1669367767722</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1669367767722</updated>
+      <workItem from="1670833473304" duration="6768000" />
     </task>
     <task id="LOCAL-00031" summary="Minor improvements were made">
       <created>1669383122747</created>
@@ -620,7 +602,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670837371820</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="validation constraints were added">
+      <created>1670843635916</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1670843635916</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -650,7 +639,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Method for performing dao read operation in service was added" />
     <MESSAGE value="Various issues were fixed" />
     <MESSAGE value="Exception handling was added" />
     <MESSAGE value="Error handling for transaction manager was improved" />
@@ -675,7 +663,8 @@
     <MESSAGE value="Minor improvements for localization were made" />
     <MESSAGE value="DAO layer was refactored" />
     <MESSAGE value="SQL and MySql packages were added" />
-    <option name="LAST_COMMIT_MESSAGE" value="SQL and MySql packages were added" />
+    <MESSAGE value="validation constraints were added" />
+    <option name="LAST_COMMIT_MESSAGE" value="validation constraints were added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
