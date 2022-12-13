@@ -1,6 +1,8 @@
 package com.example.elective.dao.sql;
 
 import com.example.elective.dao.DAOFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -10,6 +12,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public abstract class SqlDAOFactory extends DAOFactory {
+
+  private static final Logger logger = LogManager.getLogger(SqlDAOFactory.class);
 
   private static DataSource ds;
 
@@ -24,7 +28,7 @@ public abstract class SqlDAOFactory extends DAOFactory {
       Context envContext  = (Context) initContext.lookup("java:/comp/env");
       ds = (DataSource) envContext.lookup("jdbc/elective");
     } catch (NamingException e) {
-      e.printStackTrace();
+      logger.error("failed to retrieve data source: " + e.getMessage());
       throw new RuntimeException(e);
     }
   }

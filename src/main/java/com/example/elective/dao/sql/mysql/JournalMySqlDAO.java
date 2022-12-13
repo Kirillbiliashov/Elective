@@ -35,7 +35,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
       addValuesToPreparedStatement(ps, journalId);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find journal entry", e);
     }
   }
@@ -47,7 +47,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
           journal.getEnrollmentDate(), journal.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to update journal entry", e);
     }
   }
@@ -62,7 +62,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) journal.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to save journal entry", e);
     }
   }
@@ -84,7 +84,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
       addValuesToPreparedStatement(ps, courseId, studentId);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find journal entry for given course and student", e);
     }
   }
@@ -95,7 +95,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
       addValuesToPreparedStatement(ps, courseId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find journal entries for course", e);
     }
   }

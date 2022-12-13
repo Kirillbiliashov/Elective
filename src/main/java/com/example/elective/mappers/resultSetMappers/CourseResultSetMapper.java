@@ -1,7 +1,6 @@
 package com.example.elective.mappers.resultSetMappers;
 
 import com.example.elective.exceptions.MappingException;
-import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
 import java.sql.ResultSet;

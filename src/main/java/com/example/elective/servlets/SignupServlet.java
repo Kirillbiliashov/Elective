@@ -32,6 +32,7 @@ public class SignupServlet extends HttpServlet {
       Optional<Role> optRole = roleService.getByName("Student");
       optRole.ifPresent(role -> req.setAttribute("roleId", role.getId()));
     } catch (ServiceException e) {
+      System.out.println(" i am here");
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     req.getRequestDispatcher("signup-form.jsp").forward(req, resp);

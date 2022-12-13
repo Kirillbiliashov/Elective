@@ -24,10 +24,11 @@ public class RoleMysqlDAO extends MySqlDAO<Role> implements RoleDAO {
   @Override
   public Optional<Role> findByName(String name) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME)) {
+      System.out.println("inside findByName");
       addValuesToPreparedStatement(ps, name);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find role by its name", e);
     }
   }
@@ -38,7 +39,7 @@ public class RoleMysqlDAO extends MySqlDAO<Role> implements RoleDAO {
       addValuesToPreparedStatement(ps, id);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find role", e);
     }
   }

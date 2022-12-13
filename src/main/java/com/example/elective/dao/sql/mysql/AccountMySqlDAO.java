@@ -33,6 +33,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       addValuesToPreparedStatement(ps, id);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
+      logger.error(e.getMessage());
       throw new DAOException("unable to find account", e);
     }
   }
@@ -43,6 +44,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       addValuesToPreparedStatement(ps, acc.isBlocked(), acc.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new DAOException("unable to update account", e);
     }
   }
@@ -69,6 +71,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) acc.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
+      logger.error(e.getMessage());
       throw new DAOException("unable to save account", e);
     }
   }
@@ -79,6 +82,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       addValuesToPreparedStatement(ps, roleName);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
+      logger.error(e.getMessage());
       throw new DAOException("unable to find accounts", e);
     }
   }
@@ -89,7 +93,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       addValuesToPreparedStatement(ps, login);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find account", e);
     }
   }

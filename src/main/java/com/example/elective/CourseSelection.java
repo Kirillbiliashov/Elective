@@ -39,7 +39,7 @@ public class CourseSelection {
   }
 
   public enum SortType {
-    NAME("name"),
+    NAME("course.name"),
     NAME_DESC("name DESC"),
     DURATION("(end_date - start_date)"),
     DURATION_DESC("(end_date - start_date) DESC"),

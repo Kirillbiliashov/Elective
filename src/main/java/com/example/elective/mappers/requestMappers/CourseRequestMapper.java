@@ -1,6 +1,5 @@
 package com.example.elective.mappers.requestMappers;
 
-import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ public class CourseRequestMapper implements RequestMapper<Course> {
     String idStr = req.getParameter("id");
     return Course.newBuilder()
         .setId(idStr == null ? 0 : Integer.parseInt(idStr))
-        .setName(req.getParameter("name"))
+        .setName(req.getParameter("course.name"))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
         .setEndDate(Date.valueOf(req.getParameter("endDate")))
         .setTopicId(Integer.parseInt(req.getParameter("topicId")))

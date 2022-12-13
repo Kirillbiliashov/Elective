@@ -24,7 +24,7 @@ public class TopicMysqlDAO extends MySqlDAO<Topic> implements TopicDAO {
     try (Statement stmt = conn.createStatement()) {
       return getEntitiesList(stmt.executeQuery(FIND_ALL));
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find topics", e);
     }
   }

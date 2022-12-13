@@ -48,7 +48,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
     try (Statement stmt = conn.createStatement()) {
       return getEntitiesList(stmt.executeQuery(GET_ORDERED_BY_STUDENT_COUNT + ascStr));
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to retrieve courses", e);
     }
   }
@@ -57,7 +57,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
     try (Statement stmt = conn.createStatement()) {
       return getEntitiesList(stmt.executeQuery(GET_ORDERED_BY + orderBy));
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to retrieve courses", e);
     }
   }
@@ -67,7 +67,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, teacherId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find teacher courses", e);
     }
   }
@@ -79,7 +79,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, teacherId, position - 1);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find teacher's course", e);
     }
   }
@@ -92,7 +92,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
           course.getTopicId(), course.getTeacherId(), course.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to update course", e);
     }
   }
@@ -109,7 +109,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) course.getBuilder().setId(rs.getInt(1));
     } catch (SQLException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to save course", e);
     }
   }
@@ -120,7 +120,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, id);
       ps.executeUpdate();
     } catch(SQLException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to delete course", e);
     }
   }
@@ -130,7 +130,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
     try (Statement stmt = conn.createStatement()) {
       return getEntitiesList(stmt.executeQuery(GET_ALL));
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find courses", e);
     }
   }
@@ -141,7 +141,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, id);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find course", e);
     }
   }
@@ -153,7 +153,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, studentId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find courses", e);
     }
   }
@@ -166,7 +166,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, studentId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find courses in progress", e);
     }
   }
@@ -179,7 +179,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, studentId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find registered courses", e);
     }
   }
@@ -192,7 +192,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       addValuesToPreparedStatement(ps, studentId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       throw new DAOException("unable to find available courses", e);
     }
   }
