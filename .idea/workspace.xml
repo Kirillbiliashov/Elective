@@ -10,20 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="frontend was refactored">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/CourseSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/CourseSelection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/AbstractDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SqlDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SqlDAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/JournalMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/JournalMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/RoleMysqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/RoleMysqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/TopicMysqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/TopicMysqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/resultSetMappers/CourseResultSetMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/resultSetMappers/CourseResultSetMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/SignupServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +25,8 @@
         <option value="Jsp File" />
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -86,11 +75,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/tld" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/admin" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags" />
       <recent name="$PROJECT_DIR$/src/main/webapp" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
@@ -276,6 +265,7 @@
       <workItem from="1670528907800" duration="24447000" />
       <workItem from="1670833473304" duration="13800000" />
       <workItem from="1670926064663" duration="1958000" />
+      <workItem from="1671020534902" duration="3634000" />
     </task>
     <task id="LOCAL-00033" summary="DAO methods were made static">
       <created>1669458060225</created>
