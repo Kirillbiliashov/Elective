@@ -9,10 +9,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="frontend was refactored">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Logger config file was added">
+      <change afterPath="$PROJECT_DIR$/src/test/java/filters/AuthenticationFilterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/filters/AuthorizationFilterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/filters/LanguageFilterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/admin/navbar.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/admin/navbar.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page/next.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page/next.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page/prev.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page/prev.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/student/navbar.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/student/navbar.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,30 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/admin/IdeaProjects/elective&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/admin/IdeaProjects/elective",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "File.Encoding"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;f5e762f5-b40a-432c-a51a-56740d6644c0&quot;
+    "RunConfigurationTargetLRU": [
+      "f5e762f5-b40a-432c-a51a-56740d6644c0"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;MySQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "MySQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -82,62 +96,86 @@
       <recent name="$PROJECT_DIR$/src/main/webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
-    <configuration name="db-create.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/sql/db-create.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="f5e762f5-b40a-432c-a51a-56740d6644c0" />
-      <method v="2" />
+  <component name="RunManager" selected="JUnit.LanguageFilterTest.testAbsentParameter">
+    <configuration name="AuthenticationFilterTest.testUnauthenticated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="filters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="filters" />
+      <option name="MAIN_CLASS_NAME" value="filters.AuthenticationFilterTest" />
+      <option name="METHOD_NAME" value="testUnauthenticated" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="elective [clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
+    <configuration name="AuthorizationFilterTest.testAuthorized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="filters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="filters" />
+      <option name="MAIN_CLASS_NAME" value="filters.AuthorizationFilterTest" />
+      <option name="METHOD_NAME" value="testAuthorized" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="elective [package]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="package" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
+    <configuration name="AuthorizationFilterTest.testUnauthorized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="filters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="filters" />
+      <option name="MAIN_CLASS_NAME" value="filters.AuthorizationFilterTest" />
+      <option name="METHOD_NAME" value="testUnauthorized" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LanguageFilterTest.testAbsentParameter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="filters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="filters" />
+      <option name="MAIN_CLASS_NAME" value="filters.LanguageFilterTest" />
+      <option name="METHOD_NAME" value="testAbsentParameter" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LanguageFilterTest.testPresentParameter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="filters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="filters" />
+      <option name="MAIN_CLASS_NAME" value="filters.LanguageFilterTest" />
+      <option name="METHOD_NAME" value="testPresentParameter" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <deployment>
@@ -226,16 +264,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Database Script.db-create.sql" />
-      <item itemvalue="Maven.elective [clean]" />
-      <item itemvalue="Maven.elective [package]" />
+      <item itemvalue="JUnit.AuthenticationFilterTest.testUnauthenticated" />
+      <item itemvalue="JUnit.AuthorizationFilterTest.testAuthorized" />
+      <item itemvalue="JUnit.AuthorizationFilterTest.testUnauthorized" />
+      <item itemvalue="JUnit.LanguageFilterTest.testAbsentParameter" />
+      <item itemvalue="JUnit.LanguageFilterTest.testPresentParameter" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Database Script.db-create.sql" />
-        <item itemvalue="Maven.elective [package]" />
-        <item itemvalue="Maven.elective [clean]" />
+        <item itemvalue="JUnit.LanguageFilterTest.testAbsentParameter" />
+        <item itemvalue="JUnit.LanguageFilterTest.testPresentParameter" />
+        <item itemvalue="JUnit.AuthorizationFilterTest.testUnauthorized" />
+        <item itemvalue="JUnit.AuthorizationFilterTest.testAuthorized" />
+        <item itemvalue="JUnit.AuthenticationFilterTest.testUnauthenticated" />
       </list>
     </recent_temporary>
   </component>
@@ -265,21 +307,7 @@
       <workItem from="1670528907800" duration="24447000" />
       <workItem from="1670833473304" duration="13800000" />
       <workItem from="1670926064663" duration="1958000" />
-      <workItem from="1671020534902" duration="3634000" />
-    </task>
-    <task id="LOCAL-00033" summary="DAO methods were made static">
-      <created>1669458060225</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1669458060225</updated>
-    </task>
-    <task id="LOCAL-00034" summary="student and teacher services were added">
-      <created>1669464294995</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1669464294995</updated>
+      <workItem from="1671020534902" duration="11534000" />
     </task>
     <task id="LOCAL-00035" summary="SQL queries were moved from methods to class members">
       <created>1669579195487</created>
@@ -610,7 +638,21 @@
       <option name="project" value="LOCAL" />
       <updated>1670873742742</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Logging was added for AppListener class">
+      <created>1671049923680</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1671049923681</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Logger config file was added">
+      <created>1671049947085</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1671049947085</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -640,8 +682,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Error handling for transaction manager was improved" />
-    <MESSAGE value="Request mapper layer was decoupled from service layer" />
     <MESSAGE value="Exceptions for mapper layer were refactored" />
     <MESSAGE value="Selection of courses by different criteria was refactored" />
     <MESSAGE value="Course selection mechanism was slightly improved" />
@@ -665,7 +705,9 @@
     <MESSAGE value="validation constraints were added" />
     <MESSAGE value="javascript dates validation was added" />
     <MESSAGE value="frontend was refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="frontend was refactored" />
+    <MESSAGE value="Logging was added for AppListener class" />
+    <MESSAGE value="Logger config file was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logger config file was added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
