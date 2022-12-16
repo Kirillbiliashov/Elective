@@ -2,7 +2,13 @@ package filters;
 
 import com.example.elective.filters.AuthorizationFilter;
 import com.example.elective.filters.LanguageFilter;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,13 +23,25 @@ import static org.mockito.Mockito.*;
 public class LanguageFilterTest {
 
   private LanguageFilter langFilter = new LanguageFilter();
-  private HttpServletRequest req = mock(HttpServletRequest.class);
-  private HttpServletResponse resp = mock(HttpServletResponse.class);
-  private FilterChain chain = mock(FilterChain.class);
 
-  @Test
-  void testPresentParameter() throws ServletException, IOException {
-    when(req.getParameter("lang")).thenReturn("ru");
+  @Mock
+  private HttpServletRequest req;
+
+  @Mock
+  private HttpServletResponse resp;
+
+  @Mock
+  private FilterChain chain;
+
+  @BeforeEach
+  void beforeAll() {
+    MockitoAnnotations.openMocks(this);
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"en", "ru"})
+  void testPresentParameter(String lang) throws ServletException, IOException {
+    when(req.getParameter("lang")).thenReturn(lang);
     langFilter.doFilter(req, resp, chain);
     verify(chain, times(1)).doFilter(req, resp);
   }
