@@ -1,4 +1,4 @@
-package filters;
+package com.example.elective.filters;
 
 import com.example.elective.filters.AuthorizationFilter;
 import com.example.elective.filters.LanguageFilter;

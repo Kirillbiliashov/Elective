@@ -11,13 +11,13 @@
     <h3>Admin</h3>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ${activeNavItem.equals("admin") ? "active" : ""}">
+            <li class="nav-item ${activeNavItem eq "admin" ? "active" : ""}">
                 <a class="nav-link" href="${adminUrl}?lang=${param.lang}"><fmt:message key="courses"/><span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item ${activeNavItem.equals("students") ? "active" : ""}">
+            <li class="nav-item ${activeNavItem eq "students" ? "active" : ""}">
                 <a class="nav-link" href="${studentsUrl}?lang=${param.lang}"><fmt:message key="students"/></a>
             </li>
-            <li class="nav-item ${activeNavItem.equals("teachers") ? "active" : ""}">
+            <li class="nav-item ${activeNavItem eq "teachers" ? "active" : ""}">
                 <a class="nav-link" href="${teachersUrl}?lang=${param.lang}"><fmt:message key="teachers"/></a>
             </li>
         </ul>

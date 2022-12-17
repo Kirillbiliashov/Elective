@@ -32,7 +32,7 @@
             <c:forEach items="${journal}" var="entry">
                 <tr>
                     <td><acc:fullName target="${entry.value}"/></td>
-                    <c:if test="${entry.key.grade == -1}">
+                    <c:if test="${entry.key.grade eq -1}">
                         <c:if test="${course.endDate.after(currDate)}">
                             <td><fmt:message key="course_not_finished"/></td>
                         </c:if>
@@ -45,7 +45,7 @@
                             </td>
                         </c:if>
                     </c:if>
-                    <c:if test="${entry.key.grade != -1}">
+                    <c:if test="${entry.key.grade ne -1}">
                         <td>${entry.key.grade}</td>
                     </c:if>
                 </tr>

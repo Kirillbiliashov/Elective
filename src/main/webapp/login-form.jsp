@@ -29,7 +29,7 @@
         <a href="signup?lang=${param.lang}"><fmt:message key="user.signup_ref"/></a>
     </div>
 </div>
-<c:if test="${errorMsg != null}">
+<c:if test="${errorMsg ne null}">
     <div class="alert alert-warning" role="alert">
         ${errorMsg}
     </div>

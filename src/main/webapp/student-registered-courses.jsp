@@ -16,7 +16,7 @@
                 activeNavItem="registeredCourses"/>
 <div class="page-container">
     <h2><fmt:message key="student.registered_courses"/></h2>
-    <c:if test="${!registeredCourses.isEmpty()}">
+    <c:if test="${not empty registeredCourses}">
         <ul class="list-group">
             <div class="grid-container">
                 <c:forEach items="${registeredCourses}" var="entry">
@@ -32,7 +32,7 @@
             </div>
         </ul>
     </c:if>
-    <c:if test="${registeredCourses.isEmpty()}"><p><fmt:message key="student.no_registered_courses"/></p></c:if>
+    <c:if test="${empty registeredCourses}"><p><fmt:message key="student.no_registered_courses"/></p></c:if>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
