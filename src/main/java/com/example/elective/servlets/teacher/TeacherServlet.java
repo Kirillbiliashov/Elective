@@ -7,6 +7,8 @@ import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.services.TeacherService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,13 @@ import java.util.Map;
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
 
-  private TeacherService teacherService = new TeacherService();
+  private TeacherService teacherService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    teacherService = (TeacherService) context.getAttribute("teacherService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

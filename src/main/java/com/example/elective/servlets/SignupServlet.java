@@ -9,6 +9,8 @@ import com.example.elective.models.Role;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.RoleService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,10 +22,16 @@ import java.util.Optional;
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 
-  private RequestMapper<Account> accountMapper =
-      new AccountRequestMapper();
-  private AccountService accService = new AccountService();
-  private RoleService roleService = new RoleService();
+  private RequestMapper<Account> accountMapper = new AccountRequestMapper();
+  private AccountService accService;
+  private RoleService roleService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    accService = (AccountService) context.getAttribute("accountService");
+    roleService = (RoleService) context.getAttribute("roleService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -32,7 +40,6 @@ public class SignupServlet extends HttpServlet {
       Optional<Role> optRole = roleService.getByName("Student");
       optRole.ifPresent(role -> req.setAttribute("roleId", role.getId()));
     } catch (ServiceException e) {
-      System.out.println(" i am here");
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     req.getRequestDispatcher("signup-form.jsp").forward(req, resp);

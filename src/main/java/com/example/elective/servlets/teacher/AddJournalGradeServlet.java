@@ -4,6 +4,9 @@ import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.JournalService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +16,13 @@ import java.io.IOException;
 @WebServlet("/teacher/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {
 
-  private JournalService journalService = new JournalService();
+  private JournalService journalService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    journalService = (JournalService) context.getAttribute("journalService");
+  }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)

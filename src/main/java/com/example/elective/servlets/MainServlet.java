@@ -6,6 +6,9 @@ import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.RoleService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +20,13 @@ import java.util.Optional;
 @WebServlet("/")
 public class MainServlet extends HttpServlet {
 
-  private RoleService roleService = new RoleService();
+  private RoleService roleService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    roleService = (RoleService) context.getAttribute("roleService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -5,6 +5,8 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.services.AccountService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +19,13 @@ import java.util.Optional;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-  private AccountService accService =  new AccountService();
+  private AccountService accService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    accService = (AccountService) context.getAttribute("accountService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -5,6 +5,9 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.StudentService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +17,13 @@ import java.io.IOException;
 @WebServlet("/admin/students/changeBlock/*")
 public class ChangeStudentBlockServlet extends HttpServlet {
 
-  private StudentService studentService = new StudentService();
+  private StudentService studentService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    studentService = (StudentService) context.getAttribute("studentService");
+  }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)

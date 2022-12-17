@@ -8,6 +8,8 @@ import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Course;
 import com.example.elective.services.*;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +22,20 @@ import java.util.stream.Collectors;
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
-  private CourseService courseService = new CourseService();
-  private TeacherService teacherService = new TeacherService();
-  private TopicService topicService = new TopicService();
+  private CourseService courseService;
+  private TeacherService teacherService;
+  private TopicService topicService;
+
   private RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    courseService = (CourseService) context.getAttribute("courseService");
+    topicService = (TopicService) context.getAttribute("topicService");
+    teacherService = (TeacherService) context.getAttribute("teacherService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

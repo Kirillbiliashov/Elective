@@ -8,6 +8,9 @@ import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Journal;
 import com.example.elective.services.JournalService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,13 @@ import java.io.IOException;
 public class CourseEnrollServlet extends HttpServlet {
 
   private RequestMapper<Journal> journalMapper = new JournalRequestMapper();
-  private JournalService journalService = new JournalService();
+  private JournalService journalService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    journalService = (JournalService) context.getAttribute("journalService");
+  }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)

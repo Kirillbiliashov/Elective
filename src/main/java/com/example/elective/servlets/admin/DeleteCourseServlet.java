@@ -4,6 +4,9 @@ import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.CourseService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +16,13 @@ import java.io.IOException;
 @WebServlet("/admin/courses/delete/*")
 public class DeleteCourseServlet extends HttpServlet {
 
-  private CourseService courseService = new CourseService();
+  private CourseService courseService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    courseService = (CourseService) context.getAttribute("courseService");
+  }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -4,6 +4,8 @@ import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.StudentService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +16,13 @@ import java.io.IOException;
 @WebServlet("/student/courses_in_progress")
 public class CoursesInProgressServlet extends HttpServlet {
 
-  private StudentService studentService = new StudentService();
+  private StudentService studentService;
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    studentService = (StudentService) context.getAttribute("studentService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

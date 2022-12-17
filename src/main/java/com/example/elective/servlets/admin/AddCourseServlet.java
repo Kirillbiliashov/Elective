@@ -11,6 +11,8 @@ import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TopicService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +25,21 @@ import java.util.List;
 public class AddCourseServlet extends HttpServlet {
 
   private RequestMapper<Course> courseMapper = new CourseRequestMapper();
-  private AccountService accService = new AccountService();
-  private CourseService courseService = new CourseService();
-  private TopicService topicService = new TopicService();
+  private TopicService topicService;
+  private AccountService accService;
+  private CourseService courseService;
+
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+  public void init(ServletConfig config) {
+    ServletContext context = config.getServletContext();
+    topicService = (TopicService) context.getAttribute("topicService");
+    accService = (AccountService) context.getAttribute("accountService");
+    courseService = (CourseService) context.getAttribute("courseService");
+  }
+
+  @Override
+  public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
       List<Topic> topics = topicService.getAll();

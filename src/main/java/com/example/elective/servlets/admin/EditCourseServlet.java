@@ -9,6 +9,8 @@ import com.example.elective.services.CourseService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +22,19 @@ import java.util.Optional;
 @WebServlet("/admin/courses/edit/*")
 public class EditCourseServlet extends HttpServlet {
 
+  private CourseService courseService;
+  private TopicService topicService;
+  private TeacherService teacherService;
+
   private RequestMapper<Course> courseMapper = new CourseRequestMapper();
 
-  private CourseService courseService = new CourseService();
-  private TeacherService teacherService = new TeacherService();
-  private TopicService topicService = new TopicService();
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    ServletContext context = config.getServletContext();
+    courseService = (CourseService) context.getAttribute("courseService");
+    topicService = (TopicService) context.getAttribute("topicService");
+    teacherService = (TeacherService) context.getAttribute("teacherService");
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
