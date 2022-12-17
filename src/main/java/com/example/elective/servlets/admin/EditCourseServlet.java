@@ -29,7 +29,7 @@ public class EditCourseServlet extends HttpServlet {
   private RequestMapper<Course> courseMapper = new CourseRequestMapper();
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
+  public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
     courseService = (CourseService) context.getAttribute("courseService");
     topicService = (TopicService) context.getAttribute("topicService");
@@ -49,10 +49,10 @@ public class EditCourseServlet extends HttpServlet {
       req.setAttribute("course", optCourse.get());
       req.setAttribute("topics", topicService.getAll());
       req.setAttribute("teachers", teacherService.getAll());
-      req.getRequestDispatcher("/edit-course.jsp").forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
+    req.getRequestDispatcher("/edit-course.jsp").forward(req, resp);
   }
 
   @Override

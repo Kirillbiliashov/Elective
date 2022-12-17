@@ -19,7 +19,7 @@ public class DeleteCourseServlet extends HttpServlet {
   private CourseService courseService;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
+  public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
     courseService = (CourseService) context.getAttribute("courseService");
   }

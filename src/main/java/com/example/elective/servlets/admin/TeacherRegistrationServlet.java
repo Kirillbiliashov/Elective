@@ -28,7 +28,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
   private RoleService roleService;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
+  public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
     accService = (AccountService) context.getAttribute("accountService");
     roleService = (RoleService) context.getAttribute("roleService");

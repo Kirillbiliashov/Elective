@@ -35,11 +35,6 @@ public class CourseService extends AbstractService {
     performDaoWriteOperation(() -> dao.delete(id));
   }
 
-  public List<Course> getAll() throws ServiceException {
-    transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.findAll());
-  }
-
   public Optional<Course> getById(int id) throws ServiceException {
     transactionManager.initTransaction(dao);
     return performDaoReadOperation(() -> dao.find(id));
