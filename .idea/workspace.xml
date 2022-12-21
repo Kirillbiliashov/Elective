@@ -9,18 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Minor code improvements were made">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="course servlet tests were added">
       <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LoginServletTest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/AddCourseServletTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/CourseServletTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/DeleteCourseServletTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/EditCourseServletTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/TeacherRegistrationServletTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/student/CourseEnrollServletTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/teacher/AddJournalGradeServletTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/DeleteCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/DeleteCourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/EditCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/EditCourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/TeacherRegistrationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/TeacherRegistrationServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/student/CourseEnrollServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/student/CourseEnrollServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,80 +91,81 @@
       <recent name="com.example.elective.servlets.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.EditCourseServletTest">
-    <configuration name="AddCourseServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.LoginServletTest">
+    <configuration name="AddJournalGradeServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.servlets.admin.*" />
+          <option name="PATTERN" value="com.example.elective.servlets.teacher.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.servlets.admin" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.admin.AddCourseServletTest" />
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets.teacher" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.teacher.AddJournalGradeServletTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DeleteCourseServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.servlets.admin.*" />
+          <option name="PATTERN" value="com.example.elective.servlets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.servlets.admin" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.admin.DeleteCourseServletTest" />
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.LoginServletTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DeleteCourseServletTest.testDeleteCourse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginServletTest.testAbsentAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.servlets.admin.*" />
+          <option name="PATTERN" value="com.example.elective.servlets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.servlets.admin" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.admin.DeleteCourseServletTest" />
-      <option name="METHOD_NAME" value="testDeleteCourse" />
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.LoginServletTest" />
+      <option name="METHOD_NAME" value="testAbsentAccount" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DeleteCourseServletTest.testDeleteCourseNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginServletTest.testServiceException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.servlets.admin.*" />
+          <option name="PATTERN" value="com.example.elective.servlets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.servlets.admin" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.admin.DeleteCourseServletTest" />
-      <option name="METHOD_NAME" value="testDeleteCourseNegative" />
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.LoginServletTest" />
+      <option name="METHOD_NAME" value="testServiceException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EditCourseServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginServletTest.testSuccessfulLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.servlets.admin.*" />
+          <option name="PATTERN" value="com.example.elective.servlets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.servlets.admin" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.admin.EditCourseServletTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.LoginServletTest" />
+      <option name="METHOD_NAME" value="testSuccessfulLogin" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -258,20 +257,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.AddCourseServletTest" />
-      <item itemvalue="JUnit.DeleteCourseServletTest" />
-      <item itemvalue="JUnit.DeleteCourseServletTest.testDeleteCourse" />
-      <item itemvalue="JUnit.DeleteCourseServletTest.testDeleteCourseNegative" />
-      <item itemvalue="JUnit.EditCourseServletTest" />
+      <item itemvalue="JUnit.LoginServletTest" />
+      <item itemvalue="JUnit.LoginServletTest.testAbsentAccount" />
+      <item itemvalue="JUnit.LoginServletTest.testServiceException" />
+      <item itemvalue="JUnit.LoginServletTest.testSuccessfulLogin" />
+      <item itemvalue="JUnit.AddJournalGradeServletTest" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.EditCourseServletTest" />
-        <item itemvalue="JUnit.DeleteCourseServletTest" />
-        <item itemvalue="JUnit.AddCourseServletTest" />
-        <item itemvalue="JUnit.DeleteCourseServletTest.testDeleteCourseNegative" />
-        <item itemvalue="JUnit.DeleteCourseServletTest.testDeleteCourse" />
+        <item itemvalue="JUnit.LoginServletTest" />
+        <item itemvalue="JUnit.LoginServletTest.testServiceException" />
+        <item itemvalue="JUnit.LoginServletTest.testAbsentAccount" />
+        <item itemvalue="JUnit.LoginServletTest.testSuccessfulLogin" />
+        <item itemvalue="JUnit.AddJournalGradeServletTest" />
       </list>
     </recent_temporary>
   </component>
@@ -302,14 +301,8 @@
       <workItem from="1670833473304" duration="13800000" />
       <workItem from="1670926064663" duration="1958000" />
       <workItem from="1671020534902" duration="11879000" />
-      <workItem from="1671190415412" duration="20333000" />
-    </task>
-    <task id="LOCAL-00039" summary="Role filter was added">
-      <created>1669658067146</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1669658067146</updated>
+      <workItem from="1671190415412" duration="23021000" />
+      <workItem from="1671644954418" duration="3039000" />
     </task>
     <task id="LOCAL-00040" summary="Abstract Entity class was added">
       <created>1669722602556</created>
@@ -647,7 +640,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671277724194</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="course servlet tests were added">
+      <created>1671307868997</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1671307868997</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,7 +677,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Course update was refactored" />
     <MESSAGE value="Student course selection was refactored" />
     <MESSAGE value="Courses layout was refactored" />
     <MESSAGE value="Pages layout was refactored" />
@@ -702,7 +701,8 @@
     <MESSAGE value="Filter tests were refactored" />
     <MESSAGE value="Service instantiation process was detached from servlets" />
     <MESSAGE value="Minor code improvements were made" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor code improvements were made" />
+    <MESSAGE value="course servlet tests were added" />
+    <option name="LAST_COMMIT_MESSAGE" value="course servlet tests were added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
