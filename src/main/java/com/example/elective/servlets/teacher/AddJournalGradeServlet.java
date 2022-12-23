@@ -19,7 +19,7 @@ public class AddJournalGradeServlet extends HttpServlet {
   private JournalService journalService;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
+  public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
     journalService = (JournalService) context.getAttribute("journalService");
   }

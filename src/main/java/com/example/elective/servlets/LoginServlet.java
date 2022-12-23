@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
   private AccountService accService;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
+  public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
     accService = (AccountService) context.getAttribute("accountService");
   }
@@ -41,14 +41,20 @@ public class LoginServlet extends HttpServlet {
     Optional<Account> optAccount = Optional.empty();
     try {
       optAccount = accService.findByCredentials(login, password);
+      if (!optAccount.isPresent()) {
+        handleAbsentAccount(req, resp);
+        return;
+      }
+      Account acc = optAccount.get();
+      if (acc.isBlocked()) {
+        handleBlockedAccount(req, resp);
+        return;
+      }
+      addAccountToSession(req, acc);
+      resp.sendRedirect(Utils.getRedirectUrl(req, "main"));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    if (!optAccount.isPresent()) handleAbsentAccount(req, resp);
-    Account acc = optAccount.get();
-    if (acc.isBlocked()) handleBlockedAccount(req, resp);
-    addAccountToSession(req, acc);
-    resp.sendRedirect(Utils.getRedirectUrl(req, "main"));
   }
 
   private void handleAbsentAccount(HttpServletRequest req, HttpServletResponse resp)

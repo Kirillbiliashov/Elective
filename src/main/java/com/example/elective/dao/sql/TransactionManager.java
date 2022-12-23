@@ -14,7 +14,7 @@ public class TransactionManager {
 
   private Connection conn;
 
-  public final void initTransaction(DAO... daos) {
+  public void initTransaction(DAO... daos) {
     try {
       if (conn == null) conn = SqlDAOFactory.getConnection();
       conn.setAutoCommit(false);

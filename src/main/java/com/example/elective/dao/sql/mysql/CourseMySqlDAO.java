@@ -148,52 +148,34 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
 
   @Override
   public List<Course> findCompletedForStudent(int studentId) throws DAOException {
-    try (PreparedStatement ps =
-             conn.prepareStatement(FIND_COMPLETED_FOR_STUDENT)) {
-      addValuesToPreparedStatement(ps, studentId);
-      return getEntitiesList(ps.executeQuery());
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find courses", e);
-    }
+    return findByStudentId(studentId, FIND_COMPLETED_FOR_STUDENT);
   }
 
   @Override
   public List<Course> findInProgressForStudent(int studentId)
       throws DAOException {
-    try (PreparedStatement ps =
-             conn.prepareStatement(FIND_IN_PROGRESS_FOR_STUDENT)) {
-      addValuesToPreparedStatement(ps, studentId);
-      return getEntitiesList(ps.executeQuery());
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find courses in progress", e);
-    }
+    return findByStudentId(studentId, FIND_IN_PROGRESS_FOR_STUDENT);
   }
 
   @Override
   public List<Course> findRegisteredForStudent(int studentId)
       throws DAOException {
-    try (PreparedStatement ps =
-             conn.prepareStatement(FIND_REGISTERED_FOR_STUDENT)) {
-      addValuesToPreparedStatement(ps, studentId);
-      return getEntitiesList(ps.executeQuery());
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find registered courses", e);
-    }
+    return findByStudentId(studentId, FIND_REGISTERED_FOR_STUDENT);
   }
 
   @Override
   public List<Course> findAvailableForStudent(int studentId)
       throws DAOException {
-    try (PreparedStatement ps =
-             conn.prepareStatement(FIND_AVAILABLE_FOR_STUDENT)) {
+    return findByStudentId(studentId, FIND_AVAILABLE_FOR_STUDENT);
+  }
+
+  private List<Course> findByStudentId(int studentId, String query) throws DAOException {
+    try (PreparedStatement ps = conn.prepareStatement(query)) {
       addValuesToPreparedStatement(ps, studentId);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
-      throw new DAOException("unable to find available courses", e);
+      throw new DAOException("unable to find courses", e);
     }
   }
 
