@@ -1,8 +1,6 @@
 package com.example.elective.servlets.admin;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.CourseRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Course;
@@ -10,6 +8,8 @@ import com.example.elective.models.Topic;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TopicService;
+import com.example.elective.utils.Constants;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -28,7 +28,6 @@ public class AddCourseServlet extends HttpServlet {
   private TopicService topicService;
   private AccountService accService;
   private CourseService courseService;
-
 
   @Override
   public void init(ServletConfig config) {
@@ -60,7 +59,7 @@ public class AddCourseServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Utils.getRedirectUrl(req, Utils.ADMIN_SERVLET_NAME));
+    resp.sendRedirect(RequestUtils.getRedirectUrl(req, Constants.ADMIN_SERVLET_NAME));
   }
 
 }

@@ -1,7 +1,6 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.CourseSelection;
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {

@@ -1,11 +1,11 @@
 package com.example.elective.dao.sql.mysql;
 
-import com.example.elective.Utils;
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.resultSetMappers.AccountResultSetMapper;
 import com.example.elective.models.Account;
+import com.example.elective.utils.PasswordUtils;
 
 import java.sql.*;
 import java.util.List;
@@ -63,7 +63,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   public void save(Account acc) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
              Statement.RETURN_GENERATED_KEYS)) {
-      String hashedPassword = Utils.hashPassword(acc.getPassword());
+      String hashedPassword = PasswordUtils.hashPassword(acc.getPassword());
       addValuesToPreparedStatement(ps, acc.getLogin(),
           hashedPassword, acc.getFirstName(),
           acc.getLastName(), acc.getRoleId());

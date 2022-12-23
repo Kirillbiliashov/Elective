@@ -1,8 +1,8 @@
 package com.example.elective.servlets.student;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.StudentService;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -26,7 +26,7 @@ public class RegisteredCoursesServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    int studentId = Utils.getCurrentUserId(req);
+    int studentId = RequestUtils.getCurrentUserId(req);
     try {
       req.setAttribute("registeredCourses",
           studentService.getRegisteredCoursesMap(studentId));

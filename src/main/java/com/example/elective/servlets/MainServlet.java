@@ -1,10 +1,10 @@
 package com.example.elective.servlets;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.RoleService;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -42,7 +42,7 @@ public class MainServlet extends HttpServlet {
     }
     String homeUrl = getHomeUrl(optRole);
     session.setAttribute("homeUrl",  homeUrl);
-    resp.sendRedirect(Utils.getRedirectUrl(req, homeUrl));
+    resp.sendRedirect(RequestUtils.getRedirectUrl(req, homeUrl));
   }
 
   private String getHomeUrl(Optional<Role> optRole) {

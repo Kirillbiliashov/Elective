@@ -1,12 +1,9 @@
 package com.example.elective.services;
 
-import com.example.elective.Utils;
-import com.example.elective.dao.DAOFactory;
-import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.interfaces.DAO;
 import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.exceptions.DAOException;
 import com.example.elective.models.Account;
+import com.example.elective.utils.PasswordUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class AccountServiceTest {
@@ -42,7 +38,7 @@ public class AccountServiceTest {
     Optional<Account> optAcc = Optional.of(Account
         .newBuilder()
         .setLogin(LOGIN)
-        .setPassword(Utils.hashPassword(PASSWORD))
+        .setPassword(PasswordUtils.hashPassword(PASSWORD))
         .build());
     doReturn(optAcc).when(service).performDaoReadOperation(any());
     Assertions.assertEquals(optAcc, service.findByCredentials(LOGIN, PASSWORD));

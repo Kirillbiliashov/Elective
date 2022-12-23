@@ -1,15 +1,10 @@
 package com.example.elective.daos;
 
-import com.example.elective.Utils;
-import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.sql.mysql.AccountMySqlDAO;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.ResultSetMapper;
 import com.example.elective.models.Account;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

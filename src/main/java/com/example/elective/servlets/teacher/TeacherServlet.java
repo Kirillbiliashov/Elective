@@ -1,11 +1,13 @@
 package com.example.elective.servlets.teacher;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.services.TeacherService;
+import com.example.elective.utils.Constants;
+import com.example.elective.utils.RegexUtils;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -31,7 +33,7 @@ public class TeacherServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    int id = Utils.getCurrentUserId(req);
+    int id = RequestUtils.getCurrentUserId(req);
     int page = getPageNumber(req);
     setPageAttributes(req, page);
     try {
@@ -40,7 +42,7 @@ public class TeacherServlet extends HttpServlet {
       Map<Journal, Account> journal = teacherService.getJournalForCourse(course.getId());
       req.setAttribute("journal", journal);
       req.setAttribute("course", course);
-      req.setAttribute("currDate", Utils.CURRENT_DATE);
+      req.setAttribute("currDate", Constants.CURRENT_DATE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
@@ -57,7 +59,7 @@ public class TeacherServlet extends HttpServlet {
 
   private int getPageNumber(HttpServletRequest request) {
     String pageParam = request.getParameter("page");
-    if (!Utils.isNumeric(pageParam)) return 1;
+    if (!RegexUtils.isNumeric(pageParam)) return 1;
     return Integer.parseInt(pageParam);
   }
 

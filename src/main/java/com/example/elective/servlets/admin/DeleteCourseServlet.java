@@ -1,12 +1,12 @@
 package com.example.elective.servlets.admin;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.CourseService;
+import com.example.elective.utils.Constants;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +27,13 @@ public class DeleteCourseServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    int id = Utils.getIdFromPathInfo(req.getPathInfo());
+    int id = RequestUtils.getIdFromPathInfo(req.getPathInfo());
     try {
       courseService.delete(id);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Utils.getRedirectUrl(req, Utils.ADMIN_SERVLET_NAME));
+    resp.sendRedirect(RequestUtils.getRedirectUrl(req, Constants.ADMIN_SERVLET_NAME));
   }
 
 }

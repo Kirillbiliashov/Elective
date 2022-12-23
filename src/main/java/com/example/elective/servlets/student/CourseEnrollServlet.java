@@ -1,16 +1,14 @@
 package com.example.elective.servlets.student;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.JournalRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Journal;
 import com.example.elective.services.JournalService;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +36,7 @@ public class CourseEnrollServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Utils.getRedirectUrl(req, "/elective/student"));
+    resp.sendRedirect(RequestUtils.getRedirectUrl(req, "/elective/student"));
   }
 
 }

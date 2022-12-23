@@ -1,14 +1,13 @@
 package com.example.elective.servlets.admin;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.requestMappers.AccountRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.RoleService;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -54,7 +53,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Utils.getRedirectUrl(req, "/elective/admin/teachers"));
+    resp.sendRedirect(RequestUtils.getRedirectUrl(req, "/elective/admin/teachers"));
   }
 
 }

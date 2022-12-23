@@ -1,6 +1,5 @@
 package com.example.elective.servlets.admin;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
@@ -8,6 +7,8 @@ import com.example.elective.models.Course;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
+import com.example.elective.utils.Constants;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -39,11 +40,11 @@ public class EditCourseServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    int id = Utils.getIdFromPathInfo(req.getPathInfo());
+    int id = RequestUtils.getIdFromPathInfo(req.getPathInfo());
     try {
       Optional<Course> optCourse = courseService.getById(id);
       if (!optCourse.isPresent()) {
-        resp.sendRedirect(Utils.ADMIN_SERVLET_NAME);
+        resp.sendRedirect(Constants.ADMIN_SERVLET_NAME);
         return;
       }
       req.setAttribute("course", optCourse.get());
@@ -62,7 +63,7 @@ public class EditCourseServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Utils.getRedirectUrl(req, Utils.ADMIN_SERVLET_NAME));
+    resp.sendRedirect(RequestUtils.getRedirectUrl(req, Constants.ADMIN_SERVLET_NAME));
   }
 
 }

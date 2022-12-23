@@ -1,12 +1,11 @@
 package com.example.elective.servlets.teacher;
 
-import com.example.elective.Utils;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.JournalService;
+import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class AddJournalGradeServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    int journalId = Utils.getIdFromPathInfo(req.getPathInfo());
+    int journalId = RequestUtils.getIdFromPathInfo(req.getPathInfo());
     String gradeStr = req.getParameter("grade");
     try {
       journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));

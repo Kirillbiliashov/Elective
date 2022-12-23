@@ -1,9 +1,9 @@
 package com.example.elective.services;
 
-import com.example.elective.Utils;
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
+import com.example.elective.utils.PasswordUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +24,8 @@ public class AccountService extends AbstractService {
 
   private Optional<Account> getByPassword(Account acc, String password) {
     String hashedPassword = acc.getPassword();
-    return Utils.passwordsMatch(password, hashedPassword) ? Optional.of(acc) :
-        Optional.empty();
+    return PasswordUtils.passwordsMatch(password, hashedPassword)
+        ? Optional.of(acc) : Optional.empty();
   }
 
   public List<Account> getByRole(String roleName) throws ServiceException {
