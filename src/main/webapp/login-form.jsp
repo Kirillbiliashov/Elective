@@ -8,7 +8,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Title</title>
+    <title><fmt:message key="title.login"/></title>
     <style>
         <%@include file="style.css" %>
     </style>
@@ -22,7 +22,7 @@
         <form method="post">
             <form:username/>
             <form:password/>
-            <form:button text="Login"/>
+            <form:button key="user.login" />
         </form>
     </div>
     <div class="form-btn-container">

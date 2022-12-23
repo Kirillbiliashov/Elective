@@ -8,15 +8,20 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Title</title>
+    <title><fmt:message key="title.main"/></title>
+    <style>
+        <%@include file="style.css" %>
+    </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div style="display: flex; justify-content: space-between">
+    <div class="teacher-navbar-container">
         <h3><acc:info target="${account}"/></h3>
+        <div class="teacher-navbar-buttons-container">
             <element:lang-dropdown/>
-        <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout" /></a>
+            <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout" /></a>
+        </div>
     </div>
 </nav>
     <div style="margin: 30px;">

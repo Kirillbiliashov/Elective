@@ -103,3 +103,14 @@ p {
     display: flex;
     margin-top: 10px;
 }
+.teacher-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.teacher-navbar-buttons-container {
+    display: flex;
+    align-items: center;
+    width: 190px;
+    justify-content: space-between;
+}

@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
+<%@ attribute name="value" required="false" %>
 <div class="form-group">
     <label for="topicSelect"><fmt:message key="topic" /></label>
     <select class="form-control" id="topicSelect" name="topicId">
         <c:forEach items="${topics}" var="topic">
-            <option value="${topic.id}">${topic.name}</option>
+        <option value="${topic.id}" <c:if test="${value == topic.id}">selected</c:if>>${topic.name}</option>
         </c:forEach>
     </select>
 </div>

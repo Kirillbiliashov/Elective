@@ -9,7 +9,7 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Students</title>
+    <title><fmt:message key="title.students"/></title>
     <style>
         <%@include file="style.css" %>
     </style>
@@ -24,6 +24,10 @@
                 <div class="card student-card">
                     <div class="card-body">
                         <h5><student:info target="${student}"/></h5>
+                        <p><fmt:message key="student.status"/>:
+                            <c:if test="${student.blocked}"><fmt:message key="student.blocked"/></c:if>
+                            <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
+                        </p>
                         <div style="align-items: center; justify-content: center; display: flex">
                             <form action="students/changeBlock/${student.id}?lang=${param.lang}" method="POST">
                                 <c:if test="${student.blocked}">

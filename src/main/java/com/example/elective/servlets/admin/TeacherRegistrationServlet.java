@@ -43,7 +43,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("/signup-form.jsp").forward(req, resp);
+    req.getRequestDispatcher("/teacher-register-form.jsp").forward(req, resp);
   }
 
   @Override
