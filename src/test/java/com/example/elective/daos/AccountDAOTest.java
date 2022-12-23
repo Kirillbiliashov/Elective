@@ -15,10 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -26,17 +23,14 @@ import static org.mockito.Mockito.*;
 
 public class AccountDAOTest {
 
-  private static AccountDAOTestClass dao = new AccountDAOTestClass();
-
+  private static final AccountDAOTestClass dao = new AccountDAOTestClass();
+  private static final int ACC_ID = 5;
   @Mock
   private Connection conn;
-
   @Mock
   private PreparedStatement ps;
-
   @Mock
   private ResultSetMapper<Account> mapper;
-
   @Mock
   private ResultSet rs;
 
@@ -51,42 +45,37 @@ public class AccountDAOTest {
   }
 
   @Test
-  void testFind() throws DAOException, MappingException, SQLException {
-    final int ACCOUNT_ID = 5;
-    Account acc = Account.newBuilder()
-        .setId(ACCOUNT_ID)
-        .build();
+  void testFind() throws Exception {
+    Account acc = Account.newBuilder().setId(ACC_ID).build();
     when(mapper.map(rs)).thenReturn(acc);
     when(rs.next()).thenReturn(true);
-    Assertions.assertEquals(Optional.of(acc), dao.find(ACCOUNT_ID));
+    Assertions.assertEquals(Optional.of(acc), dao.find(ACC_ID));
     verify(rs, times(1)).next();
-    verify(ps, times(1)).setObject(1, ACCOUNT_ID);
+    verify(ps, times(1)).setObject(1, ACC_ID);
   }
 
   @Test
   void testUpdate() throws Exception {
-    final int ACCOUNT_ID = 5;
     final boolean isBlocked = false;
     Account acc = Account.newBuilder()
-        .setId(ACCOUNT_ID)
+        .setId(ACC_ID)
         .setBlocked(isBlocked)
         .build();
     dao.update(acc);
     verify(ps, times(1)).setObject(1, isBlocked);
-    verify(ps, times(1)).setObject(2, ACCOUNT_ID);
+    verify(ps, times(1)).setObject(2, ACC_ID);
     verify(ps, times(1)).executeUpdate();
   }
 
   @Test
   void testSaveSuccess() throws Exception {
-    final int ID = 1;
     Account acc = getTestAccount();
     when(ps.getGeneratedKeys()).thenReturn(rs);
     when(rs.next()).thenReturn(true);
-    when(rs.getInt(1)).thenReturn(ID);
+    when(rs.getInt(1)).thenReturn(ACC_ID);
     dao.save(acc);
     verifyExpectedNumberOfCalls();
-    Assertions.assertEquals(acc.getId(), ID);
+    Assertions.assertEquals(acc.getId(), ACC_ID);
   }
 
   @Test
@@ -101,7 +90,7 @@ public class AccountDAOTest {
   }
 
   private Account getTestAccount() {
-   return Account.newBuilder()
+    return Account.newBuilder()
         .setLogin("login")
         .setPassword("password")
         .setFirstName("firstName")

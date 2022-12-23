@@ -9,15 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Various servlet test classes were added">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Remaining test classes were added">
       <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/MainServletTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/CourseDAOTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LogoutServletTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/TestConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/FullNameTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/FullNameTag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" afterDir="false" />
@@ -26,7 +20,24 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/student/CourseEnrollServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/student/CourseEnrollServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/MainServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/MainServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/CourseDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/CourseDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthenticationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthorizationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthorizationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/LanguageFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/LanguageFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LoginServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LoginServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LogoutServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LogoutServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/AddCourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/AddCourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/CourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/CourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/DeleteCourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/DeleteCourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/EditCourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/EditCourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/TeacherRegistrationServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/TeacherRegistrationServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/student/CourseEnrollServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/student/CourseEnrollServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/teacher/AddJournalGradeServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/teacher/AddJournalGradeServletTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,70 +107,67 @@
       <recent name="$PROJECT_DIR$/src/main/webapp" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.elective.servlets" />
       <recent name="com.example.elective.servlets.admin" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.com.example.elective in elective">
-    <configuration name="CourseServiceTest.testDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AccountDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="PATTERN" value="com.example.elective.daos.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.services" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.CourseServiceTest" />
-      <option name="METHOD_NAME" value="testDelete" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.example.elective.daos" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.daos.AccountDAOTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseServiceTest.testSave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AuthenticationFilterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="PATTERN" value="com.example.elective.filters.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.services" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.CourseServiceTest" />
-      <option name="METHOD_NAME" value="testSave" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.example.elective.filters" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.filters.AuthenticationFilterTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainServletTest.testMainServlet (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AuthorizationFilterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.*" />
+          <option name="PATTERN" value="com.example.elective.filters.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.MainServletTest" />
-      <option name="METHOD_NAME" value="testMainServlet(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.example.elective.filters" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.filters.AuthorizationFilterTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StudentServiceTest.testChangeBlockStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MainServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="PATTERN" value="com.example.elective.servlets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.services" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.StudentServiceTest" />
-      <option name="METHOD_NAME" value="testChangeBlockStatus" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.MainServletTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -265,20 +273,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.CourseServiceTest.testDelete" />
-      <item itemvalue="JUnit.CourseServiceTest.testSave" />
-      <item itemvalue="JUnit.MainServletTest.testMainServlet (1)" />
-      <item itemvalue="JUnit.StudentServiceTest.testChangeBlockStatus" />
+      <item itemvalue="JUnit.AuthenticationFilterTest" />
+      <item itemvalue="JUnit.AuthorizationFilterTest" />
+      <item itemvalue="JUnit.MainServletTest" />
       <item itemvalue="JUnit.com.example.elective in elective" />
+      <item itemvalue="JUnit.AccountDAOTest" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.com.example.elective in elective" />
-        <item itemvalue="JUnit.CourseServiceTest.testDelete" />
-        <item itemvalue="JUnit.CourseServiceTest.testSave" />
-        <item itemvalue="JUnit.StudentServiceTest.testChangeBlockStatus" />
-        <item itemvalue="JUnit.MainServletTest.testMainServlet (1)" />
+        <item itemvalue="JUnit.AccountDAOTest" />
+        <item itemvalue="JUnit.AuthorizationFilterTest" />
+        <item itemvalue="JUnit.AuthenticationFilterTest" />
+        <item itemvalue="JUnit.MainServletTest" />
       </list>
     </recent_temporary>
   </component>
@@ -311,14 +319,7 @@
       <workItem from="1671020534902" duration="11879000" />
       <workItem from="1671190415412" duration="23021000" />
       <workItem from="1671644954418" duration="13706000" />
-      <workItem from="1671715994721" duration="11738000" />
-    </task>
-    <task id="LOCAL-00041" summary="servlet and url structure was improved">
-      <created>1669723325824</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1669723325824</updated>
+      <workItem from="1671715994721" duration="15685000" />
     </task>
     <task id="LOCAL-00042" summary="Logout ability was added">
       <created>1669725798760</created>
@@ -656,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671651476922</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Remaining test classes were added">
+      <created>1671785481093</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1671785481094</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -686,7 +694,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Courses layout was refactored" />
     <MESSAGE value="Pages layout was refactored" />
     <MESSAGE value="Custom tag files were added" />
     <MESSAGE value="Custom tag library and tag file were created" />
@@ -711,7 +718,8 @@
     <MESSAGE value="Minor code improvements were made" />
     <MESSAGE value="course servlet tests were added" />
     <MESSAGE value="Various servlet test classes were added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Various servlet test classes were added" />
+    <MESSAGE value="Remaining test classes were added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remaining test classes were added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -732,7 +740,7 @@
     <SUITE FILE_PATH="coverage/elective$CourseDAOTest_testSaveThrowsException.ic" NAME="CourseDAOTest.testSaveThrowsException Coverage Results" MODIFIED="1671711303893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.daos.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/elective$com_example_elective_in_elective.ic" NAME="com.example.elective in elective Coverage Results" MODIFIED="1671785063424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/elective$com_example_elective_in_elective.ic" NAME="com.example.elective in elective Coverage Results" MODIFIED="1671785383564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/elective$AccountDAOTest_testSave.ic" NAME="AccountDAOTest.testSave Coverage Results" MODIFIED="1671707885951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

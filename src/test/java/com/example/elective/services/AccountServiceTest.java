@@ -37,26 +37,29 @@ public class AccountServiceTest {
 
   @Test
   void testFinByCredentialsSuccess() throws Exception {
+    final String LOGIN = "login";
+    final String PASSWORD = "password";
     Optional<Account> optAcc = Optional.of(Account
         .newBuilder()
-        .setLogin("login")
-        .setPassword(Utils.hashPassword("password"))
+        .setLogin(LOGIN)
+        .setPassword(Utils.hashPassword(PASSWORD))
         .build());
     doReturn(optAcc).when(service).performDaoReadOperation(any());
-    Assertions.assertEquals(optAcc, service.findByCredentials("login", "password"));
+    Assertions.assertEquals(optAcc, service.findByCredentials(LOGIN, PASSWORD));
     verify(service, times(1)).performDaoReadOperation(any());
     verifyTransactionManagerInitCall();
   }
 
   @Test
   void testFindByCredentialsAdmin() throws Exception {
+    final String ADMIN_STR = "admin";
     Optional<Account> optAcc = Optional.of(Account
         .newBuilder()
-        .setLogin("admin")
-        .setPassword("admin")
+        .setLogin(ADMIN_STR)
+        .setPassword(ADMIN_STR)
         .build());
     doReturn(optAcc).when(service).performDaoReadOperation(any());
-    Assertions.assertEquals(optAcc, service.findByCredentials("admin", "admin"));
+    Assertions.assertEquals(optAcc, service.findByCredentials(ADMIN_STR, ADMIN_STR));
     verify(service, times(1)).performDaoReadOperation(any());
     verifyTransactionManagerInitCall();
   }

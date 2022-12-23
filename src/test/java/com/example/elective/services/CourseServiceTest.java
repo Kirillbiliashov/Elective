@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 public class CourseServiceTest {
 
   @Spy
-  CourseServiceTestClass service;
+  private CourseServiceTestClass service;
 
   @Mock
   private TransactionManager transactionManager;
@@ -92,4 +92,5 @@ public class CourseServiceTest {
       this.transactionManager = transactionManager;
     }
   }
+
 }

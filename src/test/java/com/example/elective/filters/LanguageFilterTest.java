@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 public class LanguageFilterTest {
 
-  private LanguageFilter langFilter = new LanguageFilter();
+  private final LanguageFilter langFilter = new LanguageFilter();
 
   @Mock
   private HttpServletRequest req;
@@ -32,6 +32,7 @@ public class LanguageFilterTest {
 
   @Mock
   private FilterChain chain;
+  private static final String LANG_PARAM_NAME = "lang";
 
   @BeforeEach
   void beforeAll() {
@@ -40,15 +41,15 @@ public class LanguageFilterTest {
 
   @ParameterizedTest
   @ValueSource(strings = {"en", "ru"})
-  void testPresentParameter(String lang) throws ServletException, IOException {
-    when(req.getParameter("lang")).thenReturn(lang);
+  void testPresentParameter(String lang) throws Exception {
+    when(req.getParameter(LANG_PARAM_NAME)).thenReturn(lang);
     langFilter.doFilter(req, resp, chain);
     verify(chain, times(1)).doFilter(req, resp);
   }
 
   @Test
-  void testAbsentParameter() throws ServletException, IOException {
-    when(req.getParameter("lang")).thenReturn(null);
+  void testAbsentParameter() throws Exception{
+    when(req.getParameter(LANG_PARAM_NAME)).thenReturn(null);
     langFilter.doFilter(req, resp, chain);
     verify(resp, times(1)).sendRedirect(req.getRequestURL() +  "?lang=en");
   }

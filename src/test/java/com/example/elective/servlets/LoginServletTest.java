@@ -19,53 +19,47 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
+import static com.example.elective.TestConstants.ACCOUNT_SERVICE_NAME;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class LoginServletTest {
 
-  private LoginServlet servlet = new LoginServlet();
-
-  @Mock
-  private HttpServletRequest req;
-
-  @Mock
-  private HttpServletResponse resp;
-
-  @Mock
-  private ServletConfig config;
-
-  @Mock
-  private ServletContext context;
-
-  @Mock
-  private AccountService accountService;
-
-  @Mock
-  private Account acc;
-
-  @Mock
-  private HttpSession session;
-
-  @Mock
-  private RequestDispatcher reqDispatcher;
-  private final String REDIRECT_URL = "main?lang=en";
+  private static final String REDIRECT_URL = "main?lang=en";
   private static final String LOGIN_JSP_PAGE = "login-form.jsp";
   private static final String BLOCKED_ACC_MSG = "Your account is blocked";
   private static final String INVALID_CREDENTIALS_MSG = "Login or password is incorrect";
   private static final String ERROR_ATTR = "errorMsg";
-
+  private static final String LOGIN_PARAM_NAME = "login";
+  private static final String PASSWORD_PARAM_NAME = "password";
+  private final LoginServlet servlet = new LoginServlet();
+  @Mock
+  private HttpServletRequest req;
+  @Mock
+  private HttpServletResponse resp;
+  @Mock
+  private ServletConfig config;
+  @Mock
+  private ServletContext context;
+  @Mock
+  private AccountService accountService;
+  @Mock
+  private Account acc;
+  @Mock
+  private HttpSession session;
+  @Mock
+  private RequestDispatcher reqDispatcher;
 
   @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute("accountService")).thenReturn(accountService);
+    when(context.getAttribute(ACCOUNT_SERVICE_NAME)).thenReturn(accountService);
     servlet.init(config);
   }
 
   @Test
-  void testSuccessfulLogin() throws ServiceException, ServletException, IOException {
+  void testSuccessfulLogin() throws Exception {
     when(req.getSession()).thenReturn(session);
     configureValidCredentialsReturn();
     when(acc.isBlocked()).thenReturn(false);
@@ -77,7 +71,7 @@ public class LoginServletTest {
   }
 
   @Test
-  void testBlockedAccount() throws ServiceException, ServletException, IOException {
+  void testBlockedAccount() throws Exception {
     when(req.getRequestDispatcher(LOGIN_JSP_PAGE)).thenReturn(reqDispatcher);
     configureValidCredentialsReturn();
     when(acc.isBlocked()).thenReturn(true);
@@ -89,15 +83,15 @@ public class LoginServletTest {
   }
 
   private void configureValidCredentialsReturn() {
-    when(req.getParameter("login")).thenReturn("valid_login");
-    when(req.getParameter("password")).thenReturn("valid_password");
+    when(req.getParameter(LOGIN_PARAM_NAME)).thenReturn("valid_login");
+    when(req.getParameter(PASSWORD_PARAM_NAME)).thenReturn("valid_password");
   }
 
   @Test
-  void testAbsentAccount() throws ServiceException, ServletException, IOException {
+  void testAbsentAccount() throws Exception {
     when(req.getRequestDispatcher(LOGIN_JSP_PAGE)).thenReturn(reqDispatcher);
-    when(req.getParameter("login")).thenReturn("invalid_login");
-    when(req.getParameter("password")).thenReturn("invalid_password");
+    when(req.getParameter(LOGIN_PARAM_NAME)).thenReturn("invalid_login");
+    when(req.getParameter(PASSWORD_PARAM_NAME)).thenReturn("invalid_password");
     when(accountService.findByCredentials(anyString(), anyString()))
         .thenReturn(Optional.empty());
     servlet.doPost(req, resp);
@@ -106,7 +100,7 @@ public class LoginServletTest {
   }
 
   @Test
-  void testServiceException() throws ServiceException, ServletException, IOException {
+  void testServiceException() throws Exception {
     doThrow(ServiceException.class).when(accountService)
         .findByCredentials(any(), any());
     servlet.doPost(req, resp);

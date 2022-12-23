@@ -21,13 +21,20 @@ import static org.mockito.Mockito.when;
 
 public class DeleteCourseServletTest extends CourseServletTest {
 
-  private DeleteCourseServlet servlet = new DeleteCourseServlet();
+  private final static DeleteCourseServlet servlet = new DeleteCourseServlet();
+  private final static String PATH_INFO = "/4";
+
+  @Override
+  @BeforeEach
+  void beforeEach() {
+    super.beforeEach();
+    servlet.init(config);
+    when(req.getPathInfo()).thenReturn(PATH_INFO);
+  }
 
   @Override
   @Test
   void testPositiveScenario() throws Exception {
-    servlet.init(config);
-    when(req.getPathInfo()).thenReturn("/4");
     servlet.doPost(req, resp);
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
@@ -35,8 +42,6 @@ public class DeleteCourseServletTest extends CourseServletTest {
   @Override
   @Test
   void testNegativeScenario() throws Exception {
-    servlet.init(config);
-    when(req.getPathInfo()).thenReturn("/4");
     Mockito.doThrow(ServiceException.class).when(courseService).delete(anyInt());
     servlet.doPost(req, resp);
     verify(resp, times(1))

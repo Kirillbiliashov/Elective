@@ -24,6 +24,7 @@ public class LogoutServletTest {
 
   @Mock
   private HttpServletResponse resp;
+  private static final String REDIRECT_URL = "/elective/login?lang=en";
 
   @BeforeEach
   void beforeEach() {
@@ -35,6 +36,6 @@ public class LogoutServletTest {
     when(req.getSession()).thenReturn(session);
     servlet.doGet(req, resp);
     verify(session, times(1)).invalidate();
-    verify(resp, times(1)).sendRedirect("/elective/login?lang=en");
+    verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 }

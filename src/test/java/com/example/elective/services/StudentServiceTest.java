@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class StudentServiceTest {
 
   @Spy
-  StudentServiceTestClass service;
+  private StudentServiceTestClass service;
 
   @Mock
   private TransactionManager transactionManager;

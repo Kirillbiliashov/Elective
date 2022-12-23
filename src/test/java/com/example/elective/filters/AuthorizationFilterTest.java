@@ -23,12 +23,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import static com.example.elective.TestConstants.HOME_URL_ATTR_NAME;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 public class AuthorizationFilterTest {
 
-  private AuthorizationFilter authFilter = new AuthorizationFilter();
+  private final AuthorizationFilter authFilter = new AuthorizationFilter();
 
   @Mock
   private HttpServletRequest req;
@@ -41,11 +42,13 @@ public class AuthorizationFilterTest {
 
   @Mock
   private FilterChain chain;
-
+  private static final String QUERY_STRING = "lang=en";
 
   @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
+    when(req.getSession()).thenReturn(session);
+    when(req.getQueryString()).thenReturn(QUERY_STRING);
   }
 
   static Stream<Arguments> authorizedUrlSet() {
@@ -72,26 +75,22 @@ public class AuthorizationFilterTest {
 
   @ParameterizedTest
   @MethodSource("authorizedUrlSet")
-  void testAuthorized(String[] urls) throws ServletException, IOException {
+  void testAuthorized(String[] urls) throws Exception {
     String homeUrl = urls[0];
     String servletUrl = urls[1];
-    when(req.getSession()).thenReturn(session);
-    when(session.getAttribute("homeUrl")).thenReturn(homeUrl);
+    when(session.getAttribute(HOME_URL_ATTR_NAME)).thenReturn(homeUrl);
     when(req.getServletPath()).thenReturn(servletUrl);
-    when(req.getQueryString()).thenReturn("lang=en");
     authFilter.doFilter(req, resp, chain);
     verify(chain, times(1)).doFilter(req, resp);
   }
 
   @ParameterizedTest
   @MethodSource("unauthorizedUrlSet")
-  void testUnauthorized(String[] urls) throws ServletException, IOException {
+  void testUnauthorized(String[] urls) throws Exception {
     String homeUrl = urls[0];
     String servletUrl = urls[1];
-    when(req.getSession()).thenReturn(session);
-    when(session.getAttribute("homeUrl")).thenReturn(homeUrl);
+    when(session.getAttribute(HOME_URL_ATTR_NAME)).thenReturn(homeUrl);
     when(req.getServletPath()).thenReturn(servletUrl);
-    when(req.getQueryString()).thenReturn("lang=en");
     authFilter.doFilter(req, resp, chain);
     verify(resp, times(1)).sendError(403);
   }

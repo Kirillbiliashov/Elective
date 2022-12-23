@@ -26,13 +26,19 @@ import static org.mockito.Mockito.*;
 
 public class AddCourseServletTest extends CourseServletTest {
 
-  private AddCourseServlet servlet = new AddCourseServlet();
+  private final static AddCourseServlet servlet = new AddCourseServlet();
+
+  @Override
+  @BeforeEach
+  void beforeEach() {
+    super.beforeEach();
+    servlet.init(config);
+    mockRequestParams();
+  }
 
   @Override
   @Test
   void testPositiveScenario() throws Exception {
-    servlet.init(config);
-    mockRequestParams();
     servlet.doPost(req, resp);
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
@@ -40,9 +46,7 @@ public class AddCourseServletTest extends CourseServletTest {
   @Override
   @Test
   void testNegativeScenario() throws Exception {
-    servlet.init(config);
     Mockito.doThrow(ServiceException.class).when(courseService).save(any(Course.class));
-    mockRequestParams();
     servlet.doPost(req, resp);
     verify(resp, times(1))
         .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

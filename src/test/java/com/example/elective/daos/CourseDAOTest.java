@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 public class CourseDAOTest {
 
-  private static CourseDAOTestClass dao = new CourseDAOTestClass();
+  private static final CourseDAOTestClass dao = new CourseDAOTestClass();
   private static final String ERROR_MSG = "unable to save course";
 
   @Mock
@@ -46,7 +46,7 @@ public class CourseDAOTest {
   private SQLException e;
 
   @BeforeEach
-  void beforeEach() throws SQLException {
+  void beforeEach() throws Exception {
     MockitoAnnotations.openMocks(this);
     dao.setConnection(conn);
     dao.setMapper(mapper);

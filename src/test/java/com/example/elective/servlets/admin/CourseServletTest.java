@@ -33,11 +33,13 @@ public abstract class CourseServletTest {
 
   protected static String REDIRECT_URL = "/elective/admin?lang=en";
 
+  private final String COURSE_SERVICE_NAME = "courseService";
+
   @BeforeEach()
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute("courseService")).thenReturn(courseService);
+    when(context.getAttribute(COURSE_SERVICE_NAME)).thenReturn(courseService);
   }
 
   @Test

@@ -18,49 +18,47 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static com.example.elective.TestConstants.JOURNAL_SERVICE_NAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class AddJournalGradeServletTest {
 
-  private AddJournalGradeServlet servlet = new AddJournalGradeServlet();
+  private final static String REDIRECT_URL = "/elective/teacher?page=1";
+  private final static String PATH_INFO = "/1";
+  private final AddJournalGradeServlet servlet = new AddJournalGradeServlet();
 
   @Mock
   private HttpServletRequest req;
-
   @Mock
   private HttpServletResponse resp;
-
   @Mock
   private ServletConfig config;
-
   @Mock
   private ServletContext context;
-
   @Mock
   private JournalService journalService;
 
-  private static String REDIRECT_URL = "/elective/teacher?page=1";
-
-  @BeforeEach()
+  @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute("journalService")).thenReturn(journalService);
-    when(req.getPathInfo()).thenReturn("/1");
+    when(context.getAttribute(JOURNAL_SERVICE_NAME)).thenReturn(journalService);
+    when(req.getPathInfo()).thenReturn(PATH_INFO);
     when(req.getParameter("grade")).thenReturn("80");
     servlet.init(config);
   }
 
   @Test
-  void testCourseEnroll() throws IOException {
+  void testCourseEnroll() throws Exception {
     servlet.doPost(req, resp);
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 
   @Test
-  void testCourseEnrollNegative() throws ServiceException, IOException {
-    Mockito.doThrow(ServiceException.class).when(journalService).updateGradeById(anyInt(), anyInt());
+  void testCourseEnrollNegative() throws Exception {
+    Mockito.doThrow(ServiceException.class).when(journalService)
+        .updateGradeById(anyInt(), anyInt());
     servlet.doPost(req, resp);
     verify(resp, times(1))
         .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

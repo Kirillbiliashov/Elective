@@ -51,28 +51,32 @@ public class TeacherRegistrationServletTest {
 
   @Mock
   private RequestDispatcher dispatcher;
+  private final static String ACCOUNT_SERVICE_NAME = "accountService";
+  private final static String ROLE_SERVICE_NAME = "roleService";
+  private final static String REDIRECT_URL = "/elective/admin/teachers?lang=en";
 
   @BeforeEach()
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute("accountService")).thenReturn(accService);
-    when(context.getAttribute("roleService")).thenReturn(roleService);
+    when(context.getAttribute(ACCOUNT_SERVICE_NAME)).thenReturn(accService);
+    when(context.getAttribute(ROLE_SERVICE_NAME)).thenReturn(roleService);
     servlet.init(config);
     mockRequestParams();
   }
 
   @Test
-  void testTeacherRegistrationForm() throws ServiceException, ServletException, IOException {
-    Role teacherRole = new Role(3, "Teacher");
-    when(roleService.getByName("Teacher")).thenReturn(Optional.of(teacherRole));
+  void testTeacherRegistrationForm() throws Exception {
+    final String ROLE_NAME = "Teacher";
+    Role teacherRole = new Role(3, ROLE_NAME);
+    when(roleService.getByName(ROLE_NAME)).thenReturn(Optional.of(teacherRole));
     when(req.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     servlet.doGet(req, resp);
     verify(dispatcher, times(1)).forward(req, resp);
   }
 
   @Test
-  void testTeacherRegistrationFormNegative() throws ServiceException, ServletException, IOException {
+  void testTeacherRegistrationFormNegative() throws Exception {
     Mockito.doThrow(ServiceException.class).when(roleService).getByName(anyString());
     when(req.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     servlet.doGet(req, resp);
@@ -83,11 +87,11 @@ public class TeacherRegistrationServletTest {
   @Test
   void testRegisterTeacher() throws IOException {
     servlet.doPost(req, resp);
-    verify(resp, times(1)).sendRedirect("/elective/admin/teachers?lang=en");
+    verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 
   @Test
-  void testRegisterTeacherNegative() throws ServiceException, IOException {
+  void testRegisterTeacherNegative() throws Exception {
     Mockito.doThrow(ServiceException.class).when(accService).save(any(Account.class));
     servlet.doPost(req, resp);
     verify(resp, times(1))
@@ -95,7 +99,8 @@ public class TeacherRegistrationServletTest {
   }
 
   private void mockRequestParams() {
-    when(req.getParameter("roleId")).thenReturn("3");
+    final String teacherRoleIdStr = "3";
+    when(req.getParameter("roleId")).thenReturn(teacherRoleIdStr);
   }
 
 }

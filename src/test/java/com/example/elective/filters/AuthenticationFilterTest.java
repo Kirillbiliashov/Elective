@@ -13,6 +13,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static com.example.elective.TestConstants.ACCOUNT_ATTR_NAME;
+import static com.example.elective.TestConstants.HOME_URL_ATTR_NAME;
 import static org.mockito.Mockito.*;
 
 import javax.servlet.FilterChain;
@@ -26,24 +28,20 @@ import java.util.stream.Stream;
 
 public class AuthenticationFilterTest {
 
-  private AuthenticationFilter authFilter = new AuthenticationFilter();
-
+  private static final String LOGIN_PATH = "/login";
+  private static final String SIGNUP_PATH = "/signup";
+  private static final String REDIRECT_URL = "/elective/login";
+  private final AuthenticationFilter authFilter = new AuthenticationFilter();
   @Mock
   private HttpServletRequest req;
-
   @Mock
-  private  HttpServletResponse resp;
-
+  private HttpServletResponse resp;
   @Mock
-  private  HttpSession session;
-
+  private HttpSession session;
   @Mock
-  private  FilterChain chain;
-
+  private FilterChain chain;
   @Mock
   private FilterConfig filterConfig;
-  private final static String LOGIN_PATH = "/login";
-  private final static String SIGNUP_PATH = "/signup";
 
   @BeforeEach
   void beforeEach() {
@@ -51,6 +49,7 @@ public class AuthenticationFilterTest {
     when(filterConfig.getInitParameter("loginPath")).thenReturn(LOGIN_PATH);
     when(filterConfig.getInitParameter("signupPath")).thenReturn(SIGNUP_PATH);
     authFilter.init(filterConfig);
+    when(req.getSession()).thenReturn(session);
   }
 
   @ParameterizedTest
@@ -58,25 +57,22 @@ public class AuthenticationFilterTest {
   void testUnauthenticated(String servletUrl) throws ServletException, IOException {
     when(session.getAttribute(anyString())).thenReturn(null);
     when(req.getServletPath()).thenReturn(servletUrl);
-    when(req.getSession()).thenReturn(session);
     authFilter.doFilter(req, resp, chain);
-    verify(resp, times(1)).sendRedirect("/elective/login");
+    verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 
   @ParameterizedTest
   @ValueSource(strings = {LOGIN_PATH, SIGNUP_PATH})
-  void testUnauthenticatedAuthReq(String authPath) throws ServletException, IOException {
-    when(req.getSession()).thenReturn(session);
-    when(session.getAttribute("account")).thenReturn(null);
+  void testUnauthenticatedAuthReq(String authPath) throws Exception {
+    when(session.getAttribute(ACCOUNT_ATTR_NAME)).thenReturn(null);
     when(req.getServletPath()).thenReturn(authPath);
     authFilter.doFilter(req, resp, chain);
     verify(chain, times(1)).doFilter(req, resp);
   }
 
   @Test
-  void testAuthenticated() throws ServletException, IOException {
-    when(req.getSession()).thenReturn(session);
-    when(session.getAttribute("account")).thenReturn(mock(Account.class));
+  void testAuthenticated() throws Exception {
+    when(session.getAttribute(ACCOUNT_ATTR_NAME)).thenReturn(mock(Account.class));
     when(req.getServletPath()).thenReturn("/some/non_login/path");
     authFilter.doFilter(req, resp, chain);
     verify(chain, times(1)).doFilter(req, resp);
@@ -84,12 +80,12 @@ public class AuthenticationFilterTest {
 
   @ParameterizedTest
   @ValueSource(strings = {LOGIN_PATH, SIGNUP_PATH})
-  void testAuthenticatedAuthReq(String servletUrl) throws ServletException, IOException {
-    when(req.getSession()).thenReturn(session);
-    when(session.getAttribute("account")).thenReturn(mock(Account.class));
+  void testAuthenticatedAuthReq(String servletUrl) throws Exception {
+    when(session.getAttribute(ACCOUNT_ATTR_NAME)).thenReturn(mock(Account.class));
     when(req.getServletPath()).thenReturn(servletUrl);
     authFilter.doFilter(req, resp, chain);
-    verify(resp, times(1)).sendRedirect((String) session.getAttribute("homeUrl"));
+    String redirectUrl = (String) session.getAttribute(HOME_URL_ATTR_NAME);
+    verify(resp, times(1)).sendRedirect(redirectUrl);
   }
 
 }
