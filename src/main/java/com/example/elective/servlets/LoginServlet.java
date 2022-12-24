@@ -3,6 +3,7 @@ package com.example.elective.servlets;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.services.AccountService;
+import com.example.elective.utils.PasswordUtils;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -38,9 +39,8 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     String login = req.getParameter("login");
     String password = req.getParameter("password");
-    Optional<Account> optAccount = Optional.empty();
     try {
-      optAccount = accService.findByCredentials(login, password);
+      Optional<Account> optAccount = accService.findByCredentials(login, password);
       if (!optAccount.isPresent()) {
         handleAbsentAccount(req, resp);
         return;

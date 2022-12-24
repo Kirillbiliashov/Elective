@@ -6,7 +6,11 @@
     <request-character-encoding>UTF-8</request-character-encoding>
     <error-page>
         <error-code>403</error-code>
-        <location>/error-403.jsp</location>
+        <location>/errors/error-403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/errors/error-500.jsp</location>
     </error-page>
     <filter>
         <filter-name>AuthenticationFilter</filter-name>

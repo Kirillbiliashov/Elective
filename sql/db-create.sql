@@ -62,4 +62,4 @@ INSERT INTO topic(name) VALUES('Software development');
 INSERT INTO topic(name) VALUES('Math');
 INSERT INTO topic(name) VALUES('Mobile development');
 
-INSERT INTO account(login, password, role_id) VALUES('admin', 'admin', 2);
+INSERT INTO account(login, password, role_id) VALUES('administrator', '$2a$10$VWVESIu46sFfWNs3jnmYW.J08SgCXnPk3u9.9X86rXKQEbjEiBko.', 2);

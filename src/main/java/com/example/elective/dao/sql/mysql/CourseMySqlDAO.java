@@ -39,6 +39,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       " * FROM course WHERE id != ALL (SELECT course.id FROM course " +
       "JOIN journal ON course_id = course.id WHERE student_id = ?)";
 
+
   public CourseMySqlDAO() {
     this.mapper = new CourseResultSetMapper();
   }
