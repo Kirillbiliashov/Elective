@@ -9,19 +9,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Utils class was decomposed into logical units">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Custom error page for error 500 was added">
       <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/LegalUrls.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-404.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/db-create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db-create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AddCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AddCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/AuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/filters/AuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LogoutServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LogoutServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/MainServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/text.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/text_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/password.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/password.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/username.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/username.tag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/error-403.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,21 +146,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="elective" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.elective.servlets.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.servlets" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.MainServletTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="com.example.elective in elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
@@ -169,6 +159,31 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="elective [deploy]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="deploy" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <deployment>
@@ -259,18 +274,18 @@
     <list>
       <item itemvalue="JUnit.AuthenticationFilterTest" />
       <item itemvalue="JUnit.AuthorizationFilterTest" />
-      <item itemvalue="JUnit.MainServletTest" />
       <item itemvalue="JUnit.com.example.elective in elective" />
       <item itemvalue="JUnit.AccountDAOTest" />
+      <item itemvalue="Maven.elective [deploy]" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Maven.elective [deploy]" />
         <item itemvalue="JUnit.com.example.elective in elective" />
         <item itemvalue="JUnit.AccountDAOTest" />
         <item itemvalue="JUnit.AuthorizationFilterTest" />
         <item itemvalue="JUnit.AuthenticationFilterTest" />
-        <item itemvalue="JUnit.MainServletTest" />
       </list>
     </recent_temporary>
   </component>
@@ -303,14 +318,8 @@
       <workItem from="1671020534902" duration="11879000" />
       <workItem from="1671190415412" duration="23021000" />
       <workItem from="1671644954418" duration="13706000" />
-      <workItem from="1671715994721" duration="26704000" />
-    </task>
-    <task id="LOCAL-00046" summary="Builder pattern was applied to some entities">
-      <created>1669809082744</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1669809082744</updated>
+      <workItem from="1671715994721" duration="32210000" />
+      <workItem from="1671996401511" duration="3842000" />
     </task>
     <task id="LOCAL-00047" summary="invalid urls for admin were fixed">
       <created>1669809985144</created>
@@ -648,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671829066044</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="Custom error page for error 500 was added">
+      <created>1671875025657</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1671875025658</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -678,7 +694,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="internationalized text was added to jsp pages" />
     <MESSAGE value="properties file content was fixed" />
     <MESSAGE value="Multilingual feature was incorporated into application" />
     <MESSAGE value="LanguageFilter class was added" />
@@ -703,7 +718,8 @@
     <MESSAGE value="Frontend was improved" />
     <MESSAGE value="Minor code fixes were made" />
     <MESSAGE value="Utils class was decomposed into logical units" />
-    <option name="LAST_COMMIT_MESSAGE" value="Utils class was decomposed into logical units" />
+    <MESSAGE value="Custom error page for error 500 was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Custom error page for error 500 was added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("/")
+@WebServlet("/main")
 public class MainServlet extends HttpServlet {
 
   private RoleService roleService;
@@ -46,7 +46,7 @@ public class MainServlet extends HttpServlet {
   }
 
   private String getHomeUrl(Optional<Role> optRole) {
-    String homeUrl = "/elective/login";
+    String homeUrl = "login";
     if (optRole.isPresent()) {
       Role role = optRole.get();
       homeUrl = role.getName().toLowerCase();

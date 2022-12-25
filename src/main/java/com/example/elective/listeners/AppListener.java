@@ -9,7 +9,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-@WebListener()
+@WebListener
 public class AppListener implements ServletContextListener {
 
   private final static Logger logger = LogManager.getLogger(AppListener.class);

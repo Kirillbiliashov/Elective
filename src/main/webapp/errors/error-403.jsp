@@ -14,7 +14,7 @@
 <body>
 <div class="page-container">
     <h1><fmt:message key="error.access_forbidden"/></h1>
-    <a href="${homeUrl}?lang=${param.lang}"><fmt:message key="error.back"/></a>
+    <a href="/elective/${homeUrl}?lang=${param.lang}"><fmt:message key="error.back"/></a>
 </div>
 </body>
 </html>

@@ -16,7 +16,7 @@
 <body>
 <student:navbar studentUrl="" registeredCoursesUrl="student/registered_courses"
                 coursesInProgressUrl="student/courses_in_progress"
-                completedCoursesUrl="tudent/completed_courses" activeNavItem="student"/>
+                completedCoursesUrl="student/completed_courses" activeNavItem="student"/>
 <div class="page-container">
     <h2><fmt:message key="student.available_courses"/></h2>
     <c:if test="${not empty availableCourses}">
