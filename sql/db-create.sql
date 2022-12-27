@@ -13,7 +13,8 @@ CREATE TABLE role
 CREATE TABLE account
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
-    login      VARCHAR(50) NOT NULL UNIQUE,
+    username   VARCHAR(50) NOT NULL UNIQUE,
+    email      VARCHAR(50) UNIQUE,
     password   VARCHAR(64) NOT NULL UNIQUE,
     first_name VARCHAR(20),
     last_name  VARCHAR(25),
@@ -35,8 +36,9 @@ CREATE TABLE course
     start_date DATE        NOT NULL,
     end_date   DATE        NOT NULL,
     topic_id   INT         NOT NULL,
-    teacher_id INT,
+    teacher_id INT         NOT NULL,
     FOREIGN KEY (teacher_id) REFERENCES account (id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES topic (id) ON DELETE CASCADE,
     CHECK ( end_date > start_date )
 );
 
@@ -62,4 +64,4 @@ INSERT INTO topic(name) VALUES('Software development');
 INSERT INTO topic(name) VALUES('Math');
 INSERT INTO topic(name) VALUES('Mobile development');
 
-INSERT INTO account(login, password, role_id) VALUES('administrator', '$2a$10$VWVESIu46sFfWNs3jnmYW.J08SgCXnPk3u9.9X86rXKQEbjEiBko.', 2);
+INSERT INTO account(username, password, role_id) VALUES('administrator', '$2a$10$VWVESIu46sFfWNs3jnmYW.J08SgCXnPk3u9.9X86rXKQEbjEiBko.', 2);

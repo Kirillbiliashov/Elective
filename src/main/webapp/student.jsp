@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="student" tagdir="/WEB-INF/tags/student" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
@@ -28,7 +29,7 @@
                             <h4>${course.name}</h4>
                             <p><fmt:message key="course.start_date" />: ${course.startDate}</p>
                             <p><fmt:message key="course.end_date" />: ${course.endDate}</p>
-                            <form action="student/courses/enroll/${course.id}?lang=${param.lang}" method="post">
+                            <form action="<ref:lang value="student/courses/enroll/${course.id}"/>" method="post">
                                 <input type="submit" class="btn btn-primary" value="<fmt:message key="student.enroll" />">
                             </form>
                         </div>

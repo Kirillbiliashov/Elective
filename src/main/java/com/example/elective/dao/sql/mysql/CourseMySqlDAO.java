@@ -27,7 +27,9 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   private static final String SELECT_JOIN_JOURNAL = "SELECT course.id," +
       " name, start_date, end_date, topic_id, teacher_id " +
       "FROM course JOIN journal ON course.id = course_id ";
-  private static final String GET_ORDERED_BY_STUDENT_COUNT = SELECT_JOIN_JOURNAL +
+  private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT course.id," +
+      " name, start_date, end_date, topic_id, teacher_id " +
+      "FROM course LEFT JOIN journal ON course.id = course_id " +
       "GROUP BY (course.id) ORDER BY COUNT(course.id)";
   private static final String FIND_COMPLETED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
       "WHERE student_id = ? AND end_date < CURRENT_DATE()";
@@ -37,7 +39,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       "WHERE student_id = ? AND start_date > CURRENT_DATE()";
   private static final String FIND_AVAILABLE_FOR_STUDENT = "SELECT" +
       " * FROM course WHERE id != ALL (SELECT course.id FROM course " +
-      "JOIN journal ON course_id = course.id WHERE student_id = ?)";
+      "JOIN journal ON course_id = course.id WHERE student_id = ?)" +
+      " AND start_date > CURRENT_DATE()";
 
 
   public CourseMySqlDAO() {
@@ -104,8 +107,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
         Statement.RETURN_GENERATED_KEYS)) {
       int teacherId = course.getTeacherId();
       addValuesToPreparedStatement(ps, course.getName(),
-          course.getStartDate(), course.getEndDate(), course.getTopicId(),
-          teacherId == 0 ? null : teacherId);
+          course.getStartDate(), course.getEndDate(),
+          course.getTopicId(), teacherId);
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) course.getBuilder().setId(rs.getInt(1));

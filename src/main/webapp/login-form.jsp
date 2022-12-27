@@ -2,6 +2,7 @@
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
@@ -12,7 +13,6 @@
     <style>
         <%@include file="style.css" %>
     </style>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="dropdown-container"><element:lang-dropdown/></div>
@@ -20,20 +20,25 @@
     <h1 class="form-header"><fmt:message key="user.login"/></h1>
     <div>
         <form method="post">
-            <form:username/>
+            <form:login/>
             <form:password/>
             <form:button key="user.login" />
         </form>
     </div>
     <div class="form-btn-container">
-        <a href="signup?lang=${param.lang}"><fmt:message key="user.signup_ref"/></a>
+        <a href="<ref:lang value="signup"/>"><fmt:message key="user.signup_ref"/></a>
     </div>
+    <c:if test="${loginFailed}">
+        <div class="alert alert-danger" role="alert">
+            <fmt:message key="login_fail"/>
+        </div>
+    </c:if>
+    <c:if test="${accountBlocked}">
+        <div class="alert alert-danger" role="alert">
+            <fmt:message key="account_blocked"/>
+        </div>
+    </c:if>
 </div>
-<c:if test="${errorMsg ne null}">
-    <div class="alert alert-warning" role="alert">
-        ${errorMsg}
-    </div>
-</c:if>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

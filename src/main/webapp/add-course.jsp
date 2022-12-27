@@ -2,12 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/form/course" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate var="minDate" value="${now}" pattern="yyyy-MM-dd" />
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,7 +17,7 @@
 <div class="dropdown-container"><element:lang-dropdown/></div>
 <div class="add-course-form">
   <h1><fmt:message key="add_course" /></h1>
-  <form method="post" action="?lang=${param.lang}" onsubmit="return validateForm()" name="addCourse">
+  <form method="post" action="<ref:lang value=""/>" onsubmit="return validateForm()" name="addCourse">
     <form:name/>
     <form:startDate/>
     <form:endDate/>

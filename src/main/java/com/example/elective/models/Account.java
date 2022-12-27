@@ -2,7 +2,8 @@ package com.example.elective.models;
 
 public class Account extends Entity {
 
-  private String login;
+  private String username;
+  private String email;
   private String password;
   private String firstName;
   private String lastName;
@@ -18,8 +19,12 @@ public class Account extends Entity {
     return builder;
   }
 
-  public String getLogin() {
-    return login;
+  public String getUsername() {
+    return username;
+  }
+
+  public String getEmail() {
+    return email;
   }
 
   public String getPassword() {
@@ -54,8 +59,13 @@ public class Account extends Entity {
       return this;
     }
 
-    public AccountBuilder setLogin(String login) {
-      account.login = login;
+    public AccountBuilder setUsername(String username) {
+      account.username = username;
+      return this;
+    }
+
+    public AccountBuilder setEmail(String email) {
+      account.email = email;
       return this;
     }
 

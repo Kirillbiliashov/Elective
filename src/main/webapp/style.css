@@ -90,7 +90,7 @@ p {
 }
 
 .teacher-card {
-    width: 16rem;
+    width: 15rem;
     height: 6rem;
 }
 
@@ -113,4 +113,10 @@ p {
     align-items: center;
     width: 190px;
     justify-content: space-between;
+}
+.alert-danger {
+    margin-top: 10px;
+}
+.register-teacher-ref {
+    margin-left: 10px;
 }

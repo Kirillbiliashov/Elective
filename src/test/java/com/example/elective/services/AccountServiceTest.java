@@ -37,7 +37,7 @@ public class AccountServiceTest {
     final String PASSWORD = "password";
     Optional<Account> optAcc = Optional.of(Account
         .newBuilder()
-        .setLogin(LOGIN)
+        .setUsername(LOGIN)
         .setPassword(PasswordUtils.hashPassword(PASSWORD))
         .build());
     doReturn(optAcc).when(service).performDaoReadOperation(any());
@@ -51,7 +51,7 @@ public class AccountServiceTest {
     final String ADMIN_STR = "admin";
     Optional<Account> optAcc = Optional.of(Account
         .newBuilder()
-        .setLogin(ADMIN_STR)
+        .setUsername(ADMIN_STR)
         .setPassword(ADMIN_STR)
         .build());
     doReturn(optAcc).when(service).performDaoReadOperation(any());

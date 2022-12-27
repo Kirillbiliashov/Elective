@@ -59,13 +59,13 @@ public class LoginServlet extends HttpServlet {
 
   private void handleAbsentAccount(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.setAttribute("errorMsg", "Login or password is incorrect");
+    req.setAttribute("loginFailed", true);
     req.getRequestDispatcher("login-form.jsp").forward(req, resp);
   }
 
   private void handleBlockedAccount(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.setAttribute("errorMsg", "Your account is blocked");
+    req.setAttribute("accountBlocked", true);
     req.getRequestDispatcher("login-form.jsp").forward(req, resp);
   }
 

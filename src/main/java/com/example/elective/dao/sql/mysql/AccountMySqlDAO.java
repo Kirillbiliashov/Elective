@@ -9,7 +9,6 @@ import com.example.elective.utils.PasswordUtils;
 
 import java.sql.*;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
@@ -19,10 +18,10 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       " WHERE id = ?";
   private static final String FIND_BY_ROLE = "SELECT * FROM account" +
       " WHERE role_id = (SELECT id FROM role WHERE name = ?)";
-  private static final String SAVE = "INSERT INTO account(login, password," +
-      " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?)";
+  private static final String SAVE = "INSERT INTO account(username, email, password," +
+      " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?, ?)";
   private static final String FIND_BY_LOGIN = "SELECT * FROM account" +
-      " WHERE login = ?";
+      " WHERE username = ? OR email = ?";
 
   public AccountMySqlDAO() {
     this.mapper = new AccountResultSetMapper();
@@ -65,8 +64,8 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
              Statement.RETURN_GENERATED_KEYS)) {
       String hashedPassword = PasswordUtils.hashPassword(acc.getPassword());
-      addValuesToPreparedStatement(ps, acc.getLogin(),
-          hashedPassword, acc.getFirstName(),
+      addValuesToPreparedStatement(ps, acc.getUsername(),
+          acc.getEmail(), hashedPassword, acc.getFirstName(),
           acc.getLastName(), acc.getRoleId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -91,7 +90,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   @Override
   public Optional<Account> findByLogin(String login) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_LOGIN)) {
-      addValuesToPreparedStatement(ps, login);
+      addValuesToPreparedStatement(ps, login, login);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());

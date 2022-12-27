@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="acc" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${param.lang}"/>
@@ -14,18 +15,19 @@
     </style>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="teacher-navbar-container">
         <h3><acc:info target="${account}"/></h3>
         <div class="teacher-navbar-buttons-container">
             <element:lang-dropdown/>
-            <a href="/elective/logout?lang=${param.lang}" class="btn btn-primary"><fmt:message key="logout" /></a>
+            <a href="<ref:lang value="/elective/logout"/>" class="btn btn-primary"><fmt:message key="logout" /></a>
         </div>
     </div>
 </nav>
     <div style="margin: 30px;">
         <h2><fmt:message key="course"/>: ${course.name}</h2>
+        <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
+        <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
         <table class="table" style="margin: 30px">
             <thead>
             <tr>
@@ -43,9 +45,11 @@
                         </c:if>
                         <c:if test="${course.endDate.before(currDate)}">
                             <td>
-                                <form method="post" action="teacher/addGrade/${entry.key.id}">
-                                    <input type="number" min="0" max="100" name="grade" id="grade"/>
-                                    <input type="submit" class="btn btn-primary" value="Add grade">
+                                <form method="post" action="<ref:lang value="teacher/addGrade/${entry.key.id}"/>">
+                                    <div style="display: flex; align-items: center; justify-content: center">
+                                        <input type="number" min="0" max="100" name="grade" id="grade"/>
+                                        <input type="submit"  style="margin: 10px" class="btn btn-primary btn-sm" value="<fmt:message key="add_grade"/>">
+                                    </div>
                                 </form>
                             </td>
                         </c:if>

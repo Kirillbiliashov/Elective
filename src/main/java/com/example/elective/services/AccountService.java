@@ -18,7 +18,7 @@ public class AccountService extends AbstractService {
         dao.findByLogin(login));
     if (!optAccount.isPresent()) return Optional.empty();
     Account acc = optAccount.get();
-    if (acc.getLogin().equals("admin")) return Optional.of(acc);
+    if (acc.getUsername().equals("admin")) return Optional.of(acc);
     return getByPassword(acc, password);
   }
 

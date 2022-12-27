@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<student:navbar studentUrl="../" registeredCoursesUrl="registered_courses"
+<student:navbar studentUrl="../student" registeredCoursesUrl="registered_courses"
                 coursesInProgressUrl="" completedCoursesUrl="completed_courses"
                 activeNavItem="coursesInProgress"/>
 <div class="page-container">

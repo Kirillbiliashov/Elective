@@ -3,6 +3,7 @@
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix = "teacher" uri = "/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form/course" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
@@ -18,7 +19,7 @@
 <div class="dropdown-container"><element:lang-dropdown/></div>
 <div class="edit-course-form">
   <h1><fmt:message key="course.edit.header"/></h1>
-  <form method="post" action="?lang=${param.lang}" onsubmit="return validateForm()">
+  <form method="post" action="<ref:lang value=""/>" onsubmit="return validateForm()">
       <form:name value="${course.name}"/>
       <form:startDate value="${course.startDate}"/>
       <form:endDate value="${course.endDate}"/>

@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix = "teacher" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
 <fmt:setBundle basename="text"/>
@@ -16,7 +17,7 @@
     <div class="page-container">
         <div class="admin-heading-container">
             <h2><fmt:message key="courses" /></h2>
-            <a href="admin/courses/add?lang=${param.lang}" class="add-course-ref"><fmt:message key="add_course" /></a>
+            <a href="<ref:lang value="admin/courses/add"/>" class="add-course-ref"><fmt:message key="add_course" /></a>
         </div>
         <div class="selection-form-container">
     <form>
@@ -71,8 +72,8 @@
                             <p><fmt:message key="course.start_date"/>: ${course.key.startDate}</p>
                             <p><fmt:message key="course.end_date"/>: ${course.key.endDate}</p>
                             <div class="course-btn-container">
-                                <a href="admin/courses/edit/${course.key.id}?lang=${param.lang}" class="btn btn-light"><fmt:message key="course.edit"/></a>
-                                <form action="admin/courses/delete/${course.key.id}?lang=${param.lang}" method="POST">
+                                <a href="<ref:lang value="admin/courses/edit/${course.key.id}"/>" class="btn btn-light"><fmt:message key="course.edit"/></a>
+                                <form action="<ref:lang value="admin/courses/delete/${course.key.id}"/>" method="POST">
                                     <input type="submit" class="btn btn-danger delete-course-btn" value="<fmt:message key="course.delete"/>">
                                 </form>
                             </div>

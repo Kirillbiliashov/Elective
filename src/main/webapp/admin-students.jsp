@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
+<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${param.lang}"/>
@@ -15,7 +16,7 @@
     </style>
 </head>
 <body>
-<admin:navbar adminUrl="../" studentsUrl="students" teachersUrl="teachers" activeNavItem="students"/>
+<admin:navbar adminUrl="../admin" studentsUrl="" teachersUrl="teachers" activeNavItem="students"/>
 <div class="page-container">
     <h2><fmt:message key="students" /></h2>
     <ul class="list-group">
@@ -29,7 +30,7 @@
                             <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
                         </p>
                         <div style="align-items: center; justify-content: center; display: flex">
-                            <form action="students/changeBlock/${student.id}?lang=${param.lang}" method="POST">
+                            <form action="<ref:lang value="students/changeBlock/${student.id}"/>" method="POST">
                                 <c:if test="${student.blocked}">
                                     <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
                                 </c:if>
@@ -43,6 +44,9 @@
             </c:forEach>
         </div>
     </ul>
+    <c:if test="${empty students}">
+        <p><fmt:message key="no_students"/></p>
+    </c:if>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -86,7 +86,7 @@ public class AccountDAOTest {
 
   private Account getTestAccount() {
     return Account.newBuilder()
-        .setLogin("login")
+        .setUsername("login")
         .setPassword("password")
         .setFirstName("firstName")
         .setLastName("lastName")

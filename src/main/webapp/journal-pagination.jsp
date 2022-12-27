@@ -3,7 +3,7 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags/page" %>
 <html>
 <body>
-<nav aria-label="Page navigation example">
+<nav>
   <ul class="pagination justify-content-center">
     <page:prev/>
     <page:current/>

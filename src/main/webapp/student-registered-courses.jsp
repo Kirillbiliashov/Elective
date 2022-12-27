@@ -11,7 +11,7 @@
     <style><%@include file="style.css" %></style>
 </head>
 <body>
-<student:navbar studentUrl="../" registeredCoursesUrl=""
+<student:navbar studentUrl="../student" registeredCoursesUrl=""
                 coursesInProgressUrl="courses_in_progress" completedCoursesUrl="completed_courses"
                 activeNavItem="registeredCourses"/>
 <div class="page-container">

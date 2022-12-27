@@ -11,7 +11,7 @@
     <style><%@include file="style.css" %></style>
 </head>
 <body>
-<student:navbar studentUrl="../" registeredCoursesUrl="registered_courses"
+<student:navbar studentUrl="../student" registeredCoursesUrl="registered_courses"
                 coursesInProgressUrl="courses_in_progress" completedCoursesUrl=""
                 activeNavItem="completedCourses"/>
 <div class="page-container">
@@ -25,7 +25,12 @@
                             <h4>${entry.key.name}</h4>
                             <p><fmt:message key="course.start_date"/>: ${entry.key.startDate}</p>
                             <p><fmt:message key="course.end_date"/>: ${entry.key.endDate}</p>
-                            <p><fmt:message key="grade"/>: ${entry.value.grade}</p>
+                            <c:if test="${entry.value.grade eq -1}">
+                                <p><fmt:message key="no_grade"/></p>
+                            </c:if>
+                            <c:if test="${entry.value.grade ne -1}">
+                                <p><fmt:message key="grade"/>: ${entry.value.grade}</p>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>
