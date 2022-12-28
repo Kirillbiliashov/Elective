@@ -9,20 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="email attribute was added to account entity">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="CurseDTO class was added">
       <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/CourseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/CourseSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/CourseSelection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/FullNameTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/FullNameTag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/TopicMysqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/TopicMysqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/AccountRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/AccountRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseSelectionRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseSelectionRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/JournalDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/TeacherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/TeacherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/MainServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/MainServletTest.java" afterDir="false" />
     </list>
@@ -301,14 +293,7 @@
       <workItem from="1671715994721" duration="32210000" />
       <workItem from="1671996401511" duration="3842000" />
       <workItem from="1672046282287" duration="2009000" />
-      <workItem from="1672127897619" duration="21540000" />
-    </task>
-    <task id="LOCAL-00048" summary="result set mappers layer was added">
-      <created>1669837403966</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1669837403966</updated>
+      <workItem from="1672127897619" duration="22070000" />
     </task>
     <task id="LOCAL-00049" summary="DAO layer was abstracted from instantiating connection">
       <created>1669837716486</created>
@@ -646,7 +631,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672163364709</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="CurseDTO class was added">
+      <created>1672233519373</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1672233519373</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -676,7 +668,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="LanguageFilter class was added" />
     <MESSAGE value="dropdown for choosing langiage was added" />
     <MESSAGE value="language dropdown was refactored" />
     <MESSAGE value="Minor improvements for localization were made" />
@@ -701,7 +692,8 @@
     <MESSAGE value="Custom error page for error 500 was added" />
     <MESSAGE value="Frontend was refactored" />
     <MESSAGE value="email attribute was added to account entity" />
-    <option name="LAST_COMMIT_MESSAGE" value="email attribute was added to account entity" />
+    <MESSAGE value="CurseDTO class was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="CurseDTO class was added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

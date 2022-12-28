@@ -7,11 +7,9 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
+import dto.JournalDTO;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class TeacherService extends AbstractService {
 
@@ -35,16 +33,21 @@ public class TeacherService extends AbstractService {
     return performDaoReadOperation(() -> accDao.findByRole("Teacher"));
   }
 
-  public Map<Journal, Account> getJournalForCourse(int courseId) throws ServiceException {
+  public List<JournalDTO> getJournalList(int courseId) throws ServiceException {
     transactionManager.initTransaction(accDao, journalDao);
     return performDaoReadOperation(() -> {
-      Map<Journal, Account> map = new LinkedHashMap<>();
+      List<JournalDTO> list = new ArrayList<>();
       List<Journal> journalList = journalDao.getByCourseId(courseId);
       for (final Journal journal : journalList) {
-        Account student = accDao.find(journal.getStudentId()).orElse(null);
-        map.put(journal, student);
+        JournalDTO dto = new JournalDTO();
+        dto.setId(journal.getId());
+        dto.setGrade(journal.getGrade());
+        Account student = accDao.find(journal.getStudentId()).get();
+        String name = student.getFirstName() + student.getLastName();
+        dto.setStudent(name);
+        list.add(dto);
       }
-      return map;
+      return list;
     });
   }
 

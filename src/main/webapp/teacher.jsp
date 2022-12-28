@@ -36,16 +36,16 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${journal}" var="entry">
+            <c:forEach items="${journals}" var="journal">
                 <tr>
-                    <td><acc:fullName target="${entry.value}"/></td>
-                    <c:if test="${entry.key.grade eq -1}">
+                    <td>${journal.student}</td>
+                    <c:if test="${journal.grade eq -1}">
                         <c:if test="${course.endDate.after(currDate)}">
                             <td><fmt:message key="course_not_finished"/></td>
                         </c:if>
                         <c:if test="${course.endDate.before(currDate)}">
                             <td>
-                                <form method="post" action="<ref:lang value="teacher/addGrade/${entry.key.id}"/>">
+                                <form method="post" action="<ref:lang value="teacher/addGrade/${journal.id}"/>">
                                     <div style="display: flex; align-items: center; justify-content: center">
                                         <input type="number" min="0" max="100" name="grade" id="grade"/>
                                         <input type="submit"  style="margin: 10px" class="btn btn-primary btn-sm" value="<fmt:message key="add_grade"/>">
