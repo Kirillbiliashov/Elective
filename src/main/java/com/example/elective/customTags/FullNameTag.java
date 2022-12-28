@@ -18,7 +18,7 @@ public class FullNameTag extends SimpleTagSupport {
   public void doTag() throws IOException {
     String fullName = account == null ? "" :
         account.getFirstName() + " " + account.getLastName();
-     getJspContext().getOut().println(fullName);
+     getJspContext().getOut().print(fullName);
   }
 
 }

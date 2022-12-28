@@ -42,9 +42,8 @@ public class AdminServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
-      List<Course> courses = courseService.getBySelection(courseSelection);
       req.setAttribute("topics", topicService.getAll());
-      req.setAttribute("courses", courseService.getCourseTeacher(courses));
+      req.setAttribute("courses", courseService.getBySelection(courseSelection));
       req.setAttribute("teachers", teacherService.getAll());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

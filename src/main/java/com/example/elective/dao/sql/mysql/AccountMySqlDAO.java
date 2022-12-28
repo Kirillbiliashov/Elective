@@ -13,15 +13,14 @@ import java.util.Optional;
 
 public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
 
-  private static final String GET_BY_ID = "SELECT * FROM account WHERE id = ?";
+  private static final String GET_BY_ID = "SELECT * FROM account WHERE account.id = ?";
   private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
       " WHERE id = ?";
   private static final String FIND_BY_ROLE = "SELECT * FROM account" +
       " WHERE role_id = (SELECT id FROM role WHERE name = ?)";
   private static final String SAVE = "INSERT INTO account(username, email, password," +
       " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?, ?)";
-  private static final String FIND_BY_LOGIN = "SELECT * FROM account" +
-      " WHERE username = ? OR email = ?";
+  private static final String FIND_BY_LOGIN = "SELECT * FROM account WHERE username = ? OR email = ?";
 
   public AccountMySqlDAO() {
     this.mapper = new AccountResultSetMapper();

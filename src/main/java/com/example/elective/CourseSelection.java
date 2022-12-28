@@ -4,19 +4,19 @@ import java.util.Arrays;
 
 public class CourseSelection {
 
-  private int teacherId;
-  private int topicId;
+  private String teacher = "Any";
+  private String topic = "Any";
   private SortType sort = SortType.NONE;
 
-  public CourseSelection(int teacherId, int topicId) {
-    this.teacherId = teacherId;
-    this.topicId = topicId;
-  }
-
-  public CourseSelection(int teacherId, int topicId, String sort) {
-    this(teacherId, topicId);
-    if (isSortValid(sort)) {
+  public CourseSelection(String teacher, String topic, String sort) {
+    if (sort != null && isSortValid(sort)) {
       this.sort = SortType.valueOf(sort.toUpperCase());
+    }
+    if (teacher != null) {
+      this.teacher = teacher;
+    }
+    if (topic != null) {
+      this.topic = topic;
     }
   }
 
@@ -26,12 +26,12 @@ public class CourseSelection {
         .anyMatch(val -> val.toString().equals(sort.toUpperCase()));
   }
 
-  public int getTeacherId() {
-    return teacherId;
+  public String getTeacher() {
+    return teacher;
   }
 
-  public int getTopicId() {
-    return topicId;
+  public String getTopic() {
+    return topic;
   }
 
   public SortType getSort() {

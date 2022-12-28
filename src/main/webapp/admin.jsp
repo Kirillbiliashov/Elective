@@ -37,16 +37,16 @@
             <div class="form-group col-md-4">
                 <label for="teacher"><fmt:message key="teacher"/></label>
                 <select class="form-control" name="teacher" id="teacher">
-                    <option selected value="any"><fmt:message key="teacher.any" /></option>
+                    <option selected value="Any"><fmt:message key="teacher.any" /></option>
                     <c:forEach items="${teachers}" var="teacher">
-                        <option value="${teacher.id}"><teacher:fullName target="${teacher}"/></option>
+                        <option value="<teacher:fullName target="${teacher}"/>"><teacher:fullName target="${teacher}"/></option>
                     </c:forEach>
                 </select>
             </div>
             <div class="form-group col-md-4">
                 <label for="topic"><fmt:message key="topic" /></label>
                 <select class="form-control" name="topic" id="topic">
-                    <option selected value="any"><fmt:message key="topic.any"/></option>
+                    <option selected value="Any"><fmt:message key="topic.any"/></option>
                     <c:forEach items="${topics}" var="topic">
                         <option value="${topic.id}">${topic.name}</option>
                     </c:forEach>
@@ -62,19 +62,17 @@
                 <c:forEach items="${courses}" var="course">
                     <div class="card course-card">
                         <div class="card-body">
-                            <h3 class="card-title">${course.key.name}</h3>
-                            <c:if test="${course.value != null}">
-                                <p><fmt:message key="teacher" />: <teacher:fullName target="${course.value}"/></p>
-                            </c:if>
-                            <c:if test="${course.value == null}">
-                                <p><fmt:message key="no_teacher_assigned"/> </p>
-                            </c:if>
-                            <p><fmt:message key="course.start_date"/>: ${course.key.startDate}</p>
-                            <p><fmt:message key="course.end_date"/>: ${course.key.endDate}</p>
+                            <h3 class="card-title">${course.name}</h3>
+                            <p><fmt:message key="teacher"/>: ${course.teacher}</p>
+                            <p><fmt:message key="topic"/>: ${course.topic}</p>
+                            <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
                             <div class="course-btn-container">
-                                <a href="<ref:lang value="admin/courses/edit/${course.key.id}"/>" class="btn btn-light"><fmt:message key="course.edit"/></a>
-                                <form action="<ref:lang value="admin/courses/delete/${course.key.id}"/>" method="POST">
-                                    <input type="submit" class="btn btn-danger delete-course-btn" value="<fmt:message key="course.delete"/>">
+                                <a href="<ref:lang value="admin/courses/edit/${course.id}"/>"
+                                   class="btn btn-light"><fmt:message key="course.edit"/></a>
+                                <form action="<ref:lang value="admin/courses/delete/${course.id}"/>" method="POST">
+                                    <input type="submit" class="btn btn-danger delete-course-btn"
+                                           value="<fmt:message key="course.delete"/>">
                                 </form>
                             </div>
                         </div>

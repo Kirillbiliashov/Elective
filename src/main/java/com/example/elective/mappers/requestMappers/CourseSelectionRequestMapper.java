@@ -9,14 +9,10 @@ public class CourseSelectionRequestMapper implements RequestMapper<CourseSelecti
 
   @Override
   public CourseSelection map(HttpServletRequest req) {
-    String teacherIdStr = req.getParameter("teacher");
-    String topicIdStr = req.getParameter("topic");
+    String teacher = req.getParameter("teacher");
+    String topic = req.getParameter("topic");
     String sort = req.getParameter("sort");
-    boolean isSortNull = sort == null;
-    int teacherId = RegexUtils.isNumeric(teacherIdStr) ? Integer.parseInt(teacherIdStr) : 0;
-    int topicId = RegexUtils.isNumeric(topicIdStr) ? Integer.parseInt(topicIdStr) : 0;
-    if (isSortNull) return new CourseSelection(teacherId, topicId);
-    return new CourseSelection(teacherId, topicId, sort);
+    return new CourseSelection(teacher, topic, sort);
   }
 
 }
