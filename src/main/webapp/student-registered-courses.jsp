@@ -19,13 +19,14 @@
     <c:if test="${not empty registeredCourses}">
         <ul class="list-group">
             <div class="grid-container">
-                <c:forEach items="${registeredCourses}" var="entry">
+                <c:forEach items="${registeredCourses}" var="course">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h4>${entry.key.name}</h4>
-                            <p><fmt:message key="student.registration_date"/>: ${entry.value.enrollmentDate}</p>
-                            <p><fmt:message key="course.start_date"/>: ${entry.key.startDate}</p>
-                            <p><fmt:message key="course.end_date"/>: ${entry.key.endDate}</p>
+                            <h4>${course.name}</h4>
+                            <p><fmt:message key="topic"/>: ${course.topic}</p>
+                            <p><fmt:message key="teacher"/>: ${course.teacher}</p>
+                            <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
                         </div>
                     </div>
                 </c:forEach>

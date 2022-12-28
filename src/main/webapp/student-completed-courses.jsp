@@ -19,17 +19,19 @@
     <c:if test="${not empty completedCourses}">
         <ul class="list-group">
             <div class="grid-container">
-                <c:forEach items="${completedCourses}" var="entry">
+                <c:forEach items="${completedCourses}" var="course">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h4>${entry.key.name}</h4>
-                            <p><fmt:message key="course.start_date"/>: ${entry.key.startDate}</p>
-                            <p><fmt:message key="course.end_date"/>: ${entry.key.endDate}</p>
-                            <c:if test="${entry.value.grade eq -1}">
+                            <h4>${course.name}</h4>
+                            <p><fmt:message key="topic"/>: ${course.topic}</p>
+                            <p><fmt:message key="teacher"/>: ${course.teacher}</p>
+                            <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
+                            <c:if test="${course.grade eq -1}">
                                 <p><fmt:message key="no_grade"/></p>
                             </c:if>
-                            <c:if test="${entry.value.grade ne -1}">
-                                <p><fmt:message key="grade"/>: ${entry.value.grade}</p>
+                            <c:if test="${course.grade ne -1}">
+                                <p><fmt:message key="grade"/>: ${course.grade}</p>
                             </c:if>
                         </div>
                     </div>

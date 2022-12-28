@@ -3,22 +3,24 @@ package com.example.elective.services;
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dao.interfaces.JournalDAO;
+import com.example.elective.dao.interfaces.TopicDAO;
+import com.example.elective.dto.CourseDTO;
+import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
+import com.example.elective.dto.CompletedCourseDTO;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class StudentService extends AbstractService {
 
   private AccountDAO accDao = daoFactory.getAccountDAO();
   private CourseDAO courseDao = daoFactory.getCourseDAO();
   private JournalDAO journalDao = daoFactory.getJournalDAO();
+  private TopicDAO topicDao = daoFactory.getTopicDAO();
 
   public void changeBlockStatus(int id) throws ServiceException {
     transactionManager.initTransaction(accDao);
@@ -37,46 +39,73 @@ public class StudentService extends AbstractService {
     return performDaoReadOperation(() -> accDao.findByRole("Student"));
   }
 
-  public Map<Course, Journal> getCompletedCoursesWithGrades(int studentId)
+  public List<CompletedCourseDTO> getCompletedCourses(int studentId)
       throws ServiceException {
-    transactionManager.initTransaction(courseDao, journalDao);
+    transactionManager.initTransaction(courseDao, journalDao, accDao, topicDao);
     return performDaoReadOperation(() -> {
       List<Course> courses = courseDao.findCompletedForStudent(studentId);
-      return getCourseJournalMap(courses, studentId);
+      List<CompletedCourseDTO> list = new ArrayList<>();
+      for (final Course course: courses) {
+        CompletedCourseDTO dto = new CompletedCourseDTO();
+        populateCourseDTO(course, dto);
+        int grade = journalDao.findByCourseAndStudent(course.getId(), studentId)
+            .get().getGrade();
+        dto.setGrade(grade);
+        list.add(dto);
+      }
+      return list;
     });
   }
 
-  public List<Course> getAvailableCourses(int studentId) throws ServiceException {
-    transactionManager.initTransaction(courseDao);
+  public List<CourseDTO> getAvailableCourses(int studentId) throws ServiceException {
+    transactionManager.initTransaction(courseDao, topicDao, accDao);
     return performDaoReadOperation(() ->
-        courseDao.findAvailableForStudent(studentId));
+        mapCoursesToDTO(courseDao.findAvailableForStudent(studentId)));
   }
 
-  public Map<Course, Journal> getRegisteredCoursesMap(int studentId)
+  public List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
       throws ServiceException {
-    transactionManager.initTransaction(courseDao, journalDao);
+    transactionManager.initTransaction(courseDao, journalDao, topicDao, accDao);
     return performDaoReadOperation(() -> {
       List<Course> courses = courseDao.findRegisteredForStudent(studentId);
-      return getCourseJournalMap(courses, studentId);
+      List<RegisteredCourseDTO> list = new ArrayList<>();
+      for (final Course course: courses) {
+        RegisteredCourseDTO dto = new RegisteredCourseDTO();
+        populateCourseDTO(course, dto);
+        Journal journal = journalDao.findByCourseAndStudent(course.getId(), studentId).get();
+        dto.setRegistrationDate(journal.getEnrollmentDate());
+        list.add(dto);
+      }
+      return list;
     });
   }
 
-  private Map<Course, Journal> getCourseJournalMap(List<Course> courses,
-                                                   int studentId)
-      throws DAOException {
-    Map<Course, Journal> map = new LinkedHashMap<>();
-    for (final Course course: courses) {
-      map.put(course, journalDao
-          .findByCourseAndStudent(course.getId(), studentId)
-          .orElse(null));
-    }
-    return map;
+  public List<CourseDTO> getCoursesInProgress(int studentId) throws ServiceException {
+    transactionManager.initTransaction(courseDao, topicDao, accDao);
+    return performDaoReadOperation(() ->
+        mapCoursesToDTO(courseDao.findInProgressForStudent(studentId)));
   }
 
-  public List<Course> getCoursesInProgress(int studentId) throws ServiceException {
-    transactionManager.initTransaction(courseDao);
-    return performDaoReadOperation(() ->
-        courseDao.findInProgressForStudent(studentId));
+  private List<CourseDTO> mapCoursesToDTO(List<Course> courses) throws DAOException {
+    List<CourseDTO> list = new ArrayList<>();
+    for (Course course: courses) {
+      CourseDTO dto = new CourseDTO();
+      populateCourseDTO(course, dto);
+      list.add(dto);
+    }
+    return list;
+  }
+
+  private void populateCourseDTO(Course course, CourseDTO dto) throws DAOException {
+    dto.setId(course.getId());
+    dto.setName(course.getName());
+    dto.setStartDate(course.getStartDate());
+    dto.setEndDate(course.getEndDate());
+    String topic = topicDao.find(course.getTopicId()).get().getName();
+    dto.setTopic(topic);
+    Account teacher = accDao.find(course.getTeacherId()).get();
+    String name = teacher.getFirstName() + " " + teacher.getLastName();
+    dto.setTeacher(name);
   }
 
 }

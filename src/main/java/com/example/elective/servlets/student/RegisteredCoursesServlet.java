@@ -29,7 +29,7 @@ public class RegisteredCoursesServlet extends HttpServlet {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
       req.setAttribute("registeredCourses",
-          studentService.getRegisteredCoursesMap(studentId));
+          studentService.getRegisteredCourses(studentId));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

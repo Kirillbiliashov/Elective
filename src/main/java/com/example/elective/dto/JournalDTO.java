@@ -1,4 +1,4 @@
-package dto;
+package com.example.elective.dto;
 
 public class JournalDTO {
 

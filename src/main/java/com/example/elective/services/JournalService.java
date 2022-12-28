@@ -27,9 +27,4 @@ public class JournalService extends AbstractService {
     });
   }
 
-  public int getByCourseIdCount(int courseId) throws ServiceException {
-    transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.getByCourseId(courseId).size());
-  }
-
 }

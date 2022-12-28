@@ -26,6 +26,8 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h4>${course.name}</h4>
+                            <p><fmt:message key="topic"/>: ${course.topic}</p>
+                            <p><fmt:message key="teacher"/>: ${course.teacher}</p>
                             <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
                             <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
                         </div>

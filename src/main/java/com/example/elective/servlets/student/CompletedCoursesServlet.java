@@ -29,7 +29,7 @@ public class CompletedCoursesServlet extends HttpServlet {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
       req.setAttribute("completedCourses",
-          studentService.getCompletedCoursesWithGrades(studentId));
+          studentService.getCompletedCourses(studentId));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

@@ -7,7 +7,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
-import dto.JournalDTO;
+import com.example.elective.dto.JournalDTO;
 
 import java.util.*;
 

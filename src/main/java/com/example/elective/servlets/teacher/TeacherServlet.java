@@ -1,14 +1,12 @@
 package com.example.elective.servlets.teacher;
 
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.models.Account;
 import com.example.elective.models.Course;
-import com.example.elective.models.Journal;
 import com.example.elective.services.TeacherService;
 import com.example.elective.utils.Constants;
 import com.example.elective.utils.RegexUtils;
 import com.example.elective.utils.RequestUtils;
-import dto.JournalDTO;
+import com.example.elective.dto.JournalDTO;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
