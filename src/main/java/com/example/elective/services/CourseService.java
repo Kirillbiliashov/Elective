@@ -46,8 +46,6 @@ public class CourseService extends AbstractService {
     String topic = selection.getTopic();
     String teacher = selection.getTeacher();
     List<CourseDTO> dtoList = getCourseDTOList(selection.getSort());
-    System.out.println("topic: " + topic);
-    System.out.println("teacher: " + teacher);
     return dtoList
         .stream()
         .filter(c -> c.getTopic().equals(topic) || topic.equals("Any"))

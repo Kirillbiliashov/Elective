@@ -27,10 +27,10 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   private static final String SELECT_JOIN_JOURNAL = "SELECT course.id," +
       " name, start_date, end_date, topic_id, teacher_id " +
       "FROM course JOIN journal ON course.id = course_id ";
-  private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT course.id," +
-      " name, start_date, end_date, topic_id, teacher_id " +
-      "FROM course LEFT JOIN journal ON course.id = course_id " +
-      "GROUP BY (course.id) ORDER BY COUNT(course.id)";
+  private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT * FROM course" +
+      " LEFT JOIN (SELECT COUNT(*) AS count, course.id AS id FROM course" +
+      " JOIN journal on course_id = course.id GROUP BY(course.id)) AS total" +
+      " ON course.id = total.id ORDER BY count";
   private static final String FIND_COMPLETED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
       "WHERE student_id = ? AND end_date < CURRENT_DATE()";
   private static final String FIND_IN_PROGRESS_FOR_STUDENT = SELECT_JOIN_JOURNAL +

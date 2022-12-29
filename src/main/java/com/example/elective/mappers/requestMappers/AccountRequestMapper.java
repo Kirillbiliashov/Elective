@@ -14,7 +14,7 @@ public class AccountRequestMapper implements RequestMapper<Account> {
         .setPassword(req.getParameter("password"))
         .setFirstName(req.getParameter("firstName"))
         .setLastName(req.getParameter("lastName"))
-//        .setRoleId(Integer.parseInt(req.getParameter("roleId")))
+        .setRoleId(Integer.parseInt(req.getParameter("roleId")))
         .build();
   }
 

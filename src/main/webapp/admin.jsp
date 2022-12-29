@@ -48,7 +48,7 @@
                 <select class="form-control" name="topic" id="topic">
                     <option selected value="Any"><fmt:message key="topic.any"/></option>
                     <c:forEach items="${topics}" var="topic">
-                        <option value="${topic.id}">${topic.name}</option>
+                        <option value="${topic.name}">${topic.name}</option>
                     </c:forEach>
                 </select>
             </div>
