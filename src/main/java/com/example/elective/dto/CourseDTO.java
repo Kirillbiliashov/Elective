@@ -6,6 +6,7 @@ public class CourseDTO {
 
   private int id;
   private String name;
+  private String description;
   private Date startDate;
   private Date endDate;
   private String topic;
@@ -26,6 +27,14 @@ public class CourseDTO {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Date getStartDate() {

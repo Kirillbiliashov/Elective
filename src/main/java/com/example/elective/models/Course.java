@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Course extends Entity {
 
   private String name;
+  private String description;
   private Date startDate;
   private Date endDate;
   private int topicId;
@@ -23,9 +24,8 @@ public class Course extends Entity {
     return name;
   }
 
-  public Course setName(String name) {
-    this.name = name;
-    return this;
+  public String getDescription() {
+    return description;
   }
 
   public Date getEndDate() {
@@ -60,6 +60,11 @@ public class Course extends Entity {
 
     public CourseBuilder setName(String name) {
       course.name = name;
+      return this;
+    }
+
+    public CourseBuilder setDescription(String description) {
+      course.description = description;
       return this;
     }
 

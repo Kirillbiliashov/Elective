@@ -99,6 +99,7 @@ public class StudentService extends AbstractService {
   private void populateCourseDTO(Course course, CourseDTO dto) throws DAOException {
     dto.setId(course.getId());
     dto.setName(course.getName());
+    dto.setDescription(course.getDescription());
     dto.setStartDate(course.getStartDate());
     dto.setEndDate(course.getEndDate());
     String topic = topicDao.find(course.getTopicId()).get().getName();

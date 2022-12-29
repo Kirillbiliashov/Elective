@@ -19,6 +19,7 @@
   <h1><fmt:message key="add_course" /></h1>
   <form method="post" action="<ref:lang value=""/>" onsubmit="return validateForm()" name="addCourse">
     <form:name/>
+    <form:description/>
     <form:startDate/>
     <form:endDate/>
     <form:topic/>

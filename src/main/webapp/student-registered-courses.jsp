@@ -27,6 +27,28 @@
                             <p><fmt:message key="teacher"/>: ${course.teacher}</p>
                             <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
                             <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#descModal">
+                                <fmt:message key="course.description"/>
+                            </button>
+                            <div class="modal fade" id="descModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">${course.name}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                                ${course.description}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>

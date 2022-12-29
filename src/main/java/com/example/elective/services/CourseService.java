@@ -64,6 +64,7 @@ public class CourseService extends AbstractService {
         CourseDTO dto = new CourseDTO();
         dto.setId(course.getId());
         dto.setName(course.getName());
+        dto.setDescription(course.getDescription());
         dto.setStartDate(course.getStartDate());
         dto.setEndDate(course.getEndDate());
         dto.setTeacher(teacherName);

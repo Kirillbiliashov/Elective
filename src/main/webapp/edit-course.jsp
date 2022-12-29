@@ -21,6 +21,7 @@
   <h1><fmt:message key="course.edit.header"/></h1>
   <form method="post" action="<ref:lang value=""/>" onsubmit="return validateForm()">
       <form:name value="${course.name}"/>
+      <form:description value="${course.description}"/>
       <form:startDate value="${course.startDate}"/>
       <form:endDate value="${course.endDate}"/>
       <form:topic value="${course.topicId}"/>

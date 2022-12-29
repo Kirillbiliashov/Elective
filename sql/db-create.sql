@@ -31,12 +31,13 @@ CREATE TABLE topic
 
 CREATE TABLE course
 (
-    id         INT PRIMARY KEY AUTO_INCREMENT,
-    name       VARCHAR(50) NOT NULL UNIQUE,
-    start_date DATE        NOT NULL,
-    end_date   DATE        NOT NULL,
-    topic_id   INT         NOT NULL,
-    teacher_id INT         NOT NULL,
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(50)   NOT NULL UNIQUE,
+    description VARCHAR(1024) NOT NULL,
+    start_date  DATE          NOT NULL,
+    end_date    DATE          NOT NULL,
+    topic_id    INT           NOT NULL,
+    teacher_id  INT           NOT NULL,
     FOREIGN KEY (teacher_id) REFERENCES account (id) ON DELETE CASCADE,
     FOREIGN KEY (topic_id) REFERENCES topic (id) ON DELETE CASCADE,
     CHECK ( end_date > start_date )

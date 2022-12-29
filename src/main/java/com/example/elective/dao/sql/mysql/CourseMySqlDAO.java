@@ -16,16 +16,16 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       " WHERE teacher_id = ?";
   private static final String GET_BY_TEACHER_ID_AT_POS = GET_BY_TEACHER_ID + " LIMIT ?,1";
   private static final String UPDATE = "UPDATE course SET name = ?," +
-      "start_date = ?, end_date = ?, topic_id = ?, teacher_id = ? " +
-      "WHERE id = ?";
-  private static final String SAVE = "INSERT INTO course(name, start_date," +
-      " end_date, topic_id, teacher_id) VALUES(?,?,?,?,?)";
+      " description = ?, start_date = ?, end_date = ?, topic_id = ?," +
+      " teacher_id = ? WHERE id = ?";
+  private static final String SAVE = "INSERT INTO course(name, description," +
+      " start_date,end_date, topic_id, teacher_id) VALUES(?,?,?,?,?,?)";
   private static final String DELETE = "DELETE FROM course WHERE id = ?";
   private static final String GET_ALL = "SELECT * FROM course";
   private static final String GET_BY_ID = "SELECT * FROM course WHERE id = ?";
   private static final String GET_ORDERED_BY = "SELECT * FROM course ORDER BY ";
   private static final String SELECT_JOIN_JOURNAL = "SELECT course.id," +
-      " name, start_date, end_date, topic_id, teacher_id " +
+      " name, description start_date, end_date, topic_id, teacher_id " +
       "FROM course JOIN journal ON course.id = course_id ";
   private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT * FROM course" +
       " LEFT JOIN (SELECT COUNT(*) AS count, course.id AS id FROM course" +
@@ -92,8 +92,9 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   public void update(Course course) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
       addValuesToPreparedStatement(ps, course.getName(),
-          course.getStartDate(), course.getEndDate(),
-          course.getTopicId(), course.getTeacherId(), course.getId());
+          course.getDescription(), course.getStartDate(),
+          course.getEndDate(), course.getTopicId(),
+          course.getTeacherId(), course.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
       logger.error(e.getMessage());
@@ -107,8 +108,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
         Statement.RETURN_GENERATED_KEYS)) {
       int teacherId = course.getTeacherId();
       addValuesToPreparedStatement(ps, course.getName(),
-          course.getStartDate(), course.getEndDate(),
-          course.getTopicId(), teacherId);
+          course.getDescription(), course.getStartDate(),
+          course.getEndDate(), course.getTopicId(), teacherId);
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) course.getBuilder().setId(rs.getInt(1));

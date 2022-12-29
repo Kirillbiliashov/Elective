@@ -13,6 +13,7 @@ public class CourseRequestMapper implements RequestMapper<Course> {
     return Course.newBuilder()
         .setId(idStr == null ? 0 : Integer.parseInt(idStr))
         .setName(req.getParameter("name"))
+        .setDescription(req.getParameter("description"))
         .setStartDate(Date.valueOf(req.getParameter("startDate")))
         .setEndDate(Date.valueOf(req.getParameter("endDate")))
         .setTopicId(Integer.parseInt(req.getParameter("topicId")))
