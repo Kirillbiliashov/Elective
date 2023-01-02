@@ -71,10 +71,10 @@
                         <p><fmt:message key="topic"/>: ${course.topic}</p>
                         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
                         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
-                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#descModal">
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#descModal/${course.id}">
                             <fmt:message key="course.description"/>
                         </button>
-                        <div class="modal fade" id="descModal" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">

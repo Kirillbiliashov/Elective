@@ -8,6 +8,7 @@ import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.dto.CourseDTO;
@@ -58,18 +59,11 @@ public class CourseService extends AbstractService {
       List<Course> courses = getSortedCourses(sort);
       List<CourseDTO> courseDtoList = new ArrayList<>();
       for (Course course: courses) {
-        String topicName = topicDAO.find(course.getTopicId()).get().getName();
+        String topic = topicDAO.find(course.getTopicId()).get().getName();
         Account teacher = accDao.find(course.getTeacherId()).get();
-        String teacherName = teacher.getFirstName() + " " + teacher.getLastName();
-        CourseDTO dto = new CourseDTO();
-        dto.setId(course.getId());
-        dto.setName(course.getName());
-        dto.setDescription(course.getDescription());
-        dto.setStartDate(course.getStartDate());
-        dto.setEndDate(course.getEndDate());
-        dto.setTeacher(teacherName);
-        dto.setTopic(topicName);
-        courseDtoList.add(dto);
+        String name = teacher.getFirstName() + " " + teacher.getLastName();
+        CourseDTOMapper mapper = new CourseDTOMapper(name, topic);
+        courseDtoList.add(mapper.map(course));
       }
       return courseDtoList;
     });

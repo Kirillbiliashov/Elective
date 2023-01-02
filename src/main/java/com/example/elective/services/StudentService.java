@@ -7,12 +7,18 @@ import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.dto.CourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.mappers.Mapper;
+import com.example.elective.mappers.dtoMappers.CompletedCourseDTOMapper;
+import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
+import com.example.elective.mappers.dtoMappers.RegisteredCourseDTOMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.dto.CompletedCourseDTO;
 
+import java.sql.Date;
 import java.util.*;
 
 public class StudentService extends AbstractService {
@@ -46,12 +52,13 @@ public class StudentService extends AbstractService {
       List<Course> courses = courseDao.findCompletedForStudent(studentId);
       List<CompletedCourseDTO> list = new ArrayList<>();
       for (final Course course: courses) {
-        CompletedCourseDTO dto = new CompletedCourseDTO();
-        populateCourseDTO(course, dto);
+        String topic = topicDao.find(course.getTopicId()).get().getName();
+        Account teacher = accDao.find(course.getTeacherId()).get();
+        String name = teacher.getFirstName() + " " + teacher.getLastName();
         int grade = journalDao.findByCourseAndStudent(course.getId(), studentId)
             .get().getGrade();
-        dto.setGrade(grade);
-        list.add(dto);
+        CompletedCourseDTOMapper mapper = new CompletedCourseDTOMapper(name, topic, grade);
+        list.add(mapper.map(course));
       }
       return list;
     });
@@ -70,11 +77,12 @@ public class StudentService extends AbstractService {
       List<Course> courses = courseDao.findRegisteredForStudent(studentId);
       List<RegisteredCourseDTO> list = new ArrayList<>();
       for (final Course course: courses) {
-        RegisteredCourseDTO dto = new RegisteredCourseDTO();
-        populateCourseDTO(course, dto);
+        String topic = topicDao.find(course.getTopicId()).get().getName();
+        Account teacher = accDao.find(course.getTeacherId()).get();
+        String name = teacher.getFirstName() + " " + teacher.getLastName();
         Journal journal = journalDao.findByCourseAndStudent(course.getId(), studentId).get();
-        dto.setRegistrationDate(journal.getEnrollmentDate());
-        list.add(dto);
+        RegisteredCourseDTOMapper mapper = new RegisteredCourseDTOMapper(journal.getEnrollmentDate(), name, topic);
+        list.add(mapper.map(course));
       }
       return list;
     });
@@ -86,27 +94,17 @@ public class StudentService extends AbstractService {
         mapCoursesToDTO(courseDao.findInProgressForStudent(studentId)));
   }
 
-  private List<CourseDTO> mapCoursesToDTO(List<Course> courses) throws DAOException {
+  private List<CourseDTO> mapCoursesToDTO(List<Course> courses) throws DAOException,
+      MappingException {
     List<CourseDTO> list = new ArrayList<>();
     for (Course course: courses) {
-      CourseDTO dto = new CourseDTO();
-      populateCourseDTO(course, dto);
-      list.add(dto);
+      String topic = topicDao.find(course.getTopicId()).get().getName();
+      Account teacher = accDao.find(course.getTeacherId()).get();
+      String name = teacher.getFirstName() + " " + teacher.getLastName();
+      Mapper<Course, CourseDTO> mapper = new CourseDTOMapper(name, topic);
+      list.add(mapper.map(course));
     }
     return list;
-  }
-
-  private void populateCourseDTO(Course course, CourseDTO dto) throws DAOException {
-    dto.setId(course.getId());
-    dto.setName(course.getName());
-    dto.setDescription(course.getDescription());
-    dto.setStartDate(course.getStartDate());
-    dto.setEndDate(course.getEndDate());
-    String topic = topicDao.find(course.getTopicId()).get().getName();
-    dto.setTopic(topic);
-    Account teacher = accDao.find(course.getTeacherId()).get();
-    String name = teacher.getFirstName() + " " + teacher.getLastName();
-    dto.setTeacher(name);
   }
 
 }

@@ -3,6 +3,7 @@ package com.example.elective.services;
 import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.dao.DAOFactory;
 import com.example.elective.exceptions.DAOException;
+import com.example.elective.exceptions.MappingException;
 import com.example.elective.exceptions.ServiceException;
 
 public abstract class AbstractService {
@@ -16,7 +17,7 @@ public abstract class AbstractService {
       T res = operation.read();
       transactionManager.commitTransaction();
       return res;
-    } catch (DAOException e) {
+    } catch (DAOException | MappingException e) {
       e.printStackTrace();
       transactionManager.rollbackTransaction();
       throw new ServiceException(e);
