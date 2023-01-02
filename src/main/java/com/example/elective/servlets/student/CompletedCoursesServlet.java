@@ -1,6 +1,7 @@
 package com.example.elective.servlets.student;
 
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.services.CourseService;
 import com.example.elective.services.StudentService;
 import com.example.elective.utils.RequestUtils;
 
@@ -16,12 +17,12 @@ import java.io.IOException;
 @WebServlet("/student/completed_courses")
 public class CompletedCoursesServlet extends HttpServlet {
 
-  private StudentService studentService;
+  private CourseService courseService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    studentService = (StudentService) context.getAttribute("studentService");
+    courseService = (CourseService) context.getAttribute("courseService");
   }
 
   @Override
@@ -29,7 +30,7 @@ public class CompletedCoursesServlet extends HttpServlet {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
       req.setAttribute("completedCourses",
-          studentService.getCompletedCourses(studentId));
+          courseService.getCompletedCourses(studentId));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

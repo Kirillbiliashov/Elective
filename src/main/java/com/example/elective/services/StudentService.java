@@ -24,9 +24,6 @@ import java.util.*;
 public class StudentService extends AbstractService {
 
   private AccountDAO accDao = daoFactory.getAccountDAO();
-  private CourseDAO courseDao = daoFactory.getCourseDAO();
-  private JournalDAO journalDao = daoFactory.getJournalDAO();
-  private TopicDAO topicDao = daoFactory.getTopicDAO();
 
   public void changeBlockStatus(int id) throws ServiceException {
     transactionManager.initTransaction(accDao);
@@ -43,68 +40,6 @@ public class StudentService extends AbstractService {
   public List<Account> getAll() throws ServiceException {
     transactionManager.initTransaction(accDao);
     return performDaoReadOperation(() -> accDao.findByRole("Student"));
-  }
-
-  public List<CompletedCourseDTO> getCompletedCourses(int studentId)
-      throws ServiceException {
-    transactionManager.initTransaction(courseDao, journalDao, accDao, topicDao);
-    return performDaoReadOperation(() -> {
-      List<Course> courses = courseDao.findCompletedForStudent(studentId);
-      List<CompletedCourseDTO> list = new ArrayList<>();
-      for (final Course course: courses) {
-        String topic = topicDao.find(course.getTopicId()).get().getName();
-        Account teacher = accDao.find(course.getTeacherId()).get();
-        String name = teacher.getFirstName() + " " + teacher.getLastName();
-        int grade = journalDao.findByCourseAndStudent(course.getId(), studentId)
-            .get().getGrade();
-        CompletedCourseDTOMapper mapper = new CompletedCourseDTOMapper(name, topic, grade);
-        list.add(mapper.map(course));
-      }
-      return list;
-    });
-  }
-
-  public List<CourseDTO> getAvailableCourses(int studentId) throws ServiceException {
-    transactionManager.initTransaction(courseDao, topicDao, accDao);
-    return performDaoReadOperation(() ->
-        mapCoursesToDTO(courseDao.findAvailableForStudent(studentId)));
-  }
-
-  public List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
-      throws ServiceException {
-    transactionManager.initTransaction(courseDao, journalDao, topicDao, accDao);
-    return performDaoReadOperation(() -> {
-      List<Course> courses = courseDao.findRegisteredForStudent(studentId);
-      List<RegisteredCourseDTO> list = new ArrayList<>();
-      for (final Course course: courses) {
-        String topic = topicDao.find(course.getTopicId()).get().getName();
-        Account teacher = accDao.find(course.getTeacherId()).get();
-        String name = teacher.getFirstName() + " " + teacher.getLastName();
-        Journal journal = journalDao.findByCourseAndStudent(course.getId(), studentId).get();
-        RegisteredCourseDTOMapper mapper = new RegisteredCourseDTOMapper(journal.getEnrollmentDate(), name, topic);
-        list.add(mapper.map(course));
-      }
-      return list;
-    });
-  }
-
-  public List<CourseDTO> getCoursesInProgress(int studentId) throws ServiceException {
-    transactionManager.initTransaction(courseDao, topicDao, accDao);
-    return performDaoReadOperation(() ->
-        mapCoursesToDTO(courseDao.findInProgressForStudent(studentId)));
-  }
-
-  private List<CourseDTO> mapCoursesToDTO(List<Course> courses) throws DAOException,
-      MappingException {
-    List<CourseDTO> list = new ArrayList<>();
-    for (Course course: courses) {
-      String topic = topicDao.find(course.getTopicId()).get().getName();
-      Account teacher = accDao.find(course.getTeacherId()).get();
-      String name = teacher.getFirstName() + " " + teacher.getLastName();
-      Mapper<Course, CourseDTO> mapper = new CourseDTOMapper(name, topic);
-      list.add(mapper.map(course));
-    }
-    return list;
   }
 
 }
