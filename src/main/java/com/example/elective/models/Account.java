@@ -8,7 +8,7 @@ public class Account extends Entity {
   private String firstName;
   private String lastName;
   private boolean isBlocked;
-  private int roleId;
+  private String role;
   private AccountBuilder builder;
 
   public Account(AccountBuilder builder) {
@@ -43,8 +43,8 @@ public class Account extends Entity {
     return isBlocked;
   }
 
-  public int getRoleId() {
-    return roleId;
+  public String getRole() {
+    return role;
   }
 
   public static AccountBuilder newBuilder() {
@@ -89,8 +89,8 @@ public class Account extends Entity {
       return this;
     }
 
-    public AccountBuilder setRoleId(int roleId) {
-      account.roleId = roleId;
+    public AccountBuilder setRole(String role) {
+      account.role = role;
       return this;
     }
 

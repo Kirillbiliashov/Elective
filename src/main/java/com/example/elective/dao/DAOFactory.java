@@ -10,7 +10,6 @@ public abstract class DAOFactory {
   public abstract AccountDAO getAccountDAO();
   public abstract CourseDAO getCourseDAO();
   public abstract JournalDAO getJournalDAO();
-  public abstract RoleDAO getRoleDAO();
   public abstract TopicDAO getTopicDAO();
 
 

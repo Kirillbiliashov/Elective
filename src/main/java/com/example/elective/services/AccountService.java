@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class AccountService extends AbstractService {
 
-  private AccountDAO dao = daoFactory.getAccountDAO();
+  private final AccountDAO dao = daoFactory.getAccountDAO();
 
   public Optional<Account> findByCredentials(String login, String password) throws ServiceException {
     transactionManager.initTransaction(dao);
@@ -18,7 +18,7 @@ public class AccountService extends AbstractService {
         dao.findByLogin(login));
     if (!optAccount.isPresent()) return Optional.empty();
     Account acc = optAccount.get();
-    if (acc.getUsername().equals("admin")) return Optional.of(acc);
+    if (acc.getUsername().equals("administrator")) return Optional.of(acc);
     return getByPassword(acc, password);
   }
 

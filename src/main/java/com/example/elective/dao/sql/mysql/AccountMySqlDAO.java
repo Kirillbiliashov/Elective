@@ -13,13 +13,13 @@ import java.util.Optional;
 
 public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
 
-  private static final String GET_BY_ID = "SELECT * FROM account WHERE account.id = ?";
+  private static final String GET_BY_ID = "SELECT * FROM account WHERE id = ?";
   private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
       " WHERE id = ?";
   private static final String FIND_BY_ROLE = "SELECT * FROM account" +
-      " WHERE role_id = (SELECT id FROM role WHERE name = ?)";
+      " WHERE role = ?";
   private static final String SAVE = "INSERT INTO account(username, email, password," +
-      " first_name, last_name, role_id) VALUES(?, ?, ?, ?, ?, ?)";
+      " first_name, last_name, role) VALUES(?, ?, ?, ?, ?, ?)";
   private static final String FIND_BY_LOGIN = "SELECT * FROM account WHERE username = ? OR email = ?";
 
   public AccountMySqlDAO() {
@@ -65,7 +65,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       String hashedPassword = PasswordUtils.hashPassword(acc.getPassword());
       addValuesToPreparedStatement(ps, acc.getUsername(),
           acc.getEmail(), hashedPassword, acc.getFirstName(),
-          acc.getLastName(), acc.getRoleId());
+          acc.getLastName(), acc.getRole());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) acc.getBuilder().setId(rs.getInt(1));
@@ -76,9 +76,9 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   }
 
   @Override
-  public List<Account> findByRole(String roleName) throws DAOException {
+  public List<Account> findByRole(String role) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ROLE)) {
-      addValuesToPreparedStatement(ps, roleName);
+      addValuesToPreparedStatement(ps, role);
       return getEntitiesList(ps.executeQuery());
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());

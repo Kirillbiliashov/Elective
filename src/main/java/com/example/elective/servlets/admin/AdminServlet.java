@@ -15,11 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
 
-import static com.example.elective.servlets.admin.LegalUrls.ADMIN;
-
-@WebServlet(ADMIN)
+@WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
   private CourseService courseService;

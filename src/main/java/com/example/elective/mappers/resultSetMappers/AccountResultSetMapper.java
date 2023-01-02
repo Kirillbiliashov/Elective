@@ -14,7 +14,7 @@ public class AccountResultSetMapper extends ResultSetMapper<Account> {
   private static final String FIRST_NAME_COL_NAME = "first_name";
   private static final String LAST_NAME_COL_NAME = "last_name";
   private static final String IS_BLOCKED_COL_NAME = "is_blocked";
-  private static final String ROLE_ID_COL_NAME = "role_id";
+  private static final String ROLE_COL_NAME = "role";
 
   @Override
   public Account map(ResultSet rs) throws MappingException {
@@ -27,7 +27,7 @@ public class AccountResultSetMapper extends ResultSetMapper<Account> {
           .setFirstName(rs.getString(FIRST_NAME_COL_NAME))
           .setLastName(rs.getString(LAST_NAME_COL_NAME))
           .setBlocked(rs.getBoolean(IS_BLOCKED_COL_NAME))
-          .setRoleId(rs.getInt(ROLE_ID_COL_NAME))
+          .setRole(rs.getString(ROLE_COL_NAME))
           .build();
     } catch (SQLException e) {
       throw new MappingException(e);

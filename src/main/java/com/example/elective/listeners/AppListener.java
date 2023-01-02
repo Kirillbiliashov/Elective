@@ -25,7 +25,6 @@ public class AppListener implements ServletContextListener {
     context.setAttribute("accountService", new AccountService());
     context.setAttribute("courseService", new CourseService());
     context.setAttribute("journalService", new JournalService());
-    context.setAttribute("roleService", new RoleService());
     context.setAttribute("studentService", new StudentService());
     context.setAttribute("teacherService", new TeacherService());
     context.setAttribute("topicService", new TopicService());

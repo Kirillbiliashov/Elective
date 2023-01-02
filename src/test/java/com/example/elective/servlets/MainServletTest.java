@@ -1,11 +1,7 @@
 package com.example.elective.servlets;
 
 import com.example.elective.models.Account;
-import com.example.elective.models.Role;
-import com.example.elective.services.RoleService;
-import com.example.elective.servlets.MainServlet;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
@@ -33,8 +29,6 @@ public class MainServletTest {
   @Mock
   private HttpServletResponse resp;
   @Mock
-  private RoleService roleService;
-  @Mock
   private ServletConfig config;
   @Mock
   private ServletContext context;
@@ -45,18 +39,13 @@ public class MainServletTest {
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute(ROLE_SERVICE_NAME)).thenReturn(roleService);
   }
 
   @ParameterizedTest
   @ValueSource(strings = {"Student", "Teacher", "Admin"})
   void testMainServlet(String roleName) throws Exception {
-    final int ROLE_ID = 1;
     when(req.getSession()).thenReturn(session);
     when(session.getAttribute(ACCOUNT_ATTR_NAME)).thenReturn(account);
-    when(account.getRoleId()).thenReturn(ROLE_ID);
-    when(roleService.getById(ROLE_ID))
-        .thenReturn(Optional.of(new Role(ROLE_ID, roleName)));
     servlet.init(config);
     servlet.doGet(req, resp);
     String redirectUrl = roleName.toLowerCase() + "?lang=en";

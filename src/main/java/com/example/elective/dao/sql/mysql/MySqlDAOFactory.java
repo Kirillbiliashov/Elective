@@ -21,11 +21,6 @@ public class MySqlDAOFactory extends SqlDAOFactory {
   }
 
   @Override
-  public RoleDAO getRoleDAO() {
-    return new RoleMysqlDAO();
-  }
-
-  @Override
   public TopicDAO getTopicDAO() {
     return new TopicMysqlDAO();
   }

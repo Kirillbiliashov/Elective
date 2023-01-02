@@ -22,7 +22,7 @@
         <form:username/>
         <form:email/>
         <form:password/>
-        <input type="hidden" name="roleId" value="${roleId}">
+        <input type="hidden" name="role" value="Student">
         <form:button key="user.signup"/>
     </form>
 </div>

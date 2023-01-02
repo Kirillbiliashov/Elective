@@ -1,26 +1,18 @@
 DROP TABLE IF EXISTS journal;
 DROP TABLE IF EXISTS course;
 DROP TABLE IF EXISTS account;
-DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS topic;
-
-CREATE TABLE role
-(
-    id   INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(30) NOT NULL UNIQUE
-);
 
 CREATE TABLE account
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
-    username   VARCHAR(50) NOT NULL UNIQUE,
+    username   VARCHAR(50)                          NOT NULL UNIQUE,
     email      VARCHAR(50) UNIQUE,
-    password   VARCHAR(64) NOT NULL UNIQUE,
+    password   VARCHAR(64)                          NOT NULL UNIQUE,
     first_name VARCHAR(20),
     last_name  VARCHAR(25),
-    is_blocked BOOLEAN     NOT NULL DEFAULT FALSE,
-    role_id    INT         NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE
+    is_blocked BOOLEAN                              NOT NULL DEFAULT FALSE,
+    role       ENUM ('Admin', 'Student', 'Teacher') NOT NULL
 );
 
 CREATE TABLE topic
@@ -55,14 +47,10 @@ CREATE TABLE journal
     UNIQUE (course_id, student_id)
 );
 
-INSERT INTO role(name) VALUES ('Student');
-INSERT INTO role(name) VALUES ('Admin');
-INSERT INTO role(name) VALUES ('Teacher');
-
 INSERT INTO topic(name) VALUES('History');
 INSERT INTO topic(name) VALUES('Data Science');
 INSERT INTO topic(name) VALUES('Software development');
 INSERT INTO topic(name) VALUES('Math');
 INSERT INTO topic(name) VALUES('Mobile development');
 
-INSERT INTO account(username, password, role_id) VALUES('administrator', '$2a$10$VWVESIu46sFfWNs3jnmYW.J08SgCXnPk3u9.9X86rXKQEbjEiBko.', 2);
+INSERT INTO account(username, password, role) VALUES('administrator', '$2a$10$VWVESIu46sFfWNs3jnmYW.J08SgCXnPk3u9.9X86rXKQEbjEiBko.', 'Admin');
