@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
@@ -37,15 +38,19 @@ public class TeacherServlet extends HttpServlet {
     setPageAttributes(req, page);
     try {
       req.setAttribute("pagesCount", teacherService.getPagesCount(id));
-      Course course = teacherService.getCourseAtPage(id, page).get();
-      List<JournalDTO> dtoList = teacherService.getJournalList(course.getId());
-      req.setAttribute("journals", dtoList);
-      req.setAttribute("course", course);
-      req.setAttribute("currDate", Constants.CURRENT_DATE);
+      Optional<Course> optCourse = teacherService.getCourseAtPage(id, page);
+      if (optCourse.isPresent()) setAttributes(req, optCourse.get());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     req.getRequestDispatcher("teacher.jsp").forward(req, resp);
+  }
+
+  private void setAttributes(HttpServletRequest req, Course course) throws ServiceException {
+    List<JournalDTO> dtoList = teacherService.getJournalList(course.getId());
+    req.setAttribute("journals", dtoList);
+    req.setAttribute("course", course);
+    req.setAttribute("currDate", Constants.CURRENT_DATE);
   }
 
   private void setPageAttributes(HttpServletRequest req, int currPage) {
