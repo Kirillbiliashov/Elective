@@ -8,10 +8,12 @@ public abstract class CourseMapper<T> implements Mapper<Course, T> {
 
   protected String teacher;
   protected String topic;
+  protected int studentsCount;
 
-  public CourseMapper(String teacher, String topic) {
+  public CourseMapper(String teacher, String topic, int studentsCount) {
     this.teacher = teacher;
     this.topic = topic;
+    this.studentsCount = studentsCount;
   }
 
   protected void mapCourseToDTO(Course course, CourseDTO dto) {
@@ -22,6 +24,7 @@ public abstract class CourseMapper<T> implements Mapper<Course, T> {
     dto.setEndDate(course.getEndDate());
     dto.setTopic(topic);
     dto.setTeacher(teacher);
+    dto.setStudentsCount(studentsCount);
   }
 
 

@@ -24,6 +24,8 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
       " course_id, student_id) VALUES(?, ?, ?)";
   private static final String GET_BY_COURSE_ID = "SELECT * FROM journal" +
       " WHERE course_id = ?";
+  private static final String GET_STUDENTS_COUNT_FOR_COURSE = "SELECT COUNT(*)" +
+      " FROM journal WHERE course_id = ?";
 
   public JournalMySqlDAO() {
     this.mapper = new JournalResultSetMapper();
@@ -97,6 +99,18 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find journal entries for course", e);
+    }
+  }
+
+  @Override
+  public int getStudentsCount(int courseId) throws DAOException {
+    try (PreparedStatement ps = conn.prepareStatement(GET_STUDENTS_COUNT_FOR_COURSE)) {
+      addValuesToPreparedStatement(ps, courseId);
+      ResultSet rs = ps.executeQuery();
+      return rs.next() ? rs.getInt(1) : 0;
+    } catch (SQLException e) {
+      logger.error(e.getMessage());
+      throw new DAOException("unable to get students count for the course", e);
     }
   }
 

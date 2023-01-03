@@ -7,8 +7,8 @@ import com.example.elective.models.Course;
 
 public class CourseDTOMapper extends CourseMapper<CourseDTO> {
 
-  public CourseDTOMapper(String teacher, String topic) {
-    super(teacher, topic);
+  public CourseDTOMapper(String teacher, String topic, int studentsCount) {
+    super(teacher, topic, studentsCount);
   }
 
   @Override

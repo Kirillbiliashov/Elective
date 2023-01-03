@@ -65,7 +65,7 @@ public class CourseService extends AbstractService {
 
   private List<CourseDTO> getSortedCourseDTOList(SortType sort)
       throws ServiceException {
-    transactionManager.initTransaction(accDAO, dao, topicDAO);
+    transactionManager.initTransaction(accDAO, dao, topicDAO, journalDAO);
     return performDaoReadOperation(() -> {
       List<Course> courses = getSortedCourses(sort);
       return getCourseDTOList(courses);
@@ -97,16 +97,17 @@ public class CourseService extends AbstractService {
       String topic = topicDAO.find(course.getTopicId()).get().getName();
       Account teacher = accDAO.find(course.getTeacherId()).get();
       String name = teacher.getFirstName() + " " + teacher.getLastName();
+      int studentsCount = journalDAO.getStudentsCount(course.getId());
       int grade = journalDAO.findByCourseAndStudent(course.getId(), studentId)
           .get().getGrade();
-      CompletedCourseDTOMapper mapper = new CompletedCourseDTOMapper(name, topic, grade);
+      CompletedCourseDTOMapper mapper = new CompletedCourseDTOMapper(name, topic, grade, studentsCount);
       list.add(mapper.map(course));
     }
     return list;
   }
 
   public List<CourseDTO> getAvailableCourses(int studentId) throws ServiceException {
-    transactionManager.initTransaction(dao, topicDAO, accDAO);
+    transactionManager.initTransaction(dao, topicDAO, accDAO, journalDAO);
     return performDaoReadOperation(() ->
         getCourseDTOList(dao.findAvailableForStudent(studentId)));
   }
@@ -128,16 +129,17 @@ public class CourseService extends AbstractService {
       String topic = topicDAO.find(course.getTopicId()).get().getName();
       Account teacher = accDAO.find(course.getTeacherId()).get();
       String name = teacher.getFirstName() + " " + teacher.getLastName();
+      int studentsCount = journalDAO.getStudentsCount(course.getId());
       Journal journal = journalDAO.findByCourseAndStudent(course.getId(), studentId).get();
       Date date = journal.getEnrollmentDate();
-      RegisteredCourseDTOMapper mapper = new RegisteredCourseDTOMapper(date, name, topic);
+      RegisteredCourseDTOMapper mapper = new RegisteredCourseDTOMapper(date, name, topic, studentsCount);
       list.add(mapper.map(course));
     }
     return list;
   }
 
   public List<CourseDTO> getCoursesInProgress(int studentId) throws ServiceException {
-    transactionManager.initTransaction(dao, topicDAO, accDAO);
+    transactionManager.initTransaction(dao, topicDAO, accDAO, journalDAO);
     return performDaoReadOperation(() ->
         getCourseDTOList(dao.findInProgressForStudent(studentId)));
   }
@@ -149,7 +151,8 @@ public class CourseService extends AbstractService {
       String topic = topicDAO.find(course.getTopicId()).get().getName();
       Account teacher = accDAO.find(course.getTeacherId()).get();
       String name = teacher.getFirstName() + " " + teacher.getLastName();
-      Mapper<Course, CourseDTO> mapper = new CourseDTOMapper(name, topic);
+      int studentsCount = journalDAO.getStudentsCount(course.getId());
+      Mapper<Course, CourseDTO> mapper = new CourseDTOMapper(name, topic, studentsCount);
       list.add(mapper.map(course));
     }
     return list;

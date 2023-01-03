@@ -11,6 +11,7 @@ public class CourseDTO {
   private Date endDate;
   private String topic;
   private String teacher;
+  private int studentsCount;
 
   public int getId() {
     return id;
@@ -67,5 +68,13 @@ public class CourseDTO {
 
   public void setTeacher(String teacher) {
     this.teacher = teacher;
+  }
+
+  public int getStudentsCount() {
+    return studentsCount;
+  }
+
+  public void setStudentsCount(int studentsCount) {
+    this.studentsCount = studentsCount;
   }
 }

@@ -120,3 +120,7 @@ p {
 .register-teacher-ref {
     margin-left: 10px;
 }
+.description-btn {
+    width: 100%;
+    text-align: center;
+}

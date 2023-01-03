@@ -71,7 +71,8 @@
                         <p><fmt:message key="topic"/>: ${course.topic}</p>
                         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
                         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
-                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#descModal/${course.id}">
+                        <p><fmt:message key="course.students_count"/>: ${course.studentsCount}</p>
+                        <button type="button" class="btn btn-link description-btn" data-toggle="modal" data-target="#descModal/${course.id}">
                             <fmt:message key="course.description"/>
                         </button>
                         <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"

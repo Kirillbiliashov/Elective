@@ -10,8 +10,9 @@ public class CompletedCourseDTOMapper extends CourseMapper<CompletedCourseDTO> {
 
   private int grade;
 
-  public CompletedCourseDTOMapper(String teacher, String topic, int grade) {
-    super(teacher, topic);
+  public CompletedCourseDTOMapper(String teacher, String topic,
+                                  int grade, int studentsCount) {
+    super(teacher, topic, studentsCount);
     this.grade = grade;
   }
 

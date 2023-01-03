@@ -12,8 +12,9 @@ public class RegisteredCourseDTOMapper extends CourseMapper<RegisteredCourseDTO>
 
   private Date registrationDate;
 
-  public RegisteredCourseDTOMapper(Date registrationDate, String teacher, String topic) {
-    super(teacher, topic);
+  public RegisteredCourseDTOMapper(Date registrationDate, String teacher,
+                                   String topic, int studentsCount) {
+    super(teacher, topic, studentsCount);
     this.registrationDate = registrationDate;
   }
 

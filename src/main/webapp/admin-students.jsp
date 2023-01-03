@@ -29,6 +29,8 @@
                             <c:if test="${student.blocked}"><fmt:message key="student.blocked"/></c:if>
                             <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
                         </p>
+                        <p>Username: ${student.username}</p>
+                        <p>Email: ${student.email}</p>
                         <div style="align-items: center; justify-content: center; display: flex">
                             <form action="<ref:lang value="students/changeBlock/${student.id}"/>" method="POST">
                                 <c:if test="${student.blocked}">
