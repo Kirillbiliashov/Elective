@@ -33,9 +33,9 @@ public class AccountService extends AbstractService {
     return performDaoReadOperation(() -> dao.findByRole(roleName));
   }
 
-  public List<Account> getAtPage(int page) throws ServiceException {
+  public List<Account> getAtPage(String role, int page) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.findByRole("Student", page));
+    return performDaoReadOperation(() -> dao.findByRole(role, page));
   }
 
   public int getPagesCount(String roleName) throws ServiceException {

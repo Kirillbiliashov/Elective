@@ -4,6 +4,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
 import com.example.elective.services.TeacherService;
 import com.example.elective.utils.Constants;
+import com.example.elective.utils.PaginationUtils;
 import com.example.elective.utils.RegexUtils;
 import com.example.elective.utils.RequestUtils;
 import com.example.elective.dto.JournalDTO;
@@ -34,8 +35,8 @@ public class TeacherServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     int id = RequestUtils.getCurrentUserId(req);
-    int page = getPageNumber(req);
-    setPageAttributes(req, page);
+    int page = PaginationUtils.getPageNumber(req);
+    PaginationUtils.setPageAttributes(req, page);
     try {
       req.setAttribute("pagesCount", teacherService.getPagesCount(id));
       Optional<Course> optCourse = teacherService.getCourseAtPage(id, page);
@@ -51,20 +52,6 @@ public class TeacherServlet extends HttpServlet {
     req.setAttribute("journals", dtoList);
     req.setAttribute("course", course);
     req.setAttribute("currDate", Constants.CURRENT_DATE);
-  }
-
-  private void setPageAttributes(HttpServletRequest req, int currPage) {
-    int nextPage = currPage + 1;
-    int prevPage = currPage - 1;
-    req.setAttribute("page", currPage);
-    req.setAttribute("next", nextPage);
-    req.setAttribute("prev", prevPage);
-  }
-
-  private int getPageNumber(HttpServletRequest request) {
-    String pageParam = request.getParameter("page");
-    if (!RegexUtils.isNumeric(pageParam)) return 1;
-    return Integer.parseInt(pageParam);
   }
 
 }
