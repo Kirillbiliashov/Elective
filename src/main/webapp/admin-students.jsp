@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
-<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${lang}"/>
@@ -19,35 +18,45 @@
 <admin:navbar adminUrl="../admin" studentsUrl="" teachersUrl="teachers" activeNavItem="students"/>
 <div class="page-container">
     <h2><fmt:message key="students" /></h2>
-    <ul class="list-group">
-        <div class="grid-container">
-            <c:forEach items="${students}" var="student">
-                <div class="card student-card">
-                    <div class="card-body">
-                        <h5><student:info target="${student}"/></h5>
-                        <p><fmt:message key="student.status"/>:
-                            <c:if test="${student.blocked}"><fmt:message key="student.blocked"/></c:if>
-                            <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
-                        </p>
-                        <p>Username: ${student.username}</p>
-                        <p>Email: ${student.email}</p>
-                        <div style="align-items: center; justify-content: center; display: flex">
-                            <form action="students/changeBlock/${student.id}" method="POST">
-                                <c:if test="${student.blocked}">
-                                    <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
-                                </c:if>
-                                <c:if test="${!student.blocked}">
-                                    <input type="submit" class="btn btn-dark" value="<fmt:message key="students.block"/>">
-                                </c:if>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </ul>
-    <c:if test="${empty students}">
-        <p><fmt:message key="no_students"/></p>
+    <c:if test="${not empty students}" >
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><fmt:message key="student.name"/></th>
+            <th scope="col"><fmt:message key="user.username"/></th>
+            <th scope="col"><fmt:message key="user.email"/></th>
+            <th scope="col"><fmt:message key="student.status"/></th>
+            <th><fmt:message key="student.action"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${students}" var="student">
+            <tr>
+                <td>${student.firstName} ${student.lastName}</td>
+                <td>${student.username}</td>
+                <td>${student.email}</td>
+                <td>
+                    <c:if test="${student.blocked}"><fmt:message key="student.blocked"/></c:if>
+                    <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
+                </td>
+                <td>
+                    <form action="students/changeBlock/${student.id}" method="POST">
+                        <c:if test="${student.blocked}">
+                            <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
+                        </c:if>
+                        <c:if test="${!student.blocked}">
+                            <input type="submit" class="btn btn-dark" value="<fmt:message key="students.block"/>">
+                        </c:if>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <jsp:include page="pagination.jsp"/>
+    </c:if>
+    <c:if test="${empty students}" >
+        <h5><fmt:message key="no_students"/></h5>
     </c:if>
 </div>
 </body>

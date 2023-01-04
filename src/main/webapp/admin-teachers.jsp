@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
-<%@ taglib prefix="ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${lang}"/>
@@ -22,18 +21,32 @@
         <h2><fmt:message key="teachers"/></h2>
         <a href="teachers/register" class="register-teacher-ref"><fmt:message key="teachers.register"/></a>
     </div>
-    <ul class="list-group">
-        <div class="grid-container teacher-grid-container">
+    <c:if test="${not empty teachers}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"><fmt:message key="student.name"/></th>
+                <th scope="col"><fmt:message key="user.username"/></th>
+                <th scope="col"><fmt:message key="user.email"/></th>
+            </tr>
+            </thead>
+            <tbody>
             <c:forEach items="${teachers}" var="teacher">
-                <div class="card teacher-card">
-                    <div class="card-body">
-                        <p><teacher:info target="${teacher}"/></p>
-                    </div>
-                </div>
+                <tr>
+                    <td>${teacher.firstName} ${teacher.lastName}</td>
+                    <td>${teacher.username}</td>
+                    <td>${teacher.email}</td>
+                </tr>
             </c:forEach>
-        </div>
-    </ul>
+            </tbody>
+        </table>
+        <jsp:include page="pagination.jsp"/>
+    </c:if>
+    <c:if test="${empty teachers}">
+        <h5><fmt:message key="no_teachers"/></h5>
+    </c:if>
 </div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

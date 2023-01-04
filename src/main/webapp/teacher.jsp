@@ -25,12 +25,12 @@
         </div>
     </div>
 </nav>
-<div style="margin: 30px;">
+<div class="page-container">
     <c:if test="${course ne null}">
         <h2><fmt:message key="course"/>: ${course.name}</h2>
         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
-        <table class="table" style="margin: 30px">
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col"><fmt:message key="student"/></th>
@@ -64,7 +64,7 @@
             </c:forEach>
             </tbody>
         </table>
-        <c:import url="journal-pagination.jsp"/>
+        <c:import url="pagination.jsp"/>
     </c:if>
     <c:if test="${course eq null}">
         <h3><fmt:message key="teacher.no_courses"/></h3>

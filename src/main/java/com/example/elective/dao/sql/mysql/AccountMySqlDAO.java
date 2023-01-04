@@ -21,6 +21,9 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   private static final String SAVE = "INSERT INTO account(username, email, password," +
       " first_name, last_name, role) VALUES(?, ?, ?, ?, ?, ?)";
   private static final String FIND_BY_LOGIN = "SELECT * FROM account WHERE username = ? OR email = ?";
+  private static final String FIND_BY_ROLE_AT_PAGE = FIND_BY_ROLE + " LIMIT ?,?";
+  private static final String GET_COUNT_BY_ROLE = "SELECT COUNT(*) FROM account" +
+      " WHERE role = ?";
 
   public AccountMySqlDAO() {
     this.mapper = new AccountResultSetMapper();
@@ -87,11 +90,35 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   }
 
   @Override
+  public List<Account> findByRole(String roleName, int page) throws DAOException {
+    final int studentsPerPage = 1;
+    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ROLE_AT_PAGE)) {
+      addValuesToPreparedStatement(ps, roleName, (page - 1) * studentsPerPage, page * studentsPerPage);
+      return getEntitiesList(ps.executeQuery());
+    } catch (SQLException | MappingException e) {
+      logger.error(e.getMessage());
+      throw new DAOException("unable to find accounts", e);
+    }
+  }
+
+  @Override
   public Optional<Account> findByLogin(String login) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(FIND_BY_LOGIN)) {
       addValuesToPreparedStatement(ps, login, login);
       return getOptionalEntity(ps.executeQuery());
     } catch (SQLException | MappingException e) {
+      logger.error(e.getMessage());
+      throw new DAOException("unable to find account", e);
+    }
+  }
+
+  @Override
+  public int getCountByRole(String roleName) throws DAOException {
+    try (PreparedStatement ps = conn.prepareStatement(GET_COUNT_BY_ROLE)) {
+      addValuesToPreparedStatement(ps, roleName);
+      ResultSet rs = ps.executeQuery();
+      return rs.next() ? rs.getInt(1) : 0;
+    } catch (SQLException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find account", e);
     }

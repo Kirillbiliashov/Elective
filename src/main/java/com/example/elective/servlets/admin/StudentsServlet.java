@@ -1,7 +1,9 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.services.AccountService;
 import com.example.elective.services.StudentService;
+import com.example.elective.utils.RegexUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -15,23 +17,43 @@ import java.io.IOException;
 @WebServlet("/admin/students")
 public class StudentsServlet extends HttpServlet {
 
-  private StudentService studentService;
+  private AccountService accountService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    studentService = (StudentService) context.getAttribute("studentService");
+    accountService = (AccountService) context.getAttribute("accountService");
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      req.setAttribute("students", studentService.getAll());
+      int page = getPageNumber(req);
+      setPageAttributes(req, page);
+      int pagesCount = accountService.getPagesCount("Student");
+      req.setAttribute("pagesCount", pagesCount);
+      if (page <= pagesCount) {
+        req.setAttribute("students", accountService.getAtPage(page));
+      }
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     req.getRequestDispatcher("/admin-students.jsp").forward(req, resp);
+  }
+
+  private void setPageAttributes(HttpServletRequest req, int currPage) {
+    int nextPage = currPage + 1;
+    int prevPage = currPage - 1;
+    req.setAttribute("page", currPage);
+    req.setAttribute("next", nextPage);
+    req.setAttribute("prev", prevPage);
+  }
+
+  private int getPageNumber(HttpServletRequest request) {
+    String pageParam = request.getParameter("page");
+    if (!RegexUtils.isNumeric(pageParam)) return 1;
+    return Integer.parseInt(pageParam);
   }
 
 }
