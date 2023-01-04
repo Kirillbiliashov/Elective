@@ -4,7 +4,7 @@
 <%@ taglib prefix="ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -20,8 +20,7 @@
 <div class="page-container">
     <div class="admin-teachers-header">
         <h2><fmt:message key="teachers"/></h2>
-        <a href="<ref:lang value="teachers/register"/>" class="register-teacher-ref"><fmt:message
-                key="teachers.register"/></a>
+        <a href="teachers/register" class="register-teacher-ref"><fmt:message key="teachers.register"/></a>
     </div>
     <ul class="list-group">
         <div class="grid-container teacher-grid-container">

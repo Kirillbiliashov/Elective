@@ -36,7 +36,7 @@ public class CourseEnrollServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(RequestUtils.getRedirectUrl(req, "/elective/student"));
+    resp.sendRedirect("/elective/student");
   }
 
 }

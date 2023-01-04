@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <li class="page-item ${prev eq 0 ? "disabled" : ""}"><a class="page-link"
                                                         href="?page=${prev}&lang=${param.lang}"><fmt:message

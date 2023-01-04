@@ -15,11 +15,4 @@ public class RequestUtils {
     HttpSession session = req.getSession();
     return ((Account) session.getAttribute("account")).getId();
   }
-
-  public static String getRedirectUrl(HttpServletRequest req, String url) {
-    String currLang = req.getParameter("lang");
-    String langQueryParam = currLang == null ? "?lang=en" : "?lang=" + currLang;
-    return url + langQueryParam;
-  }
-
 }

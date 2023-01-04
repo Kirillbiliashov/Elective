@@ -5,7 +5,7 @@
 <%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form/course" %>
 <%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="minDate" value="${now}" pattern="yyyy-MM-dd" />
@@ -19,7 +19,7 @@
 <div class="dropdown-container"><element:lang-dropdown/></div>
 <div class="edit-course-form">
   <h1><fmt:message key="course.edit.header"/></h1>
-  <form method="post" action="<ref:lang value=""/>" onsubmit="return validateForm()">
+  <form method="post" onsubmit="return validateForm()">
       <form:name value="${course.name}"/>
       <form:description value="${course.description}"/>
       <form:startDate value="${course.startDate}"/>

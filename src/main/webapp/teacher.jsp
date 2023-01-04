@@ -4,7 +4,7 @@
 <%@ taglib prefix="ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -21,7 +21,7 @@
         <h3><acc:info target="${account}"/></h3>
         <div class="teacher-navbar-buttons-container">
             <element:lang-dropdown/>
-            <a href="<ref:lang value="/elective/logout"/>" class="btn btn-primary"><fmt:message key="logout"/></a>
+            <a href="/elective/logout" class="btn btn-primary"><fmt:message key="logout"/></a>
         </div>
     </div>
 </nav>
@@ -47,7 +47,7 @@
                         </c:if>
                         <c:if test="${course.endDate.before(currDate)}">
                             <td>
-                                <form method="post" action="<ref:lang value="teacher/addGrade/${journal.id}"/>">
+                                <form method="post" action="teacher/addGrade/${journal.id}">
                                     <div style="display: flex; align-items: center; justify-content: center">
                                         <input type="number" min="0" max="100" name="grade" id="grade"/>
                                         <input type="submit" style="margin: 10px" class="btn btn-primary btn-sm"

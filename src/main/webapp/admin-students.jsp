@@ -4,7 +4,7 @@
 <%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -32,7 +32,7 @@
                         <p>Username: ${student.username}</p>
                         <p>Email: ${student.email}</p>
                         <div style="align-items: center; justify-content: center; display: flex">
-                            <form action="<ref:lang value="students/changeBlock/${student.id}"/>" method="POST">
+                            <form action="students/changeBlock/${student.id}" method="POST">
                                 <c:if test="${student.blocked}">
                                     <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
                                 </c:if>

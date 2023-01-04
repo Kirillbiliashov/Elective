@@ -43,7 +43,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(RequestUtils.getRedirectUrl(req, "/elective/admin/teachers"));
+    resp.sendRedirect("/elective/admin/teachers");
   }
 
 }

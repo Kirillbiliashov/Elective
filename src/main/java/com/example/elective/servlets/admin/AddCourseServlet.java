@@ -60,7 +60,7 @@ public class AddCourseServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(RequestUtils.getRedirectUrl(req, Constants.ADMIN_SERVLET_NAME));
+    resp.sendRedirect(Constants.ADMIN_SERVLET_NAME);
   }
 
 }

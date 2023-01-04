@@ -21,7 +21,7 @@ public class MainServlet extends HttpServlet {
     String homeUrl = "login";
     if (account != null) homeUrl = account.getRole().toLowerCase();
     session.setAttribute("homeUrl",  homeUrl);
-    resp.sendRedirect(RequestUtils.getRedirectUrl(req, homeUrl));
+    resp.sendRedirect(homeUrl);
   }
 
 }

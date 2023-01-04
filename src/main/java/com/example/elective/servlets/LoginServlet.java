@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
         return;
       }
       addAccountToSession(req, acc);
-      resp.sendRedirect(RequestUtils.getRedirectUrl(req, "main"));
+      resp.sendRedirect("main");
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

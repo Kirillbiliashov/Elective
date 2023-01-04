@@ -3,7 +3,7 @@
 <%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="<ref:lang value="student/courses/enroll/${course.id}"/>" method="post">
+                            <form action="student/courses/enroll/${course.id}" method="post">
                                 <input type="submit" class="btn btn-primary" value="<fmt:message key="student.enroll" />">
                             </form>
                         </div>

@@ -4,7 +4,7 @@
 <%@ taglib prefix = "form" tagdir="/WEB-INF/tags/form" %>
 <%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -15,7 +15,9 @@
     </style>
 </head>
 <body>
-<div class="dropdown-container"><element:lang-dropdown/></div>
+<div class="dropdown-container">
+    <element:lang-dropdown/>
+</div>
 <div class="login-page-container">
     <h1 class="form-header"><fmt:message key="user.login"/></h1>
     <div>
@@ -26,7 +28,7 @@
         </form>
     </div>
     <div class="form-btn-container">
-        <a href="<ref:lang value="signup"/>"><fmt:message key="user.signup_ref"/></a>
+        <a href="signup"><fmt:message key="user.signup_ref"/></a>
     </div>
     <c:if test="${loginFailed}">
         <div class="alert alert-danger" role="alert">
