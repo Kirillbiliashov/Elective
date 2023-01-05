@@ -6,7 +6,7 @@ import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
-public class CompletedCourseDTOMapper extends CourseMapper<CompletedCourseDTO> {
+public class CompletedCourseDTOMapper extends CourseDTOMapper {
 
   private int grade;
 
@@ -17,8 +17,7 @@ public class CompletedCourseDTOMapper extends CourseMapper<CompletedCourseDTO> {
   }
 
   public CompletedCourseDTO map(Course course) throws MappingException {
-    CompletedCourseDTO dto = new CompletedCourseDTO();
-    mapCourseToDTO(course, dto);
+    CompletedCourseDTO dto = (CompletedCourseDTO) super.map(course);
     dto.setGrade(grade);
     return dto;
   }

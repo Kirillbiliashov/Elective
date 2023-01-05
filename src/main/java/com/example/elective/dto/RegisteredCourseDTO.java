@@ -14,4 +14,5 @@ public class RegisteredCourseDTO extends CourseDTO {
     this.registrationDate = registrationDate;
   }
 
+
 }

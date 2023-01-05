@@ -41,6 +41,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
     this.mapper = new CourseResultSetMapper();
   }
 
+  @Override
   public List<Course> getByTeacherId(int teacherId) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID)) {
       addValuesToPreparedStatement(ps, teacherId);

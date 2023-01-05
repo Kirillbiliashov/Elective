@@ -10,7 +10,7 @@ public class Journal extends Entity {
   private int studentId;
   private JournalBuilder builder;
 
-  public Journal(JournalBuilder builder) {
+  private Journal(JournalBuilder builder) {
     this.builder = builder;
   }
 

@@ -13,9 +13,16 @@ public class CourseDTOMapper extends CourseMapper<CourseDTO> {
 
   @Override
   public CourseDTO map(Course course) throws MappingException {
-    CourseDTO dto = new CourseDTO();
-    mapCourseToDTO(course, dto);
-    return dto;
+    return CourseDTO.newBuilder()
+        .setId(course.getId())
+        .setName(course.getName())
+        .setDescription(course.getDescription())
+        .setStartDate(course.getStartDate())
+        .setEndDate(course.getEndDate())
+        .setTopic(topic)
+        .setTeacher(teacher)
+        .setStudentsCount(studentsCount)
+        .build();
   }
 
 }

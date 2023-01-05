@@ -8,7 +8,7 @@ import com.example.elective.models.Course;
 
 import java.sql.Date;
 
-public class RegisteredCourseDTOMapper extends CourseMapper<RegisteredCourseDTO> {
+public class RegisteredCourseDTOMapper extends CourseDTOMapper {
 
   private Date registrationDate;
 
@@ -18,9 +18,9 @@ public class RegisteredCourseDTOMapper extends CourseMapper<RegisteredCourseDTO>
     this.registrationDate = registrationDate;
   }
 
+  @Override
   public RegisteredCourseDTO map(Course course) throws MappingException {
-    RegisteredCourseDTO dto = new RegisteredCourseDTO();
-    mapCourseToDTO(course, dto);
+    RegisteredCourseDTO dto = (RegisteredCourseDTO) super.map(course);
     dto.setRegistrationDate(registrationDate);
     return dto;
   }

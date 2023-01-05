@@ -16,16 +16,4 @@ public abstract class CourseMapper<T> implements Mapper<Course, T> {
     this.studentsCount = studentsCount;
   }
 
-  protected void mapCourseToDTO(Course course, CourseDTO dto) {
-    dto.setId(course.getId());
-    dto.setName(course.getName());
-    dto.setDescription(course.getDescription());
-    dto.setStartDate(course.getStartDate());
-    dto.setEndDate(course.getEndDate());
-    dto.setTopic(topic);
-    dto.setTeacher(teacher);
-    dto.setStudentsCount(studentsCount);
-  }
-
-
 }
