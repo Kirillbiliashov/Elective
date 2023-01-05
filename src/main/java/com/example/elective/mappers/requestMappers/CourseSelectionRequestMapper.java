@@ -1,7 +1,6 @@
 package com.example.elective.mappers.requestMappers;
 
-import com.example.elective.CourseSelection;
-import com.example.elective.utils.RegexUtils;
+import com.example.elective.selection.CourseSelection;
 
 import javax.servlet.http.HttpServletRequest;
 

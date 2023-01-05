@@ -77,4 +77,9 @@ public class CourseDTO {
   public void setStudentsCount(int studentsCount) {
     this.studentsCount = studentsCount;
   }
+
+  public int getDuration() {
+    return this.endDate.compareTo(this.startDate);
+  }
+
 }

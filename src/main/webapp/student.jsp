@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="student" tagdir="/WEB-INF/tags/student" %>
-<%@ taglib prefix = "ref" tagdir="/WEB-INF/tags/url" %>
+<%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${lang}"/>
@@ -20,6 +20,7 @@
                 completedCoursesUrl="student/completed_courses" activeNavItem="student"/>
 <div class="page-container">
     <h2><fmt:message key="student.available_courses"/></h2>
+    <jsp:include page="selection-form.jsp"/>
     <c:if test="${not empty availableCourses}">
         <ul class="list-group">
             <div class="grid-container">

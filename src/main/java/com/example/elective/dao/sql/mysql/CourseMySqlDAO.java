@@ -23,14 +23,9 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   private static final String DELETE = "DELETE FROM course WHERE id = ?";
   private static final String GET_ALL = "SELECT * FROM course";
   private static final String GET_BY_ID = "SELECT * FROM course WHERE id = ?";
-  private static final String GET_ORDERED_BY = "SELECT * FROM course ORDER BY ";
   private static final String SELECT_JOIN_JOURNAL = "SELECT course.id," +
       " name, description, start_date, end_date, topic_id, teacher_id " +
       "FROM course JOIN journal ON course.id = course_id ";
-  private static final String GET_ORDERED_BY_STUDENT_COUNT = "SELECT * FROM course" +
-      " LEFT JOIN (SELECT COUNT(*) AS count, course.id AS id FROM course" +
-      " JOIN journal on course_id = course.id GROUP BY(course.id)) AS total" +
-      " ON course.id = total.id ORDER BY count";
   private static final String FIND_COMPLETED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
       "WHERE student_id = ? AND end_date < CURRENT_DATE()";
   private static final String FIND_IN_PROGRESS_FOR_STUDENT = SELECT_JOIN_JOURNAL +
@@ -42,28 +37,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       "JOIN journal ON course_id = course.id WHERE student_id = ?)" +
       " AND start_date > CURRENT_DATE()";
 
-
   public CourseMySqlDAO() {
     this.mapper = new CourseResultSetMapper();
-  }
-
-  public List<Course> getAllOrderedByStudentCount(boolean isAsc) throws DAOException {
-    String ascStr = isAsc ? "" : " DESC";
-    try (Statement stmt = conn.createStatement()) {
-      return getEntitiesList(stmt.executeQuery(GET_ORDERED_BY_STUDENT_COUNT + ascStr));
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to retrieve courses", e);
-    }
-  }
-
-  public List<Course> getOrderedBy(String orderBy) throws DAOException {
-    try (Statement stmt = conn.createStatement()) {
-      return getEntitiesList(stmt.executeQuery(GET_ORDERED_BY + orderBy));
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to retrieve courses", e);
-    }
   }
 
   public List<Course> getByTeacherId(int teacherId) throws DAOException {

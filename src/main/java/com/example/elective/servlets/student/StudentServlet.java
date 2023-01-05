@@ -1,8 +1,12 @@
 package com.example.elective.servlets.student;
 
+import com.example.elective.selection.CourseSelection;
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
+import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.services.CourseService;
-import com.example.elective.services.StudentService;
+import com.example.elective.services.TeacherService;
+import com.example.elective.services.TopicService;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -17,11 +21,17 @@ import java.io.IOException;
 public class StudentServlet extends HttpServlet {
 
   private CourseService courseService;
+  private TeacherService teacherService;
+  private TopicService topicService;
+  private RequestMapper<CourseSelection> selectionMapper =
+      new CourseSelectionRequestMapper();
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
     courseService = (CourseService) context.getAttribute("courseService");
+    topicService = (TopicService) context.getAttribute("topicService");
+    teacherService = (TeacherService) context.getAttribute("teacherService");
   }
 
   @Override
@@ -29,8 +39,11 @@ public class StudentServlet extends HttpServlet {
       throws ServletException, IOException {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
+      CourseSelection courseSelection = selectionMapper.map(req);
+      req.setAttribute("topics", topicService.getAll());
+      req.setAttribute("teachers", teacherService.getAll());
       req.setAttribute("availableCourses",
-          courseService.getAvailableCourses(studentId));
+          courseService.getAvailableBySelection(studentId, courseSelection));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

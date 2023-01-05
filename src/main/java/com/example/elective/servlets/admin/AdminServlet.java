@@ -1,10 +1,9 @@
 package com.example.elective.servlets.admin;
 
-import com.example.elective.CourseSelection;
+import com.example.elective.selection.CourseSelection;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
-import com.example.elective.models.Course;
 import com.example.elective.services.*;
 
 import javax.servlet.ServletConfig;

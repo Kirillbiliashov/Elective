@@ -1,7 +1,6 @@
 package com.example.elective.services;
 
-import com.example.elective.CourseSelection;
-import static com.example.elective.CourseSelection.SortType;
+import com.example.elective.selection.CourseSelection;
 
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.interfaces.CourseDAO;
@@ -23,7 +22,6 @@ import com.example.elective.models.Journal;
 
 import java.sql.Date;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class CourseService extends AbstractService {
 
@@ -53,32 +51,20 @@ public class CourseService extends AbstractService {
   }
 
   public List<CourseDTO> getBySelection(CourseSelection selection) throws ServiceException {
-    String topic = selection.getTopic();
-    String teacher = selection.getTeacher();
-    List<CourseDTO> dtoList = getSortedCourseDTOList(selection.getSort());
-    return dtoList
-        .stream()
-        .filter(c -> c.getTopic().equals(topic) || topic.equals("Any"))
-        .filter(c -> c.getTeacher().equals(teacher) || teacher.equals("Any"))
-        .collect(Collectors.toList());
+    transactionManager.initTransaction(accDAO, dao, topicDAO, journalDAO);
+    List<CourseDTO> dtoList = performDaoReadOperation(() -> getCourseDTOList(dao.findAll()));
+    return selection.getSelected(dtoList);
   }
 
-  private List<CourseDTO> getSortedCourseDTOList(SortType sort)
+  public List<CourseDTO> getAvailableBySelection(int studentId,
+                                                 CourseSelection selection)
       throws ServiceException {
     transactionManager.initTransaction(accDAO, dao, topicDAO, journalDAO);
-    return performDaoReadOperation(() -> {
-      List<Course> courses = getSortedCourses(sort);
-      return getCourseDTOList(courses);
-    });
+    List<CourseDTO> dtoList = performDaoReadOperation(() ->
+        getCourseDTOList(dao.findAvailableForStudent(studentId)));
+    return selection.getSelected(dtoList);
   }
 
-  private List<Course> getSortedCourses(SortType sort) throws DAOException {
-    if (sort == SortType.STUDENTS || sort == SortType.STUDENTS_DESC) {
-      return dao.getAllOrderedByStudentCount(sort == SortType.STUDENTS);
-    }
-    if (sort == SortType.NONE) return dao.findAll();
-    return dao.getOrderedBy(sort.getOrderBy());
-  }
 
   public List<CompletedCourseDTO> getCompletedCourses(int studentId)
       throws ServiceException {
