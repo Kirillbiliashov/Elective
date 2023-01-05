@@ -92,12 +92,6 @@ public class CourseService extends AbstractService {
     return list;
   }
 
-  public List<CourseDTO> getAvailableCourses(int studentId) throws ServiceException {
-    transactionManager.initTransaction(dao, topicDAO, accDAO, journalDAO);
-    return performDaoReadOperation(() ->
-        getCourseDTOList(dao.findAvailableForStudent(studentId)));
-  }
-
   public List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
       throws ServiceException {
     transactionManager.initTransaction(dao, journalDAO, topicDAO, accDAO);

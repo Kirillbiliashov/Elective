@@ -1,4 +1,5 @@
 <%@ taglib prefix="teacher" uri="/WEB-INF/tld/account.tld" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/><div class="selection-form-container">
@@ -21,8 +22,7 @@
         <select class="form-control" name="teacher" id="teacher">
           <option selected value="Any"><fmt:message key="teacher.any"/></option>
           <c:forEach items="${teachers}" var="teacher">
-            <option value="<teacher:fullName target="${teacher}"/>"><teacher:fullName
-                    target="${teacher}"/></option>
+            <option value="<teacher:fullName target="${teacher}"/>"><teacher:fullName target="${teacher}"/></option>
           </c:forEach>
         </select>
       </div>

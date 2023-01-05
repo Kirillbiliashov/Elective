@@ -3,7 +3,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <li class="page-item ${prev eq 0 ? "disabled" : ""}">
-    <a class="page-link" href="?page=${prev}"><fmt:message key="previous"/></a></li>
+    <a class="page-link" href="?page=${prev}&display=${param.display ne null ? param.display : 1}"><fmt:message key="previous"/></a></li>
 <c:if test="${prev ne 0}">
-    <li class="page-item"><a class="page-link" href="?page=${prev}">${prev}</a></li>
+    <li class="page-item"><a class="page-link" href="?page=${prev}&display=${param.display ne null ? param.display : 1}">${prev}</a></li>
 </c:if>

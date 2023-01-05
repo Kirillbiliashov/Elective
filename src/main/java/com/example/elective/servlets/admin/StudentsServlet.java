@@ -1,10 +1,9 @@
 package com.example.elective.servlets.admin;
 
 import com.example.elective.exceptions.ServiceException;
+import com.example.elective.selection.Pagination;
 import com.example.elective.services.AccountService;
-import com.example.elective.services.StudentService;
 import com.example.elective.utils.PaginationUtils;
-import com.example.elective.utils.RegexUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -31,11 +30,14 @@ public class StudentsServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       int page = PaginationUtils.getPageNumber(req);
+      int displayCount = PaginationUtils.getItemsPerPage(req);
       PaginationUtils.setPageAttributes(req, page);
-      int pagesCount = accountService.getPagesCount("Student");
+      int pagesCount = (int) Math.ceil(accountService.getTotalCount("Student")
+          / (double) displayCount);
       req.setAttribute("pagesCount", pagesCount);
       if (page <= pagesCount) {
-        req.setAttribute("students", accountService.getAtPage("Student", page));
+        req.setAttribute("students", accountService.getPaginated("Student",
+            new Pagination(page, displayCount)));
       }
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="acc" uri="/WEB-INF/tld/account.tld" %>
-<%@ taglib prefix="ref" tagdir="/WEB-INF/tags/url" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="element" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${lang}"/>
@@ -30,23 +29,24 @@
         <h2><fmt:message key="course"/>: ${course.name}</h2>
         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col"><fmt:message key="student"/></th>
-                <th scope="col"><fmt:message key="grade"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${journals}" var="journal">
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <td>${journal.student}</td>
-                    <c:if test="${journal.grade eq -1}">
-                        <c:if test="${course.endDate.after(currDate)}">
-                            <td><fmt:message key="course_not_finished"/></td>
+                    <th scope="col"><fmt:message key="student"/></th>
+                    <th scope="col"><fmt:message key="grade"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${journals}" var="journal">
+                    <tr>
+                        <td>${journal.student}</td>
+                        <td>
+                            <c:if test="${journal.grade eq -1}">
+                            <c:if test="${course.endDate.after(currDate)}">
+                        <fmt:message key="course_not_finished"/>
                         </c:if>
                         <c:if test="${course.endDate.before(currDate)}">
-                            <td>
                                 <form method="post" action="teacher/addGrade/${journal.id}">
                                     <div style="display: flex; align-items: center; justify-content: center">
                                         <input type="number" min="0" max="100" name="grade" id="grade"/>
@@ -54,16 +54,17 @@
                                                value="<fmt:message key="add_grade"/>">
                                     </div>
                                 </form>
-                            </td>
                         </c:if>
-                    </c:if>
-                    <c:if test="${entry.key.grade ne -1}">
-                        <td>${entry.key.grade}</td>
-                    </c:if>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                        </c:if>
+                        <c:if test="${entry.key.grade ne -1}">
+                         ${entry.key.grade}
+                        </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
         <c:import url="pagination.jsp"/>
     </c:if>
     <c:if test="${course eq null}">

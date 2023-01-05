@@ -18,4 +18,10 @@ public class PaginationUtils {
     return Integer.parseInt(pageParam);
   }
 
+  public static int getItemsPerPage(HttpServletRequest request) {
+    String pageParam = request.getParameter("display");
+    if (!RegexUtils.isNumeric(pageParam)) return 8;
+    return Integer.parseInt(pageParam);
+  }
+
 }

@@ -21,25 +21,28 @@
         <h2><fmt:message key="teachers"/></h2>
         <a href="teachers/register" class="register-teacher-ref"><fmt:message key="teachers.register"/></a>
     </div>
+    <jsp:include page="display-form.jsp"/>
     <c:if test="${not empty teachers}">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col"><fmt:message key="student.name"/></th>
-                <th scope="col"><fmt:message key="user.username"/></th>
-                <th scope="col"><fmt:message key="user.email"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${teachers}" var="teacher">
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <td>${teacher.firstName} ${teacher.lastName}</td>
-                    <td>${teacher.username}</td>
-                    <td>${teacher.email}</td>
+                    <th scope="col"><fmt:message key="student.name"/></th>
+                    <th scope="col"><fmt:message key="user.username"/></th>
+                    <th scope="col"><fmt:message key="user.email"/></th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:forEach items="${teachers}" var="teacher">
+                    <tr>
+                        <td>${teacher.firstName} ${teacher.lastName}</td>
+                        <td>${teacher.username}</td>
+                        <td>${teacher.email}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
         <jsp:include page="pagination.jsp"/>
     </c:if>
     <c:if test="${empty teachers}">

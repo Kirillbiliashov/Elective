@@ -18,41 +18,45 @@
 <admin:navbar adminUrl="../admin" studentsUrl="" teachersUrl="teachers" activeNavItem="students"/>
 <div class="page-container">
     <h2><fmt:message key="students" /></h2>
+    <jsp:include page="display-form.jsp"/>
     <c:if test="${not empty students}" >
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"><fmt:message key="student.name"/></th>
-            <th scope="col"><fmt:message key="user.username"/></th>
-            <th scope="col"><fmt:message key="user.email"/></th>
-            <th scope="col"><fmt:message key="student.status"/></th>
-            <th><fmt:message key="student.action"/></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${students}" var="student">
-            <tr>
-                <td>${student.firstName} ${student.lastName}</td>
-                <td>${student.username}</td>
-                <td>${student.email}</td>
-                <td>
-                    <c:if test="${student.blocked}"><fmt:message key="student.blocked"/></c:if>
-                    <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
-                </td>
-                <td>
-                    <form action="students/changeBlock/${student.id}" method="POST">
-                        <c:if test="${student.blocked}">
-                            <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
-                        </c:if>
-                        <c:if test="${!student.blocked}">
-                            <input type="submit" class="btn btn-dark" value="<fmt:message key="students.block"/>">
-                        </c:if>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col"><fmt:message key="student.name"/></th>
+                    <th scope="col"><fmt:message key="user.username"/></th>
+                    <th scope="col"><fmt:message key="user.email"/></th>
+                    <th scope="col"><fmt:message key="student.status"/></th>
+                    <th><fmt:message key="student.action"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${students}" var="student">
+                    <tr>
+                        <td>${student.firstName} ${student.lastName}</td>
+                        <td>${student.username}</td>
+                        <td>${student.email}</td>
+                        <td>
+                            <c:if test="${student.blocked}"><fmt:message key="student.blocked"/></c:if>
+                            <c:if test="${!student.blocked}"><fmt:message key="student.active"/></c:if>
+                        </td>
+                        <td>
+                            <form action="students/changeBlock/${student.id}?page=${param.page}&display=${param.display}" method="POST">
+                                <c:if test="${student.blocked}">
+                                    <input type="submit" class="btn btn-secondary" value="<fmt:message key="students.unlock"/>">
+                                </c:if>
+                                <c:if test="${!student.blocked}">
+                                    <input type="submit" class="btn btn-dark" value="<fmt:message key="students.block"/>">
+                                </c:if>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+
     <jsp:include page="pagination.jsp"/>
     </c:if>
     <c:if test="${empty students}" >

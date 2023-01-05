@@ -3,6 +3,7 @@ package com.example.elective.services;
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
+import com.example.elective.selection.Pagination;
 import com.example.elective.utils.PasswordUtils;
 
 import java.util.List;
@@ -33,12 +34,12 @@ public class AccountService extends AbstractService {
     return performDaoReadOperation(() -> dao.findByRole(roleName));
   }
 
-  public List<Account> getAtPage(String role, int page) throws ServiceException {
+  public List<Account> getPaginated(String role, Pagination pagination) throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.findByRole(role, page));
+    return performDaoReadOperation(() -> dao.findByRole(role, pagination));
   }
 
-  public int getPagesCount(String roleName) throws ServiceException {
+  public int getTotalCount(String roleName) throws ServiceException {
     transactionManager.initTransaction(dao);
     return performDaoReadOperation(() -> dao.getCountByRole(roleName));
   }
