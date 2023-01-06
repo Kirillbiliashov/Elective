@@ -1,8 +1,5 @@
 package com.example.elective.dto;
 
-import com.example.elective.models.Course;
-import com.example.elective.models.Journal;
-
 import java.sql.Date;
 
 public class CourseDTO {
@@ -15,14 +12,6 @@ public class CourseDTO {
   protected String topic;
   protected String teacher;
   protected int studentsCount;
-  private CourseDTOBuilder builder;
-
-  private CourseDTO(CourseDTOBuilder builder) {
-    this.builder = builder;
-  }
-
-  protected CourseDTO() {}
-
 
   public int getId() {
     return id;
@@ -61,50 +50,50 @@ public class CourseDTO {
     return this.endDate.compareTo(this.startDate);
   }
 
-  public static CourseDTOBuilder newBuilder() {
-    return new CourseDTOBuilder();
+  public static Builder newBuilder() {
+    return new Builder();
   }
 
-  public static class CourseDTOBuilder {
+  public static class Builder {
 
-    protected CourseDTO courseDTO = new CourseDTO(this);
+    private final CourseDTO courseDTO = new CourseDTO();
 
-    public CourseDTOBuilder setId(int id) {
+    public Builder setId(int id) {
       courseDTO.id = id;
       return this;
     }
 
-    public CourseDTOBuilder setName(String name) {
+    public Builder setName(String name) {
       courseDTO.name = name;
       return this;
     }
 
-    public CourseDTOBuilder setDescription(String description) {
+    public Builder setDescription(String description) {
       courseDTO.description = description;
       return this;
     }
 
-    public CourseDTOBuilder setStartDate(Date startDate) {
+    public Builder setStartDate(Date startDate) {
       courseDTO.startDate = startDate;
       return this;
     }
 
-    public CourseDTOBuilder setEndDate(Date endDate) {
+    public Builder setEndDate(Date endDate) {
       courseDTO.endDate = endDate;
       return this;
     }
 
-    public CourseDTOBuilder setTopic(String topic) {
+    public Builder setTopic(String topic) {
       courseDTO.topic = topic;
       return this;
     }
 
-    public CourseDTOBuilder setTeacher(String teacher) {
+    public Builder setTeacher(String teacher) {
       courseDTO.teacher = teacher;
       return this;
     }
 
-    public CourseDTOBuilder setStudentsCount(int studentsCount) {
+    public Builder setStudentsCount(int studentsCount) {
       courseDTO.studentsCount = studentsCount;
       return this;
     }

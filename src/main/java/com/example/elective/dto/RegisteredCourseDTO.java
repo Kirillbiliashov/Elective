@@ -1,8 +1,17 @@
 package com.example.elective.dto;
 
+import com.example.elective.models.Course;
+
 import java.sql.Date;
 
-public class RegisteredCourseDTO extends CourseDTO {
+public class RegisteredCourseDTO {
+
+  private CourseDTO courseDTO;
+
+  public RegisteredCourseDTO(CourseDTO courseDTO, Date registrationDate) {
+    this.courseDTO = courseDTO;
+    this.registrationDate = registrationDate;
+  }
 
   private Date registrationDate;
 
@@ -10,9 +19,40 @@ public class RegisteredCourseDTO extends CourseDTO {
     return registrationDate;
   }
 
-  public void setRegistrationDate(Date registrationDate) {
-    this.registrationDate = registrationDate;
+  public int getId(){
+    return courseDTO.id;
   }
 
+  public String getName() {
+    return courseDTO.name;
+  }
+
+  public String getDescription() {
+    return courseDTO.description;
+  }
+
+  public Date getStartDate() {
+    return courseDTO.startDate;
+  }
+
+  public Date getEndDate() {
+    return courseDTO.endDate;
+  }
+
+  public int getDuration() {
+    return courseDTO.getDuration();
+  }
+
+  public String getTopic() {
+    return courseDTO.topic;
+  }
+
+  public String getTeacher() {
+    return courseDTO.teacher;
+  }
+
+  public int getStudentsCount() {
+    return courseDTO.studentsCount;
+  }
 
 }
