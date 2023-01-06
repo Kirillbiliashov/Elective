@@ -3,6 +3,7 @@ package com.example.elective.servlets.admin;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.selection.Pagination;
 import com.example.elective.services.AccountService;
+import static com.example.elective.utils.Constants.*;
 import com.example.elective.utils.PaginationUtils;
 
 import javax.servlet.ServletConfig;
@@ -17,12 +18,14 @@ import java.io.IOException;
 @WebServlet("/admin/teachers")
 public class TeachersServlet extends HttpServlet {
 
+  private static final String JSP_PAGE = "/admin-teachers.jsp";
+
   private AccountService accountService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    accountService = (AccountService) context.getAttribute("accountService");
+    accountService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
   }
 
   @Override
@@ -31,18 +34,18 @@ public class TeachersServlet extends HttpServlet {
     try {
       int page = PaginationUtils.getPageNumber(req);
       int displayCount = PaginationUtils.getItemsPerPage(req);
-      int pagesCount = (int) Math.ceil(accountService.getTotalCount("Teacher")
+      int pagesCount = (int) Math.ceil(accountService.getTotalCount(TEACHER_ROLE)
           / (double) displayCount);
       PaginationUtils.setPageAttributes(req, page);
-      req.setAttribute("pagesCount", pagesCount);
+      req.setAttribute(PAGES_COUNT_ATTR, pagesCount);
       if (page <= pagesCount) {
-        req.setAttribute("teachers", accountService.getPaginated("Teacher",
-            new Pagination(page, displayCount)));
+        req.setAttribute(TEACHERS_ATTR, accountService.getPaginated(TEACHER_ROLE,
+                new Pagination(page, displayCount)));
       }
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("/admin-teachers.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

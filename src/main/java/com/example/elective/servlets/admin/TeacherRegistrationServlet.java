@@ -17,22 +17,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+
 @WebServlet("/admin/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {
 
-  private RequestMapper<Account> accountMapper = new AccountRequestMapper();
+  private static final String JSP_PAGE = "/teacher-register-form.jsp";
+  private static final String REDIRECT_URL = "/elective/admin/teachers";
+  private final RequestMapper<Account> accountMapper = new AccountRequestMapper();
   private AccountService accService;
 
   @Override
   public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
-    accService = (AccountService) context.getAttribute("accountService");
+    accService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.getRequestDispatcher("/teacher-register-form.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
   @Override
@@ -43,7 +47,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect("/elective/admin/teachers");
+    resp.sendRedirect(REDIRECT_URL);
   }
 
 }

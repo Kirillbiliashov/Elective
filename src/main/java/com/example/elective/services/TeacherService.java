@@ -11,11 +11,13 @@ import com.example.elective.dto.JournalDTO;
 
 import java.util.*;
 
+import static com.example.elective.utils.Constants.TEACHER_ROLE;
+
 public class TeacherService extends AbstractService {
 
-  private AccountDAO accDao = daoFactory.getAccountDAO();
-  private CourseDAO courseDao = daoFactory.getCourseDAO();
-  private JournalDAO journalDao = daoFactory.getJournalDAO();
+  private final AccountDAO accDao = daoFactory.getAccountDAO();
+  private final CourseDAO courseDao = daoFactory.getCourseDAO();
+  private final JournalDAO journalDao = daoFactory.getJournalDAO();
 
   public int getPagesCount(int teacherId) throws ServiceException {
     transactionManager.initTransaction(courseDao);
@@ -30,7 +32,7 @@ public class TeacherService extends AbstractService {
 
   public List<Account> getAll() throws ServiceException {
     transactionManager.initTransaction(accDao);
-    return performDaoReadOperation(() -> accDao.findByRole("Teacher"));
+    return performDaoReadOperation(() -> accDao.findByRole(TEACHER_ROLE));
   }
 
   public List<JournalDTO> getJournalList(int courseId) throws ServiceException {

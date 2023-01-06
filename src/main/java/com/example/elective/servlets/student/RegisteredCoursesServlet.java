@@ -14,27 +14,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.COURSE_SERVICE;
+import static com.example.elective.utils.Constants.REGISTERED_COURSES_ATTR;
+
 @WebServlet("/student/registered_courses")
 public class RegisteredCoursesServlet extends HttpServlet {
 
+  private static final String JSP_PAGE = "/student-registered-courses.jsp";
   private CourseService courseService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    courseService = (CourseService) context.getAttribute("courseService");
+    courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
-      req.setAttribute("registeredCourses",
+      req.setAttribute(REGISTERED_COURSES_ATTR,
           courseService.getRegisteredCourses(studentId));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("/student-registered-courses.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

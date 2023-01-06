@@ -7,17 +7,25 @@ import java.sql.Date;
 
 public class CourseRequestMapper implements RequestMapper<Course> {
 
+  private static final String ID = "id";
+  private static final String NAME = "name";
+  private static final String DESCRIPTION = "description";
+  private static final String START_DATE = "startDate";
+  private static final String END_DATE = "endDate";
+  private static final String TOPIC_ID = "topicId";
+  private static final String TEACHER_ID = "teacherId";
+
   @Override
   public Course map(HttpServletRequest req) {
-    String idStr = req.getParameter("id");
+    String idStr = req.getParameter(ID);
     return Course.newBuilder()
         .setId(idStr == null ? 0 : Integer.parseInt(idStr))
-        .setName(req.getParameter("name"))
-        .setDescription(req.getParameter("description"))
-        .setStartDate(Date.valueOf(req.getParameter("startDate")))
-        .setEndDate(Date.valueOf(req.getParameter("endDate")))
-        .setTopicId(Integer.parseInt(req.getParameter("topicId")))
-        .setTeacherId(Integer.parseInt(req.getParameter("teacherId")))
+        .setName(req.getParameter(NAME))
+        .setDescription(req.getParameter(DESCRIPTION))
+        .setStartDate(Date.valueOf(req.getParameter(START_DATE)))
+        .setEndDate(Date.valueOf(req.getParameter(END_DATE)))
+        .setTopicId(Integer.parseInt(req.getParameter(TOPIC_ID)))
+        .setTeacherId(Integer.parseInt(req.getParameter(TEACHER_ID)))
         .build();
   }
 

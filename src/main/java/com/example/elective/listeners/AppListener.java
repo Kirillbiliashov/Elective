@@ -10,6 +10,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 
+import static com.example.elective.utils.Constants.*;
+
 @WebListener
 public class AppListener implements ServletContextListener {
 
@@ -23,12 +25,12 @@ public class AppListener implements ServletContextListener {
   }
 
   private void setAttributes(ServletContext context) {
-    context.setAttribute("accountService", new AccountService());
-    context.setAttribute("courseService", new CourseService());
-    context.setAttribute("journalService", new JournalService());
-    context.setAttribute("studentService", new StudentService());
-    context.setAttribute("teacherService", new TeacherService());
-    context.setAttribute("topicService", new TopicService());
+    context.setAttribute(ACCOUNT_SERVICE, new AccountService());
+    context.setAttribute(COURSE_SERVICE, new CourseService());
+    context.setAttribute(JOURNAL_SERVICE, new JournalService());
+    context.setAttribute(STUDENT_SERVICE, new StudentService());
+    context.setAttribute(TEACHER_SERVICE, new TeacherService());
+    context.setAttribute(TOPIC_SERVICE, new TopicService());
   }
 
   @Override

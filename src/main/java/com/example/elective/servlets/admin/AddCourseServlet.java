@@ -9,7 +9,7 @@ import com.example.elective.models.Topic;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TopicService;
-import com.example.elective.utils.Constants;
+import static com.example.elective.utils.Constants.*;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -25,7 +25,8 @@ import java.util.List;
 @WebServlet("/admin/courses/add")
 public class AddCourseServlet extends HttpServlet {
 
-  private RequestMapper<Course> courseMapper = new CourseRequestMapper();
+  private static final String JSP_PAGE = "/add-course.jsp";
+  private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
   private TopicService topicService;
   private AccountService accService;
   private CourseService courseService;
@@ -33,9 +34,9 @@ public class AddCourseServlet extends HttpServlet {
   @Override
   public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
-    topicService = (TopicService) context.getAttribute("topicService");
-    accService = (AccountService) context.getAttribute("accountService");
-    courseService = (CourseService) context.getAttribute("courseService");
+    topicService = (TopicService) context.getAttribute(TOPIC_SERVICE);
+    accService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
+    courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
   }
 
   @Override
@@ -43,12 +44,12 @@ public class AddCourseServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       List<Topic> topics = topicService.getAll();
-      req.setAttribute("topics", topics);
-      req.setAttribute("teachers", accService.getByRole("Teacher"));
+      req.setAttribute(TOPICS_ATTR, topics);
+      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("/add-course.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
   @Override
@@ -60,7 +61,7 @@ public class AddCourseServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Constants.ADMIN_SERVLET_NAME);
+    resp.sendRedirect(ADMIN_SERVLET_NAME);
   }
 
 }

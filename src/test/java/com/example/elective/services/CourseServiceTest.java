@@ -1,10 +1,10 @@
 package com.example.elective.services;
 
-import com.example.elective.CourseSelection;
 import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dao.interfaces.DAO;
 import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.models.Course;
+import com.example.elective.selection.CourseSelection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ public class CourseServiceTest {
 
   @Test
   void getBySelection() throws Exception {
-    CourseSelection selection = new CourseSelection(1, 1, "name");
+    CourseSelection selection = new CourseSelection("Teacher", "Topic", "name");
     List<Course> courses = createCourses(
         Arrays.asList("algebra", "geometry", "history", "mobile development", "physics"),
         Arrays.asList(1, 1, 2, 3, 1),

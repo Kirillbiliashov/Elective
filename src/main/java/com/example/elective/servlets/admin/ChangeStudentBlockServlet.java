@@ -2,7 +2,7 @@ package com.example.elective.servlets.admin;
 
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.StudentService;
-import com.example.elective.utils.Constants;
+import static com.example.elective.utils.Constants.*;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -17,12 +17,13 @@ import java.io.IOException;
 @WebServlet("/admin/students/changeBlock/*")
 public class ChangeStudentBlockServlet extends HttpServlet {
 
+  private static final String JSP_PAGE = ADMIN_SERVLET_NAME + "/students";
   private StudentService studentService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    studentService = (StudentService) context.getAttribute("studentService");
+    studentService = (StudentService) context.getAttribute(STUDENT_SERVICE);
   }
 
   @Override
@@ -34,7 +35,7 @@ public class ChangeStudentBlockServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect( Constants.ADMIN_SERVLET_NAME + "/students");
+    resp.sendRedirect(JSP_PAGE);
   }
 
 }

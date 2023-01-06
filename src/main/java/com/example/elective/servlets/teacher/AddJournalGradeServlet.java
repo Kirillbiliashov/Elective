@@ -12,28 +12,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.JOURNAL_SERVICE;
+
 @WebServlet("/teacher/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {
 
+  private static final String REDIRECT_URL = "/elective/teacher?page=1";
+  private static final String GRADE_PARAM = "grade";
   private JournalService journalService;
 
   @Override
   public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
-    journalService = (JournalService) context.getAttribute("journalService");
+    journalService = (JournalService) context.getAttribute(JOURNAL_SERVICE);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     int journalId = RequestUtils.getIdFromPathInfo(req.getPathInfo());
-    String gradeStr = req.getParameter("grade");
+    String gradeStr = req.getParameter(GRADE_PARAM);
     try {
       journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect("/elective/teacher?page=1");
+    resp.sendRedirect(REDIRECT_URL);
   }
 
 }

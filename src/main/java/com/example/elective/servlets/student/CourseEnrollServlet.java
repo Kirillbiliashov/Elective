@@ -15,16 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.JOURNAL_SERVICE;
+
 @WebServlet("/student/courses/enroll/*")
 public class CourseEnrollServlet extends HttpServlet {
 
-  private RequestMapper<Journal> journalMapper = new JournalRequestMapper();
+  private static final String REDIRECT_URL = "/elective/student";
+  private final RequestMapper<Journal> journalMapper = new JournalRequestMapper();
   private JournalService journalService;
 
   @Override
   public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
-    journalService = (JournalService) context.getAttribute("journalService");
+    journalService = (JournalService) context.getAttribute(JOURNAL_SERVICE);
   }
 
   @Override
@@ -36,7 +39,7 @@ public class CourseEnrollServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect("/elective/student");
+    resp.sendRedirect(REDIRECT_URL);
   }
 
 }

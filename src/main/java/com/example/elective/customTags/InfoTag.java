@@ -15,7 +15,7 @@ public class InfoTag extends SimpleTagSupport {
   }
 
   @Override
-  public void doTag() throws JspException, IOException {
+  public void doTag() throws IOException {
     getJspContext().getOut().println(account.getFirstName() + " " +
         account.getLastName() + "(" + account.getUsername() + ")");
   }

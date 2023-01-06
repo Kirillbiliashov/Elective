@@ -7,6 +7,7 @@ import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
+import com.example.elective.utils.Constants;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -17,21 +18,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static com.example.elective.utils.Constants.*;
+
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
 
+  private static final String JSP_PAGE = "student.jsp";
   private CourseService courseService;
   private TeacherService teacherService;
   private TopicService topicService;
-  private RequestMapper<CourseSelection> selectionMapper =
+  private final RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    courseService = (CourseService) context.getAttribute("courseService");
-    topicService = (TopicService) context.getAttribute("topicService");
-    teacherService = (TeacherService) context.getAttribute("teacherService");
+    courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
+    topicService = (TopicService) context.getAttribute(TOPIC_SERVICE);
+    teacherService = (TeacherService) context.getAttribute(TEACHER_SERVICE);
   }
 
   @Override
@@ -40,14 +45,14 @@ public class StudentServlet extends HttpServlet {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
-      req.setAttribute("topics", topicService.getAll());
-      req.setAttribute("teachers", teacherService.getAll());
-      req.setAttribute("availableCourses",
+      req.setAttribute(TOPICS_ATTR, topicService.getAll());
+      req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
+      req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("student.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

@@ -2,7 +2,7 @@ package com.example.elective.servlets.admin;
 
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.CourseService;
-import com.example.elective.utils.Constants;
+import static com.example.elective.utils.Constants.*;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -21,7 +21,7 @@ public class DeleteCourseServlet extends HttpServlet {
   @Override
   public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
-    courseService = (CourseService) context.getAttribute("courseService");
+    courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
   }
 
   @Override
@@ -33,7 +33,7 @@ public class DeleteCourseServlet extends HttpServlet {
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Constants.ADMIN_SERVLET_NAME);
+    resp.sendRedirect(ADMIN_SERVLET_NAME);
   }
 
 }

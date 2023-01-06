@@ -14,15 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.*;
+
 @WebServlet("/admin/students")
 public class StudentsServlet extends HttpServlet {
 
+  private static final String JSP_PAGE = "/admin-students.jsp";
   private AccountService accountService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    accountService = (AccountService) context.getAttribute("accountService");
+    accountService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
   }
 
   @Override
@@ -32,17 +35,17 @@ public class StudentsServlet extends HttpServlet {
       int page = PaginationUtils.getPageNumber(req);
       int displayCount = PaginationUtils.getItemsPerPage(req);
       PaginationUtils.setPageAttributes(req, page);
-      int pagesCount = (int) Math.ceil(accountService.getTotalCount("Student")
+      int pagesCount = (int) Math.ceil(accountService.getTotalCount(STUDENT_ROLE)
           / (double) displayCount);
-      req.setAttribute("pagesCount", pagesCount);
+      req.setAttribute(PAGES_COUNT_ATTR, pagesCount);
       if (page <= pagesCount) {
-        req.setAttribute("students", accountService.getPaginated("Student",
+        req.setAttribute(STUDENTS_ATTR, accountService.getPaginated(STUDENT_ROLE,
             new Pagination(page, displayCount)));
       }
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("/admin-students.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

@@ -34,6 +34,8 @@ public class Journal extends Entity {
     return studentId;
   }
 
+
+
   public static JournalBuilder newBuilder() {
     return new JournalBuilder();
   }

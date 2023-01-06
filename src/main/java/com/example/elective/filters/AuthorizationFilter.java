@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.HOME_URL_ATTR;
+
 public class AuthorizationFilter extends HttpFilter {
 
   @Override
@@ -16,10 +18,8 @@ public class AuthorizationFilter extends HttpFilter {
                           FilterChain chain) throws IOException, ServletException {
     HttpSession session = req.getSession();
     String url = req.getServletPath();
-    String homeUrl = (String) session.getAttribute("homeUrl");
-    if (isValidUrl(url, homeUrl)) {
-      chain.doFilter(req, res);
-    }
+    String homeUrl = (String) session.getAttribute(HOME_URL_ATTR);
+    if (isValidUrl(url, homeUrl)) chain.doFilter(req, res);
     else res.sendError(403);
   }
 

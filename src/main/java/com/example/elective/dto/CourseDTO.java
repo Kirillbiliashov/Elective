@@ -21,9 +21,7 @@ public class CourseDTO {
     this.builder = builder;
   }
 
-  protected CourseDTO() {
-
-  }
+  protected CourseDTO() {}
 
 
   public int getId() {

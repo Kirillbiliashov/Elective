@@ -25,10 +25,10 @@ import java.util.*;
 
 public class CourseService extends AbstractService {
 
-  private CourseDAO dao = daoFactory.getCourseDAO();
-  private AccountDAO accDAO = daoFactory.getAccountDAO();
-  private TopicDAO topicDAO = daoFactory.getTopicDAO();
-  private JournalDAO journalDAO = daoFactory.getJournalDAO();
+  private final CourseDAO dao = daoFactory.getCourseDAO();
+  private final AccountDAO accDAO = daoFactory.getAccountDAO();
+  private final TopicDAO topicDAO = daoFactory.getTopicDAO();
+  private final JournalDAO journalDAO = daoFactory.getJournalDAO();
 
   public void update(Course course) throws ServiceException {
     transactionManager.initTransaction(dao);

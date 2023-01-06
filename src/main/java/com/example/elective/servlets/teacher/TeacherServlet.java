@@ -20,15 +20,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.elective.utils.Constants.*;
+
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
 
+  private static final String JSP_PAGE = "teacher.jsp";
   private TeacherService teacherService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    teacherService = (TeacherService) context.getAttribute("teacherService");
+    teacherService = (TeacherService) context.getAttribute(TEACHER_SERVICE);
   }
 
   @Override
@@ -38,20 +41,20 @@ public class TeacherServlet extends HttpServlet {
     int page = PaginationUtils.getPageNumber(req);
     PaginationUtils.setPageAttributes(req, page);
     try {
-      req.setAttribute("pagesCount", teacherService.getPagesCount(id));
+      req.setAttribute(PAGES_COUNT_ATTR, teacherService.getPagesCount(id));
       Optional<Course> optCourse = teacherService.getCourseAtPage(id, page);
       if (optCourse.isPresent()) setAttributes(req, optCourse.get());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("teacher.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
   private void setAttributes(HttpServletRequest req, Course course) throws ServiceException {
     List<JournalDTO> dtoList = teacherService.getJournalList(course.getId());
-    req.setAttribute("journals", dtoList);
-    req.setAttribute("course", course);
-    req.setAttribute("currDate", Constants.CURRENT_DATE);
+    req.setAttribute(JOURNALS_ATTR, dtoList);
+    req.setAttribute(COURSE_ATTR, course);
+    req.setAttribute(CURR_DATE_ATTR, CURRENT_DATE);
   }
 
 }

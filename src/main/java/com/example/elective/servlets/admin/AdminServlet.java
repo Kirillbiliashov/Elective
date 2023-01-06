@@ -5,6 +5,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.services.*;
+import static com.example.elective.utils.Constants.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -18,19 +19,21 @@ import java.io.IOException;
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
+  private final static String JSP_PAGE = "/admin.jsp";
+
   private CourseService courseService;
   private TeacherService teacherService;
   private TopicService topicService;
 
-  private RequestMapper<CourseSelection> selectionMapper =
+  private final RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
-    courseService = (CourseService) context.getAttribute("courseService");
-    topicService = (TopicService) context.getAttribute("topicService");
-    teacherService = (TeacherService) context.getAttribute("teacherService");
+    courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
+    topicService = (TopicService) context.getAttribute(TOPIC_SERVICE);
+    teacherService = (TeacherService) context.getAttribute(TEACHER_SERVICE);
   }
 
   @Override
@@ -38,13 +41,13 @@ public class AdminServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
-      req.setAttribute("topics", topicService.getAll());
-      req.setAttribute("courses", courseService.getBySelection(courseSelection));
-      req.setAttribute("teachers", teacherService.getAll());
+      req.setAttribute(TOPICS_ATTR, topicService.getAll());
+      req.setAttribute(COURSES_ATTR, courseService.getBySelection(courseSelection));
+      req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher("/admin.jsp").forward(req, resp);
+    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

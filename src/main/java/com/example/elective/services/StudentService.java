@@ -8,7 +8,7 @@ import java.util.*;
 
 public class StudentService extends AbstractService {
 
-  private AccountDAO accDao = daoFactory.getAccountDAO();
+  private final AccountDAO accDao = daoFactory.getAccountDAO();
 
   public void changeBlockStatus(int id) throws ServiceException {
     transactionManager.initTransaction(accDao);

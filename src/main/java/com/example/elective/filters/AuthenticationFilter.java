@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.*;
+
 public class AuthenticationFilter extends HttpFilter {
 
   private String loginPath;
@@ -26,15 +28,15 @@ public class AuthenticationFilter extends HttpFilter {
     HttpSession session = req.getSession();
     boolean isLoginPath = req.getServletPath().equals(loginPath);
     boolean isSignupPath = req.getServletPath().equals(signupPath);
-    boolean isLoggedIn = session.getAttribute("account") != null;
+    boolean isLoggedIn = session.getAttribute(ACCOUNT_ATTR) != null;
     boolean isLegalPath = isLoginPath || isSignupPath;
     if (!isLoggedIn) {
       if (!isLegalPath) {
-        res.sendRedirect("/elective/login");
+        res.sendRedirect(LOGIN_URL);
         return;
       }
     } else if (isLegalPath) {
-      res.sendRedirect((String) session.getAttribute("homeUrl"));
+      res.sendRedirect((String) session.getAttribute(HOME_URL_ATTR));
       return;
     }
     chain.doFilter(req, res);

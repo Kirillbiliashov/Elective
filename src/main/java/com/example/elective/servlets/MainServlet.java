@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.*;
+
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 
@@ -17,10 +19,10 @@ public class MainServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     HttpSession session = req.getSession();
-    Account account = (Account) session.getAttribute("account");
-    String homeUrl = "login";
+    Account account = (Account) session.getAttribute(ACCOUNT_ATTR);
+    String homeUrl = LOGIN_URL;
     if (account != null) homeUrl = account.getRole().toLowerCase();
-    session.setAttribute("homeUrl",  homeUrl);
+    session.setAttribute(HOME_URL_ATTR,  homeUrl);
     resp.sendRedirect(homeUrl);
   }
 
