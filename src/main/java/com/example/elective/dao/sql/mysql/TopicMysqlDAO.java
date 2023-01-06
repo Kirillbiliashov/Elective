@@ -1,5 +1,6 @@
 package com.example.elective.dao.sql.mysql;
 
+import com.example.elective.dao.interfaces.DAO;
 import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
@@ -22,9 +23,9 @@ public class TopicMysqlDAO extends MySqlDAO<Topic> implements TopicDAO {
   }
 
   @Override
-  public List<Topic> findAll() throws DAOException {
-    try (Statement stmt = conn.createStatement()) {
-      return getEntitiesList(stmt.executeQuery(FIND_ALL));
+  public List<Topic> getAll() throws DAOException {
+    try {
+      return getEntitiesList(FIND_ALL);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find topics", e);
@@ -33,9 +34,8 @@ public class TopicMysqlDAO extends MySqlDAO<Topic> implements TopicDAO {
 
   @Override
   public Optional<Topic> find(int id) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND)) {
-      addValuesToPreparedStatement(ps, id);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND, id);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find topic", e);

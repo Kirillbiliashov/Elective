@@ -5,6 +5,7 @@ import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.resultSetMappers.CourseResultSetMapper;
 import com.example.elective.models.Course;
+import com.example.elective.selection.Pagination;
 
 import java.sql.*;
 import java.util.List;
@@ -12,28 +13,28 @@ import java.util.Optional;
 
 public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
 
-  private static final String GET_BY_TEACHER_ID = "SELECT * FROM course" +
+  private static final String GET_ALL = "SELECT * FROM course";
+  private static final String GET_BY_TEACHER_ID = GET_ALL +
       " WHERE teacher_id = ?";
-  private static final String GET_BY_TEACHER_ID_AT_POS = GET_BY_TEACHER_ID + " LIMIT ?,1";
+  private static final String FIND_BY_TEACHER_ID_AT_POS = GET_BY_TEACHER_ID + " LIMIT ?,?";
   private static final String UPDATE = "UPDATE course SET name = ?," +
       " description = ?, start_date = ?, end_date = ?, topic_id = ?," +
       " teacher_id = ? WHERE id = ?";
   private static final String SAVE = "INSERT INTO course(name, description," +
       " start_date,end_date, topic_id, teacher_id) VALUES(?,?,?,?,?,?)";
   private static final String DELETE = "DELETE FROM course WHERE id = ?";
-  private static final String GET_ALL = "SELECT * FROM course";
-  private static final String GET_BY_ID = "SELECT * FROM course WHERE id = ?";
+  private static final String FIND_BY_ID = GET_ALL + " WHERE id = ?";
   private static final String SELECT_JOIN_JOURNAL = "SELECT course.id," +
       " name, description, start_date, end_date, topic_id, teacher_id " +
       "FROM course JOIN journal ON course.id = course_id ";
-  private static final String FIND_COMPLETED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
+  private static final String GET_COMPLETED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
       "WHERE student_id = ? AND end_date < CURRENT_DATE()";
-  private static final String FIND_IN_PROGRESS_FOR_STUDENT = SELECT_JOIN_JOURNAL +
+  private static final String GET_IN_PROGRESS_FOR_STUDENT = SELECT_JOIN_JOURNAL +
       "WHERE student_id = ? AND CURRENT_DATE() BETWEEN start_date AND end_date";
-  private static final String FIND_REGISTERED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
+  private static final String GET_REGISTERED_FOR_STUDENT = SELECT_JOIN_JOURNAL +
       "WHERE student_id = ? AND start_date > CURRENT_DATE()";
-  private static final String FIND_AVAILABLE_FOR_STUDENT = "SELECT" +
-      " * FROM course WHERE id != ALL (SELECT course.id FROM course " +
+  private static final String GET_AVAILABLE_FOR_STUDENT = GET_ALL +
+      " WHERE id != ALL (SELECT course.id FROM course " +
       "JOIN journal ON course_id = course.id WHERE student_id = ?)" +
       " AND start_date > CURRENT_DATE()";
 
@@ -43,9 +44,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
 
   @Override
   public List<Course> getByTeacherId(int teacherId) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID)) {
-      addValuesToPreparedStatement(ps, teacherId);
-      return getEntitiesList(ps.executeQuery());
+    try {
+      return getEntitiesList(GET_BY_TEACHER_ID, teacherId);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find teacher courses", e);
@@ -53,11 +53,11 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   }
 
   @Override
-  public Optional<Course> getByTeacherIdAtPosition(int teacherId, int position)
+  public Optional<Course> findByTeacherId(int teacherId, Pagination pagination)
       throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_BY_TEACHER_ID_AT_POS)) {
-      addValuesToPreparedStatement(ps, teacherId, position - 1);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND_BY_TEACHER_ID_AT_POS, teacherId,
+          pagination.getFrom(), pagination.getDisplayCount());
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find teacher's course", e);
@@ -82,10 +82,9 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   public void save(Course course) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
         Statement.RETURN_GENERATED_KEYS)) {
-      int teacherId = course.getTeacherId();
       addValuesToPreparedStatement(ps, course.getName(),
           course.getDescription(), course.getStartDate(),
-          course.getEndDate(), course.getTopicId(), teacherId);
+          course.getEndDate(), course.getTopicId(), course.getTeacherId());
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       if (rs.next()) course.getBuilder().setId(rs.getInt(1));
@@ -107,9 +106,9 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   }
 
   @Override
-  public List<Course> findAll() throws DAOException {
-    try (Statement stmt = conn.createStatement()) {
-      return getEntitiesList(stmt.executeQuery(GET_ALL));
+  public List<Course> getAll() throws DAOException {
+    try {
+      return getEntitiesList(GET_ALL);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find courses", e);
@@ -118,9 +117,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
 
   @Override
   public Optional<Course> find(int id) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
-      addValuesToPreparedStatement(ps, id);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND_BY_ID, id);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find course", e);
@@ -128,32 +126,32 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   }
 
   @Override
-  public List<Course> findCompletedForStudent(int studentId) throws DAOException {
-    return findByStudentId(studentId, FIND_COMPLETED_FOR_STUDENT);
+  public List<Course> getCompletedForStudent(int studentId) throws DAOException {
+    return getByStudentId(studentId, GET_COMPLETED_FOR_STUDENT);
   }
 
   @Override
-  public List<Course> findInProgressForStudent(int studentId)
+  public List<Course> getInProgressForStudent(int studentId)
       throws DAOException {
-    return findByStudentId(studentId, FIND_IN_PROGRESS_FOR_STUDENT);
+    return getByStudentId(studentId, GET_IN_PROGRESS_FOR_STUDENT);
   }
 
   @Override
-  public List<Course> findRegisteredForStudent(int studentId)
+  public List<Course> getRegisteredForStudent(int studentId)
       throws DAOException {
-    return findByStudentId(studentId, FIND_REGISTERED_FOR_STUDENT);
+    return getByStudentId(studentId, GET_REGISTERED_FOR_STUDENT);
   }
 
   @Override
-  public List<Course> findAvailableForStudent(int studentId)
+  public List<Course> getAvailableForStudent(int studentId)
       throws DAOException {
-    return findByStudentId(studentId, FIND_AVAILABLE_FOR_STUDENT);
+    return getByStudentId(studentId, GET_AVAILABLE_FOR_STUDENT);
   }
 
-  private List<Course> findByStudentId(int studentId, String query) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(query)) {
-      addValuesToPreparedStatement(ps, studentId);
-      return getEntitiesList(ps.executeQuery());
+  private List<Course> getByStudentId(int studentId, String query)
+      throws DAOException {
+    try {
+      return getEntitiesList(query, studentId);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find courses", e);

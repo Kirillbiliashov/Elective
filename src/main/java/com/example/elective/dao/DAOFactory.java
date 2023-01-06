@@ -12,7 +12,6 @@ public abstract class DAOFactory {
   public abstract JournalDAO getJournalDAO();
   public abstract TopicDAO getTopicDAO();
 
-
   public static DAOFactory getFactory(int dbms) {
     if (dbms == 1) return new MySqlDAOFactory();
     return null;

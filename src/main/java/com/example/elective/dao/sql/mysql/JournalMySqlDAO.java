@@ -14,18 +14,18 @@ import java.util.Optional;
 
 public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
 
+  private static final String SELECT_ALL = "SELECT  * FROM journal";
+  private static final String WHERE_COURSE_ID = " WHERE course_id = ?";
   private static final String UPDATE = "UPDATE journal SET grade = ?," +
       " enrollment_date = ? WHERE id = ?";
-  private static final String GET_BY_ID = "SELECT  * FROM journal" +
-      " WHERE id = ?";
-  private static final String FIND_BY_COURSE_AND_STUDENT = "SELECT  * FROM " +
-      "journal WHERE course_id = ? AND student_id = ?";
+  private static final String FIND = SELECT_ALL + " WHERE id = ?";
+  private static final String FIND_BY_COURSE_AND_STUDENT = SELECT_ALL +
+      WHERE_COURSE_ID + " AND student_id = ?";
   private static final String SAVE = "INSERT INTO journal(enrollment_date," +
       " course_id, student_id) VALUES(?, ?, ?)";
-  private static final String GET_BY_COURSE_ID = "SELECT * FROM journal" +
-      " WHERE course_id = ?";
-  private static final String GET_STUDENTS_COUNT_FOR_COURSE = "SELECT COUNT(*)" +
-      " FROM journal WHERE course_id = ?";
+  private static final String GET_BY_COURSE_ID = SELECT_ALL + WHERE_COURSE_ID;
+  private static final String GET_STUDENTS_COUNT = "SELECT COUNT(*)" +
+      " FROM journal" + WHERE_COURSE_ID;
 
   public JournalMySqlDAO() {
     this.mapper = new JournalResultSetMapper();
@@ -33,9 +33,8 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
 
   @Override
   public Optional<Journal> find(int journalId) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
-      addValuesToPreparedStatement(ps, journalId);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND, journalId);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find journal entry", e);
@@ -75,16 +74,15 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
   }
 
   @Override
-  public List<Journal> findAll() {
+  public List<Journal> getAll() {
     throw new UnsupportedOperationException();
   }
 
   @Override
   public Optional<Journal> findByCourseAndStudent(int courseId, int studentId)
       throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_COURSE_AND_STUDENT)) {
-      addValuesToPreparedStatement(ps, courseId, studentId);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND_BY_COURSE_AND_STUDENT, courseId, studentId);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find journal entry for given course and student", e);
@@ -93,9 +91,8 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
 
   @Override
   public List<Journal> getByCourseId(int courseId) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_BY_COURSE_ID)) {
-      addValuesToPreparedStatement(ps, courseId);
-      return getEntitiesList(ps.executeQuery());
+    try {
+      return getEntitiesList(GET_BY_COURSE_ID, courseId);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find journal entries for course", e);
@@ -104,10 +101,8 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
 
   @Override
   public int getStudentsCount(int courseId) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_STUDENTS_COUNT_FOR_COURSE)) {
-      addValuesToPreparedStatement(ps, courseId);
-      ResultSet rs = ps.executeQuery();
-      return rs.next() ? rs.getInt(1) : 0;
+    try {
+      return getCount(GET_STUDENTS_COUNT, courseId);
     } catch (SQLException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to get students count for the course", e);

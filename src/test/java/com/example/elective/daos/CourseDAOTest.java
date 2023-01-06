@@ -3,10 +3,8 @@ package com.example.elective.daos;
 import com.example.elective.dao.sql.mysql.CourseMySqlDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.mappers.Mapper;
-import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.message.Message;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.*;
-import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -61,7 +58,7 @@ public class CourseDAOTest {
     when(stmt.executeQuery(anyString())).thenReturn(rs);
     when(rs.next()).thenReturn(true, true, true, true, true, false);
     when(mapper.map(rs)).thenReturn(Course.newBuilder().build());
-    Assertions.assertEquals(EXP_COURSES_COUNT, dao.findAll().size());
+    Assertions.assertEquals(EXP_COURSES_COUNT, dao.getAll().size());
   }
 
   @Test

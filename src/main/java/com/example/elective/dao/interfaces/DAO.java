@@ -11,7 +11,7 @@ public interface DAO<T extends Entity> {
 
    void setConnection(Connection conn);
 
-   List<T> findAll() throws DAOException;
+   List<T> getAll() throws DAOException;
 
    Optional<T> find(int id) throws DAOException;
 

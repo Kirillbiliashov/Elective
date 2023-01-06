@@ -14,15 +14,17 @@ import java.util.Optional;
 
 public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
 
-  private static final String GET_BY_ID = "SELECT * FROM account WHERE id = ?";
+  private static final String SELECT_ALL = "SELECT * FROM account";
+  private static final String FIND_BY_ID = SELECT_ALL + " WHERE id = ?";
   private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
       " WHERE id = ?";
-  private static final String FIND_BY_ROLE = "SELECT * FROM account" +
-      " WHERE role = ?";
-  private static final String SAVE = "INSERT INTO account(username, email, password," +
-      " first_name, last_name, role) VALUES(?, ?, ?, ?, ?, ?)";
-  private static final String FIND_BY_LOGIN = "SELECT * FROM account WHERE username = ? OR email = ?";
-  private static final String FIND_BY_ROLE_AT_PAGE = FIND_BY_ROLE + " LIMIT ?,?";
+  private static final String GET_BY_ROLE = SELECT_ALL + " WHERE role = ?";
+  private static final String SAVE = "INSERT INTO account" +
+      "(username, email, password, first_name, last_name, role)" +
+      " VALUES(?, ?, ?, ?, ?, ?)";
+  private static final String FIND_BY_LOGIN = SELECT_ALL +
+      " WHERE username = ? OR email = ?";
+  private static final String GET_BY_ROLE_AT_PAGE = GET_BY_ROLE + " LIMIT ?,?";
   private static final String GET_COUNT_BY_ROLE = "SELECT COUNT(*) FROM account" +
       " WHERE role = ?";
 
@@ -32,9 +34,8 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
 
   @Override
   public Optional<Account> find(int id) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_BY_ID)) {
-      addValuesToPreparedStatement(ps, id);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND_BY_ID, id);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find account", e);
@@ -58,7 +59,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   }
 
   @Override
-  public List<Account> findAll() throws DAOException {
+  public List<Account> getAll() throws DAOException {
     throw new UnsupportedOperationException();
   }
 
@@ -80,10 +81,9 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   }
 
   @Override
-  public List<Account> findByRole(String role) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ROLE)) {
-      addValuesToPreparedStatement(ps, role);
-      return getEntitiesList(ps.executeQuery());
+  public List<Account> getByRole(String role) throws DAOException {
+    try {
+      return getEntitiesList(GET_BY_ROLE, role);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find accounts", e);
@@ -91,10 +91,11 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   }
 
   @Override
-  public List<Account> findByRole(String roleName, Pagination pagination) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ROLE_AT_PAGE)) {
-      addValuesToPreparedStatement(ps, roleName, pagination.getFrom(), pagination.getDisplayCount());
-      return getEntitiesList(ps.executeQuery());
+  public List<Account> getByRole(String roleName, Pagination pagination)
+      throws DAOException {
+    try {
+      return getEntitiesList(GET_BY_ROLE_AT_PAGE, roleName,
+          pagination.getFrom(), pagination.getDisplayCount());
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find accounts", e);
@@ -103,9 +104,8 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
 
   @Override
   public Optional<Account> findByLogin(String login) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(FIND_BY_LOGIN)) {
-      addValuesToPreparedStatement(ps, login, login);
-      return getOptionalEntity(ps.executeQuery());
+    try {
+      return getOptionalEntity(FIND_BY_LOGIN, login, login);
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find account", e);
@@ -114,10 +114,8 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
 
   @Override
   public int getCountByRole(String roleName) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(GET_COUNT_BY_ROLE)) {
-      addValuesToPreparedStatement(ps, roleName);
-      ResultSet rs = ps.executeQuery();
-      return rs.next() ? rs.getInt(1) : 0;
+    try {
+      return getCount(GET_COUNT_BY_ROLE, roleName);
     } catch (SQLException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find account", e);
