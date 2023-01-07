@@ -11,7 +11,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title><fmt:message key="title.courses"/></title>
     <style>
-        <%@include file="style.css" %>
+        <%@include file="WEB-INF/css/style.css" %>
     </style>
 </head>
 <body>
@@ -25,7 +25,7 @@
     <ul class="list-group">
         <div class="grid-container">
             <c:forEach items="${courses}" var="course">
-                <div class="card course-card">
+                <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">${course.name}</h3>
                         <p><fmt:message key="teacher"/>: ${course.teacher}</p>
@@ -33,28 +33,7 @@
                         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
                         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
                         <p><fmt:message key="course.students_count"/>: ${course.studentsCount}</p>
-                        <button type="button" class="btn btn-link description-btn" data-toggle="modal" data-target="#descModal/${course.id}">
-                            <fmt:message key="course.description"/>
-                        </button>
-                        <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">${course.name}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ${course.description}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <%@include file="course-modal.jsp" %>
                         <div class="course-btn-container">
                             <a href="admin/courses/edit/${course.id}"
                                class="btn btn-light"><fmt:message key="course.edit"/></a>

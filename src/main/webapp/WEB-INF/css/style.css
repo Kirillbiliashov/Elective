@@ -62,7 +62,7 @@ p {
     justify-content: space-around;
 }
 
-.course-card {
+.card {
     width: 18rem;
 }
 
@@ -131,4 +131,18 @@ p {
 }
 .table-container {
     min-height: 60%;
+}
+.add-grade-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.add-grade-btn {
+    margin: 10px
+}
+.display-field {
+    width: 50%
+}
+.display-container {
+    width: 200px
 }

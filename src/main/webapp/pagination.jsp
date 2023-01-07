@@ -4,11 +4,11 @@
 <html>
 <body>
 <nav>
-  <ul class="pagination justify-content-center">
-    <page:prev/>
-    <page:current/>
-    <page:next/>
-  </ul>
+    <ul class="pagination justify-content-center">
+        <page:prev/>
+        <page:current/>
+        <page:next/>
+    </ul>
 </nav>
 </body>
 </html>

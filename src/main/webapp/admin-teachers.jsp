@@ -11,7 +11,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title><fmt:message key="title.teachers"/></title>
     <style>
-        <%@include file="style.css" %>
+        <%@include file="WEB-INF/css/style.css" %>
     </style>
 </head>
 <body>
@@ -35,7 +35,7 @@
                 <tbody>
                 <c:forEach items="${teachers}" var="teacher">
                     <tr>
-                        <td>${teacher.firstName} ${teacher.lastName}</td>
+                        <td>${teacher.fullName}</td>
                         <td>${teacher.username}</td>
                         <td>${teacher.email}</td>
                     </tr>
