@@ -10,7 +10,7 @@ public class Course extends Entity {
   private Date endDate;
   private int topicId;
   private int teacherId;
-  private CourseBuilder builder;
+  private final CourseBuilder builder;
 
   public Course(CourseBuilder builder) {
     this.builder = builder;

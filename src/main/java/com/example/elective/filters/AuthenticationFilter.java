@@ -26,16 +26,15 @@ public class AuthenticationFilter extends HttpFilter {
   protected void doFilter(HttpServletRequest req, HttpServletResponse res,
                           FilterChain chain) throws IOException, ServletException {
     HttpSession session = req.getSession();
-    boolean isLoginPath = req.getServletPath().equals(loginPath);
-    boolean isSignupPath = req.getServletPath().equals(signupPath);
+    String servletPath = req.getServletPath();
+    boolean isLoginPath = servletPath.equals(loginPath);
+    boolean isSignupPath = servletPath.equals(signupPath);
     boolean isLoggedIn = session.getAttribute(ACCOUNT_ATTR) != null;
-    boolean isLegalPath = isLoginPath || isSignupPath;
-    if (!isLoggedIn) {
-      if (!isLegalPath) {
-        res.sendRedirect(LOGIN_URL);
-        return;
-      }
-    } else if (isLegalPath) {
+    boolean isAuthPath = isLoginPath || isSignupPath;
+    if (!isAuthPath && !isLoggedIn) {
+      res.sendRedirect(LOGIN_URL);
+      return;
+    } else if (isLoggedIn && isAuthPath) {
       res.sendRedirect((String) session.getAttribute(HOME_URL_ATTR));
       return;
     }

@@ -9,7 +9,7 @@ public class Account extends Entity {
   private String lastName;
   private boolean isBlocked;
   private String role;
-  private AccountBuilder builder;
+  private final AccountBuilder builder;
 
   public Account(AccountBuilder builder) {
     this.builder = builder;

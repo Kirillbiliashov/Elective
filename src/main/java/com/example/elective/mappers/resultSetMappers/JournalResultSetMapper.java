@@ -17,7 +17,7 @@ public class JournalResultSetMapper extends ResultSetMapper<Journal> {
   @Override
   public Journal map(ResultSet rs) throws MappingException {
     try {
-      return new Journal.JournalBuilder()
+      return Journal.newBuilder()
           .setId(rs.getInt(ID_COL_NAME))
           .setGrade(rs.getInt(GRADE_COL_NAME))
           .setEnrollmentDate(rs.getDate(ENROLLMENT_DATE_COL_NAME))

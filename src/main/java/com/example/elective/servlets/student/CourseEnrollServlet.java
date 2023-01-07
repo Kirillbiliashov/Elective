@@ -36,10 +36,10 @@ public class CourseEnrollServlet extends HttpServlet {
     Journal journal = journalMapper.map(req);
     try {
       journalService.save(journal);
+      resp.sendRedirect(REDIRECT_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(REDIRECT_URL);
   }
 
 }

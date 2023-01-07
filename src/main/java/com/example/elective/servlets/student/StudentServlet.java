@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
+import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
@@ -42,17 +43,17 @@ public class StudentServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    int studentId = RequestUtils.getCurrentUserId(req);
+    int studentId = getCurrentUserId(req);
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
       req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

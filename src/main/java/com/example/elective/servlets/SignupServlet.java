@@ -43,10 +43,10 @@ public class SignupServlet extends HttpServlet {
     Account acc = accountMapper.map(req);
     try {
       accService.save(acc);
+      resp.sendRedirect(Constants.LOGIN_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(Constants.LOGIN_URL);
   }
 
 }

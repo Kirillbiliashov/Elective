@@ -21,11 +21,11 @@ public class TeacherService extends AbstractService {
   private final CourseDAO courseDao = daoFactory.getCourseDAO();
   private final JournalDAO journalDao = daoFactory.getJournalDAO();
 
-  public Optional<Course> findCourseAtPage(int teacherId, int page)
+  public Optional<Course> findCourseAtPage(int teacherId, Pagination pagination)
       throws ServiceException {
     transactionManager.initTransaction(courseDao);
     return performDaoReadOperation(() ->
-        courseDao.findByTeacherId(teacherId, new Pagination(page, 1)));
+        courseDao.findByTeacherId(teacherId, pagination));
   }
 
   public List<Account> getAll() throws ServiceException {
@@ -36,8 +36,8 @@ public class TeacherService extends AbstractService {
   public List<JournalDTO> getJournalList(int courseId) throws ServiceException {
     transactionManager.initTransaction(accDao, journalDao);
     return performDaoReadOperation(() -> {
-      List<JournalDTO> list = new ArrayList<>();
       List<Journal> journalList = journalDao.getByCourseId(courseId);
+      List<JournalDTO> list = new ArrayList<>();
       for (final Journal journal : journalList) addDTOToList(list, journal);
       return list;
     });
@@ -45,12 +45,9 @@ public class TeacherService extends AbstractService {
 
   private void addDTOToList( List<JournalDTO> list, Journal journal)
       throws DAOException {
-    JournalDTO dto = new JournalDTO();
-    dto.setId(journal.getId());
-    dto.setGrade(journal.getGrade());
     Account student = accDao.find(journal.getStudentId()).get();
     String name = student.getFirstName() + student.getLastName();
-    dto.setStudent(name);
+    JournalDTO dto = new JournalDTO(journal.getId(), journal.getGrade(), name);
     list.add(dto);
   }
 

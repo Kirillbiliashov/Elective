@@ -1,10 +1,7 @@
 package com.example.elective.servlets.teacher;
 
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.models.Account;
-import com.example.elective.models.Journal;
 import com.example.elective.services.JournalService;
-import com.example.elective.servlets.student.CourseEnrollServlet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -15,8 +12,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 import static com.example.elective.TestConstants.JOURNAL_SERVICE_NAME;
 import static org.mockito.ArgumentMatchers.any;
@@ -58,7 +53,7 @@ public class AddJournalGradeServletTest {
   @Test
   void testCourseEnrollNegative() throws Exception {
     Mockito.doThrow(ServiceException.class).when(journalService)
-        .updateGradeById(anyInt(), anyInt());
+        .updateGrade(anyInt(), anyInt());
     servlet.doPost(req, resp);
     verify(resp, times(1))
         .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

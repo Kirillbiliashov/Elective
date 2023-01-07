@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.COURSES_IN_PROGRESS_ATTR;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
+import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
 @WebServlet("/student/courses_in_progress")
 public class CoursesInProgressServlet extends HttpServlet {
@@ -32,14 +33,14 @@ public class CoursesInProgressServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    int studentId = RequestUtils.getCurrentUserId(req);
+    int studentId = getCurrentUserId(req);
     try {
       req.setAttribute(COURSES_IN_PROGRESS_ATTR,
           courseService.getCoursesInProgress(studentId));
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

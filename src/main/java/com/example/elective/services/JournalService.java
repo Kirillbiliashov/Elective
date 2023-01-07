@@ -15,7 +15,7 @@ public class JournalService extends AbstractService {
     performDaoWriteOperation(() -> dao.save(journal));
   }
 
-  public void updateGradeById(int id, int grade) throws ServiceException {
+  public void updateGrade(int id, int grade) throws ServiceException {
     transactionManager.initTransaction(dao);
     performDaoWriteOperation(() -> {
       Optional<Journal> optJournal = dao.find(id);

@@ -2,12 +2,18 @@ package com.example.elective.selection;
 
 public class Pagination {
 
-  private int page;
-  private int displayCount;
+  protected int page;
+  protected int displayCount;
+  protected int totalItems;
 
-  public Pagination(int page, int displayCount) {
+  public Pagination(int page, int displayCount, int totalItems) {
     this.page = page;
     this.displayCount = displayCount;
+    this.totalItems = totalItems;
+  }
+
+  protected Pagination() {
+
   }
 
   public int getFrom() {
@@ -16,6 +22,10 @@ public class Pagination {
 
   public int getDisplayCount() {
     return displayCount;
+  }
+
+  public int getPagesCount() {
+    return (int) Math.ceil(totalItems / (double) displayCount);
   }
 
 }

@@ -43,13 +43,12 @@ public class AddCourseServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     try {
-      List<Topic> topics = topicService.getAll();
-      req.setAttribute(TOPICS_ATTR, topics);
+      req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
   @Override
@@ -58,10 +57,10 @@ public class AddCourseServlet extends HttpServlet {
     Course course = courseMapper.map(req);
     try {
       courseService.save(course);
+      resp.sendRedirect(ADMIN_SERVLET_NAME);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(ADMIN_SERVLET_NAME);
   }
 
 }

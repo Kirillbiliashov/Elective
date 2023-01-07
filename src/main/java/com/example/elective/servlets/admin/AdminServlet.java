@@ -44,10 +44,10 @@ public class AdminServlet extends HttpServlet {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(COURSES_ATTR, courseService.getBySelection(courseSelection));
       req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

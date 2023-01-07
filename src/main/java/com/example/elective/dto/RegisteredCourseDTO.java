@@ -6,7 +6,7 @@ import java.sql.Date;
 
 public class RegisteredCourseDTO {
 
-  private CourseDTO courseDTO;
+  private final CourseDTO courseDTO;
 
   public RegisteredCourseDTO(CourseDTO courseDTO, Date registrationDate) {
     this.courseDTO = courseDTO;

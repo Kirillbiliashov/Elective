@@ -48,17 +48,15 @@ public class LoginServlet extends HttpServlet {
     String password = req.getParameter(PASSWORD_PARAM);
     try {
       Optional<Account> optAccount = accService.findByCredentials(login, password);
+      Account acc = optAccount.orElse(null);
       if (!optAccount.isPresent()) {
         handleAbsentAccount(req, resp);
-        return;
-      }
-      Account acc = optAccount.get();
-      if (acc.isBlocked()) {
+      } else if (acc.isBlocked()) {
         handleBlockedAccount(req, resp);
-        return;
+      } else {
+        addAccountToSession(req, acc);
+        resp.sendRedirect(REDIRECT_URL);
       }
-      addAccountToSession(req, acc);
-      resp.sendRedirect(REDIRECT_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

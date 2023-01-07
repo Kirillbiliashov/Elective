@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.JOURNAL_SERVICE;
+import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
 @WebServlet("/teacher/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {
@@ -30,14 +31,14 @@ public class AddJournalGradeServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    int journalId = RequestUtils.getIdFromPathInfo(req.getPathInfo());
+    int journalId = getIdFromPathInfo(req.getPathInfo());
     String gradeStr = req.getParameter(GRADE_PARAM);
     try {
-      journalService.updateGradeById(journalId, Integer.parseInt(gradeStr));
+      journalService.updateGrade(journalId, Integer.parseInt(gradeStr));
+      resp.sendRedirect(REDIRECT_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(REDIRECT_URL);
   }
 
 }

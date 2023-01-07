@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
+import static com.example.elective.utils.PaginationUtils.getItemsPerPage;
+import static com.example.elective.utils.PaginationUtils.getPageNumber;
 
 @WebServlet("/admin/students")
 public class StudentsServlet extends HttpServlet {
@@ -31,21 +33,19 @@ public class StudentsServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    int page = getPageNumber(req);
+    int displayCount = getItemsPerPage(req);
     try {
-      int page = PaginationUtils.getPageNumber(req);
-      int displayCount = PaginationUtils.getItemsPerPage(req);
+      int total = accountService.getTotalCount(STUDENT_ROLE);
+      Pagination pagination = new Pagination(page, displayCount, total);
       PaginationUtils.setPageAttributes(req, page);
-      int pagesCount = (int) Math.ceil(accountService.getTotalCount(STUDENT_ROLE)
-          / (double) displayCount);
-      req.setAttribute(PAGES_COUNT_ATTR, pagesCount);
-      if (page <= pagesCount) {
-        req.setAttribute(STUDENTS_ATTR, accountService.getPaginated(STUDENT_ROLE,
-            new Pagination(page, displayCount)));
-      }
+      req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
+      if (page <= pagination.getPagesCount()) req.setAttribute(STUDENTS_ATTR,
+            accountService.getPaginated(STUDENT_ROLE, pagination));
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }

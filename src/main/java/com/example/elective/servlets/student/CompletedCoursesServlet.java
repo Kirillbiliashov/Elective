@@ -2,7 +2,6 @@ package com.example.elective.servlets.student;
 
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.CourseService;
-import com.example.elective.services.StudentService;
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -30,15 +29,16 @@ public class CompletedCoursesServlet extends HttpServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     int studentId = RequestUtils.getCurrentUserId(req);
     try {
       req.setAttribute(COMPLETED_COURSES_ATTR,
           courseService.getCompletedCourses(studentId));
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
 }
