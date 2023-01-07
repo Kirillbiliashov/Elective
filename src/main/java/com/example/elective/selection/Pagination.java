@@ -13,7 +13,6 @@ public class Pagination {
   }
 
   protected Pagination() {
-
   }
 
   public int getFrom() {

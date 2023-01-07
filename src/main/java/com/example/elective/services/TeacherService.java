@@ -43,7 +43,7 @@ public class TeacherService extends AbstractService {
     });
   }
 
-  private void addDTOToList( List<JournalDTO> list, Journal journal)
+  private void addDTOToList(List<JournalDTO> list, Journal journal)
       throws DAOException {
     Account student = accDao.find(journal.getStudentId()).get();
     String name = student.getFirstName() + student.getLastName();

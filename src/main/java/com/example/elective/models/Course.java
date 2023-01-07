@@ -4,19 +4,23 @@ import java.sql.Date;
 
 public class Course extends Entity {
 
+  private final Builder builder;
   private String name;
   private String description;
   private Date startDate;
   private Date endDate;
   private int topicId;
   private int teacherId;
-  private final CourseBuilder builder;
 
-  public Course(CourseBuilder builder) {
+  public Course(Builder builder) {
     this.builder = builder;
   }
 
-  public CourseBuilder getBuilder() {
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
+  public Builder getBuilder() {
     return builder;
   }
 
@@ -44,46 +48,41 @@ public class Course extends Entity {
     return teacherId;
   }
 
-  public static CourseBuilder newBuilder() {
-    return new CourseBuilder();
-  }
-
-
-  public static class CourseBuilder {
+  public static class Builder {
 
     private final Course course = new Course(this);
 
-    public CourseBuilder setId(int id) {
+    public Builder setId(int id) {
       if (course.id == 0) course.id = id;
       return this;
     }
 
-    public CourseBuilder setName(String name) {
+    public Builder setName(String name) {
       course.name = name;
       return this;
     }
 
-    public CourseBuilder setDescription(String description) {
+    public Builder setDescription(String description) {
       course.description = description;
       return this;
     }
 
-    public CourseBuilder setStartDate(Date startDate) {
+    public Builder setStartDate(Date startDate) {
       course.startDate = startDate;
       return this;
     }
 
-    public  CourseBuilder setEndDate(Date endDate) {
+    public Builder setEndDate(Date endDate) {
       course.endDate = endDate;
       return this;
     }
 
-    public CourseBuilder setTopicId(int topicId) {
+    public Builder setTopicId(int topicId) {
       course.topicId = topicId;
       return this;
     }
 
-    public CourseBuilder setTeacherId(int teacherId) {
+    public Builder setTeacherId(int teacherId) {
       course.teacherId = teacherId;
       return this;
     }

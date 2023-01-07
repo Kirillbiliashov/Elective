@@ -18,7 +18,7 @@ public abstract class MySqlDAO<T> extends AbstractDAO {
   protected void addValuesToPreparedStatement(PreparedStatement ps, Object... values)
       throws SQLException {
     int idx = 1;
-    for (final Object value: values) {
+    for (final Object value : values) {
       ps.setObject(idx++, value);
     }
   }

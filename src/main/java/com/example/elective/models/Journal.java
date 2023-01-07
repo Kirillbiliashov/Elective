@@ -8,13 +8,17 @@ public class Journal extends Entity {
   private Date enrollmentDate;
   private int courseId;
   private int studentId;
-  private JournalBuilder builder;
+  private Builder builder;
 
-  private Journal(JournalBuilder builder) {
+  private Journal(Builder builder) {
     this.builder = builder;
   }
 
-  public JournalBuilder getBuilder() {
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
+  public Builder getBuilder() {
     return builder;
   }
 
@@ -34,37 +38,30 @@ public class Journal extends Entity {
     return studentId;
   }
 
-
-
-  public static JournalBuilder newBuilder() {
-    return new JournalBuilder();
-  }
-
-
-  public static class JournalBuilder {
+  public static class Builder {
     private final Journal journal = new Journal(this);
 
-    public JournalBuilder setId(int id) {
+    public Builder setId(int id) {
       if (journal.id == 0) journal.id = id;
       return this;
     }
 
-    public JournalBuilder setGrade(int grade) {
+    public Builder setGrade(int grade) {
       journal.grade = grade;
       return this;
     }
 
-    public JournalBuilder setEnrollmentDate(Date enrollmentDate) {
+    public Builder setEnrollmentDate(Date enrollmentDate) {
       journal.enrollmentDate = enrollmentDate;
       return this;
     }
 
-    public JournalBuilder setCourseId(int courseId) {
+    public Builder setCourseId(int courseId) {
       journal.courseId = courseId;
       return this;
     }
 
-    public JournalBuilder setStudentId(int studentId) {
+    public Builder setStudentId(int studentId) {
       journal.studentId = studentId;
       return this;
     }

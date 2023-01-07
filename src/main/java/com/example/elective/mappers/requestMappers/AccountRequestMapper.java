@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 
 public class AccountRequestMapper implements RequestMapper<Account> {
 
-   private static final String USERNAME = "username";
-   private static final String EMAIL = "email";
-   private static final String PASSWORD = "password";
-   private static final String FIRSTNAME = "firstName";
-   private static final String LASTNAME = "lastName";
-   private static final String ROLE = "role";
+  private static final String USERNAME = "username";
+  private static final String EMAIL = "email";
+  private static final String PASSWORD = "password";
+  private static final String FIRSTNAME = "firstName";
+  private static final String LASTNAME = "lastName";
+  private static final String ROLE = "role";
 
   @Override
   public Account map(HttpServletRequest req) {

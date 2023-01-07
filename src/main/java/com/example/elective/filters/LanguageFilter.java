@@ -13,16 +13,18 @@ import static com.example.elective.utils.Constants.LANG_ATTR;
 public class LanguageFilter extends HttpFilter {
 
   @Override
-  protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+  protected void doFilter(HttpServletRequest req, HttpServletResponse res,
+                          FilterChain chain)
+      throws IOException, ServletException {
     String lang = req.getParameter(LANG_ATTR);
-    if (lang != null) {
-      String url = req.getRequestURI();
-      HttpSession session = req.getSession();
-      session.setAttribute(LANG_ATTR, lang);
-      res.sendRedirect(url);
+    if (lang == null) {
+      chain.doFilter(req, res);
       return;
     }
-    chain.doFilter(req, res);
+    String url = req.getRequestURI();
+    HttpSession session = req.getSession();
+    session.setAttribute(LANG_ATTR, lang);
+    res.sendRedirect(url);
   }
 
 }

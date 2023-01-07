@@ -22,7 +22,7 @@ public class MainServlet extends HttpServlet {
     Account account = (Account) session.getAttribute(ACCOUNT_ATTR);
     String homeUrl = LOGIN_URL;
     if (account != null) homeUrl = account.getRole().toLowerCase();
-    session.setAttribute(HOME_URL_ATTR,  homeUrl);
+    session.setAttribute(HOME_URL_ATTR, homeUrl);
     resp.sendRedirect(homeUrl);
   }
 

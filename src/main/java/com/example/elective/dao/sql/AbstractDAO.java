@@ -6,6 +6,7 @@ import com.example.elective.models.Course;
 import com.example.elective.models.Entity;
 
 import java.sql.Connection;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

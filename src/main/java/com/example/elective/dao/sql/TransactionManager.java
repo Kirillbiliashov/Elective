@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class TransactionManager {
 
-  private Logger logger = LogManager.getLogger(TransactionManager.class);
+  private final Logger logger = LogManager.getLogger(TransactionManager.class);
 
   private Connection conn;
 
@@ -18,10 +18,11 @@ public class TransactionManager {
     try {
       if (conn == null) conn = SqlDAOFactory.getConnection();
       conn.setAutoCommit(false);
+      conn.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
     } catch (SQLException e) {
       logger.error("failed to init transaction: " + e.getMessage());
     }
-    for (DAO dao: daos) dao.setConnection(conn);
+    for (DAO dao : daos) dao.setConnection(conn);
   }
 
   public void commitTransaction() {

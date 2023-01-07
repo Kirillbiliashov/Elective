@@ -13,6 +13,10 @@ public class CourseDTO {
   protected String teacher;
   protected int studentsCount;
 
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
   public int getId() {
     return id;
   }
@@ -24,7 +28,6 @@ public class CourseDTO {
   public String getDescription() {
     return description;
   }
-
 
   public Date getStartDate() {
     return startDate;
@@ -48,10 +51,6 @@ public class CourseDTO {
 
   public int getDuration() {
     return this.endDate.compareTo(this.startDate);
-  }
-
-  public static Builder newBuilder() {
-    return new Builder();
   }
 
   public static class Builder {

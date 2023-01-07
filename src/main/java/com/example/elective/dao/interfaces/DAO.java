@@ -9,16 +9,16 @@ import java.util.Optional;
 
 public interface DAO<T extends Entity> {
 
-   void setConnection(Connection conn);
+  void setConnection(Connection conn);
 
-   List<T> getAll() throws DAOException;
+  List<T> getAll() throws DAOException;
 
-   Optional<T> find(int id) throws DAOException;
+  Optional<T> find(int id) throws DAOException;
 
-   void save(T entity) throws DAOException;
+  void save(T entity) throws DAOException;
 
-   void update(T entity) throws DAOException;
+  void update(T entity) throws DAOException;
 
-   void delete(int id) throws DAOException;
+  void delete(int id) throws DAOException;
 
 }

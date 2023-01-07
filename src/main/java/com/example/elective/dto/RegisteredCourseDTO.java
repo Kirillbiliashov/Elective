@@ -7,19 +7,18 @@ import java.sql.Date;
 public class RegisteredCourseDTO {
 
   private final CourseDTO courseDTO;
+  private Date registrationDate;
 
   public RegisteredCourseDTO(CourseDTO courseDTO, Date registrationDate) {
     this.courseDTO = courseDTO;
     this.registrationDate = registrationDate;
   }
 
-  private Date registrationDate;
-
   public Date getRegistrationDate() {
     return registrationDate;
   }
 
-  public int getId(){
+  public int getId() {
     return courseDTO.id;
   }
 

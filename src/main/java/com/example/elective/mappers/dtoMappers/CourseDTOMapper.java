@@ -5,10 +5,16 @@ import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
-public class CourseDTOMapper extends CourseMapper<CourseDTO> {
+public class CourseDTOMapper implements Mapper<Course, CourseDTO> {
+
+  private final String teacher;
+  private final String topic;
+  private final int studentsCount;
 
   public CourseDTOMapper(String teacher, String topic, int studentsCount) {
-    super(teacher, topic, studentsCount);
+    this.teacher = teacher;
+    this.topic = topic;
+    this.studentsCount = studentsCount;
   }
 
   @Override

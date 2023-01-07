@@ -26,11 +26,11 @@ import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 public class StudentServlet extends HttpServlet {
 
   private static final String JSP_PAGE = "student.jsp";
+  private final RequestMapper<CourseSelection> selectionMapper =
+      new CourseSelectionRequestMapper();
   private CourseService courseService;
   private TeacherService teacherService;
   private TopicService topicService;
-  private final RequestMapper<CourseSelection> selectionMapper =
-      new CourseSelectionRequestMapper();
 
   @Override
   public void init(ServletConfig config) throws ServletException {

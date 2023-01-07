@@ -7,7 +7,10 @@ import com.example.elective.models.Course;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
+
 import static com.example.elective.utils.Constants.*;
+import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
+
 import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
@@ -24,12 +27,10 @@ import java.util.Optional;
 public class EditCourseServlet extends HttpServlet {
 
   private static final String JSP_PAGE = "/edit-course.jsp";
-
+  private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
   private CourseService courseService;
   private TopicService topicService;
   private TeacherService teacherService;
-
-  private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
 
   @Override
   public void init(ServletConfig config) {
@@ -42,9 +43,9 @@ public class EditCourseServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    int id = RequestUtils.getIdFromPathInfo(req.getPathInfo());
+    int id = getIdFromPathInfo(req.getPathInfo());
     try {
-      Optional<Course> optCourse = courseService.getById(id);
+      Optional<Course> optCourse = courseService.findById(id);
       if (!optCourse.isPresent()) {
         resp.sendRedirect(ADMIN_SERVLET_NAME);
         return;
@@ -52,10 +53,10 @@ public class EditCourseServlet extends HttpServlet {
       req.setAttribute(COURSE_ATTR, optCourse.get());
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
   }
 
   @Override
@@ -63,10 +64,10 @@ public class EditCourseServlet extends HttpServlet {
       throws IOException {
     try {
       courseService.update(courseMapper.map(req));
+      resp.sendRedirect(ADMIN_SERVLET_NAME);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    resp.sendRedirect(ADMIN_SERVLET_NAME);
   }
 
 }

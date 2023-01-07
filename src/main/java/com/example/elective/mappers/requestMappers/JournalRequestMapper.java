@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
+import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
 public class JournalRequestMapper implements RequestMapper<Journal> {
 
   @Override
   public Journal map(HttpServletRequest req) {
-    int courseId = RequestUtils.getIdFromPathInfo(req.getPathInfo());
+    int courseId = getIdFromPathInfo(req.getPathInfo());
     HttpSession session = req.getSession();
     int studentId = ((Account) session.getAttribute(ACCOUNT_ATTR)).getId();
     return Journal.newBuilder()

@@ -17,12 +17,8 @@ public class CourseSelection {
     if (sort != null && isSortValid(sort)) {
       this.sortType = SortType.valueOf(sort.toUpperCase());
     }
-    if (teacher != null) {
-      this.teacher = teacher;
-    }
-    if (topic != null) {
-      this.topic = topic;
-    }
+    if (teacher != null) this.teacher = teacher;
+    if (topic != null) this.topic = topic;
   }
 
   private boolean isSortValid(String sort) {

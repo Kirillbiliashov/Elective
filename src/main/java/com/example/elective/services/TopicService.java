@@ -8,11 +8,11 @@ import java.util.List;
 
 public class TopicService extends AbstractService {
 
-  private TopicDAO dao = daoFactory.getTopicDAO();
+  private final TopicDAO dao = daoFactory.getTopicDAO();
 
   public List<Topic> getAll() throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.findAll());
+    return performDaoReadOperation(dao::getAll);
   }
 
 }

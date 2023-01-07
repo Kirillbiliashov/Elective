@@ -19,12 +19,12 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
       " WHERE id = ?";
   private static final String GET_BY_ROLE = SELECT_ALL + " WHERE role = ?";
+  private static final String GET_BY_ROLE_AT_PAGE = GET_BY_ROLE + " LIMIT ?,?";
   private static final String SAVE = "INSERT INTO account" +
       "(username, email, password, first_name, last_name, role)" +
       " VALUES(?, ?, ?, ?, ?, ?)";
   private static final String FIND_BY_LOGIN = SELECT_ALL +
       " WHERE username = ? OR email = ?";
-  private static final String GET_BY_ROLE_AT_PAGE = GET_BY_ROLE + " LIMIT ?,?";
   private static final String GET_COUNT_BY_ROLE = "SELECT COUNT(*) FROM account" +
       " WHERE role = ?";
 
@@ -66,7 +66,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   @Override
   public void save(Account acc) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
-             Statement.RETURN_GENERATED_KEYS)) {
+        Statement.RETURN_GENERATED_KEYS)) {
       String hashedPassword = PasswordUtils.hashPassword(acc.getPassword());
       addValuesToPreparedStatement(ps, acc.getUsername(),
           acc.getEmail(), hashedPassword, acc.getFirstName(),

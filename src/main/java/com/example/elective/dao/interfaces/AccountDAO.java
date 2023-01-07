@@ -8,8 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountDAO extends DAO<Account> {
-   List<Account> getByRole(String roleName) throws DAOException;
-   List<Account> getByRole(String roleName, Pagination pagination) throws DAOException;
-   Optional<Account> findByLogin(String login) throws DAOException;
-   int getCountByRole(String roleName) throws DAOException;
+
+  List<Account> getByRole(String roleName) throws DAOException;
+
+  List<Account> getByRole(String roleName, Pagination pagination) throws DAOException;
+
+  Optional<Account> findByLogin(String login) throws DAOException;
+
+  int getCountByRole(String roleName) throws DAOException;
+
 }

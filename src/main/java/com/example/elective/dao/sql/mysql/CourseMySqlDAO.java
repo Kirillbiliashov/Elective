@@ -43,16 +43,6 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   }
 
   @Override
-  public List<Course> getByTeacherId(int teacherId) throws DAOException {
-    try {
-      return getEntitiesList(GET_BY_TEACHER_ID, teacherId);
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find teacher courses", e);
-    }
-  }
-
-  @Override
   public Optional<Course> findByTeacherId(int teacherId, Pagination pagination)
       throws DAOException {
     try {
@@ -99,7 +89,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
     try (PreparedStatement ps = conn.prepareStatement(DELETE)) {
       addValuesToPreparedStatement(ps, id);
       ps.executeUpdate();
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to delete course", e);
     }

@@ -16,7 +16,7 @@ public class CompletedCourseDTO {
     return grade;
   }
 
-  public int getId(){
+  public int getId() {
     return courseDTO.id;
   }
 

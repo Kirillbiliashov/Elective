@@ -5,6 +5,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.services.*;
+
 import static com.example.elective.utils.Constants.*;
 
 import javax.servlet.ServletConfig;
@@ -20,13 +21,11 @@ import java.io.IOException;
 public class AdminServlet extends HttpServlet {
 
   private final static String JSP_PAGE = "/admin.jsp";
-
+  private final RequestMapper<CourseSelection> selectionMapper =
+      new CourseSelectionRequestMapper();
   private CourseService courseService;
   private TeacherService teacherService;
   private TopicService topicService;
-
-  private final RequestMapper<CourseSelection> selectionMapper =
-      new CourseSelectionRequestMapper();
 
   @Override
   public void init(ServletConfig config) throws ServletException {

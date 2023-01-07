@@ -56,7 +56,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
   @Override
   public void save(Journal journal) throws DAOException {
     try (PreparedStatement ps = conn.prepareStatement(SAVE,
-             PreparedStatement.RETURN_GENERATED_KEYS)) {
+        PreparedStatement.RETURN_GENERATED_KEYS)) {
       addValuesToPreparedStatement(ps, journal.getEnrollmentDate(),
           journal.getCourseId(), journal.getStudentId());
       ps.executeUpdate();

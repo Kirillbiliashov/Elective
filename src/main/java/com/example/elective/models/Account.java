@@ -2,6 +2,7 @@ package com.example.elective.models;
 
 public class Account extends Entity {
 
+  private final Builder builder;
   private String username;
   private String email;
   private String password;
@@ -9,13 +10,16 @@ public class Account extends Entity {
   private String lastName;
   private boolean isBlocked;
   private String role;
-  private final AccountBuilder builder;
 
-  public Account(AccountBuilder builder) {
+  public Account(Builder builder) {
     this.builder = builder;
   }
 
-  public AccountBuilder getBuilder() {
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
+  public Builder getBuilder() {
     return builder;
   }
 
@@ -39,6 +43,10 @@ public class Account extends Entity {
     return lastName;
   }
 
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
+
   public boolean isBlocked() {
     return isBlocked;
   }
@@ -47,49 +55,45 @@ public class Account extends Entity {
     return role;
   }
 
-  public static AccountBuilder newBuilder() {
-    return new AccountBuilder();
-  }
-
-  public static class AccountBuilder {
+  public static class Builder {
     private final Account account = new Account(this);
 
-    public AccountBuilder setId(int id) {
+    public Builder setId(int id) {
       if (account.id == 0) account.id = id;
       return this;
     }
 
-    public AccountBuilder setUsername(String username) {
+    public Builder setUsername(String username) {
       account.username = username;
       return this;
     }
 
-    public AccountBuilder setEmail(String email) {
+    public Builder setEmail(String email) {
       account.email = email;
       return this;
     }
 
-    public AccountBuilder setPassword(String password) {
+    public Builder setPassword(String password) {
       account.password = password;
       return this;
     }
 
-    public AccountBuilder setFirstName(String firstName) {
+    public Builder setFirstName(String firstName) {
       account.firstName = firstName;
       return this;
     }
 
-    public AccountBuilder setLastName(String lastName) {
+    public Builder setLastName(String lastName) {
       account.lastName = lastName;
       return this;
     }
 
-    public AccountBuilder setBlocked(boolean isBlocked) {
+    public Builder setBlocked(boolean isBlocked) {
       account.isBlocked = isBlocked;
       return this;
     }
 
-    public AccountBuilder setRole(String role) {
+    public Builder setRole(String role) {
       account.role = role;
       return this;
     }
