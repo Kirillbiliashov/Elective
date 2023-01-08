@@ -33,13 +33,13 @@
                             <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
                             <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
                             <p><fmt:message key="course.students_count"/>: ${course.studentsCount}</p>
-                            <%@include file="course-modal.jsp" %>
                             <c:if test="${course.grade eq -1}">
                                 <p><fmt:message key="no_grade"/></p>
                             </c:if>
                             <c:if test="${course.grade ne -1}">
                                 <p><fmt:message key="grade"/>: ${course.grade}</p>
                             </c:if>
+                            <%@include file="course-modal.jsp" %>
                         </div>
                     </div>
                 </c:forEach>

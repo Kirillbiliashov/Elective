@@ -6,8 +6,6 @@ import com.example.elective.services.StudentService;
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
-import com.example.elective.utils.RequestUtils;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,7 +18,7 @@ import java.io.IOException;
 @WebServlet("/admin/students/changeBlock/*")
 public class ChangeStudentBlockServlet extends HttpServlet {
 
-  private static final String JSP_PAGE = ADMIN_SERVLET_NAME + "/students";
+  private static final String JSP_PAGE = ADMIN_URL + "/students";
   private StudentService studentService;
 
   @Override

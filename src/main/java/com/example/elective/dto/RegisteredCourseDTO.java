@@ -38,7 +38,7 @@ public class RegisteredCourseDTO {
     return courseDTO.endDate;
   }
 
-  public int getDuration() {
+  public long getDuration() {
     return courseDTO.getDuration();
   }
 

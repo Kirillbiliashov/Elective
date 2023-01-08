@@ -24,7 +24,7 @@ import static com.example.elective.utils.Constants.LOGINS_ATTR;
 public class TeacherRegistrationServlet extends HttpServlet {
 
   private static final String JSP_PAGE = "/teacher-register-form.jsp";
-  private static final String REDIRECT_URL = "/elective/admin/teachers";
+  protected static final String REDIRECT_URL = "/elective/admin/teachers";
   private final RequestMapper<Account> accountMapper = new AccountRequestMapper();
   private AccountService accService;
 

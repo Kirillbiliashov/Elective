@@ -37,8 +37,10 @@
                             <p><fmt:message key="course.students_count"/>: ${course.studentsCount}</p>
                             <%@include file="course-modal.jsp" %>
                             <form action="student/courses/enroll/${course.id}" method="post">
-                                <input type="submit" class="btn btn-primary"
-                                       value="<fmt:message key="student.enroll" />">
+                                <div class = "enroll-btn-container">
+                                    <input type="submit" class="btn btn-primary"
+                                           value="<fmt:message key="student.enroll" />">
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -23,7 +23,7 @@
                 <select class="form-control" name="teacher" id="teacher">
                     <option selected value="Any"><fmt:message key="teacher.any"/></option>
                     <c:forEach items="${teachers}" var="teacher">
-                        <option value="${teacher.fullName}">${teacher.fullNamee}</option>
+                        <option value="${teacher.fullName}">${teacher.fullName}</option>
                     </c:forEach>
                 </select>
             </div>

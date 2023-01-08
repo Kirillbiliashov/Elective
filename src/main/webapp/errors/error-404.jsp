@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
@@ -14,7 +14,7 @@
 <body>
 <div class="page-container">
   <h1><fmt:message key="error.page_not_found"/></h1>
-  <a href="/elective/${homeUrl}><fmt:message key="error.back"/></a>
+  <a href="/elective/${homeUrl}"><fmt:message key="error.back"/></a>
 </div>
 </body>
 </html>

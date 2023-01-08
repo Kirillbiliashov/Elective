@@ -1,6 +1,7 @@
 package com.example.elective.dto;
 
 import java.sql.Date;
+import java.time.Period;
 
 public class CourseDTO {
 
@@ -49,8 +50,8 @@ public class CourseDTO {
     return studentsCount;
   }
 
-  public int getDuration() {
-    return this.endDate.compareTo(this.startDate);
+  public long getDuration() {
+    return endDate.getTime() - startDate.getTime();
   }
 
   public static class Builder {

@@ -135,7 +135,8 @@ p {
 .add-grade-input-container {
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: flex-start;
+    height: 20px;
 }
 .add-grade-btn {
     margin: 10px
@@ -145,4 +146,11 @@ p {
 }
 .display-container {
     width: 200px
+}
+.enroll-btn-container {
+    display: flex;
+    justify-content: center;
+}
+.course-table {
+    width: 50%
 }

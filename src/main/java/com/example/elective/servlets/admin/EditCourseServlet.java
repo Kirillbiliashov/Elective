@@ -11,8 +11,6 @@ import com.example.elective.services.TopicService;
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
-import com.example.elective.utils.RequestUtils;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -47,7 +45,7 @@ public class EditCourseServlet extends HttpServlet {
     try {
       Optional<Course> optCourse = courseService.findById(id);
       if (!optCourse.isPresent()) {
-        resp.sendRedirect(ADMIN_SERVLET_NAME);
+        resp.sendRedirect(ADMIN_URL);
         return;
       }
       req.setAttribute(COURSE_ATTR, optCourse.get());
@@ -64,7 +62,7 @@ public class EditCourseServlet extends HttpServlet {
       throws IOException {
     try {
       courseService.update(courseMapper.map(req));
-      resp.sendRedirect(ADMIN_SERVLET_NAME);
+      resp.sendRedirect(ADMIN_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

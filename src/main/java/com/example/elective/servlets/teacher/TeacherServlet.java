@@ -29,13 +29,11 @@ public class TeacherServlet extends HttpServlet {
 
   private static final String JSP_PAGE = "teacher.jsp";
   private TeacherService teacherService;
-  private AccountService accountService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
     ServletContext context = config.getServletContext();
     teacherService = (TeacherService) context.getAttribute(TEACHER_SERVICE);
-    accountService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
   }
 
   @Override
@@ -45,10 +43,11 @@ public class TeacherServlet extends HttpServlet {
     int page = PaginationUtils.getPageNumber(req);
     setPageAttributes(req, page);
     try {
-      int total = accountService.getTotalCount(TEACHER_ROLE);
+      int total = teacherService.getCoursesCount(id);
       Pagination pagination = new CoursePagination(page, total);
+      PaginationUtils.setPageAttributes(req, pagination.getPage());
       req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      Optional<Course> optCourse = teacherService.findCourseAtPage(id, pagination);
+      Optional<Course> optCourse = teacherService.findCourse(id, pagination);
       if (optCourse.isPresent()) setAttributes(req, optCourse.get());
       req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {

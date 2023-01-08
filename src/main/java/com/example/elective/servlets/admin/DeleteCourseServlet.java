@@ -6,8 +6,6 @@ import com.example.elective.services.CourseService;
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
-import com.example.elective.utils.RequestUtils;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +31,7 @@ public class DeleteCourseServlet extends HttpServlet {
     int id = getIdFromPathInfo(req.getPathInfo());
     try {
       courseService.delete(id);
-      resp.sendRedirect(ADMIN_SERVLET_NAME);
+      resp.sendRedirect(ADMIN_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

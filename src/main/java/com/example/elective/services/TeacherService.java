@@ -21,11 +21,16 @@ public class TeacherService extends AbstractService {
   private final CourseDAO courseDao = daoFactory.getCourseDAO();
   private final JournalDAO journalDao = daoFactory.getJournalDAO();
 
-  public Optional<Course> findCourseAtPage(int teacherId, Pagination pagination)
+  public Optional<Course> findCourse(int teacherId, Pagination pagination)
       throws ServiceException {
     transactionManager.initTransaction(courseDao);
     return performDaoReadOperation(() ->
         courseDao.findByTeacherId(teacherId, pagination));
+  }
+
+  public int getCoursesCount(int teacherId) throws ServiceException {
+    transactionManager.initTransaction(courseDao);
+    return performDaoReadOperation(() -> courseDao.getCount(teacherId));
   }
 
   public List<Account> getAll() throws ServiceException {
@@ -45,9 +50,9 @@ public class TeacherService extends AbstractService {
 
   private void addDTOToList(List<JournalDTO> list, Journal journal)
       throws DAOException {
-    Account student = accDao.find(journal.getStudentId()).get();
-    String name = student.getFirstName() + student.getLastName();
-    JournalDTO dto = new JournalDTO(journal.getId(), journal.getGrade(), name);
+    String student = accDao.find(journal.getStudentId()).get().getFullName();
+    JournalDTO dto = new JournalDTO(journal.getId(), journal.getGrade(),
+        student);
     list.add(dto);
   }
 

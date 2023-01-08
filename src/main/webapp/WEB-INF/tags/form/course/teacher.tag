@@ -11,7 +11,7 @@
             <option value="0" selected><fmt:message key="select_teacher"/></option>
         </c:if>
         <c:forEach items="${teachers}" var="teacher">
-            <option value="${teacher.id}" <c:if test="${value == teacher.id}">selected</c:if>><teacher:fullName target="${teacher}"/></option>
+            <option value="${teacher.id}" <c:if test="${value == teacher.id}">selected</c:if>>${teacher.fullName}</option>
         </c:forEach>
     </select>
 </div>

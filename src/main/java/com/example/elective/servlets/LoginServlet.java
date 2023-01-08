@@ -23,10 +23,10 @@ import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-  private static final String JSP_PAGE = "login-form.jsp";
-  private static final String REDIRECT_URL = "main";
-  private static final String LOGIN_PARAM = "login";
-  private static final String PASSWORD_PARAM = "password";
+  protected static final String JSP_PAGE = "login-form.jsp";
+  protected static final String REDIRECT_URL = "main";
+  protected static final String LOGIN_PARAM = "login";
+  protected static final String PASSWORD_PARAM = "password";
   private AccountService accService;
 
   @Override

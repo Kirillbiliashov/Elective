@@ -7,12 +7,13 @@ public class Pagination {
   protected int totalItems;
 
   public Pagination(int page, int displayCount, int totalItems) {
-    this.page = page;
     this.displayCount = displayCount;
     this.totalItems = totalItems;
+    this.page = Math.min(page, getPagesCount());
   }
 
-  protected Pagination() {
+  public int getPage() {
+    return this.page;
   }
 
   public int getFrom() {

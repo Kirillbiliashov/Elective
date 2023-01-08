@@ -21,7 +21,7 @@
         <h2><fmt:message key="courses"/></h2>
         <a href="admin/courses/add" class="add-course-ref"><fmt:message key="add_course"/></a>
     </div>
-    <jsp:include page="selection-form.jsp"/>
+    <%@include file="selection-form.jsp" %>
     <ul class="list-group">
         <div class="grid-container">
             <c:forEach items="${courses}" var="course">

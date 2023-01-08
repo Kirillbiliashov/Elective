@@ -53,6 +53,7 @@
         <url-pattern>/admin/*</url-pattern>
         <url-pattern>/teacher/*</url-pattern>
         <url-pattern>/student/*</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     <jsp-config>
         <taglib>

@@ -30,7 +30,7 @@
         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
         <div class="table-container">
-            <table class="table table-bordered">
+            <table class="table table-bordered course-table">
                 <thead>
                 <tr>
                     <th scope="col"><fmt:message key="student"/></th>
@@ -47,17 +47,17 @@
                                     <fmt:message key="course_not_finished"/>
                                 </c:if>
                                 <c:if test="${course.endDate.before(currDate)}">
-                                    <form method="post" action="teacher/addGrade/${journal.id}">
-                                        <div class="add-grade-input-container">
-                                            <input type="number" min="0" max="100" name="grade" id="grade"/>
-                                            <input type="submit" class="btn btn-primary btn-sm add-grade-btn"
-                                                   value="<fmt:message key="add_grade"/>">
-                                        </div>
-                                    </form>
+                                        <form method="post" action="teacher/addGrade/${journal.id}?page=${page}&display=1">
+                                            <div class="add-grade-input-container">
+                                                <input type="number" min="0" max="100" name="grade" id="grade"/>
+                                                <input type="submit" class="btn btn-primary btn-sm add-grade-btn"
+                                                       value="<fmt:message key="add_grade"/>">
+                                            </div>
+                                        </form>
                                 </c:if>
                             </c:if>
-                            <c:if test="${entry.key.grade ne -1}">
-                                ${entry.key.grade}
+                            <c:if test="${journal.grade ne -1}">
+                                ${journal.grade}
                             </c:if>
                         </td>
                     </tr>

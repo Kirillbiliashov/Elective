@@ -40,10 +40,9 @@ public abstract class PaginationHttpServlet extends HttpServlet {
     try {
       int total = accountService.getTotalCount(role);
       Pagination pagination = new Pagination(page, displayCount, total);
-      PaginationUtils.setPageAttributes(req, page);
+      PaginationUtils.setPageAttributes(req, pagination.getPage());
       req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      if (page <= pagination.getPagesCount()) req.setAttribute(attrName,
-          accountService.getPaginated(role, pagination));
+       req.setAttribute(attrName, accountService.getPaginated(role, pagination));
       req.getRequestDispatcher(jspPage).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

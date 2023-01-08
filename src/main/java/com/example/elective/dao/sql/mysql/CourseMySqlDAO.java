@@ -37,6 +37,8 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
       " WHERE id != ALL (SELECT course.id FROM course " +
       "JOIN journal ON course_id = course.id WHERE student_id = ?)" +
       " AND start_date > CURRENT_DATE()";
+  private static final String GET_COUNT_BY_TEACHER = "SELECT COUNT(*) " +
+      "FROM course WHERE teacher_id = ?";
 
   public CourseMySqlDAO() {
     this.mapper = new CourseResultSetMapper();
@@ -136,6 +138,16 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   public List<Course> getAvailableForStudent(int studentId)
       throws DAOException {
     return getByStudentId(studentId, GET_AVAILABLE_FOR_STUDENT);
+  }
+
+  @Override
+  public int getCount(int teacherId) throws DAOException {
+    try {
+      return getCount(GET_COUNT_BY_TEACHER, teacherId);
+    } catch (SQLException e) {
+      logger.error(e.getMessage());
+      throw new DAOException("unable to get courses count", e);
+    }
   }
 
   private List<Course> getByStudentId(int studentId, String query)

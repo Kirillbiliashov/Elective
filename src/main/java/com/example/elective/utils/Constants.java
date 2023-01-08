@@ -26,7 +26,7 @@ public class Constants {
   public static final String TEACHER_ROLE = "Teacher";
   public static final String STUDENT_ROLE = "Student";
   public static final String COURSES_ATTR = "courses";
-  public static final String ADMIN_SERVLET_NAME = "/elective/admin";
+  public static final String ADMIN_URL = "/elective/admin";
   public static final String LOGIN_URL = "login";
   public static final String TOPICS_ATTR = "topics";
   public static final String TEACHERS_ATTR = "teachers";
