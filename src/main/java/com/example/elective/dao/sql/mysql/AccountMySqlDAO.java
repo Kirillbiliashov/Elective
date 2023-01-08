@@ -9,6 +9,7 @@ import com.example.elective.selection.Pagination;
 import com.example.elective.utils.PasswordUtils;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,9 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
       " WHERE username = ? OR email = ?";
   private static final String GET_COUNT_BY_ROLE = "SELECT COUNT(*) FROM account" +
       " WHERE role = ?";
+  private static final String LOGIN_COL = "login";
+  private static final String SELECT_LOGINS = "SELECT CONCAT(username, ','," +
+      " email) AS " + LOGIN_COL + " FROM account";
 
   public AccountMySqlDAO() {
     this.mapper = new AccountResultSetMapper();
@@ -99,6 +103,19 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
     } catch (SQLException | MappingException e) {
       logger.error(e.getMessage());
       throw new DAOException("unable to find accounts", e);
+    }
+  }
+
+  @Override
+  public List<String> getLogins() throws DAOException {
+    try (Statement stmt = conn.createStatement()) {
+      ResultSet rs = stmt.executeQuery(SELECT_LOGINS);
+      List<String> logins = new ArrayList<>();
+      while (rs.next()) logins.add(rs.getString(LOGIN_COL));
+      return logins;
+    } catch (SQLException e) {
+      logger.error(e.getMessage());
+      throw new DAOException("unable to retrieve logins", e);
     }
   }
 

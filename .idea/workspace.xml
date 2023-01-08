@@ -9,37 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="App architecture was refactored">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/course-modal.jsp" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Minor frontend optimizations were made">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/FullNameTag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/InfoTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/customTags/InfoTag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/SignupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/text.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/text_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text_ru.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/passwordValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/passwordValidation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tld/account.tld" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tld/account.tld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-students.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin-teachers.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/display-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/display-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-404.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-404.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pagination.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pagination.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/selection-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/selection-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/signup-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-courses-in-progress.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-registered-courses.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher-register-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher-register-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,14 +299,7 @@
       <workItem from="1672307602012" duration="6177000" />
       <workItem from="1672493287191" duration="1182000" />
       <workItem from="1672656530967" duration="53024000" />
-      <workItem from="1672949928192" duration="33616000" />
-    </task>
-    <task id="LOCAL-00069" summary="Text properties files for russian and english were added">
-      <created>1670502985213</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1670502985213</updated>
+      <workItem from="1672949928192" duration="34583000" />
     </task>
     <task id="LOCAL-00070" summary="internationalized text was added to jsp pages">
       <created>1670514924660</created>
@@ -666,7 +637,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673095087982</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="Minor frontend optimizations were made">
+      <created>1673124869415</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1673124869415</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -696,7 +674,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Utils class was decomposed into logical units" />
     <MESSAGE value="Custom error page for error 500 was added" />
     <MESSAGE value="Frontend was refactored" />
     <MESSAGE value="email attribute was added to account entity" />
@@ -721,7 +698,8 @@
     <MESSAGE value="DAO layer was refactored" />
     <MESSAGE value="Minor code improvements were made" />
     <MESSAGE value="App architecture was refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="App architecture was refactored" />
+    <MESSAGE value="Minor frontend optimizations were made" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor frontend optimizations were made" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

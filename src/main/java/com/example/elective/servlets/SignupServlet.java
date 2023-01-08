@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+import static com.example.elective.utils.Constants.LOGINS_ATTR;
 
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
@@ -34,7 +35,12 @@ public class SignupServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
+    try {
+      req.setAttribute(LOGINS_ATTR, accService.getLogins());
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Override

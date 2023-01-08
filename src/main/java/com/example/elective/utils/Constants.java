@@ -6,6 +6,7 @@ import java.time.ZoneId;
 
 public class Constants {
 
+  public static final String LOGINS_ATTR = "logins";
   public static final String PAGE_ATTR = "page";
   public static final String NEXT_ATTR = "next";
   public static final String PREV_ATTR = "prev";

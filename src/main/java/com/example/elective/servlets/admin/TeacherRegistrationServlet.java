@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+import static com.example.elective.utils.Constants.LOGINS_ATTR;
 
 @WebServlet("/admin/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {
@@ -36,7 +37,12 @@ public class TeacherRegistrationServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
+    try {
+      req.setAttribute(LOGINS_ATTR, accService.getLogins());
+      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
+    } catch (ServiceException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Override

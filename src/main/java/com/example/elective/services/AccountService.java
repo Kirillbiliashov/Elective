@@ -42,6 +42,11 @@ public class AccountService extends AbstractService {
     return performDaoReadOperation(() -> dao.getByRole(role, pagination));
   }
 
+  public List<String> getLogins() throws ServiceException {
+    transactionManager.initTransaction(dao);
+    return performDaoReadOperation(() -> dao.getLogins());
+  }
+
   public int getTotalCount(String roleName) throws ServiceException {
     transactionManager.initTransaction(dao);
     return performDaoReadOperation(() -> dao.getCountByRole(roleName));

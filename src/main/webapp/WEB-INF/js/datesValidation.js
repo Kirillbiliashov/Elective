@@ -6,17 +6,17 @@ const validateForm = () => {
     const endDate = form["endDate"].value;
     const datesValid = endDate > startDate;
     if (!datesValid) {
-        alert("end date cannot be before start date");
+        alert('<fmt:message key="date-error/>"');
         return false;
     }
     const teacherSelect = form["teacherSelect"].value;
     const topicSelect = form["topicSelect"].value;
     if (topicSelect === "0") {
-        alert("Please select topic");
+        alert('<fmt:message key="topic-error/>"');
         return false;
     }
     if (teacherSelect === "0") {
-        alert("Please select teacher");
+        alert('<fmt:message key="teacher-error/>"');
         return false;
     }
     return true;
