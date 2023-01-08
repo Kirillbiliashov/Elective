@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.example.elective.utils.Constants.COURSE_SERVICE;
 import static org.mockito.Mockito.when;
 
 public abstract class CourseServletTest {
@@ -31,15 +32,11 @@ public abstract class CourseServletTest {
   @Mock
   protected CourseService courseService;
 
-  protected static String REDIRECT_URL = "/elective/admin?lang=en";
-
-  private final String COURSE_SERVICE_NAME = "courseService";
-
   @BeforeEach()
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute(COURSE_SERVICE_NAME)).thenReturn(courseService);
+    when(context.getAttribute(COURSE_SERVICE)).thenReturn(courseService);
   }
 
   @Test

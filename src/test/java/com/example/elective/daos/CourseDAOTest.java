@@ -55,7 +55,8 @@ public class CourseDAOTest {
   @Test
   void testFindAll() throws Exception {
     final int EXP_COURSES_COUNT = 5;
-    when(stmt.executeQuery(anyString())).thenReturn(rs);
+    when(conn.prepareStatement(anyString())).thenReturn(ps);
+    when(ps.executeQuery()).thenReturn(rs);
     when(rs.next()).thenReturn(true, true, true, true, true, false);
     when(mapper.map(rs)).thenReturn(Course.newBuilder().build());
     Assertions.assertEquals(EXP_COURSES_COUNT, dao.getAll().size());
@@ -74,7 +75,7 @@ public class CourseDAOTest {
         .build();
     doThrow(e).when(ps).executeUpdate();
     Assertions.assertThrows(DAOException.class, () -> dao.save(course));
-    verify(ps, times(5)).setObject(anyInt(), any());
+    verify(ps, times(6)).setObject(anyInt(), any());
     verify(logger, times(1)).error(ERROR_MSG);
   }
 

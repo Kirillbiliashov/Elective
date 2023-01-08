@@ -1,5 +1,6 @@
 package com.example.elective.servlets;
 
+import com.example.elective.utils.Constants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.example.elective.utils.Constants.*;
+import static com.example.elective.utils.Constants.LOGIN_URL;
 import static org.mockito.Mockito.*;
 
 public class LogoutServletTest {
@@ -24,7 +27,6 @@ public class LogoutServletTest {
 
   @Mock
   private HttpServletResponse resp;
-  private static final String REDIRECT_URL = "/elective/login?lang=en";
 
   @BeforeEach
   void beforeEach() {
@@ -35,7 +37,9 @@ public class LogoutServletTest {
   void testLogout() throws Exception {
     when(req.getSession()).thenReturn(session);
     servlet.doGet(req, resp);
-    verify(session, times(1)).invalidate();
-    verify(resp, times(1)).sendRedirect(REDIRECT_URL);
+    verify(session, times(1)).setAttribute(ACCOUNT_ATTR, null);
+    verify(session, times(1)).setAttribute(HOME_URL_ATTR, LOGIN_URL);
+    verify(resp, times(1)).sendRedirect(LOGIN_URL);
   }
+
 }

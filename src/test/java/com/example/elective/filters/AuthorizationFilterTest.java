@@ -2,6 +2,7 @@ package com.example.elective.filters;
 
 import com.example.elective.filters.AuthenticationFilter;
 import com.example.elective.filters.AuthorizationFilter;
+import com.example.elective.utils.Constants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static com.example.elective.TestConstants.HOME_URL_ATTR_NAME;
+import static com.example.elective.utils.Constants.HOME_URL_ATTR;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -53,23 +54,23 @@ public class AuthorizationFilterTest {
 
   static Stream<Arguments> authorizedUrlSet() {
     return Stream.of(
-        Arguments.of((Object) new String[]{"/elective/admin",
-            "/elective/admin/teachers"}),
-        Arguments.of((Object) new String[]{"/elective/student",
-            "/elective/student/registered_courses"}),
-        Arguments.of((Object) new String[]{"/elective/teacher",
-            "/elective/teacher"})
+        Arguments.of((Object) new String[]{"admin",
+            "/admin/teachers"}),
+        Arguments.of((Object) new String[]{"student",
+            "/student/registered_courses"}),
+        Arguments.of((Object) new String[]{"teacher",
+            "/teacher"})
     );
   }
 
   static Stream<Arguments> unauthorizedUrlSet() {
     return Stream.of(
-        Arguments.of((Object) new String[]{"/elective/admin",
-            "/elective/teacher"}),
-        Arguments.of((Object) new String[]{"/elective/teacher",
-            "/elective/student/registered_courses"}),
-        Arguments.of((Object) new String[]{"/elective/student",
-            "/elective/admin/courses/edit/1"})
+        Arguments.of((Object) new String[]{"admin",
+            "/teacher"}),
+        Arguments.of((Object) new String[]{"teacher",
+            "/student/registered_courses"}),
+        Arguments.of((Object) new String[]{"student",
+            "/admin/courses/edit/1"})
     );
   }
 
@@ -78,7 +79,7 @@ public class AuthorizationFilterTest {
   void testAuthorized(String[] urls) throws Exception {
     String homeUrl = urls[0];
     String servletUrl = urls[1];
-    when(session.getAttribute(HOME_URL_ATTR_NAME)).thenReturn(homeUrl);
+    when(session.getAttribute(HOME_URL_ATTR)).thenReturn(homeUrl);
     when(req.getServletPath()).thenReturn(servletUrl);
     authFilter.doFilter(req, resp, chain);
     verify(chain, times(1)).doFilter(req, resp);
@@ -89,10 +90,10 @@ public class AuthorizationFilterTest {
   void testUnauthorized(String[] urls) throws Exception {
     String homeUrl = urls[0];
     String servletUrl = urls[1];
-    when(session.getAttribute(HOME_URL_ATTR_NAME)).thenReturn(homeUrl);
+    when(session.getAttribute(HOME_URL_ATTR)).thenReturn(homeUrl);
     when(req.getServletPath()).thenReturn(servletUrl);
     authFilter.doFilter(req, resp, chain);
-    verify(resp, times(1)).sendError(403);
+    verify(resp, times(1)).sendError(HttpServletResponse.SC_FORBIDDEN);
   }
 
 }

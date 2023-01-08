@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.example.elective.utils.Constants.ADMIN_URL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
@@ -36,7 +37,7 @@ public class DeleteCourseServletTest extends CourseServletTest {
   @Test
   void testPositiveScenario() throws Exception {
     servlet.doPost(req, resp);
-    verify(resp, times(1)).sendRedirect(REDIRECT_URL);
+    verify(resp, times(1)).sendRedirect(ADMIN_URL);
   }
 
   @Override

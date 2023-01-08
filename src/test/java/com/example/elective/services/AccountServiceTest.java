@@ -47,20 +47,6 @@ public class AccountServiceTest {
   }
 
   @Test
-  void testFindByCredentialsAdmin() throws Exception {
-    final String ADMIN_STR = "admin";
-    Optional<Account> optAcc = Optional.of(Account
-        .newBuilder()
-        .setUsername(ADMIN_STR)
-        .setPassword(ADMIN_STR)
-        .build());
-    doReturn(optAcc).when(service).performDaoReadOperation(any());
-    Assertions.assertEquals(optAcc, service.findByCredentials(ADMIN_STR, ADMIN_STR));
-    verify(service, times(1)).performDaoReadOperation(any());
-    verifyTransactionManagerInitCall();
-  }
-
-  @Test
   void testFindByRole() throws Exception {
     List<Account> accs = Arrays.asList(Account.newBuilder().build(),
         Account.newBuilder().build(), Account.newBuilder().build());

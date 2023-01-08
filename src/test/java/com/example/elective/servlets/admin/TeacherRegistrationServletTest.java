@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+import static com.example.elective.servlets.admin.TeacherRegistrationServlet.REDIRECT_URL;
+import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
@@ -42,22 +44,17 @@ public class TeacherRegistrationServletTest {
 
   @Mock
   private RequestDispatcher dispatcher;
-  private final static String ACCOUNT_SERVICE_NAME = "accountService";
-  private final static String ROLE_SERVICE_NAME = "roleService";
-  private final static String REDIRECT_URL = "/elective/admin/teachers?lang=en";
 
   @BeforeEach()
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
-    when(context.getAttribute(ACCOUNT_SERVICE_NAME)).thenReturn(accService);
+    when(context.getAttribute(ACCOUNT_SERVICE)).thenReturn(accService);
     servlet.init(config);
-    mockRequestParams();
   }
 
   @Test
   void testTeacherRegistrationForm() throws Exception {
-    final String ROLE_NAME = "Teacher";
     when(req.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     servlet.doGet(req, resp);
     verify(dispatcher, times(1)).forward(req, resp);
@@ -65,6 +62,7 @@ public class TeacherRegistrationServletTest {
 
   @Test
   void testTeacherRegistrationFormNegative() throws Exception {
+    Mockito.doThrow(ServiceException.class).when(accService).getLogins();
     when(req.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     servlet.doGet(req, resp);
     verify(resp, times(1))
@@ -72,8 +70,9 @@ public class TeacherRegistrationServletTest {
   }
 
   @Test
-  void testRegisterTeacher() throws IOException {
+  void testRegisterTeacher() throws Exception {
     servlet.doPost(req, resp);
+    verify(accService, times(1)).save(any(Account.class));
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 
@@ -83,11 +82,6 @@ public class TeacherRegistrationServletTest {
     servlet.doPost(req, resp);
     verify(resp, times(1))
         .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  }
-
-  private void mockRequestParams() {
-    final String teacherRoleIdStr = "3";
-    when(req.getParameter("roleId")).thenReturn(teacherRoleIdStr);
   }
 
 }

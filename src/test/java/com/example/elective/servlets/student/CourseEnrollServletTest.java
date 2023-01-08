@@ -21,13 +21,13 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static com.example.elective.TestConstants.ACCOUNT_ATTR_NAME;
-import static com.example.elective.TestConstants.JOURNAL_SERVICE_NAME;
+import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
+import static com.example.elective.utils.Constants.JOURNAL_SERVICE;
 import static org.mockito.Mockito.*;
 
 public class CourseEnrollServletTest {
 
-  private CourseEnrollServlet servlet = new CourseEnrollServlet();
+  private final CourseEnrollServlet servlet = new CourseEnrollServlet();
 
   @Mock
   private HttpServletRequest req;
@@ -47,7 +47,7 @@ public class CourseEnrollServletTest {
   @Mock
   private HttpSession session;
 
-  private final static String REDIRECT_URL = "/elective/student?lang=en";
+  private final static String REDIRECT_URL = "/elective/student";
   private final static String PATH_INFO = "/1";
 
   @BeforeEach
@@ -55,10 +55,10 @@ public class CourseEnrollServletTest {
     MockitoAnnotations.openMocks(this);
     when(config.getServletContext()).thenReturn(context);
     when(req.getSession()).thenReturn(session);
-    when(context.getAttribute(JOURNAL_SERVICE_NAME)).thenReturn(journalService);
+    when(context.getAttribute(JOURNAL_SERVICE)).thenReturn(journalService);
     servlet.init(config);
     when(req.getPathInfo()).thenReturn(PATH_INFO);
-    when(session.getAttribute(ACCOUNT_ATTR_NAME))
+    when(session.getAttribute(ACCOUNT_ATTR))
         .thenReturn(Account.newBuilder().setId(1).build());
   }
 

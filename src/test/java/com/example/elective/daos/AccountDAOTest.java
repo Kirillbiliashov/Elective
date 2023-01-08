@@ -90,12 +90,11 @@ public class AccountDAOTest {
         .setPassword("password")
         .setFirstName("firstName")
         .setLastName("lastName")
-//        .setRoleId(1)
         .build();
   }
 
   private void verifyExpectedNumberOfCalls() throws Exception {
-    verify(ps, times(5)).setObject(anyInt(), any());
+    verify(ps, times(6)).setObject(anyInt(), any());
     verify(ps, times(1)).executeUpdate();
     verify(rs, times(1)).next();
   }

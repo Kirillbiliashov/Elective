@@ -3,6 +3,7 @@ package com.example.elective.services;
 import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dao.interfaces.DAO;
 import com.example.elective.dao.sql.TransactionManager;
+import com.example.elective.dto.CourseDTO;
 import com.example.elective.models.Course;
 import com.example.elective.selection.CourseSelection;
 import org.junit.jupiter.api.Assertions;
@@ -45,27 +46,24 @@ public class CourseServiceTest {
   @Test
   void getBySelection() throws Exception {
     CourseSelection selection = new CourseSelection("Teacher", "Topic", "name");
-    List<Course> courses = createCourses(
+    List<CourseDTO> courses = createCourses(
         Arrays.asList("algebra", "geometry", "history", "mobile development", "physics"),
-        Arrays.asList(1, 1, 2, 3, 1),
-        Arrays.asList(2, 1, 3, 3, 1));
-    System.out.println(courses);
+        Arrays.asList("Teacher", "Invalid teacher", "Invalid teacher", "Teacher", "Invalid teacher"),
+        Arrays.asList("Topic", "Invalid topic", "Invalid topic", "Topic", "Invalid topic"));
     doReturn(courses).when(service).performDaoReadOperation(any());
-    List<Course> expCourses = Arrays.asList(courses.get(1), courses.get(4));
-    System.out.println(expCourses);
+    List<CourseDTO> expCourses = Arrays.asList(courses.get(0), courses.get(3));
     Assertions.assertEquals(expCourses, service.getBySelection(selection));
   }
 
-  private List<Course> createCourses(List<String> names, List<Integer> teacherIds,
-                                     List<Integer> topicIds) {
-    List<Course> courses = new ArrayList<>();
+  private List<CourseDTO> createCourses(List<String> names, List<String> teachers,
+                                        List<String> topics) {
+    List<CourseDTO> courses = new ArrayList<>();
     for (int i = 0; i < names.size(); i++) {
-      courses.add(Course
-          .newBuilder()
+      courses.add(CourseDTO.newBuilder()
           .setName(names.get(i))
-          .setTeacherId(teacherIds.get(i))
-          .setTopicId(topicIds.get(i)).
-          build());
+          .setTeacher(teachers.get(i))
+          .setTopic(topics.get(i))
+          .build());
     }
     return courses;
   }

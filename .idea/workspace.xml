@@ -9,15 +9,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Minor frontend optimizations were made">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Login validation was added">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/mappers/dtoMappers/CourseDTOMapperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySqlDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/SignupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/text.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/text_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/passwordValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/passwordValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/CourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/CourseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySqlDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/CompletedCourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/CompletedCourseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/CourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/CourseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/RegisteredCourseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/RegisteredCourseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CoursePagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CoursePagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/Pagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AddCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AddCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/ChangeStudentBlockServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/ChangeStudentBlockServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/DeleteCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/DeleteCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/EditCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/EditCourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/PaginationHttpServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/PaginationHttpServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/TeacherRegistrationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/TeacherRegistrationServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/AddJournalGradeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/TeacherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/teacher/TeacherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/datesValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/js/datesValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/course/teacher.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/form/course/teacher.tag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-403.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-404.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-404.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/errors/error-500.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/selection-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/selection-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-completed-courses.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/TestConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/AccountDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/CourseDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/daos/CourseDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthenticationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthorizationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/filters/AuthorizationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LoginServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LoginServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LogoutServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/LogoutServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/MainServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/MainServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/AddCourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/AddCourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/CourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/CourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/DeleteCourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/DeleteCourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/EditCourseServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/EditCourseServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/TeacherRegistrationServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/admin/TeacherRegistrationServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/student/CourseEnrollServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/student/CourseEnrollServletTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/teacher/AddJournalGradeServletTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/servlets/teacher/AddJournalGradeServletTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +71,8 @@
         <option value="Interface" />
         <option value="JavaScript File" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -91,20 +132,32 @@
       <recent name="com.example.elective.servlets.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
-    <configuration name="db-create.sql (1)" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/sql/db-create.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="f5e762f5-b40a-432c-a51a-56740d6644c0" />
-      <method v="2" />
+  <component name="RunManager" selected="JUnit.All in elective">
+    <configuration name="AddJournalGradeServletTest.testCourseEnroll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.servlets.teacher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.servlets.teacher" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.servlets.teacher.AddJournalGradeServletTest" />
+      <option name="METHOD_NAME" value="testCourseEnroll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="db-create.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/sql/db-create.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="f5e762f5-b40a-432c-a51a-56740d6644c0" />
-      <method v="2" />
+    <configuration name="All in elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="AccountDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CourseDAOTest.testFindAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
@@ -113,50 +166,44 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.elective.daos" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.daos.AccountDAOTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.daos.CourseDAOTest" />
+      <option name="METHOD_NAME" value="testFindAll" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.example.elective in elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CourseDAOTest.testSaveThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.selection.*" />
+          <option name="PATTERN" value="com.example.elective.daos.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="com.example.elective.daos" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.daos.CourseDAOTest" />
+      <option name="METHOD_NAME" value="testSaveThrowsException" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="elective [deploy]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="deploy" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
+    <configuration name="CourseDTOMapperTest.testMapping" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.mappers.dtoMappers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.mappers.dtoMappers" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.mappers.dtoMappers.CourseDTOMapperTest" />
+      <option name="METHOD_NAME" value="testMapping" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <deployment>
@@ -245,20 +292,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Database Script.db-create.sql (1)" />
-      <item itemvalue="Database Script.db-create.sql" />
-      <item itemvalue="JUnit.com.example.elective in elective" />
-      <item itemvalue="JUnit.AccountDAOTest" />
-      <item itemvalue="Maven.elective [deploy]" />
+      <item itemvalue="JUnit.AddJournalGradeServletTest.testCourseEnroll" />
+      <item itemvalue="JUnit.All in elective" />
+      <item itemvalue="JUnit.CourseDAOTest.testFindAll" />
+      <item itemvalue="JUnit.CourseDAOTest.testSaveThrowsException" />
+      <item itemvalue="JUnit.CourseDTOMapperTest.testMapping" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Database Script.db-create.sql (1)" />
-        <item itemvalue="Database Script.db-create.sql" />
-        <item itemvalue="Maven.elective [deploy]" />
-        <item itemvalue="JUnit.com.example.elective in elective" />
-        <item itemvalue="JUnit.AccountDAOTest" />
+        <item itemvalue="JUnit.All in elective" />
+        <item itemvalue="JUnit.CourseDTOMapperTest.testMapping" />
+        <item itemvalue="JUnit.CourseDAOTest.testSaveThrowsException" />
+        <item itemvalue="JUnit.CourseDAOTest.testFindAll" />
+        <item itemvalue="JUnit.AddJournalGradeServletTest.testCourseEnroll" />
       </list>
     </recent_temporary>
   </component>
@@ -299,14 +346,7 @@
       <workItem from="1672307602012" duration="6177000" />
       <workItem from="1672493287191" duration="1182000" />
       <workItem from="1672656530967" duration="53024000" />
-      <workItem from="1672949928192" duration="34583000" />
-    </task>
-    <task id="LOCAL-00070" summary="internationalized text was added to jsp pages">
-      <created>1670514924660</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1670514924660</updated>
+      <workItem from="1672949928192" duration="49738000" />
     </task>
     <task id="LOCAL-00071" summary="properties file content was fixed">
       <created>1670532389731</created>
@@ -644,7 +684,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673124869415</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Login validation was added">
+      <created>1673168261068</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1673168261068</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -674,7 +721,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Custom error page for error 500 was added" />
     <MESSAGE value="Frontend was refactored" />
     <MESSAGE value="email attribute was added to account entity" />
     <MESSAGE value="CurseDTO class was added" />
@@ -699,7 +745,8 @@
     <MESSAGE value="Minor code improvements were made" />
     <MESSAGE value="App architecture was refactored" />
     <MESSAGE value="Minor frontend optimizations were made" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor frontend optimizations were made" />
+    <MESSAGE value="Login validation was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login validation was added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -712,6 +759,7 @@
     <SUITE FILE_PATH="coverage/elective$com_example_elective_in_elective.ic" NAME="com.example.elective in elective Coverage Results" MODIFIED="1671829624991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/Elective$All_in_elective.ic" NAME="All in elective Coverage Results" MODIFIED="1673208441595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/elective$AccountDAOTest_testSave.ic" NAME="AccountDAOTest.testSave Coverage Results" MODIFIED="1671707885951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.daos.*</FILTER>
     </SUITE>
