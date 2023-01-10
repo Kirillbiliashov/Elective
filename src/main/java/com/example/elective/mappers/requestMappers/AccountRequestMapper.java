@@ -4,6 +4,11 @@ import com.example.elective.models.Account;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Class that maps HttpServletRequest to Account
+ * @author Kirill Biliashov
+ */
+
 public class AccountRequestMapper implements RequestMapper<Account> {
 
   private static final String USERNAME = "username";

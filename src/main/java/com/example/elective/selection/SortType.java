@@ -5,6 +5,11 @@ import com.example.elective.dto.CourseDTO;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Enum describing different sort algorithms applicable to courses with method that performs actual sorting
+ * @author Kirill Biliashov
+ */
+
 public enum SortType {
   NAME {
     @Override

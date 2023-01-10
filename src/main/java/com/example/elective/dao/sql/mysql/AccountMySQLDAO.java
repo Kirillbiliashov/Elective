@@ -13,7 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
+/**
+ * Class that implements methods of AccountDAO for MySQL database
+ * @author Kirill Biliashov
+ */
+
+public class AccountMySQLDAO extends MySQLDAO<Account> implements AccountDAO {
 
   private static final String SELECT_ALL = "SELECT * FROM account";
   private static final String FIND_BY_ID = SELECT_ALL + " WHERE id = ?";
@@ -32,7 +37,7 @@ public class AccountMySqlDAO extends MySqlDAO<Account> implements AccountDAO {
   private static final String SELECT_LOGINS = "SELECT CONCAT(username, ','," +
       " email) AS " + LOGIN_COL + " FROM account";
 
-  public AccountMySqlDAO() {
+  public AccountMySQLDAO() {
     this.mapper = new AccountResultSetMapper();
   }
 

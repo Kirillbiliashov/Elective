@@ -1,5 +1,10 @@
 package com.example.elective.models;
 
+/**
+ * Model representation of topic table
+ * @author Kirill Biliashov
+ */
+
 public class Topic extends Entity {
 
   private String name;

@@ -19,6 +19,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 import static com.example.elective.utils.Constants.LOGINS_ATTR;
 
+/**
+ * Servlet class that handles GET and POST requests url for mapping "/signup"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 

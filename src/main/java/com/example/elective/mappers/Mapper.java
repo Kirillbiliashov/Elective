@@ -1,7 +1,13 @@
 package com.example.elective.mappers;
 
 import com.example.elective.exceptions.MappingException;
-import com.example.elective.models.Entity;
+
+/**
+ * Interface that describes mapping operation between two classes
+ * @param <U> Input class type parameter
+ * @param <V> Output class type parameter
+ * @author Kirill Biliashov
+ */
 
 public interface Mapper<U, V> {
 

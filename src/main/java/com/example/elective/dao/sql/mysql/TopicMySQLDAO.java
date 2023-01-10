@@ -1,24 +1,26 @@
 package com.example.elective.dao.sql.mysql;
 
-import com.example.elective.dao.interfaces.DAO;
 import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.resultSetMappers.TopicResultSetMapper;
 import com.example.elective.models.Topic;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
-public class TopicMysqlDAO extends MySqlDAO<Topic> implements TopicDAO {
+/**
+ * Class that implements methods of TopicDAO for MySQL database
+ * @author Kirill Biliashov
+ */
+
+public class TopicMySQLDAO extends MySQLDAO<Topic> implements TopicDAO {
 
   private static final String FIND_ALL = "SELECT * FROM topic";
   private static final String FIND = "SELECT * FROM topic WHERE id = ?";
 
-  public TopicMysqlDAO() {
+  public TopicMySQLDAO() {
     this.mapper = new TopicResultSetMapper();
   }
 

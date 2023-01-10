@@ -4,7 +4,6 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
 import com.example.elective.selection.CoursePagination;
 import com.example.elective.selection.Pagination;
-import com.example.elective.services.AccountService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.utils.PaginationUtils;
 import com.example.elective.utils.RequestUtils;
@@ -23,6 +22,11 @@ import java.util.Optional;
 
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.PaginationUtils.setPageAttributes;
+
+/**
+ * Servlet class that handles POST request url for mapping "/teacher"
+ * @author Kirill Biliashov
+ */
 
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {

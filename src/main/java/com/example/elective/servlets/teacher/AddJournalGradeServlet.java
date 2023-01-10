@@ -2,7 +2,6 @@ package com.example.elective.servlets.teacher;
 
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.JournalService;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -14,6 +13,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
+
+/**
+ * Servlet class that handles POST request url for mapping "/teacher/addGrade/*"
+ * @author Kirill Biliashov
+ */
 
 @WebServlet("/teacher/addGrade/*")
 public class AddJournalGradeServlet extends HttpServlet {

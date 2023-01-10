@@ -6,6 +6,11 @@ import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.exceptions.ServiceException;
 
+/**
+ * Abstract base class for all service classes that provides utility methods for them
+ * @author Kirill Biliashov
+ */
+
 public abstract class AbstractService {
 
   protected TransactionManager transactionManager = new TransactionManager();

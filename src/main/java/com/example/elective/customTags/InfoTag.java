@@ -2,9 +2,13 @@ package com.example.elective.customTags;
 
 import com.example.elective.models.Account;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
+
+/**
+ * Class that represents custom tag library
+ * @author Kirill Biliashov
+ */
 
 public class InfoTag extends SimpleTagSupport {
 

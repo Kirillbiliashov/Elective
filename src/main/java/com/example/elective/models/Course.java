@@ -2,6 +2,11 @@ package com.example.elective.models;
 
 import java.sql.Date;
 
+/**
+ * Model representation of course table
+ * @author Kirill Biliashov
+ */
+
 public class Course extends Entity {
 
   private final Builder builder;

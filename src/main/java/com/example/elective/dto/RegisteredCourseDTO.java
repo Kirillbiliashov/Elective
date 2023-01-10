@@ -1,13 +1,16 @@
 package com.example.elective.dto;
 
-import com.example.elective.models.Course;
-
 import java.sql.Date;
+
+/**
+ * Data Transfer Object for course entity; contains all necessary data for client about registered course
+ * @author Kirill Biliashov
+ */
 
 public class RegisteredCourseDTO {
 
   private final CourseDTO courseDTO;
-  private Date registrationDate;
+  private final Date registrationDate;
 
   public RegisteredCourseDTO(CourseDTO courseDTO, Date registrationDate) {
     this.courseDTO = courseDTO;

@@ -15,6 +15,11 @@ import java.util.*;
 
 import static com.example.elective.utils.Constants.TEACHER_ROLE;
 
+/**
+ * Class containing business logic methods regarding teachers
+ * @author Kirill Biliashov
+ */
+
 public class TeacherService extends AbstractService {
 
   private final AccountDAO accDao = daoFactory.getAccountDAO();

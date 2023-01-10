@@ -3,8 +3,6 @@ package com.example.elective.servlets;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.services.AccountService;
-import com.example.elective.utils.PasswordUtils;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -19,6 +17,11 @@ import java.util.Optional;
 
 import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+
+/**
+ * Servlet class that handles GET and POST requests url for mapping "/login"
+ * @author Kirill Biliashov
+ */
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {

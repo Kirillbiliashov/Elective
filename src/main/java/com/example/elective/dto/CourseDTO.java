@@ -1,7 +1,11 @@
 package com.example.elective.dto;
 
 import java.sql.Date;
-import java.time.Period;
+
+/**
+ * Data Transfer Object for course entity; contains all necessary data for client about course
+ * @author Kirill Biliashov
+ */
 
 public class CourseDTO {
 

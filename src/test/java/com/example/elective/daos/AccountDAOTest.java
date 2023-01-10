@@ -1,6 +1,6 @@
 package com.example.elective.daos;
 
-import com.example.elective.dao.sql.mysql.AccountMySqlDAO;
+import com.example.elective.dao.sql.mysql.AccountMySQLDAO;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.mappers.resultSetMappers.ResultSetMapper;
 import com.example.elective.models.Account;
@@ -100,7 +100,7 @@ public class AccountDAOTest {
   }
 
 
-  private static class AccountDAOTestClass extends AccountMySqlDAO {
+  private static class AccountDAOTestClass extends AccountMySQLDAO {
     public void setMapper(Mapper<ResultSet, Account> mapper) {
       this.mapper = mapper;
     }

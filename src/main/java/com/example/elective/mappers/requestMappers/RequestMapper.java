@@ -1,10 +1,14 @@
 package com.example.elective.mappers.requestMappers;
 
-import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
-import com.example.elective.models.Entity;
 
 import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Interface that describes mapping operation between HttpServletRequest and Entity
+ * @param <T> output class type parameter, subclass of Entity
+ * @author Kirill Biliashov
+ */
 
 public interface RequestMapper<T> extends Mapper<HttpServletRequest, T> {
 

@@ -2,6 +2,11 @@ package com.example.elective.models;
 
 import java.sql.Date;
 
+/**
+ * Model representation of journal table
+ * @author Kirill Biliashov
+ */
+
 public class Journal extends Entity {
 
   private int grade;

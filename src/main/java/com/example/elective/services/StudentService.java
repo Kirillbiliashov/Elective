@@ -6,6 +6,11 @@ import com.example.elective.models.Account;
 
 import java.util.*;
 
+/**
+ * Class containing business logic method regarding students
+ * @author Kirill Biliashov
+ */
+
 public class StudentService extends AbstractService {
 
   private final AccountDAO accDao = daoFactory.getAccountDAO();

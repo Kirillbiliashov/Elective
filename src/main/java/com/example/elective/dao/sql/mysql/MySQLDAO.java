@@ -3,6 +3,7 @@ package com.example.elective.dao.sql.mysql;
 import com.example.elective.dao.sql.AbstractDAO;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
+import com.example.elective.models.Entity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class MySqlDAO<T> extends AbstractDAO {
+/**
+ * Abstract class with utility fields and methods for DAOs of MySQL table
+ * @param <T> Type parameter, subclass of Entity
+ * @author Kirill Biliashov
+ */
+
+public abstract class MySQLDAO<T extends Entity> extends AbstractDAO {
 
   protected Mapper<ResultSet, T> mapper;
 

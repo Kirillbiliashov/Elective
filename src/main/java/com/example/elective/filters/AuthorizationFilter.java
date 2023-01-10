@@ -11,6 +11,12 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.HOME_URL_ATTR;
 
+/**
+ * Class that filters incoming request for authenticated users based on their role.
+ * Allows to view urls which domain is equal to user role
+ * @author Kirill Biliashov
+ */
+
 public class AuthorizationFilter extends HttpFilter {
 
   private static final String PATH_SEPARATOR = "/";

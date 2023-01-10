@@ -6,6 +6,11 @@ import com.example.elective.models.Journal;
 
 import java.util.Optional;
 
+/**
+ * Class containing business logic methods regarding journal
+ * @author Kirill Biliashov
+ */
+
 public class JournalService extends AbstractService {
 
   private final JournalDAO dao = daoFactory.getJournalDAO();

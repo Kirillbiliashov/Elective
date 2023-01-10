@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet class that handles GET request for mapping "/admin"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 

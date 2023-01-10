@@ -1,5 +1,10 @@
 package com.example.elective.models;
 
+/**
+ * Model representation of account table
+ * @author Kirill Biliashov
+ */
+
 public class Account extends Entity {
 
   private final Builder builder;

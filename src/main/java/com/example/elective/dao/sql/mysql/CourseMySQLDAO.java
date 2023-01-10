@@ -11,7 +11,12 @@ import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
+/**
+ * Class that implements methods of CourseDAO for MySQL database
+ * @author Kirill Biliashov
+ */
+
+public class CourseMySQLDAO extends MySQLDAO<Course> implements CourseDAO {
 
   private static final String GET_ALL = "SELECT * FROM course";
   private static final String GET_BY_TEACHER_ID = GET_ALL +
@@ -40,7 +45,7 @@ public class CourseMySqlDAO extends MySqlDAO<Course> implements CourseDAO {
   private static final String GET_COUNT_BY_TEACHER = "SELECT COUNT(*) " +
       "FROM course WHERE teacher_id = ?";
 
-  public CourseMySqlDAO() {
+  public CourseMySQLDAO() {
     this.mapper = new CourseResultSetMapper();
   }
 

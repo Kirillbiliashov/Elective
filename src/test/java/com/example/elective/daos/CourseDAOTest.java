@@ -1,6 +1,6 @@
 package com.example.elective.daos;
 
-import com.example.elective.dao.sql.mysql.CourseMySqlDAO;
+import com.example.elective.dao.sql.mysql.CourseMySQLDAO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
@@ -79,7 +79,7 @@ public class CourseDAOTest {
     verify(logger, times(1)).error(ERROR_MSG);
   }
 
-  private static class CourseDAOTestClass extends CourseMySqlDAO {
+  private static class CourseDAOTestClass extends CourseMySQLDAO {
     public void setMapper(Mapper<ResultSet, Course> mapper) {
       this.mapper = mapper;
     }

@@ -7,6 +7,11 @@ import com.example.elective.models.Journal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that maps ResultSet to Journal
+ * @author Kirill Biliashov
+ */
+
 public class JournalResultSetMapper extends ResultSetMapper<Journal> {
 
   private static final String GRADE_COL_NAME = "grade";

@@ -6,6 +6,11 @@ import com.example.elective.models.Account;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that maps ResultSet to Account
+ * @author Kirill Biliashov
+ */
+
 public class AccountResultSetMapper extends ResultSetMapper<Account> {
 
   private static final String USERNAME_COL_NAME = "username";

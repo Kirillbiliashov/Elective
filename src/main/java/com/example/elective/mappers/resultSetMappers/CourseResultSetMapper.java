@@ -6,6 +6,11 @@ import com.example.elective.models.Course;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that maps ResultSet to Course
+ * @author Kirill Biliashov
+ */
+
 public class CourseResultSetMapper extends ResultSetMapper<Course> {
 
   private static final String NAME_COL_NAME = "name";

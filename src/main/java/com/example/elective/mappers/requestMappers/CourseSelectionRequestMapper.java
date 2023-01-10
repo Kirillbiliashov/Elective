@@ -4,6 +4,11 @@ import com.example.elective.selection.CourseSelection;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Class that maps HttpServletRequest to CourseSelection
+ * @author Kirill Biliashov
+ */
+
 public class CourseSelectionRequestMapper implements RequestMapper<CourseSelection> {
 
   private static final String TEACHER = "teacher";

@@ -1,7 +1,6 @@
 package com.example.elective.servlets;
 
 import com.example.elective.models.Account;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
+
+/**
+ * Servlet class that redirects request to user home url that depends on his/her role
+ * @author Kirill Biliashov
+ */
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {

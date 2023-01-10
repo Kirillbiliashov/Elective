@@ -10,6 +10,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.LANG_ATTR;
 
+/**
+ * Class that changes app language if language request param was sent, otherwise filter is skipped
+ * @author Kirill Biliashov
+ */
+
 public class LanguageFilter extends HttpFilter {
 
   @Override

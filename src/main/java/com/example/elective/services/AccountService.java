@@ -4,12 +4,16 @@ import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.selection.Pagination;
-import com.example.elective.utils.PasswordUtils;
 
 import java.util.List;
 import java.util.Optional;
 
 import static com.example.elective.utils.PasswordUtils.passwordsMatch;
+
+/**
+ * Class containing business logic methods regarding accounts
+ * @author Kirill Biliashov
+ */
 
 public class AccountService extends AbstractService {
 

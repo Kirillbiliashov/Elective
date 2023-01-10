@@ -5,6 +5,11 @@ import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
 
+/**
+ * Class that map Course to CourseDTO
+ * @author Kirill Biliashov
+ */
+
 public class CourseDTOMapper implements Mapper<Course, CourseDTO> {
 
   private final String teacher;

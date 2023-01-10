@@ -12,7 +12,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
+/**
+ * Class that implements methods of JournalDAO for MySQL database
+ * @author Kirill Biliashov
+ */
+
+public class JournalMySQLDAO extends MySQLDAO<Journal> implements JournalDAO {
 
   private static final String SELECT_ALL = "SELECT  * FROM journal";
   private static final String WHERE_COURSE_ID = " WHERE course_id = ?";
@@ -27,7 +32,7 @@ public class JournalMySqlDAO extends MySqlDAO<Journal> implements JournalDAO {
   private static final String GET_STUDENTS_COUNT = "SELECT COUNT(*)" +
       " FROM journal" + WHERE_COURSE_ID;
 
-  public JournalMySqlDAO() {
+  public JournalMySQLDAO() {
     this.mapper = new JournalResultSetMapper();
   }
 

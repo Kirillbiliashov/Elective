@@ -8,9 +8,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
 
 import static com.example.elective.utils.Constants.*;
+
+/**
+ * Class that listens to application lifecycle events such as start/stop
+ * @author Kirill Biliashov
+ */
 
 @WebListener
 public class AppListener implements ServletContextListener {

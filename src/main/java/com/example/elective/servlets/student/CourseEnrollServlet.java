@@ -17,6 +17,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.JOURNAL_SERVICE;
 
+/**
+ * Servlet class that handles POST request for url mapping "/student/courses/enroll/*"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/student/courses/enroll/*")
 public class CourseEnrollServlet extends HttpServlet {
 

@@ -1,5 +1,10 @@
 package com.example.elective.selection;
 
+/**
+ * Class containing data about current page to display for the client as well as number of items to be displayed
+ * @author Kirill Biliashov
+ */
+
 public class Pagination {
 
   protected int page;

@@ -18,6 +18,11 @@ import static com.example.elective.utils.Constants.COURSES_IN_PROGRESS_ATTR;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
+/**
+ * Servlet class that handles GET request url for mapping "/student/courses_in_progress"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/student/courses_in_progress")
 public class CoursesInProgressServlet extends HttpServlet {
 

@@ -16,6 +16,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Abstract base class for servlets that display paginated data
+ * @author Kirill Biliashov
+ */
+
 public abstract class PaginationHttpServlet extends HttpServlet {
 
   protected AccountService accountService;

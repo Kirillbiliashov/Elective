@@ -4,6 +4,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+/**
+ * Class that stores application constants
+ * @author Kirill Biliashov
+ */
 public class Constants {
 
   public static final String LOGINS_ATTR = "logins";

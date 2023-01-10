@@ -1,14 +1,16 @@
 package com.example.elective.servlets;
 
-import com.example.elective.utils.Constants;
-import com.example.elective.utils.RequestUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
+
+/**
+ * Servlet class that handles GET request url for mapping "/logout"
+ * @author Kirill Biliashov
+ */
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {

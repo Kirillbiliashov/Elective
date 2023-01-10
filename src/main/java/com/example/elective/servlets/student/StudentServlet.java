@@ -22,6 +22,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
+/**
+ * Servlet class that handles GET request url for mapping "/student"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
 

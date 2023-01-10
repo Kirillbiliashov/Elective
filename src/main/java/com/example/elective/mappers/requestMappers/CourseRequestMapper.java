@@ -5,6 +5,11 @@ import com.example.elective.models.Course;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 
+/**
+ * Class that maps HttpServletRequest to Course
+ * @author Kirill Biliashov
+ */
+
 public class CourseRequestMapper implements RequestMapper<Course> {
 
   private static final String ID = "id";

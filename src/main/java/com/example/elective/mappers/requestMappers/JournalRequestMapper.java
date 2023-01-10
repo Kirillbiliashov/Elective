@@ -3,13 +3,17 @@ package com.example.elective.mappers.requestMappers;
 import com.example.elective.models.Account;
 import com.example.elective.models.Journal;
 import com.example.elective.utils.Constants;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
 import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
+
+/**
+ * Class that maps HttpServletRequest to Journal
+ * @author Kirill Biliashov
+ */
 
 public class JournalRequestMapper implements RequestMapper<Journal> {
 

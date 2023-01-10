@@ -6,6 +6,11 @@ import com.example.elective.models.Topic;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that maps ResultSet to Topic
+ * @author Kirill Biliashov
+ */
+
 public class TopicResultSetMapper extends ResultSetMapper<Topic> {
 
   private static final String NAME_COL_NAME = "name";

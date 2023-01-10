@@ -5,7 +5,6 @@ import com.example.elective.mappers.requestMappers.AccountRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Account;
 import com.example.elective.services.AccountService;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -15,10 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 import static com.example.elective.utils.Constants.LOGINS_ATTR;
+
+/**
+ * Servlet class that handles GET and POST requests for mapping "/admin/teachers/register"
+ * @author Kirill Biliashov
+ */
 
 @WebServlet("/admin/teachers/register")
 public class TeacherRegistrationServlet extends HttpServlet {

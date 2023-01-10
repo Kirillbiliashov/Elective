@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Servlet class that handles POST request for mapping "/admin/courses/edit/*"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/admin/courses/edit/*")
 public class EditCourseServlet extends HttpServlet {
 

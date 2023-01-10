@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class with utility methods related to pagination
+ * @author Kirill Biliashov
+ */
 public class PaginationUtils {
 
   private static final int DEFAULT_PAGE = 1;

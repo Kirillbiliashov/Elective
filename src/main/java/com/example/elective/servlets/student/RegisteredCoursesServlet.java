@@ -17,6 +17,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 import static com.example.elective.utils.Constants.REGISTERED_COURSES_ATTR;
 
+/**
+ * Servlet class that handles GET request url for mapping "/student/registered_courses"
+ * @author Kirill Biliashov
+ */
+
 @WebServlet("/student/registered_courses")
 public class RegisteredCoursesServlet extends HttpServlet {
 

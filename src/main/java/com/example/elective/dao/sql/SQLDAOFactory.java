@@ -11,13 +11,18 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class SqlDAOFactory extends DAOFactory {
+/**
+ * Abstract base class for SQL factories with static method that retrieves connection to DB
+ * @author Kirill Biliashov
+ */
 
-  private static final Logger logger = LogManager.getLogger(SqlDAOFactory.class);
+public abstract class SQLDAOFactory extends DAOFactory {
+
+  private static final Logger logger = LogManager.getLogger(SQLDAOFactory.class);
 
   private static DataSource ds;
 
-  public static Connection getConnection() throws SQLException {
+  public static synchronized Connection getConnection() throws SQLException {
     if (ds == null) configureDataSource();
     return ds.getConnection();
   }

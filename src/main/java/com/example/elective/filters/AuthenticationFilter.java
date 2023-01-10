@@ -11,6 +11,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class that filters users based on request path and whether they are logged in
+ * @author Kirill Biliashov
+ */
+
 public class AuthenticationFilter extends HttpFilter {
 
   private String loginPath;

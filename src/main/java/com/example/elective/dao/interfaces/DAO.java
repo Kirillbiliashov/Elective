@@ -7,6 +7,12 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface describing CRUD operations on entity
+ * @param <T> type parameter, subclass of Entity
+ * @author Kirill Biliashov
+ */
+
 public interface DAO<T extends Entity> {
 
   void setConnection(Connection conn);

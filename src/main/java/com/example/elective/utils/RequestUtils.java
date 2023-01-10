@@ -7,6 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
 
+/**
+ * Class with utility methods for getting ids
+ * @author Kirill Biliashov
+ */
+
 public class RequestUtils {
 
   private static final int OFFSET = 1;

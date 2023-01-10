@@ -7,6 +7,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class that encapsulates data about course selection, such as courses' teacher, topic and sort type
+ * @author Kirill Biliashov
+ */
+
 public class CourseSelection {
 
   private String teacher = "Any";

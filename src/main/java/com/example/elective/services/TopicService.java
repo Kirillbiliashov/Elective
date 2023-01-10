@@ -6,6 +6,11 @@ import com.example.elective.models.Topic;
 
 import java.util.List;
 
+/**
+ * Class containing business logic methods regarding topics
+ * @author Kirill Biliashov
+ */
+
 public class TopicService extends AbstractService {
 
   private final TopicDAO dao = daoFactory.getTopicDAO();

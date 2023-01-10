@@ -2,6 +2,11 @@ package com.example.elective.dto;
 
 import java.sql.Date;
 
+/**
+ * Data Transfer Object for course entity; contains all necessary data for client about completed course
+ * @author Kirill Biliashov
+ */
+
 public class CompletedCourseDTO {
 
   private final CourseDTO courseDTO;

@@ -21,6 +21,11 @@ import com.example.elective.models.Journal;
 import java.sql.Date;
 import java.util.*;
 
+/**
+ * Class containing business logic methods regarding courses
+ * @author Kirill Biliashov
+ */
+
 public class CourseService extends AbstractService {
 
   private final CourseDAO dao = daoFactory.getCourseDAO();

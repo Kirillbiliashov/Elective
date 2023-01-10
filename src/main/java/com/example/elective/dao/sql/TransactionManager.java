@@ -1,13 +1,16 @@
 package com.example.elective.dao.sql;
 
 import com.example.elective.dao.interfaces.DAO;
-import com.example.elective.dao.sql.mysql.MySqlDAOFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Class with methods responsible for starting, committing, ending, rolling back transactions
+ * @author Kirill Biliashov
+ */
 public class TransactionManager {
 
   private final Logger logger = LogManager.getLogger(TransactionManager.class);
@@ -16,7 +19,7 @@ public class TransactionManager {
 
   public void initTransaction(DAO... daos) {
     try {
-      if (conn == null) conn = SqlDAOFactory.getConnection();
+      if (conn == null) conn = SQLDAOFactory.getConnection();
       conn.setAutoCommit(false);
       conn.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
     } catch (SQLException e) {
