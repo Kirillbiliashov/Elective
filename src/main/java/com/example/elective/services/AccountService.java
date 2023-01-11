@@ -36,6 +36,7 @@ public class AccountService extends AbstractService {
   }
 
   public List<Account> getByRole(String roleName) throws ServiceException {
+    System.out.println(this.hashCode());
     transactionManager.initTransaction(dao);
     return performDaoReadOperation(() -> dao.getByRole(roleName));
   }
@@ -48,7 +49,7 @@ public class AccountService extends AbstractService {
 
   public List<String> getLogins() throws ServiceException {
     transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.getLogins());
+    return performDaoReadOperation(dao::getLogins);
   }
 
   public int getTotalCount(String roleName) throws ServiceException {

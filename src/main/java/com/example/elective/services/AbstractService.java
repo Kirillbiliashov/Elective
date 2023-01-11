@@ -5,6 +5,10 @@ import com.example.elective.dao.DAOFactory;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.exceptions.ServiceException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 /**
  * Abstract base class for all service classes that provides utility methods for them

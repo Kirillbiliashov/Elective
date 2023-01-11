@@ -13,7 +13,9 @@ import java.util.Optional;
 
 public interface JournalDAO extends DAO<Journal> {
   Optional<Journal> findByCourseAndStudent(int courseId, int studentId) throws DAOException;
+
   List<Journal> getByCourseId(int courseId) throws DAOException;
+
   int getStudentsCount(int courseId) throws DAOException;
 
 }

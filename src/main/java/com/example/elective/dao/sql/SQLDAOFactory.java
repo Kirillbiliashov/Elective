@@ -37,4 +37,5 @@ public abstract class SQLDAOFactory extends DAOFactory {
       throw new RuntimeException(e);
     }
   }
+
 }
