@@ -20,6 +20,14 @@ import static com.example.elective.utils.Constants.*;
 public class AppListener implements ServletContextListener {
 
   private final static Logger logger = LogManager.getLogger(AppListener.class);
+  private static final AccountService accService = new AccountService();
+  private static final JournalService journalService = new JournalService();
+  private static final TopicService topicService = new TopicService();
+  private static final TeacherService teacherService =
+      new TeacherService(accService);
+  private static final StudentService studentService = new StudentService();
+  private static final CourseService courseService =
+      new CourseService(topicService, accService, journalService);
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
@@ -29,12 +37,12 @@ public class AppListener implements ServletContextListener {
   }
 
   private void setAttributes(ServletContext context) {
-    context.setAttribute(ACCOUNT_SERVICE, new AccountService());
-    context.setAttribute(COURSE_SERVICE, new CourseService());
-    context.setAttribute(JOURNAL_SERVICE, new JournalService());
-    context.setAttribute(STUDENT_SERVICE, new StudentService());
-    context.setAttribute(TEACHER_SERVICE, new TeacherService());
-    context.setAttribute(TOPIC_SERVICE, new TopicService());
+    context.setAttribute(ACCOUNT_SERVICE, accService);
+    context.setAttribute(COURSE_SERVICE, courseService);
+    context.setAttribute(JOURNAL_SERVICE, journalService);
+    context.setAttribute(STUDENT_SERVICE, studentService);
+    context.setAttribute(TEACHER_SERVICE, teacherService);
+    context.setAttribute(TOPIC_SERVICE, topicService);
   }
 
   @Override

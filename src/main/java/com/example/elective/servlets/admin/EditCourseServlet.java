@@ -4,6 +4,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Course;
+import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
@@ -33,14 +34,14 @@ public class EditCourseServlet extends HttpServlet {
   private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
   private CourseService courseService;
   private TopicService topicService;
-  private TeacherService teacherService;
+  private AccountService accService;
 
   @Override
   public void init(ServletConfig config) {
     ServletContext context = config.getServletContext();
     courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
     topicService = (TopicService) context.getAttribute(TOPIC_SERVICE);
-    teacherService = (TeacherService) context.getAttribute(TEACHER_SERVICE);
+    accService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
   }
 
   @Override
@@ -55,7 +56,7 @@ public class EditCourseServlet extends HttpServlet {
       }
       req.setAttribute(COURSE_ATTR, optCourse.get());
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
-      req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
+      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
       req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

@@ -9,7 +9,7 @@ import com.example.elective.exceptions.MappingException;
  * @author Kirill Biliashov
  */
 
-public interface DAOReadOperation<T> {
+public interface DAOReader<T> {
 
   T read() throws DAOException, MappingException;
 

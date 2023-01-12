@@ -4,6 +4,7 @@ import com.example.elective.selection.CourseSelection;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
+import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
 import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
@@ -34,7 +35,7 @@ public class StudentServlet extends HttpServlet {
   private final RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
   private CourseService courseService;
-  private TeacherService teacherService;
+  private AccountService accService;
   private TopicService topicService;
 
   @Override
@@ -42,7 +43,7 @@ public class StudentServlet extends HttpServlet {
     ServletContext context = config.getServletContext();
     courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
     topicService = (TopicService) context.getAttribute(TOPIC_SERVICE);
-    teacherService = (TeacherService) context.getAttribute(TEACHER_SERVICE);
+    accService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
   }
 
   @Override
@@ -52,7 +53,7 @@ public class StudentServlet extends HttpServlet {
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
-      req.setAttribute(TEACHERS_ATTR, teacherService.getAll());
+      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
       req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
       req.getRequestDispatcher(JSP_PAGE).forward(req, resp);

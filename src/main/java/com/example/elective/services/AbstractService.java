@@ -5,9 +5,6 @@ import com.example.elective.dao.DAOFactory;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.exceptions.ServiceException;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 /**
@@ -17,35 +14,34 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class AbstractService {
 
-  protected TransactionManager transactionManager = new TransactionManager();
   protected DAOFactory daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL);
 
-  protected <T> T performDaoReadOperation(DAOReadOperation<T> operation)
+  protected <T> T read(TransactionManager tm, DAOReader<T> reader)
       throws ServiceException {
     try {
-      T res = operation.read();
-      transactionManager.commitTransaction();
+      T res = reader.read();
+      tm.commitTransaction();
       return res;
     } catch (DAOException | MappingException e) {
       e.printStackTrace();
-      transactionManager.rollbackTransaction();
+      tm.rollbackTransaction();
       throw new ServiceException(e);
     } finally {
-      transactionManager.endTransaction();
+      tm.endTransaction();
     }
   }
 
-  protected void performDaoWriteOperation(DAOWriteOperation operation)
+  protected void write(TransactionManager tm, DAOWriter writer)
       throws ServiceException {
     try {
-      operation.write();
-      transactionManager.commitTransaction();
+      writer.write();
+      tm.commitTransaction();
     } catch (DAOException e) {
       e.printStackTrace();
-      transactionManager.rollbackTransaction();
+      tm.rollbackTransaction();
       throw new ServiceException(e);
     } finally {
-      transactionManager.endTransaction();
+      tm.endTransaction();
     }
   }
 

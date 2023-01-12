@@ -7,7 +7,7 @@ import com.example.elective.exceptions.DAOException;
  * @author Kirill Biliashov
  */
 
-public interface DAOWriteOperation {
+public interface DAOWriter {
 
   void write() throws DAOException;
 

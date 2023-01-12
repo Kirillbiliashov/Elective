@@ -1,6 +1,8 @@
 package com.example.elective.services;
 
 import com.example.elective.dao.interfaces.AccountDAO;
+import com.example.elective.dao.sql.TransactionManager;
+import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.selection.Pagination;
@@ -17,15 +19,14 @@ import static com.example.elective.utils.PasswordUtils.passwordsMatch;
 
 public class AccountService extends AbstractService {
 
-  private final AccountDAO dao = daoFactory.getAccountDAO();
-
   public Optional<Account> findByCredentials(String login, String password)
       throws ServiceException {
-    transactionManager.initTransaction(dao);
-    Optional<Account> optAccount = performDaoReadOperation(() ->
-        dao.findByLogin(login));
-    if (!optAccount.isPresent()) return Optional.empty();
-    Account acc = optAccount.get();
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    final TransactionManager tm = new TransactionManager();
+    tm.initTransaction(dao);
+    Optional<Account> optAcc = read(tm, () -> dao.findByLogin(login));
+    if (!optAcc.isPresent()) return Optional.empty();
+    Account acc = optAcc.get();
     return findByPassword(acc, password);
   }
 
@@ -36,30 +37,46 @@ public class AccountService extends AbstractService {
   }
 
   public List<Account> getByRole(String roleName) throws ServiceException {
-    System.out.println(this.hashCode());
-    transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.getByRole(roleName));
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    TransactionManager tm = new TransactionManager();
+    tm.initTransaction(dao);
+    return read(tm, () -> dao.getByRole(roleName));
   }
 
   public List<Account> getPaginated(String role, Pagination pagination)
       throws ServiceException {
-    transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.getByRole(role, pagination));
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    TransactionManager tm = new TransactionManager();
+    tm.initTransaction(dao);
+    return read(tm, () -> dao.getByRole(role, pagination));
   }
 
   public List<String> getLogins() throws ServiceException {
-    transactionManager.initTransaction(dao);
-    return performDaoReadOperation(dao::getLogins);
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    TransactionManager tm = new TransactionManager();
+    tm.initTransaction(dao);
+    return read(tm, dao::getLogins);
   }
 
   public int getTotalCount(String roleName) throws ServiceException {
-    transactionManager.initTransaction(dao);
-    return performDaoReadOperation(() -> dao.getCountByRole(roleName));
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    TransactionManager tm = new TransactionManager();
+    tm.initTransaction(dao);
+    return read(tm, () -> dao.getCountByRole(roleName));
   }
 
   public void save(Account acc) throws ServiceException {
-    transactionManager.initTransaction(dao);
-    performDaoWriteOperation(() -> dao.save(acc));
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    TransactionManager tm = new TransactionManager();
+    tm.initTransaction(dao);
+    write(tm, () -> dao.save(acc));
+  }
+
+  protected Optional<Account> find(TransactionManager tm, int id)
+      throws DAOException {
+    final AccountDAO dao = daoFactory.getAccountDAO();
+    tm.initTransaction(dao);
+    return dao.find(id);
   }
 
 }
