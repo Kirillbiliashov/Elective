@@ -18,7 +18,7 @@ public class TopicService extends AbstractService {
 
   public List<Topic> getAll() throws ServiceException {
     final TopicDAO dao = daoFactory.getTopicDAO();
-    final TransactionManager tm = new TransactionManager();
+    final TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, dao::getAll);
   }

@@ -16,7 +16,7 @@ public class StudentService extends AbstractService {
 
   public void changeBlockStatus(int id) throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> {
       Optional<Account> optAcc = dao.find(id);

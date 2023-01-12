@@ -32,21 +32,21 @@ public class TeacherService extends AbstractService {
   public Optional<Course> findCourse(int teacherId, Pagination pagination)
       throws ServiceException {
     final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = new TransactionManager();
+    final TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.findByTeacherId(teacherId, pagination));
   }
 
   public int getCoursesCount(int teacherId) throws ServiceException {
     final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = new TransactionManager();
+    final TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.getCount(teacherId));
   }
 
   public List<JournalDTO> getJournalList(int courseId) throws ServiceException {
     final JournalDAO journalDao = daoFactory.getJournalDAO();
-    final TransactionManager tm = new TransactionManager();
+    final TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(journalDao);
     return read(tm, () -> {
       List<Journal> journalList = journalDao.getByCourseId(courseId);

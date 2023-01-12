@@ -9,26 +9,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Minor improvements were made">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/elective_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/elective_war.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/elective_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/elective_war_exploded.xml" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Service layer was refactored to support concurrency">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AbstractServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/JournalServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/TopicServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/elective_war.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/elective_war_exploded.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/DAOReadOperation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/DAOReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/DAOWriteOperation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/DAOWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/StudentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/EditCourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/EditCourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/student/StudentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/student/StudentServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,30 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/admin/Elective&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/admin/Elective",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;f5e762f5-b40a-432c-a51a-56740d6644c0&quot;
+    "RunConfigurationTargetLRU": [
+      "f5e762f5-b40a-432c-a51a-56740d6644c0"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;MySQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "MySQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
@@ -102,7 +100,55 @@
       <recent name="com.example.elective.servlets.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
+  <component name="RunManager" selected="JUnit.All in Elective">
+    <configuration name="AbstractServiceTest.testWriteThrowsDAOException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.services" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.AbstractServiceTest" />
+      <option name="METHOD_NAME" value="testWriteThrowsDAOException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountServiceTest.testFindByCredentials" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.services" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.AccountServiceTest" />
+      <option name="METHOD_NAME" value="testFindByCredentials" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountServiceTest.testGetLogins" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.services" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.AccountServiceTest" />
+      <option name="METHOD_NAME" value="testGetLogins" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in Elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Elective" />
       <option name="PACKAGE_NAME" value="" />
@@ -111,88 +157,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="elective" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+    <configuration name="CourseServiceTest.testGetBySelection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.services" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.services.CourseServiceTest" />
+      <option name="METHOD_NAME" value="testGetBySelection" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="Elective [clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <configuration name="Elective [deploy]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="deploy" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <configuration name="Elective [package]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="package" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/elective" />
@@ -282,20 +261,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.AbstractServiceTest.testWriteThrowsDAOException" />
+      <item itemvalue="JUnit.AccountServiceTest.testFindByCredentials" />
+      <item itemvalue="JUnit.AccountServiceTest.testGetLogins" />
+      <item itemvalue="JUnit.CourseServiceTest.testGetBySelection" />
       <item itemvalue="JUnit.All in Elective" />
-      <item itemvalue="JUnit.All in elective" />
-      <item itemvalue="Maven.Elective [clean]" />
-      <item itemvalue="Maven.Elective [deploy]" />
-      <item itemvalue="Maven.Elective [package]" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Maven.Elective [package]" />
-        <item itemvalue="Maven.Elective [deploy]" />
-        <item itemvalue="Maven.Elective [clean]" />
         <item itemvalue="JUnit.All in Elective" />
-        <item itemvalue="JUnit.All in elective" />
+        <item itemvalue="JUnit.CourseServiceTest.testGetBySelection" />
+        <item itemvalue="JUnit.AccountServiceTest.testGetLogins" />
+        <item itemvalue="JUnit.AccountServiceTest.testFindByCredentials" />
+        <item itemvalue="JUnit.AbstractServiceTest.testWriteThrowsDAOException" />
       </list>
     </recent_temporary>
   </component>
@@ -338,14 +317,7 @@
       <workItem from="1672656530967" duration="53024000" />
       <workItem from="1672949928192" duration="49738000" />
       <workItem from="1673346776679" duration="14079000" />
-      <workItem from="1673443573402" duration="13215000" />
-    </task>
-    <task id="LOCAL-00074" summary="dropdown for choosing langiage was added">
-      <created>1670620261835</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1670620261836</updated>
+      <workItem from="1673443573402" duration="30272000" />
     </task>
     <task id="LOCAL-00075" summary="language dropdown was refactored">
       <created>1670671970172</created>
@@ -683,7 +655,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673446352935</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="Service layer was refactored to support concurrency">
+      <created>1673516169130</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1673516169130</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -713,7 +692,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="email attribute was added to account entity" />
     <MESSAGE value="CurseDTO class was added" />
     <MESSAGE value="JournalDTO class was added" />
     <MESSAGE value="DTOs for student service methods were added" />
@@ -738,13 +716,15 @@
     <MESSAGE value="readme was updated" />
     <MESSAGE value="Javadoc was added for high-level classes" />
     <MESSAGE value="Minor improvements were made" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor improvements were made" />
+    <MESSAGE value="Service layer was refactored to support concurrency" />
+    <option name="LAST_COMMIT_MESSAGE" value="Service layer was refactored to support concurrency" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Elective$All_in_Elective.ic" NAME="All in Elective Coverage Results" MODIFIED="1673552874307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/elective$CourseDAOTest_testSaveThrowsException.ic" NAME="CourseDAOTest.testSaveThrowsException Coverage Results" MODIFIED="1671711303893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.daos.*</FILTER>
     </SUITE>

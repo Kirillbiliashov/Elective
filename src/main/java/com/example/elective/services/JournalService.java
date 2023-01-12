@@ -17,14 +17,14 @@ public class JournalService extends AbstractService {
 
   public void save(Journal journal) throws ServiceException {
     final JournalDAO dao = daoFactory.getJournalDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> dao.save(journal));
   }
 
   public void updateGrade(int id, int grade) throws ServiceException {
     final JournalDAO dao = daoFactory.getJournalDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     write(tm, () -> {
       Optional<Journal> optJournal = dao.find(id);
       if (optJournal.isPresent()) {

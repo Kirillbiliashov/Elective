@@ -17,6 +17,10 @@ public class TransactionManager {
 
   private Connection conn;
 
+  public static TransactionManager getInstance() {
+    return new TransactionManager();
+  }
+
   public void initTransaction(DAO... daos) {
     try {
       if (conn == null) conn = SQLDAOFactory.getConnection();

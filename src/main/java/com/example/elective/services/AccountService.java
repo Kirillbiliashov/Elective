@@ -22,7 +22,7 @@ public class AccountService extends AbstractService {
   public Optional<Account> findByCredentials(String login, String password)
       throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    final TransactionManager tm = new TransactionManager();
+    final TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     Optional<Account> optAcc = read(tm, () -> dao.findByLogin(login));
     if (!optAcc.isPresent()) return Optional.empty();
@@ -38,7 +38,7 @@ public class AccountService extends AbstractService {
 
   public List<Account> getByRole(String roleName) throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.getByRole(roleName));
   }
@@ -46,28 +46,28 @@ public class AccountService extends AbstractService {
   public List<Account> getPaginated(String role, Pagination pagination)
       throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.getByRole(role, pagination));
   }
 
   public List<String> getLogins() throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, dao::getLogins);
   }
 
   public int getTotalCount(String roleName) throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.getCountByRole(roleName));
   }
 
   public void save(Account acc) throws ServiceException {
     final AccountDAO dao = daoFactory.getAccountDAO();
-    TransactionManager tm = new TransactionManager();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> dao.save(acc));
   }
