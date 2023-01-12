@@ -14,16 +14,17 @@ import java.util.stream.Collectors;
 
 public class CourseSelection {
 
-  private String teacher = "Any";
-  private String topic = "Any";
+  private static final String ANY = "Any";
+  private final String teacher;
+  private final String topic;
   private SortType sortType = SortType.NONE;
 
   public CourseSelection(String teacher, String topic, String sort) {
     if (sort != null && isSortValid(sort)) {
       this.sortType = SortType.valueOf(sort.toUpperCase());
     }
-    if (teacher != null) this.teacher = teacher;
-    if (topic != null) this.topic = topic;
+    this.teacher = teacher != null ? teacher : ANY;
+    this.topic = topic != null ? topic : ANY;
   }
 
   private boolean isSortValid(String sort) {
@@ -36,8 +37,8 @@ public class CourseSelection {
     sortType.sort(courses);
     return courses
         .stream()
-        .filter(c -> c.getTopic().equals(topic) || topic.equals("Any"))
-        .filter(c -> c.getTeacher().equals(teacher) || teacher.equals("Any"))
+        .filter(c -> c.getTopic().equals(topic) || topic.equals(ANY))
+        .filter(c -> c.getTeacher().equals(teacher) || teacher.equals(ANY))
         .collect(Collectors.toList());
   }
 

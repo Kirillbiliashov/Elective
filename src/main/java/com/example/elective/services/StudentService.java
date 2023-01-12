@@ -15,7 +15,7 @@ import java.util.*;
 public class StudentService extends AbstractService {
 
   public void changeBlockStatus(int id) throws ServiceException {
-    final AccountDAO dao = daoFactory.getAccountDAO();
+    AccountDAO dao = daoFactory.getAccountDAO();
     TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> {

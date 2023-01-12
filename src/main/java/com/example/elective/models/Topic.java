@@ -7,7 +7,7 @@ package com.example.elective.models;
 
 public class Topic extends Entity {
 
-  private String name;
+  private final String name;
 
   public Topic(int id, String name) {
     this.id = id;
@@ -16,10 +16,6 @@ public class Topic extends Entity {
 
   public String getName() {
     return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
 }

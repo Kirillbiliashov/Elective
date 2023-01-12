@@ -23,6 +23,7 @@ public interface CourseDAO extends DAO<Course> {
   List<Course> getRegisteredForStudent(int studentId) throws DAOException;
 
   List<Course> getAvailableForStudent(int studentId) throws DAOException;
+
   int getCount(int teacherId) throws DAOException;
 
 }

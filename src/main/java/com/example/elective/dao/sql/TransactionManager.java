@@ -11,6 +11,7 @@ import java.sql.SQLException;
  * Class with methods responsible for starting, committing, ending, rolling back transactions
  * @author Kirill Biliashov
  */
+
 public class TransactionManager {
 
   private final Logger logger = LogManager.getLogger(TransactionManager.class);

@@ -40,15 +40,15 @@ public class CourseService extends AbstractService {
   }
 
   public void update(Course course) throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> dao.update(course));
   }
 
   public void save(Course course) throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> dao.save(course));
   }
@@ -61,16 +61,16 @@ public class CourseService extends AbstractService {
   }
 
   public Optional<Course> findById(int id) throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.find(id));
   }
 
   public List<CourseDTO> getBySelection(CourseSelection selection)
       throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     List<CourseDTO> dtoList = read(tm, () -> {
       List<Course> courses = dao.getAll();
@@ -84,8 +84,8 @@ public class CourseService extends AbstractService {
   public List<CourseDTO> getAvailableBySelection(int studentId,
                                                  CourseSelection selection)
       throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     List<CourseDTO> dtoList = read(tm, () -> {
       List<Course> courses = dao.getAvailableForStudent(studentId);
@@ -99,18 +99,19 @@ public class CourseService extends AbstractService {
 
   public List<CompletedCourseDTO> getCompletedCourses(int studentId)
       throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> {
       List<Course> courses = dao.getCompletedForStudent(studentId);
       List<CompletedCourseDTO> list = new ArrayList<>();
-      for (final Course course : courses) {
+      for (Course course : courses) {
         int grade = journalService
             .findByCourseAndStudent(tm, course.getId(), studentId)
             .get()
             .getGrade();
-        list.add(new CompletedCourseDTO(getCourseDTO(tm, course), grade));
+        CourseDTO dto = getCourseDTO(tm, course);
+        list.add(new CompletedCourseDTO(dto, grade));
       }
       return list;
     });
@@ -118,13 +119,13 @@ public class CourseService extends AbstractService {
 
   public List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
       throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> {
       List<Course> courses = dao.getRegisteredForStudent(studentId);
       List<RegisteredCourseDTO> list = new ArrayList<>();
-      for (final Course course : courses) {
+      for (Course course : courses) {
         Date date = journalService
             .findByCourseAndStudent(tm, course.getId(), studentId)
             .get()
@@ -137,8 +138,8 @@ public class CourseService extends AbstractService {
 
   public List<CourseDTO> getCoursesInProgress(int studentId)
       throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> {
       List<Course> courses = dao.getInProgressForStudent(studentId);

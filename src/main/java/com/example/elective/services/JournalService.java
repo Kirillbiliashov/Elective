@@ -16,14 +16,14 @@ import java.util.Optional;
 public class JournalService extends AbstractService {
 
   public void save(Journal journal) throws ServiceException {
-    final JournalDAO dao = daoFactory.getJournalDAO();
+    JournalDAO dao = daoFactory.getJournalDAO();
     TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     write(tm, () -> dao.save(journal));
   }
 
   public void updateGrade(int id, int grade) throws ServiceException {
-    final JournalDAO dao = daoFactory.getJournalDAO();
+    JournalDAO dao = daoFactory.getJournalDAO();
     TransactionManager tm = TransactionManager.getInstance();
     write(tm, () -> {
       Optional<Journal> optJournal = dao.find(id);
@@ -37,7 +37,7 @@ public class JournalService extends AbstractService {
 
   protected int getStudentsCount(TransactionManager tm, int courseId)
       throws DAOException {
-    final JournalDAO dao = daoFactory.getJournalDAO();
+    JournalDAO dao = daoFactory.getJournalDAO();
     tm.initTransaction(dao);
     return dao.getStudentsCount(courseId);
   }
@@ -45,7 +45,7 @@ public class JournalService extends AbstractService {
   protected Optional<Journal> findByCourseAndStudent(TransactionManager tm,
                                                      int courseId, int studentId)
       throws DAOException {
-    final JournalDAO dao = daoFactory.getJournalDAO();
+    JournalDAO dao = daoFactory.getJournalDAO();
     tm.initTransaction(dao);
     return dao.findByCourseAndStudent(courseId, studentId);
   }

@@ -19,7 +19,7 @@ import static com.example.elective.utils.Constants.*;
 @WebListener
 public class AppListener implements ServletContextListener {
 
-  private final static Logger logger = LogManager.getLogger(AppListener.class);
+  private static final Logger logger = LogManager.getLogger(AppListener.class);
   private static final AccountService accService = new AccountService();
   private static final JournalService journalService = new JournalService();
   private static final TopicService topicService = new TopicService();

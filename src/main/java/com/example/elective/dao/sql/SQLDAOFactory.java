@@ -30,7 +30,7 @@ public abstract class SQLDAOFactory extends DAOFactory {
   private static void configureDataSource() {
     try {
       Context initContext = new InitialContext();
-      Context envContext  = (Context) initContext.lookup("java:/comp/env");
+      Context envContext = (Context) initContext.lookup("java:/comp/env");
       ds = (DataSource) envContext.lookup("jdbc/elective");
     } catch (NamingException e) {
       logger.error("failed to retrieve data source: " + e.getMessage());

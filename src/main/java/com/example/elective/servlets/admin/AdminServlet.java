@@ -26,7 +26,7 @@ import java.io.IOException;
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
-  private final static String JSP_PAGE = "/admin.jsp";
+  private static final String JSP_PAGE = "/admin.jsp";
   private final RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
   private CourseService courseService;

@@ -13,7 +13,7 @@ public class Journal extends Entity {
   private Date enrollmentDate;
   private int courseId;
   private int studentId;
-  private Builder builder;
+  private final Builder builder;
 
   private Journal(Builder builder) {
     this.builder = builder;

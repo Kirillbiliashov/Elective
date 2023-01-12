@@ -31,32 +31,30 @@ public class TeacherService extends AbstractService {
 
   public Optional<Course> findCourse(int teacherId, Pagination pagination)
       throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.findByTeacherId(teacherId, pagination));
   }
 
   public int getCoursesCount(int teacherId) throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, () -> dao.getCount(teacherId));
   }
 
   public List<JournalDTO> getJournalList(int courseId) throws ServiceException {
-    final JournalDAO journalDao = daoFactory.getJournalDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    JournalDAO journalDao = daoFactory.getJournalDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(journalDao);
     return read(tm, () -> {
       List<Journal> journalList = journalDao.getByCourseId(courseId);
       List<JournalDTO> list = new ArrayList<>();
+      String student;
       for (Journal journal : journalList) {
-        String student = accService.find(tm, journal.getStudentId())
-            .get().getFullName();
-        JournalDTO dto = new JournalDTO(journal.getId(), journal.getGrade(),
-            student);
-        list.add(dto);
+        student = accService.find(tm, journal.getStudentId()).get().getFullName();
+        list.add(new JournalDTO(journal.getId(), journal.getGrade(), student));
       }
       return list;
     });

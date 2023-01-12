@@ -7,9 +7,9 @@ package com.example.elective.selection;
 
 public class Pagination {
 
-  protected int page;
-  protected int displayCount;
-  protected int totalItems;
+  protected final int page;
+  protected final int displayCount;
+  protected final int totalItems;
 
   public Pagination(int page, int displayCount, int totalItems) {
     this.displayCount = displayCount;

@@ -50,7 +50,6 @@ public enum SortType {
   NONE {
     @Override
     public void sort(List<CourseDTO> courses) {
-
     }
   };
 

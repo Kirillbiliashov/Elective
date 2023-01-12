@@ -17,15 +17,15 @@ import java.util.Optional;
 public class TopicService extends AbstractService {
 
   public List<Topic> getAll() throws ServiceException {
-    final TopicDAO dao = daoFactory.getTopicDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
+    TopicDAO dao = daoFactory.getTopicDAO();
+    TransactionManager tm = TransactionManager.getInstance();
     tm.initTransaction(dao);
     return read(tm, dao::getAll);
   }
 
   protected Optional<Topic> find(TransactionManager tm, int id)
       throws DAOException {
-    final TopicDAO dao = daoFactory.getTopicDAO();
+    TopicDAO dao = daoFactory.getTopicDAO();
     tm.initTransaction(dao);
     return dao.find(id);
   }

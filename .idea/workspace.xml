@@ -9,24 +9,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Service layer was refactored to support concurrency">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AbstractServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/JournalServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/TopicServiceTest.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Service tests were refactored">
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/elective_war.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/elective_war_exploded.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/CourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/CourseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SQLDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SQLDAOFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/TransactionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Journal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Journal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Topic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Topic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CourseSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CourseSelection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/Pagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/SortType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/SortType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/CourseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/JournalService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/StudentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TeacherService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/TopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/AccountServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/services/CourseServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/services/StudentServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/servlets/admin/AdminServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +103,7 @@
       <recent name="com.example.elective.servlets.admin" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in Elective">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
     <configuration name="AbstractServiceTest.testWriteThrowsDAOException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Elective" />
       <extension name="coverage">
@@ -317,21 +320,7 @@
       <workItem from="1672656530967" duration="53024000" />
       <workItem from="1672949928192" duration="49738000" />
       <workItem from="1673346776679" duration="14079000" />
-      <workItem from="1673443573402" duration="30272000" />
-    </task>
-    <task id="LOCAL-00075" summary="language dropdown was refactored">
-      <created>1670671970172</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1670671970172</updated>
-    </task>
-    <task id="LOCAL-00076" summary="Minor improvements for localization were made">
-      <created>1670674392703</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1670674392703</updated>
+      <workItem from="1673443573402" duration="32444000" />
     </task>
     <task id="LOCAL-00077" summary="DAO layer was refactored">
       <created>1670707414647</created>
@@ -662,7 +651,21 @@
       <option name="project" value="LOCAL" />
       <updated>1673516169130</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="Transaction manager instance is now accessed from static method">
+      <created>1673553194546</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1673553194546</updated>
+    </task>
+    <task id="LOCAL-00125" summary="Service tests were refactored">
+      <created>1673553244867</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1673553244868</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,8 +695,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="CurseDTO class was added" />
-    <MESSAGE value="JournalDTO class was added" />
     <MESSAGE value="DTOs for student service methods were added" />
     <MESSAGE value="Bug fixes related to course selection were made" />
     <MESSAGE value="Description attribute was added to course entity" />
@@ -717,7 +718,9 @@
     <MESSAGE value="Javadoc was added for high-level classes" />
     <MESSAGE value="Minor improvements were made" />
     <MESSAGE value="Service layer was refactored to support concurrency" />
-    <option name="LAST_COMMIT_MESSAGE" value="Service layer was refactored to support concurrency" />
+    <MESSAGE value="Transaction manager instance is now accessed from static method" />
+    <MESSAGE value="Service tests were refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="Service tests were refactored" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
