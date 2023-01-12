@@ -1,94 +1,128 @@
 package com.example.elective.services;
 
+import com.example.elective.dao.DAOFactory;
 import com.example.elective.dao.interfaces.CourseDAO;
-import com.example.elective.dao.interfaces.DAO;
 import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.dto.CourseDTO;
+import com.example.elective.models.Account;
 import com.example.elective.models.Course;
+import com.example.elective.models.Topic;
 import com.example.elective.selection.CourseSelection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class CourseServiceTest {
 
-  @Spy
-  private CourseServiceTestClass service;
+  private static final int RETURN_COURSES_COUNT = 5;
+
+  private CourseService service;
 
   @Mock
-  private TransactionManager transactionManager;
+  private CourseDAO dao;
+  @Mock
+  private DAOFactory factory;
+  @Mock
+  private TransactionManager tm;
+  @Mock
+  private AccountService accService;
+  @Mock
+  private TopicService topicService;
+  @Mock
+  private JournalService journalService;
 
   @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
-    service.setTransactionManager(transactionManager);
+    service = new CourseService(topicService, accService, journalService);
+    service.daoFactory = factory;
+    when(factory.getCourseDAO()).thenReturn(dao);
   }
 
   @Test
-  void testUpdate() throws Exception {
-    Mockito.doNothing().when(service).performDaoWriteOperation(any());
-    service.update(Mockito.mock(Course.class));
-    verify(transactionManager, times(1)).initTransaction(any(DAO.class));
-    verify(service, times(1)).performDaoWriteOperation(any());
+  void testGetBySelection() throws Exception {
+    final String topic = "topic2";
+    final int expSize = 1;
+    try (MockedStatic<TransactionManager> mockedStatic =
+             Mockito.mockStatic(TransactionManager.class)) {
+      mockedStatic.when(TransactionManager::getInstance).thenReturn(tm);
+      returnMockedFromTopicService();
+      returnMockedFromAccService();
+      returnMockedFromJournalService();
+      when(dao.getAll()).thenReturn(getCourseList());
+      CourseSelection selection = new CourseSelection(null, topic, null);
+      List<CourseDTO> dtoList = service.getBySelection(selection);
+      Assertions.assertEquals(expSize, dtoList.size());
+      CourseDTO dto = dtoList.get(0);
+      Assertions.assertEquals(topic, dto.getTopic());
+      verify(tm, times(1)).initTransaction(dao);
+    }
   }
 
-  @Test
-  void getBySelection() throws Exception {
-    CourseSelection selection = new CourseSelection("Teacher", "Topic", "name");
-    List<CourseDTO> courses = createCourses(
-        Arrays.asList("algebra", "geometry", "history", "mobile development", "physics"),
-        Arrays.asList("Teacher", "Invalid teacher", "Invalid teacher", "Teacher", "Invalid teacher"),
-        Arrays.asList("Topic", "Invalid topic", "Invalid topic", "Topic", "Invalid topic"));
-    doReturn(courses).when(service).performDaoReadOperation(any());
-    List<CourseDTO> expCourses = Arrays.asList(courses.get(0), courses.get(3));
-    Assertions.assertEquals(expCourses, service.getBySelection(selection));
+  private void returnMockedFromTopicService() throws Exception {
+    int idx = 1;
+    when(topicService.find(any(), anyInt())).thenReturn(
+        Optional.of(new Topic(idx, "topic" + idx++)),
+        Optional.of(new Topic(idx, "topic" + idx++)),
+        Optional.of(new Topic(idx, "topic" + idx++)),
+        Optional.of(new Topic(idx, "topic" + idx++)),
+        Optional.of(new Topic(idx, "topic" + idx++))
+        );
   }
 
-  private List<CourseDTO> createCourses(List<String> names, List<String> teachers,
-                                        List<String> topics) {
-    List<CourseDTO> courses = new ArrayList<>();
-    for (int i = 0; i < names.size(); i++) {
-      courses.add(CourseDTO.newBuilder()
-          .setName(names.get(i))
-          .setTeacher(teachers.get(i))
-          .setTopic(topics.get(i))
+  private void returnMockedFromAccService() throws Exception {
+    int idx = 1;
+    when(accService.find(any(), anyInt())).thenReturn(
+        Optional.of(Account.newBuilder()
+            .setFirstName("name" + idx)
+            .setLastName("lastName" + idx++)
+            .build()), Optional.of(Account.newBuilder()
+            .setFirstName("name" + idx)
+            .setLastName("lastName" + idx++)
+            .build()), Optional.of(Account.newBuilder()
+            .setFirstName("name" + idx)
+            .setLastName("lastName" + idx++)
+            .build()), Optional.of(Account.newBuilder()
+            .setFirstName("name" + idx)
+            .setLastName("lastName" + idx++)
+            .build()), Optional.of(Account.newBuilder()
+            .setFirstName("name" + idx)
+            .setLastName("lastName" + idx)
+            .build())
+    );
+  }
+
+  private void returnMockedFromJournalService() throws Exception {
+    when(journalService.getStudentsCount(any(), anyInt()))
+        .thenReturn(getRandom(), getRandom(), getRandom(), getRandom(), getRandom());
+  }
+
+  private List<Course> getCourseList() {
+    List<Course> courseList = new ArrayList<>();
+    for (int i = 1; i <= RETURN_COURSES_COUNT; i++) {
+      courseList.add(Course.newBuilder()
+          .setId(i)
+          .setName("name" + i)
+          .setDescription("description" + i)
           .build());
     }
-    return courses;
+    return courseList;
   }
 
-  @Test
-  void testSave() throws Exception {
-    doNothing().when(service).performDaoWriteOperation(any(DAOWriteOperation.class));
-    service.save(any(Course.class));
-    verify(transactionManager, times(1)).initTransaction(any(CourseDAO.class));
-    verify(service, times(1)).performDaoWriteOperation(any());
-  }
-
-  @Test
-  void testDelete() throws Exception {
-    doNothing().when(service).performDaoWriteOperation(any(DAOWriteOperation.class));
-    service.delete(anyInt());
-    verify(transactionManager, times(1)).initTransaction(any(CourseDAO.class));
-    verify(service, times(1)).performDaoWriteOperation(any());
-  }
-
-
-  private static class CourseServiceTestClass extends CourseService {
-    public void setTransactionManager(TransactionManager transactionManager) {
-      this.transactionManager = transactionManager;
-    }
+  private int getRandom() {
+    final int maxNum = 10;
+    return (int) (Math.random() * maxNum);
   }
 
 }
