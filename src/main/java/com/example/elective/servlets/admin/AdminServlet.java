@@ -4,6 +4,7 @@ import com.example.elective.selection.CourseSelection;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
+import com.example.elective.selection.SortType;
 import com.example.elective.services.*;
 import com.example.elective.utils.Constants;
 
@@ -49,6 +50,7 @@ public class AdminServlet extends HttpServlet {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(COURSES_ATTR, courseService.getBySelection(courseSelection));
       req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
+      req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
       req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

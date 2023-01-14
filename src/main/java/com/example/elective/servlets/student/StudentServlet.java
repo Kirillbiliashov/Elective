@@ -56,6 +56,7 @@ public class StudentServlet extends HttpServlet {
       req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
       req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
+      req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
       req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

@@ -38,7 +38,7 @@ public class ChangeStudentBlockServlet extends HttpServlet {
     int id = getIdFromPathInfo(req.getPathInfo());
     try {
       studentService.changeBlockStatus(id);
-      resp.sendRedirect(JSP_PAGE);
+      resp.sendRedirect(JSP_PAGE + "?" + req.getQueryString());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

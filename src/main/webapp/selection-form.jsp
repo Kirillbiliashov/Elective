@@ -9,13 +9,12 @@
             <div class="form-group col-md-4">
                 <label for="sort"><fmt:message key="sort.sort_by"/></label>
                 <select class="form-control" name="sort" id="sort">
-                    <option selected value="none"><fmt:message key="sort.none"/></option>
-                    <option value="name"><fmt:message key="sort.name_asc"/></option>
-                    <option value="name_desc"><fmt:message key="sort.name_desc"/></option>
-                    <option value="duration"><fmt:message key="sort.duration_asc"/></option>
-                    <option value="duration_desc"><fmt:message key="sort.duration_desc"/></option>
-                    <option value="students"><fmt:message key="sort.students_asc"/></option>
-                    <option value="students_desc"><fmt:message key="sort.students_desc"/></option>
+                    <c:forEach items="${sortTypes}" var="type">
+                        <option
+                                <c:if test="${param.sort eq type}">selected</c:if> value="${type}">
+                            <fmt:message key="sort.${type}"/>
+                        </option>
+                    </c:forEach>
                 </select>
             </div>
             <div class="form-group col-md-4">
@@ -23,7 +22,7 @@
                 <select class="form-control" name="teacher" id="teacher">
                     <option selected value="Any"><fmt:message key="teacher.any"/></option>
                     <c:forEach items="${teachers}" var="teacher">
-                        <option value="${teacher.fullName}">${teacher.fullName}</option>
+                        <option <c:if test="${param.teacher eq teacher.fullName}">selected</c:if> value="${teacher.fullName}">${teacher.fullName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -32,7 +31,7 @@
                 <select class="form-control" name="topic" id="topic">
                     <option selected value="Any"><fmt:message key="topic.any"/></option>
                     <c:forEach items="${topics}" var="topic">
-                        <option value="${topic.name}">${topic.name}</option>
+                        <option <c:if test="${param.topic eq topic.name}">selected</c:if> value="${topic.name}">${topic.name}</option>
                     </c:forEach>
                 </select>
             </div>

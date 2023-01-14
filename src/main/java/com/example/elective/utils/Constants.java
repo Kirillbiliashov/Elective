@@ -1,14 +1,21 @@
 package com.example.elective.utils;
 
+import com.example.elective.selection.SortType;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class that stores application constants
  * @author Kirill Biliashov
  */
 public class Constants {
+
+  public static final String SORT_TYPES_ATTR = "sortTypes";
 
   public static final String LOGINS_ATTR = "logins";
   public static final String PAGE_ATTR = "page";
@@ -40,7 +47,12 @@ public class Constants {
   public static final String STUDENT_SERVICE = "studentService";
   public static final String TEACHER_SERVICE = "teacherService";
   public static final String TOPIC_SERVICE = "topicService";
+  public static final List<String> SORT_TYPES = Arrays.stream(SortType.values()).
+      map(Object::toString).
+      map(String::toLowerCase).
+      collect(Collectors.toList());
   private static final String ZONE = "Europe/Paris";
   public static final Date CURRENT_DATE = Date.valueOf(LocalDate.now(ZoneId.of(ZONE)));
+
 
 }

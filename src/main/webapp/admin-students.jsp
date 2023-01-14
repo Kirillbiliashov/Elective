@@ -3,6 +3,7 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix="student" uri="/WEB-INF/tld/account.tld" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="page" tagdir="/WEB-INF/tags/page" %>
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="text"/>
 <html>
@@ -59,7 +60,13 @@
                 </tbody>
             </table>
         </div>
-        <jsp:include page="pagination.jsp"/>
+        <nav>
+            <ul class="pagination justify-content-center">
+                <page:prev/>
+                <page:current/>
+                <page:next/>
+            </ul>
+        </nav>
     </c:if>
     <c:if test="${empty students}">
         <h5><fmt:message key="no_students"/></h5>

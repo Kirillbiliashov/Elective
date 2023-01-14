@@ -11,6 +11,12 @@ import java.util.List;
  */
 
 public enum SortType {
+
+  NONE {
+    @Override
+    public void sort(List<CourseDTO> courses) {
+    }
+  },
   NAME {
     @Override
     public void sort(List<CourseDTO> courses) {
@@ -45,11 +51,6 @@ public enum SortType {
     @Override
     public void sort(List<CourseDTO> courses) {
       courses.sort(Comparator.comparingInt(CourseDTO::getStudentsCount).reversed());
-    }
-  },
-  NONE {
-    @Override
-    public void sort(List<CourseDTO> courses) {
     }
   };
 
