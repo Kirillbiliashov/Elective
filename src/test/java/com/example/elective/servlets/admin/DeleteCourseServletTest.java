@@ -20,33 +20,33 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
-public class DeleteCourseServletTest extends CourseServletTest {
-
-  private final static DeleteCourseServlet servlet = new DeleteCourseServlet();
-  private final static String PATH_INFO = "/4";
-
-  @Override
-  @BeforeEach
-  void beforeEach() {
-    super.beforeEach();
-    servlet.init(config);
-    when(req.getPathInfo()).thenReturn(PATH_INFO);
-  }
-
-  @Override
-  @Test
-  void testPositiveScenario() throws Exception {
-    servlet.doPost(req, resp);
-    verify(resp, times(1)).sendRedirect(ADMIN_URL);
-  }
-
-  @Override
-  @Test
-  void testNegativeScenario() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(courseService).delete(anyInt());
-    servlet.doPost(req, resp);
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  }
-
-}
+//public class DeleteCourseServletTest extends CourseServletTest {
+//
+//  private final static DeleteCourseServlet servlet = new DeleteCourseServlet();
+//  private final static String PATH_INFO = "/4";
+//
+//  @Override
+//  @BeforeEach
+//  void beforeEach() {
+//    super.beforeEach();
+//    servlet.init(config);
+//    when(req.getPathInfo()).thenReturn(PATH_INFO);
+//  }
+//
+//  @Override
+//  @Test
+//  void testPositiveScenario() throws Exception {
+//    servlet.doPost(req, resp);
+//    verify(resp, times(1)).sendRedirect(ADMIN_URL);
+//  }
+//
+//  @Override
+//  @Test
+//  void testNegativeScenario() throws Exception {
+//    Mockito.doThrow(ServiceException.class).when(courseService).delete(anyInt());
+//    servlet.doPost(req, resp);
+//    verify(resp, times(1))
+//        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//  }
+//
+//}

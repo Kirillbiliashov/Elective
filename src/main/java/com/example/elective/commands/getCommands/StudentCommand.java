@@ -1,21 +1,16 @@
-package com.example.elective.servlets.student;
+package com.example.elective.commands.getCommands;
 
-import com.example.elective.selection.CourseSelection;
+import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
+import com.example.elective.selection.CourseSelection;
 import com.example.elective.services.AccountService;
 import com.example.elective.services.CourseService;
-import com.example.elective.services.TeacherService;
 import com.example.elective.services.TopicService;
-import com.example.elective.utils.Constants;
-import com.example.elective.utils.RequestUtils;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,15 +18,9 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
-/**
- * Servlet class that handles GET request url for mapping "/student"
- * @author Kirill Biliashov
- */
+public class StudentCommand extends Command {
 
-@WebServlet("/student")
-public class StudentServlet extends HttpServlet {
-
-  private static final String JSP_PAGE = "student.jsp";
+    private static final String JSP_PAGE = "student.jsp";
   private final RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
   private CourseService courseService;
@@ -39,17 +28,19 @@ public class StudentServlet extends HttpServlet {
   private TopicService topicService;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
-    ServletContext context = config.getServletContext();
-    courseService = (CourseService) context.getAttribute(COURSE_SERVICE);
-    topicService = (TopicService) context.getAttribute(TOPIC_SERVICE);
-    accService = (AccountService) context.getAttribute(ACCOUNT_SERVICE);
+  public void init(ServletContext context, HttpServletRequest req, HttpServletResponse resp) {
+    super.init(context, req, resp);
+    if (courseService == null) courseService =
+        (CourseService) context.getAttribute(COURSE_SERVICE);
+    if (accService == null) accService =
+        (AccountService) context.getAttribute(ACCOUNT_SERVICE);
+    if (topicService == null) topicService =
+        (TopicService) context.getAttribute(TOPIC_SERVICE);
   }
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    int studentId = getCurrentUserId(req);
+  public void process() throws ServletException, IOException {
+        int studentId = getCurrentUserId(req);
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
@@ -57,7 +48,7 @@ public class StudentServlet extends HttpServlet {
       req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
       req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
-      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
+      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
