@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.COURSES_IN_PROGRESS_ATTR;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
-import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
 public class CoursesInProgressCommand extends Command {
 
@@ -29,7 +28,7 @@ public class CoursesInProgressCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    int studentId = getCurrentUserId(req);
+    int studentId = getCurrentUserId();
     try {
       req.setAttribute(COURSES_IN_PROGRESS_ATTR,
           service.getCoursesInProgress(studentId));

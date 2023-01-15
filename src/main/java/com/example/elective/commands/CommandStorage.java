@@ -1,13 +1,12 @@
-package com.example.elective.controllers;
+package com.example.elective.commands;
 
-import com.example.elective.commands.Command;
 import com.example.elective.commands.getCommands.*;
 import com.example.elective.commands.postCommands.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public final class CommandUrlStorage {
+public final class CommandStorage {
 
   private static final Map<String, Command> getMap = new HashMap<>();
   private static final Map<String, Command> postMap = new HashMap<>();
@@ -28,6 +27,9 @@ public final class CommandUrlStorage {
     getMap.put("/student/courses_in_progress", new CoursesInProgressCommand());
     getMap.put("/student/completed_courses", new CompletedCoursesCommand());
     getMap.put("/teacher", new TeacherCommand());
+  }
+
+  static {
     postMap.put("/login", new LoginPostCommand());
     postMap.put("/signup", new SignupPostCommand());
     postMap.put("/admin/courses/add", new AddCoursePostCommand());

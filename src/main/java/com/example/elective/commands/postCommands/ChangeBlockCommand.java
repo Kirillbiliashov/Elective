@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.ADMIN_URL;
 import static com.example.elective.utils.Constants.STUDENT_SERVICE;
-import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
 public class ChangeBlockCommand extends Command {
 
@@ -30,7 +29,7 @@ public class ChangeBlockCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-        int id = getIdFromPathInfo(req.getPathInfo());
+        int id = getIdFromPathInfo();
     try {
       studentService.changeBlockStatus(id);
       resp.sendRedirect(JSP_PAGE + "?" + req.getQueryString());

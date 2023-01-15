@@ -18,7 +18,7 @@ import static com.example.elective.utils.Constants.COURSE_SERVICE;
 
 public class EditCoursePostCommand extends Command {
 
-    private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
+  private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
   private CourseService service;
 
   @Override
@@ -31,7 +31,7 @@ public class EditCoursePostCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-        try {
+    try {
       service.update(courseMapper.map(req));
       resp.sendRedirect(ADMIN_URL);
     } catch (ServiceException e) {

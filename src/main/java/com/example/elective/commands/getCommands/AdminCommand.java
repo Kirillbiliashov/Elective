@@ -20,11 +20,11 @@ import static com.example.elective.utils.Constants.*;
 public class AdminCommand extends Command {
 
   private static final String JSP_PAGE = "/admin.jsp";
+  private final RequestMapper<CourseSelection> selectionMapper =
+      new CourseSelectionRequestMapper();
   private TopicService topicService;
   private CourseService courseService;
   private AccountService accService;
-  private final RequestMapper<CourseSelection> selectionMapper =
-      new CourseSelectionRequestMapper();
 
   @Override
   public void init(ServletContext context, HttpServletRequest req,

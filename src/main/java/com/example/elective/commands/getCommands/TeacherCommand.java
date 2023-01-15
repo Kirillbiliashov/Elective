@@ -8,7 +8,6 @@ import com.example.elective.selection.CoursePagination;
 import com.example.elective.selection.Pagination;
 import com.example.elective.services.TeacherService;
 import com.example.elective.utils.PaginationUtils;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -36,7 +35,7 @@ public class TeacherCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-        int id = RequestUtils.getCurrentUserId(req);
+    int id = getCurrentUserId();
     int page = PaginationUtils.getPageNumber(req);
     setPageAttributes(req, page);
     try {

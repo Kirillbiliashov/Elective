@@ -3,7 +3,6 @@ package com.example.elective.commands.getCommands;
 import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.services.CourseService;
-import com.example.elective.utils.RequestUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,7 +28,7 @@ public class RegisteredCoursesCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    int studentId = RequestUtils.getCurrentUserId(req);
+    int studentId = getCurrentUserId();
     try {
       req.setAttribute(REGISTERED_COURSES_ATTR,
           service.getRegisteredCourses(studentId));

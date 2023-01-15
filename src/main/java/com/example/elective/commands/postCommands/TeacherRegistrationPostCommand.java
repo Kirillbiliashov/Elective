@@ -17,12 +17,13 @@ import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 
 public class TeacherRegistrationPostCommand extends Command {
 
-  private static final String REDIRECT_URL = "/elective/admin/teachers";
+  protected static final String REDIRECT_URL = "/elective/admin/teachers";
   private final RequestMapper<Account> accountMapper = new AccountRequestMapper();
   private AccountService service;
 
   @Override
-  public void init(ServletContext context, HttpServletRequest req, HttpServletResponse resp) {
+  public void init(ServletContext context, HttpServletRequest req,
+                   HttpServletResponse resp) {
     super.init(context, req, resp);
     if (service == null) service =
         (AccountService) context.getAttribute(ACCOUNT_SERVICE);

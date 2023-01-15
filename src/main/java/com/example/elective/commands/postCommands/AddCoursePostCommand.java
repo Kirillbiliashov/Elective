@@ -22,7 +22,8 @@ public class AddCoursePostCommand extends Command {
   private CourseService service;
 
   @Override
-  public void init(ServletContext context, HttpServletRequest req, HttpServletResponse resp) {
+  public void init(ServletContext context, HttpServletRequest req,
+                   HttpServletResponse resp) {
     super.init(context, req, resp);
     if (service == null) service =
         (CourseService) context.getAttribute(COURSE_SERVICE);
@@ -38,4 +39,5 @@ public class AddCoursePostCommand extends Command {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
   }
+
 }

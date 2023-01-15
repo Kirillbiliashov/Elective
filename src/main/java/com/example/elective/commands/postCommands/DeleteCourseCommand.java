@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.ADMIN_URL;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
-import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
 public class DeleteCourseCommand extends Command {
 
@@ -28,7 +27,7 @@ public class DeleteCourseCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-        int id = getIdFromPathInfo(req.getPathInfo());
+    int id = getIdFromPathInfo();
     try {
       service.delete(id);
       resp.sendRedirect(ADMIN_URL);

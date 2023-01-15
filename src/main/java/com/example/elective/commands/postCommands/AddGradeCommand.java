@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
-import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
 public class AddGradeCommand extends Command {
 
@@ -28,7 +27,7 @@ public class AddGradeCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    int journalId = getIdFromPathInfo(req.getPathInfo());
+    int journalId = getIdFromPathInfo();
     String gradeStr = req.getParameter(GRADE_PARAM);
     try {
       service.updateGrade(journalId, Integer.parseInt(gradeStr));

@@ -32,6 +32,7 @@ public class CourseEnrollCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     Journal journal = journalMapper.map(req);
+    journal.getBuilder().setCourseId(getIdFromPathInfo());
     try {
       journalService.save(journal);
       resp.sendRedirect(REDIRECT_URL);

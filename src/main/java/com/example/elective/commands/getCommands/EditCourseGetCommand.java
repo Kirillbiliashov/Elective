@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 import static com.example.elective.utils.Constants.*;
-import static com.example.elective.utils.RequestUtils.getIdFromPathInfo;
 
 public class EditCourseGetCommand extends Command {
 
@@ -38,7 +37,7 @@ public class EditCourseGetCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    int id = getIdFromPathInfo(req.getPathInfo());
+    int id = getIdFromPathInfo();
     try {
       Optional<Course> optCourse = courseService.findById(id);
       if (!optCourse.isPresent()) {

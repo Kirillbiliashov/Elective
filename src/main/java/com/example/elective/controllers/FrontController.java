@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.example.elective.controllers.CommandUrlStorage.getCommand;
-import static com.example.elective.controllers.CommandUrlStorage.getPostCommand;
+import static com.example.elective.commands.CommandStorage.getCommand;
+import static com.example.elective.commands.CommandStorage.getPostCommand;
 
 @WebServlet({"/login", "/main", "/signup", "/logout", "/admin",
     "/admin/courses/add", "/admin/courses/edit/*",
@@ -22,19 +22,11 @@ import static com.example.elective.controllers.CommandUrlStorage.getPostCommand;
 public class FrontController extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+  protected void service(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     String url = req.getServletPath();
-    Command command = getCommand(url);
-    command.init(getServletContext(), req, resp);
-    command.process();
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    String url = req.getServletPath();
-    Command command = getPostCommand(url);
+    Command command = req.getMethod().equals("GET") ? getCommand(url) :
+        getPostCommand(url);
     command.init(getServletContext(), req, resp);
     command.process();
   }

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
-import static com.example.elective.utils.RequestUtils.getCurrentUserId;
 
 public class StudentCommand extends Command {
 
@@ -40,7 +39,7 @@ public class StudentCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-        int studentId = getCurrentUserId(req);
+        int studentId = getCurrentUserId();
     try {
       CourseSelection courseSelection = selectionMapper.map(req);
       req.setAttribute(TOPICS_ATTR, topicService.getAll());

@@ -18,10 +18,10 @@ import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 
 public class LoginPostCommand extends Command {
 
-  private static final String JSP_PAGE = "login-form.jsp";
-  private static final String REDIRECT_URL = "main";
-  private static final String LOGIN_PARAM = "login";
-  private static final String PASSWORD_PARAM = "password";
+  protected static final String JSP_PAGE = "login-form.jsp";
+  protected static final String REDIRECT_URL = "main";
+  protected static final String LOGIN_PARAM = "login";
+  protected static final String PASSWORD_PARAM = "password";
   private AccountService service;
 
   @Override
@@ -44,6 +44,7 @@ public class LoginPostCommand extends Command {
       } else if (acc.isBlocked()) {
         handleBlockedAccount(req, resp);
       } else {
+
         addAccountToSession(req, acc);
         resp.sendRedirect(REDIRECT_URL);
       }
