@@ -1,10 +1,9 @@
 package com.example.elective.commands.postCommands;
 
-import com.example.elective.commands.postCommands.CourseEnrollCommand;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.models.Journal;
-import com.example.elective.services.JournalService;
+import com.example.elective.services.impl.JournalServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -32,7 +31,7 @@ public class CourseEnrollCommandTest {
   @Mock
   private ServletContext context;
   @Mock
-  private JournalService journalService;
+  private JournalServiceImpl journalService;
   @Mock
   private HttpSession session;
 

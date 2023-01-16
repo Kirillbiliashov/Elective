@@ -1,11 +1,10 @@
 package com.example.elective.services;
 
 import com.example.elective.dao.DAOFactory;
-import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.models.Account;
 import com.example.elective.models.Topic;
+import com.example.elective.services.impl.TopicServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import static org.mockito.Mockito.verify;
 
 public class TopicServiceTest {
 
-  private final static TopicService service = new TopicService();
+  private final static TopicServiceImpl service = new TopicServiceImpl();
 
   @Mock
   private TransactionManager tm;

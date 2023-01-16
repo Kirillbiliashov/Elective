@@ -4,6 +4,8 @@ import com.example.elective.dao.DAOFactory;
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.models.Account;
+import com.example.elective.services.impl.AccountServiceImpl;
+import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.utils.PasswordUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 public class AccountServiceTest {
 
-  private static final AccountService accService = new AccountService();
+  private static final AccountServiceImpl accService = new AccountServiceImpl();
   private static final String login = "login";
   private static final String password = "password";
   private static final List<String> logins = Arrays.asList("login1", "login2",

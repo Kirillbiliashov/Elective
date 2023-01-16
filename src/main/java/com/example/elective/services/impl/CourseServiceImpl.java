@@ -1,12 +1,9 @@
-package com.example.elective.services;
+package com.example.elective.services.impl;
 
-import com.example.elective.dao.interfaces.TopicDAO;
 import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.selection.CourseSelection;
 
-import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.interfaces.CourseDAO;
-import com.example.elective.dao.interfaces.JournalDAO;
 import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.exceptions.DAOException;
@@ -15,6 +12,11 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.Course;
 import com.example.elective.dto.CourseDTO;
+import com.example.elective.services.AbstractService;
+import com.example.elective.services.interfaces.AccountService;
+import com.example.elective.services.interfaces.CourseService;
+import com.example.elective.services.interfaces.JournalService;
+import com.example.elective.services.interfaces.TopicService;
 
 import java.sql.Date;
 import java.util.*;
@@ -25,20 +27,21 @@ import java.util.*;
  * @author Kirill Biliashov
  */
 
-public class CourseService extends AbstractService {
+public class CourseServiceImpl extends AbstractService implements CourseService {
 
   private final TopicService topicService;
   private final AccountService accService;
   private final JournalService journalService;
 
-  public CourseService(TopicService topicService,
-                       AccountService accService,
-                       JournalService journalService) {
+  public CourseServiceImpl(TopicService topicService,
+                           AccountService accService,
+                           JournalService journalService) {
     this.topicService = topicService;
     this.accService = accService;
     this.journalService = journalService;
   }
 
+  @Override
   public void update(Course course) throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -46,6 +49,7 @@ public class CourseService extends AbstractService {
     write(tm, () -> dao.update(course));
   }
 
+  @Override
   public void save(Course course) throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -53,6 +57,7 @@ public class CourseService extends AbstractService {
     write(tm, () -> dao.save(course));
   }
 
+  @Override
   public void delete(int id) throws ServiceException {
     final CourseDAO dao = daoFactory.getCourseDAO();
     final TransactionManager tm = TransactionManager.getInstance();
@@ -60,6 +65,7 @@ public class CourseService extends AbstractService {
     write(tm, () -> dao.delete(id));
   }
 
+  @Override
   public Optional<Course> findById(int id) throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -67,6 +73,7 @@ public class CourseService extends AbstractService {
     return read(tm, () -> dao.find(id));
   }
 
+  @Override
   public List<CourseDTO> getBySelection(CourseSelection selection)
       throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
@@ -81,6 +88,7 @@ public class CourseService extends AbstractService {
     return selection.getSelected(dtoList);
   }
 
+  @Override
   public List<CourseDTO> getAvailableBySelection(int studentId,
                                                  CourseSelection selection)
       throws ServiceException {
@@ -96,7 +104,7 @@ public class CourseService extends AbstractService {
     return selection.getSelected(dtoList);
   }
 
-
+  @Override
   public List<CompletedCourseDTO> getCompletedCourses(int studentId)
       throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
@@ -117,6 +125,7 @@ public class CourseService extends AbstractService {
     });
   }
 
+  @Override
   public List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
       throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
@@ -136,6 +145,7 @@ public class CourseService extends AbstractService {
     });
   }
 
+  @Override
   public List<CourseDTO> getCoursesInProgress(int studentId)
       throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();

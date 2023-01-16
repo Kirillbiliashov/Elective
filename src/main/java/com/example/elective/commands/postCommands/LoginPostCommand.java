@@ -3,7 +3,7 @@ package com.example.elective.commands.postCommands;
 import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
-import com.example.elective.services.AccountService;
+import com.example.elective.services.interfaces.AccountService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

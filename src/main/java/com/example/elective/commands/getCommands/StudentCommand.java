@@ -5,9 +5,9 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.selection.CourseSelection;
-import com.example.elective.services.AccountService;
-import com.example.elective.services.CourseService;
-import com.example.elective.services.TopicService;
+import com.example.elective.services.interfaces.AccountService;
+import com.example.elective.services.interfaces.CourseService;
+import com.example.elective.services.interfaces.TopicService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -27,7 +27,8 @@ public class StudentCommand extends Command {
   private TopicService topicService;
 
   @Override
-  public void init(ServletContext context, HttpServletRequest req, HttpServletResponse resp) {
+  public void init(ServletContext context, HttpServletRequest req,
+                   HttpServletResponse resp) {
     super.init(context, req, resp);
     if (courseService == null) courseService =
         (CourseService) context.getAttribute(COURSE_SERVICE);

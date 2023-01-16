@@ -2,7 +2,7 @@ package com.example.elective.commands.postCommands;
 
 import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.services.CourseService;
+import com.example.elective.services.interfaces.CourseService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

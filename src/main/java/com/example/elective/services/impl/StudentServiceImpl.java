@@ -1,9 +1,11 @@
-package com.example.elective.services;
+package com.example.elective.services.impl;
 
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
+import com.example.elective.services.AbstractService;
+import com.example.elective.services.interfaces.StudentService;
 
 import java.util.*;
 
@@ -12,8 +14,9 @@ import java.util.*;
  * @author Kirill Biliashov
  */
 
-public class StudentService extends AbstractService {
+public class StudentServiceImpl extends AbstractService implements StudentService {
 
+  @Override
   public void changeBlockStatus(int id) throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
     TransactionManager tm = TransactionManager.getInstance();

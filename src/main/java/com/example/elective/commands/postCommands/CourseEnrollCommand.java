@@ -5,7 +5,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.JournalRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Journal;
-import com.example.elective.services.JournalService;
+import com.example.elective.services.interfaces.JournalService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

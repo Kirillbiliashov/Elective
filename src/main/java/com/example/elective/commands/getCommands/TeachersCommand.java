@@ -3,7 +3,7 @@ package com.example.elective.commands.getCommands;
 import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.selection.Pagination;
-import com.example.elective.services.AccountService;
+import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.utils.PaginationUtils;
 
 import javax.servlet.ServletContext;
@@ -42,4 +42,5 @@ public class TeachersCommand extends Command {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
   }
+
 }

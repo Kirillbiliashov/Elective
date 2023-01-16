@@ -1,6 +1,7 @@
 package com.example.elective.listeners;
 
-import com.example.elective.services.*;
+import com.example.elective.services.impl.*;
+import com.example.elective.services.interfaces.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,14 +21,14 @@ import static com.example.elective.utils.Constants.*;
 public class AppListener implements ServletContextListener {
 
   private static final Logger logger = LogManager.getLogger(AppListener.class);
-  private static final AccountService accService = new AccountService();
-  private static final JournalService journalService = new JournalService();
-  private static final TopicService topicService = new TopicService();
+  private static final AccountService accService = new AccountServiceImpl();
+  private static final JournalService journalService = new JournalServiceImpl();
+  private static final TopicService topicService = new TopicServiceImpl();
   private static final TeacherService teacherService =
-      new TeacherService(accService);
-  private static final StudentService studentService = new StudentService();
+      new TeacherServiceImpl(accService);
+  private static final StudentService studentService = new StudentServiceImpl();
   private static final CourseService courseService =
-      new CourseService(topicService, accService, journalService);
+      new CourseServiceImpl(topicService, accService, journalService);
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {

@@ -1,4 +1,4 @@
-package com.example.elective.services;
+package com.example.elective.services.interfaces;
 
 import com.example.elective.exceptions.DAOException;
 

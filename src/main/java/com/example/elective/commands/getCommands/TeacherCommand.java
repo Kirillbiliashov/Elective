@@ -6,7 +6,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
 import com.example.elective.selection.CoursePagination;
 import com.example.elective.selection.Pagination;
-import com.example.elective.services.TeacherService;
+import com.example.elective.services.interfaces.TeacherService;
 import com.example.elective.utils.PaginationUtils;
 
 import javax.servlet.ServletContext;

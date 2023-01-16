@@ -1,6 +1,6 @@
 package com.example.elective.commands.postCommands;
 
-import com.example.elective.services.CourseService;
+import com.example.elective.services.impl.CourseServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,7 +25,7 @@ public abstract class CourseCommandTest {
   protected ServletContext context;
 
   @Mock
-  protected CourseService courseService;
+  protected CourseServiceImpl courseService;
 
   @BeforeEach
   void beforeEach() {

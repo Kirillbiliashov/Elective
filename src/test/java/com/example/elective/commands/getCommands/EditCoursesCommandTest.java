@@ -1,10 +1,9 @@
 package com.example.elective.commands.getCommands;
 
 import com.example.elective.models.Course;
-import com.example.elective.selection.CourseSelection;
-import com.example.elective.services.AccountService;
-import com.example.elective.services.CourseService;
-import com.example.elective.services.TopicService;
+import com.example.elective.services.impl.AccountServiceImpl;
+import com.example.elective.services.impl.CourseServiceImpl;
+import com.example.elective.services.impl.TopicServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -33,11 +32,11 @@ public class EditCoursesCommandTest {
   @Mock
   private ServletContext context;
   @Mock
-  private TopicService topicService;
+  private TopicServiceImpl topicService;
   @Mock
-  private CourseService courseService;
+  private CourseServiceImpl courseService;
   @Mock
-  private AccountService accService;
+  private AccountServiceImpl accService;
   @Mock
   private RequestDispatcher dispatcher;
   @Mock

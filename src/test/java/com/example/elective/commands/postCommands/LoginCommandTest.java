@@ -80,10 +80,9 @@ package com.example.elective.commands.postCommands;
 //
 //}
 
-import com.example.elective.commands.postCommands.LoginPostCommand;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
-import com.example.elective.services.AccountService;
+import com.example.elective.services.impl.AccountServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -113,7 +112,7 @@ public class LoginCommandTest {
   @Mock
   private ServletContext context;
   @Mock
-  private AccountService accountService;
+  private AccountServiceImpl accountService;
   @Mock
   private Account acc;
   @Mock

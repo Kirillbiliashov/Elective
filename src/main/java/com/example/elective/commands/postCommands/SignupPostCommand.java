@@ -5,7 +5,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.AccountRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Account;
-import com.example.elective.services.AccountService;
+import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.utils.Constants;
 
 import javax.servlet.ServletContext;

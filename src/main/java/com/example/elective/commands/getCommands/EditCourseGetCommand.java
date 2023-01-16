@@ -3,9 +3,9 @@ package com.example.elective.commands.getCommands;
 import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
-import com.example.elective.services.AccountService;
-import com.example.elective.services.CourseService;
-import com.example.elective.services.TopicService;
+import com.example.elective.services.interfaces.AccountService;
+import com.example.elective.services.interfaces.CourseService;
+import com.example.elective.services.interfaces.TopicService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

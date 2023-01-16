@@ -3,8 +3,8 @@ package com.example.elective.services;
 import com.example.elective.dao.DAOFactory;
 import com.example.elective.dao.interfaces.JournalDAO;
 import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.models.Account;
 import com.example.elective.models.Journal;
+import com.example.elective.services.impl.JournalServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 
 public class JournalServiceTest {
 
-  private final static JournalService service = new JournalService();
+  private final static JournalServiceImpl service = new JournalServiceImpl();
 
   @Mock
   private TransactionManager tm;

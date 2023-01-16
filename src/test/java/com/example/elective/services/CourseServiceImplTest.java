@@ -8,6 +8,10 @@ import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Topic;
 import com.example.elective.selection.CourseSelection;
+import com.example.elective.services.impl.AccountServiceImpl;
+import com.example.elective.services.impl.CourseServiceImpl;
+import com.example.elective.services.impl.JournalServiceImpl;
+import com.example.elective.services.impl.TopicServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,17 +21,16 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-public class CourseServiceTest {
+public class CourseServiceImplTest {
 
   private static final int RETURN_COURSES_COUNT = 5;
 
-  private CourseService service;
+  private CourseServiceImpl service;
 
   @Mock
   private CourseDAO dao;
@@ -36,16 +39,16 @@ public class CourseServiceTest {
   @Mock
   private TransactionManager tm;
   @Mock
-  private AccountService accService;
+  private AccountServiceImpl accService;
   @Mock
-  private TopicService topicService;
+  private TopicServiceImpl topicService;
   @Mock
-  private JournalService journalService;
+  private JournalServiceImpl journalService;
 
   @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
-    service = new CourseService(topicService, accService, journalService);
+    service = new CourseServiceImpl(topicService, accService, journalService);
     service.daoFactory = factory;
     when(factory.getCourseDAO()).thenReturn(dao);
   }

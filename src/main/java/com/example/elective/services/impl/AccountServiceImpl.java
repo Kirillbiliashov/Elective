@@ -1,4 +1,4 @@
-package com.example.elective.services;
+package com.example.elective.services.impl;
 
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.sql.TransactionManager;
@@ -6,6 +6,8 @@ import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.selection.Pagination;
+import com.example.elective.services.AbstractService;
+import com.example.elective.services.interfaces.AccountService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +19,9 @@ import static com.example.elective.utils.PasswordUtils.passwordsMatch;
  * @author Kirill Biliashov
  */
 
-public class AccountService extends AbstractService {
+public class AccountServiceImpl extends AbstractService implements AccountService {
 
+  @Override
   public Optional<Account> findByCredentials(String login, String password)
       throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
@@ -36,6 +39,7 @@ public class AccountService extends AbstractService {
         Optional.of(acc) : Optional.empty();
   }
 
+  @Override
   public List<Account> getByRole(String roleName) throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -43,6 +47,7 @@ public class AccountService extends AbstractService {
     return read(tm, () -> dao.getByRole(roleName));
   }
 
+  @Override
   public List<Account> getPaginated(String role, Pagination pagination)
       throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
@@ -51,6 +56,7 @@ public class AccountService extends AbstractService {
     return read(tm, () -> dao.getByRole(role, pagination));
   }
 
+  @Override
   public List<String> getLogins() throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -58,6 +64,7 @@ public class AccountService extends AbstractService {
     return read(tm, dao::getLogins);
   }
 
+  @Override
   public int getTotalCount(String roleName) throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -65,6 +72,7 @@ public class AccountService extends AbstractService {
     return read(tm, () -> dao.getCountByRole(roleName));
   }
 
+  @Override
   public void save(Account acc) throws ServiceException {
     AccountDAO dao = daoFactory.getAccountDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -72,7 +80,8 @@ public class AccountService extends AbstractService {
     write(tm, () -> dao.save(acc));
   }
 
-  protected Optional<Account> find(TransactionManager tm, int id)
+  @Override
+  public Optional<Account> find(TransactionManager tm, int id)
       throws DAOException {
     AccountDAO dao = daoFactory.getAccountDAO();
     tm.initTransaction(dao);

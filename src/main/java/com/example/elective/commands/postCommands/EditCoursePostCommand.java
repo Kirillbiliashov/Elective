@@ -5,7 +5,7 @@ import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.requestMappers.CourseRequestMapper;
 import com.example.elective.mappers.requestMappers.RequestMapper;
 import com.example.elective.models.Course;
-import com.example.elective.services.CourseService;
+import com.example.elective.services.interfaces.CourseService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

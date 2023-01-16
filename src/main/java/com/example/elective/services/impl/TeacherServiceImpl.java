@@ -1,34 +1,33 @@
-package com.example.elective.services;
+package com.example.elective.services.impl;
 
-import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dao.interfaces.JournalDAO;
 import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.dto.JournalDTO;
 import com.example.elective.selection.Pagination;
+import com.example.elective.services.AbstractService;
+import com.example.elective.services.interfaces.AccountService;
+import com.example.elective.services.interfaces.TeacherService;
 
 import java.util.*;
-
-import static com.example.elective.utils.Constants.TEACHER_ROLE;
 
 /**
  * Class containing business logic methods regarding teachers
  * @author Kirill Biliashov
  */
 
-public class TeacherService extends AbstractService {
+public class TeacherServiceImpl extends AbstractService implements TeacherService {
 
   private final AccountService accService;
 
-  public TeacherService(AccountService accService) {
+  public TeacherServiceImpl(AccountService accService) {
     this.accService = accService;
   }
 
+  @Override
   public Optional<Course> findCourse(int teacherId, Pagination pagination)
       throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
@@ -37,6 +36,7 @@ public class TeacherService extends AbstractService {
     return read(tm, () -> dao.findByTeacherId(teacherId, pagination));
   }
 
+  @Override
   public int getCoursesCount(int teacherId) throws ServiceException {
     CourseDAO dao = daoFactory.getCourseDAO();
     TransactionManager tm = TransactionManager.getInstance();
@@ -44,6 +44,7 @@ public class TeacherService extends AbstractService {
     return read(tm, () -> dao.getCount(teacherId));
   }
 
+  @Override
   public List<JournalDTO> getJournalList(int courseId) throws ServiceException {
     JournalDAO journalDao = daoFactory.getJournalDAO();
     TransactionManager tm = TransactionManager.getInstance();
