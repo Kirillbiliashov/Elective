@@ -9,6 +9,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class that forms and redirects logged-in user to his home url
+ * @author Kirill Biliashov
+ */
+
 public class MainCommand extends Command {
 
   @Override

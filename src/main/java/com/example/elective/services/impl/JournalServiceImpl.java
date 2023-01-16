@@ -29,6 +29,7 @@ public class JournalServiceImpl extends AbstractService implements JournalServic
   public void updateGrade(int id, int grade) throws ServiceException {
     JournalDAO dao = daoFactory.getJournalDAO();
     TransactionManager tm = TransactionManager.getInstance();
+    tm.initTransaction(dao);
     write(tm, () -> {
       Optional<Journal> optJournal = dao.find(id);
       if (optJournal.isPresent()) {

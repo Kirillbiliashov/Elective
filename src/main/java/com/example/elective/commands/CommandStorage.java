@@ -6,6 +6,13 @@ import com.example.elective.commands.postCommands.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.elective.utils.Constants.*;
+
+/**
+ * Map storage of url-command pairs
+ * @author Kirill Biliashov
+ */
+
 public final class CommandStorage {
 
   private static final Map<String, Command> getMap = new HashMap<>();
@@ -20,8 +27,10 @@ public final class CommandStorage {
     getMap.put("/admin", new AdminCommand());
     getMap.put("/admin/courses/edit", new EditCourseGetCommand());
     getMap.put("/admin/teachers/register", new TeacherRegistrationGetCommand());
-    getMap.put("/admin/students", new StudentsCommand());
-    getMap.put("/admin/teachers", new TeachersCommand());
+    getMap.put("/admin/students",
+        new PaginationCommand(STUDENTS_ATTR, STUDENT_ROLE, STUDENTS_PAGE));
+    getMap.put("/admin/teachers",
+        new PaginationCommand(TEACHERS_ATTR, TEACHER_ROLE, TEACHERS_PAGE));
     getMap.put("/student", new StudentCommand());
     getMap.put("/student/registered_courses", new RegisteredCoursesCommand());
     getMap.put("/student/courses_in_progress", new CoursesInProgressCommand());
@@ -31,12 +40,13 @@ public final class CommandStorage {
 
   static {
     postMap.put("/login", new LoginPostCommand());
-    postMap.put("/signup", new SignupPostCommand());
+    postMap.put("/signup", new UserRegisterCommand(LOGIN_URL));
     postMap.put("/admin/courses/add", new AddCoursePostCommand());
     postMap.put("/admin/students/changeBlock", new ChangeBlockCommand());
     postMap.put("/admin/courses/delete", new DeleteCourseCommand());
     postMap.put("/admin/courses/edit", new EditCoursePostCommand());
-    postMap.put("/admin/teachers/register", new TeacherRegistrationPostCommand());
+    postMap.put("/admin/teachers/register",
+        new UserRegisterCommand(ADMIN_TEACHERS_URL));
     postMap.put("/student/courses/enroll", new CourseEnrollCommand());
     postMap.put("/teacher/addGrade", new AddGradeCommand());
   }

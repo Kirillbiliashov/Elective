@@ -12,6 +12,11 @@ import java.io.IOException;
 import static com.example.elective.commands.CommandStorage.getCommand;
 import static com.example.elective.commands.CommandStorage.getPostCommand;
 
+/**
+ * Class extending HttpServlet that handles all app requests and processes corresponding command
+ * @author Kirill Biliashov
+ */
+
 @WebServlet({"/login", "/main", "/signup", "/logout", "/admin",
     "/admin/courses/add", "/admin/courses/edit/*",
     "/admin/students/changeBlock/*", "/admin/courses/delete/*",

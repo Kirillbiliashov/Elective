@@ -53,7 +53,7 @@
         </nav>
     </c:if>
     <c:if test="${empty teachers}">
-        <h5><fmt:message key="no_teachers"/></h5>
+        <h5 class="no-items-msg"><fmt:message key="no_teachers"/></h5>
     </c:if>
 </div>
 

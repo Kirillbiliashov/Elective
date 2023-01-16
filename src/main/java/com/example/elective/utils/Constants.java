@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class Constants {
 
   public static final String SORT_TYPES_ATTR = "sortTypes";
-
   public static final String LOGINS_ATTR = "logins";
   public static final String PAGE_ATTR = "page";
   public static final String NEXT_ATTR = "next";
@@ -38,6 +37,7 @@ public class Constants {
   public static final String STUDENT_ROLE = "Student";
   public static final String COURSES_ATTR = "courses";
   public static final String ADMIN_URL = "/elective/admin";
+  public static final String ADMIN_TEACHERS_URL = "/elective/admin/teachers";
   public static final String LOGIN_URL = "login";
   public static final String TOPICS_ATTR = "topics";
   public static final String TEACHERS_ATTR = "teachers";
@@ -51,8 +51,9 @@ public class Constants {
       map(Object::toString).
       map(String::toLowerCase).
       collect(Collectors.toList());
+  public static final String STUDENTS_PAGE = "/admin-students.jsp";
   private static final String ZONE = "Europe/Paris";
   public static final Date CURRENT_DATE = Date.valueOf(LocalDate.now(ZoneId.of(ZONE)));
 
-
+  public static final String TEACHERS_PAGE = "/admin-teachers.jsp";
 }

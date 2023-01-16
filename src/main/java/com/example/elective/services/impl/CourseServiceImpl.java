@@ -1,6 +1,7 @@
 package com.example.elective.services.impl;
 
 import com.example.elective.dao.sql.TransactionManager;
+import com.example.elective.models.Account;
 import com.example.elective.selection.CourseSelection;
 
 import com.example.elective.dao.interfaces.CourseDAO;
@@ -51,10 +52,11 @@ public class CourseServiceImpl extends AbstractService implements CourseService 
 
   @Override
   public void save(Course course) throws ServiceException {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    write(tm, () -> dao.save(course));
+    throw new ServiceException(new Exception());
+//    CourseDAO dao = daoFactory.getCourseDAO();
+//    TransactionManager tm = TransactionManager.getInstance();
+//    tm.initTransaction(dao);
+//    write(tm, () -> dao.save(course));
   }
 
   @Override

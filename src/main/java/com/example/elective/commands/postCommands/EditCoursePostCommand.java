@@ -16,6 +16,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.ADMIN_URL;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 
+/**
+ * Class with method that calls corresponding service method when client submits edit course form
+ * @author Kirill Biliashov
+ */
+
 public class EditCoursePostCommand extends Command {
 
   private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
@@ -33,10 +38,11 @@ public class EditCoursePostCommand extends Command {
   public void process() throws ServletException, IOException {
     try {
       service.update(courseMapper.map(req));
-      resp.sendRedirect(ADMIN_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(ADMIN_URL);
   }
 
 }

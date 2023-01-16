@@ -13,6 +13,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 import static com.example.elective.utils.Constants.REGISTERED_COURSES_ATTR;
 
+/**
+ * Class that renders student's registered courses
+ * @author Kirill Biliashov
+ */
+
 public class RegisteredCoursesCommand extends Command {
 
   private static final String JSP_PAGE = "/student-registered-courses.jsp";
@@ -32,10 +37,11 @@ public class RegisteredCoursesCommand extends Command {
     try {
       req.setAttribute(REGISTERED_COURSES_ATTR,
           service.getRegisteredCourses(studentId));
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

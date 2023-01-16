@@ -15,6 +15,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.JOURNAL_SERVICE;
 
+/**
+ * Class with method that calls corresponding service method when client enrolls in the course
+ * @author Kirill Biliashov
+ */
+
 public class CourseEnrollCommand extends Command {
 
   private static final String REDIRECT_URL = "/elective/student";
@@ -35,10 +40,11 @@ public class CourseEnrollCommand extends Command {
     journal.getBuilder().setCourseId(getIdFromPathInfo());
     try {
       journalService.save(journal);
-      resp.sendRedirect(REDIRECT_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(REDIRECT_URL);
   }
 
 }

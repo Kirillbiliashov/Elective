@@ -16,6 +16,11 @@ import java.util.Optional;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class that renders JSP page for editing a course
+ * @author Kirill Biliashov
+ */
+
 public class EditCourseGetCommand extends Command {
 
   private static final String JSP_PAGE = "/edit-course.jsp";
@@ -47,10 +52,11 @@ public class EditCourseGetCommand extends Command {
       req.setAttribute(COURSE_ATTR, optCourse.get());
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

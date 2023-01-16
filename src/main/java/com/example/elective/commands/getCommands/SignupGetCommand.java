@@ -13,6 +13,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 import static com.example.elective.utils.Constants.LOGINS_ATTR;
 
+/**
+ * Class that renders signup JSP page
+ * @author Kirill Biliashov
+ */
+
 public class SignupGetCommand extends Command {
 
   private static final String JSP_PAGE = "signup-form.jsp";
@@ -30,10 +35,11 @@ public class SignupGetCommand extends Command {
   public void process() throws ServletException, IOException {
     try {
       req.setAttribute(LOGINS_ATTR, service.getLogins());
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

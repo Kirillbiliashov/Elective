@@ -154,3 +154,6 @@ p {
 .course-table {
     width: 50%
 }
+.no-items-msg {
+    text-align: center;
+}

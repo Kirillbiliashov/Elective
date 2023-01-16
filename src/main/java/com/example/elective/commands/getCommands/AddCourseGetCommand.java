@@ -13,6 +13,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Command class that renders JSP page for adding course
+ * @author Kirill Biliashov
+ */
+
 public class AddCourseGetCommand extends Command {
 
   private static final String JSP_PAGE = "/add-course.jsp";
@@ -34,10 +39,11 @@ public class AddCourseGetCommand extends Command {
     try {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
-      req.getRequestDispatcher(JSP_PAGE).forward(req, resp);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

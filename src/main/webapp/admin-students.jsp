@@ -46,11 +46,11 @@
                             <form action="students/changeBlock/${student.id}?page=${param.page}&display=${param.display}"
                                   method="POST">
                                 <c:if test="${student.blocked}">
-                                    <input type="submit" class="btn btn-secondary"
+                                    <input type="submit" class="btn btn-secondary btn-sm"
                                            value="<fmt:message key="students.unlock"/>">
                                 </c:if>
                                 <c:if test="${!student.blocked}">
-                                    <input type="submit" class="btn btn-dark"
+                                    <input type="submit" class="btn btn-dark btn-sm"
                                            value="<fmt:message key="students.block"/>">
                                 </c:if>
                             </form>
@@ -69,7 +69,7 @@
         </nav>
     </c:if>
     <c:if test="${empty students}">
-        <h5><fmt:message key="no_students"/></h5>
+        <h5 class="no-items-msg"><fmt:message key="no_students"/></h5>
     </c:if>
 </div>
 </body>

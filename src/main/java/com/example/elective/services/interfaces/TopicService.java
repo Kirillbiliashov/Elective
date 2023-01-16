@@ -8,6 +8,11 @@ import com.example.elective.models.Topic;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface describing methods that topic service should implement
+ * @author Kirill Biliashov
+ */
+
 public interface TopicService {
   List<Topic> getAll() throws ServiceException;
   Optional<Topic> find(TransactionManager tm, int id) throws DAOException;

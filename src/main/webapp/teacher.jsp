@@ -31,23 +31,24 @@
         <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
         <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
         <div class="table-container">
-            <table class="table table-bordered course-table">
-                <thead>
-                <tr>
-                    <th scope="col"><fmt:message key="student"/></th>
-                    <th scope="col"><fmt:message key="grade"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${journals}" var="journal">
+            <c:if test="${not empty journals}">
+                <table class="table table-bordered course-table">
+                    <thead>
                     <tr>
-                        <td>${journal.student}</td>
-                        <td>
-                            <c:if test="${journal.grade eq -1}">
-                                <c:if test="${course.endDate.after(currDate)}">
-                                    <fmt:message key="course_not_finished"/>
-                                </c:if>
-                                <c:if test="${course.endDate.before(currDate)}">
+                        <th scope="col"><fmt:message key="student"/></th>
+                        <th scope="col"><fmt:message key="grade"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${journals}" var="journal">
+                        <tr>
+                            <td>${journal.student}</td>
+                            <td>
+                                <c:if test="${journal.grade eq -1}">
+                                    <c:if test="${course.endDate.after(currDate)}">
+                                        <fmt:message key="course_not_finished"/>
+                                    </c:if>
+                                    <c:if test="${course.endDate.before(currDate)}">
                                         <form method="post" action="teacher/addGrade/${journal.id}?page=${page}&display=1">
                                             <div class="add-grade-input-container">
                                                 <input type="number" min="0" max="100" name="grade" id="grade"/>
@@ -55,16 +56,20 @@
                                                        value="<fmt:message key="add_grade"/>">
                                             </div>
                                         </form>
+                                    </c:if>
                                 </c:if>
-                            </c:if>
-                            <c:if test="${journal.grade ne -1}">
-                                ${journal.grade}
-                            </c:if>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                                <c:if test="${journal.grade ne -1}">
+                                    ${journal.grade}
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+            <c:if test="${empty journals}">
+                <h5 class="no-items-msg"><fmt:message key="no_students"/></h5>
+            </c:if>
         </div>
         <nav>
             <ul class="pagination justify-content-center">
@@ -75,7 +80,7 @@
         </nav>
     </c:if>
     <c:if test="${course eq null}">
-        <h3><fmt:message key="teacher.no_courses"/></h3>
+        <h3 class="no-items-msg"><fmt:message key="teacher.no_courses"/></h3>
     </c:if>
 </div>
 </body>

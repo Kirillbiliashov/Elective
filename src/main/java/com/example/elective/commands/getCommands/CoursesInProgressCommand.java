@@ -13,6 +13,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.COURSES_IN_PROGRESS_ATTR;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 
+/**
+ * Class that renders student's ongoing courses
+ * @author Kirill Biliashov
+ */
+
 public class CoursesInProgressCommand extends Command {
 
   private static final String JSP_PAGE = "/student-courses-in-progress.jsp";
@@ -32,10 +37,11 @@ public class CoursesInProgressCommand extends Command {
     try {
       req.setAttribute(COURSES_IN_PROGRESS_ATTR,
           service.getCoursesInProgress(studentId));
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

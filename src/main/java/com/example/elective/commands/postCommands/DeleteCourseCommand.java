@@ -13,6 +13,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.ADMIN_URL;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 
+/**
+ * Class with method that calls corresponding service method when client deletes a course
+ * @author Kirill Biliashov
+ */
+
 public class DeleteCourseCommand extends Command {
 
   private CourseService service;
@@ -30,10 +35,11 @@ public class DeleteCourseCommand extends Command {
     int id = getIdFromPathInfo();
     try {
       service.delete(id);
-      resp.sendRedirect(ADMIN_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(ADMIN_URL);
   }
 
 }

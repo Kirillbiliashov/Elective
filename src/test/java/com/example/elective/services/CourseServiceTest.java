@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-public class CourseServiceImplTest {
+public class CourseServiceTest {
 
   private static final int RETURN_COURSES_COUNT = 5;
 
@@ -74,36 +74,20 @@ public class CourseServiceImplTest {
   }
 
   private void returnMockedFromTopicService() throws Exception {
-    int idx = 1;
-    when(topicService.find(any(), anyInt())).thenReturn(
-        Optional.of(new Topic(idx, "topic" + idx++)),
-        Optional.of(new Topic(idx, "topic" + idx++)),
-        Optional.of(new Topic(idx, "topic" + idx++)),
-        Optional.of(new Topic(idx, "topic" + idx++)),
-        Optional.of(new Topic(idx, "topic" + idx++))
-        );
+    for (int i = 1; i <= RETURN_COURSES_COUNT; i++) {
+      when(topicService.find(tm, i))
+          .thenReturn(Optional.of(new Topic(i, "topic" + i)));
+    }
   }
 
   private void returnMockedFromAccService() throws Exception {
-    int idx = 1;
-    when(accService.find(any(), anyInt())).thenReturn(
-        Optional.of(Account.newBuilder()
-            .setFirstName("name" + idx)
-            .setLastName("lastName" + idx++)
-            .build()), Optional.of(Account.newBuilder()
-            .setFirstName("name" + idx)
-            .setLastName("lastName" + idx++)
-            .build()), Optional.of(Account.newBuilder()
-            .setFirstName("name" + idx)
-            .setLastName("lastName" + idx++)
-            .build()), Optional.of(Account.newBuilder()
-            .setFirstName("name" + idx)
-            .setLastName("lastName" + idx++)
-            .build()), Optional.of(Account.newBuilder()
-            .setFirstName("name" + idx)
-            .setLastName("lastName" + idx)
-            .build())
-    );
+    for (int i = 1; i <= RETURN_COURSES_COUNT; i++) {
+      when(accService.find(tm, i)).thenReturn(Optional.of(Account.newBuilder()
+          .setId(i)
+          .setFirstName("name" + i)
+          .setLastName("lastName" + i)
+          .build()));
+    }
   }
 
   private void returnMockedFromJournalService() throws Exception {
@@ -118,6 +102,8 @@ public class CourseServiceImplTest {
           .setId(i)
           .setName("name" + i)
           .setDescription("description" + i)
+          .setTopicId(i)
+          .setTeacherId(i)
           .build());
     }
     return courseList;

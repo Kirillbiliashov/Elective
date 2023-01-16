@@ -20,6 +20,11 @@ import java.util.Optional;
 import static com.example.elective.utils.Constants.*;
 import static com.example.elective.utils.PaginationUtils.setPageAttributes;
 
+/**
+ * Class that renders teacher's main page
+ * @author Kirill Biliashov
+ */
+
 public class TeacherCommand extends Command {
 
   private TeacherService service;
@@ -45,10 +50,11 @@ public class TeacherCommand extends Command {
       req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
       Optional<Course> optCourse = service.findCourse(id, pagination);
       if (optCourse.isPresent()) setAttributes(optCourse.get());
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
     private void setAttributes(Course course) throws ServiceException {

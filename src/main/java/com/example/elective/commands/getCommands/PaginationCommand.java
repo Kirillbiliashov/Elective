@@ -14,10 +14,23 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
-public class StudentsCommand extends Command {
+/**
+ * Class that renders paginated users depending on their role
+ * @author Kirill Biliashov
+ */
+
+public class PaginationCommand extends Command {
 
   private AccountService service;
-  private static final String JSP_PAGE = "/admin-students.jsp";
+  private final String attrName;
+  private final String roleName;
+  private final String jspPage;
+
+  public PaginationCommand(String attrName, String roleName, String jspPage) {
+    this.attrName = attrName;
+    this.roleName = roleName;
+    this.jspPage = jspPage;
+  }
 
   @Override
   public void init(ServletContext context, HttpServletRequest req,
@@ -32,16 +45,16 @@ public class StudentsCommand extends Command {
     int page = PaginationUtils.getPageNumber(req);
     int displayCount = PaginationUtils.getItemsPerPage(req);
     try {
-      int total = service.getTotalCount(STUDENT_ROLE);
+      int total = service.getTotalCount(roleName);
       Pagination pagination = new Pagination(page, displayCount, total);
       PaginationUtils.setPageAttributes(req, pagination.getPage());
       req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      req.setAttribute(STUDENTS_ATTR,
-          service.getPaginated(STUDENT_ROLE, pagination));
-      forward(JSP_PAGE);
+      req.setAttribute(attrName, service.getPaginated(roleName, pagination));
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(jspPage);
   }
 
 }

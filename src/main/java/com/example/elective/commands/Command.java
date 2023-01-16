@@ -12,6 +12,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
 
+/**
+ * Abstract class representing an action that should be performed when request comes in
+ * @author Kirill Biliashov
+ */
+
 public abstract class Command {
 
   private static final int OFFSET = 1;

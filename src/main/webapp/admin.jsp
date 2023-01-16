@@ -22,31 +22,36 @@
         <a href="admin/courses/add" class="add-course-ref"><fmt:message key="add_course"/></a>
     </div>
     <%@include file="selection-form.jsp" %>
-    <ul class="list-group">
-        <div class="grid-container">
-            <c:forEach items="${courses}" var="course">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">${course.name}</h3>
-                        <p><fmt:message key="teacher"/>: ${course.teacher}</p>
-                        <p><fmt:message key="topic"/>: ${course.topic}</p>
-                        <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
-                        <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
-                        <p><fmt:message key="course.students_count"/>: ${course.studentsCount}</p>
-                        <%@include file="course-modal.jsp" %>
-                        <div class="course-btn-container">
-                            <a href="admin/courses/edit/${course.id}"
-                               class="btn btn-light"><fmt:message key="course.edit"/></a>
-                            <form action="admin/courses/delete/${course.id}" method="POST">
-                                <input type="submit" class="btn btn-danger delete-course-btn"
-                                       value="<fmt:message key="course.delete"/>">
-                            </form>
+    <c:if test="${empty courses}">
+        <h5 class="no-items-msg"><fmt:message key="no_courses"/></h5>
+    </c:if>
+    <c:if test="${not empty courses}">
+        <ul class="list-group">
+            <div class="grid-container">
+                <c:forEach items="${courses}" var="course">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">${course.name}</h3>
+                            <p><fmt:message key="teacher"/>: ${course.teacher}</p>
+                            <p><fmt:message key="topic"/>: ${course.topic}</p>
+                            <p><fmt:message key="course.start_date"/>: ${course.startDate}</p>
+                            <p><fmt:message key="course.end_date"/>: ${course.endDate}</p>
+                            <p><fmt:message key="course.students_count"/>: ${course.studentsCount}</p>
+                            <%@include file="course-modal.jsp" %>
+                            <div class="course-btn-container">
+                                <a href="admin/courses/edit/${course.id}"
+                                   class="btn btn-light"><fmt:message key="course.edit"/></a>
+                                <form action="admin/courses/delete/${course.id}" method="POST">
+                                    <input type="submit" class="btn btn-danger delete-course-btn"
+                                           value="<fmt:message key="course.delete"/>">
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </c:forEach>
-        </div>
-    </ul>
+                </c:forEach>
+            </div>
+        </ul>
+    </c:if>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

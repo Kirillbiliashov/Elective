@@ -13,6 +13,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.ADMIN_URL;
 import static com.example.elective.utils.Constants.STUDENT_SERVICE;
 
+/**
+ * Class that calls corresponding service method after client changed student's block status
+ * @author Kirill Biliashov
+ */
+
 public class ChangeBlockCommand extends Command {
 
   private static final String JSP_PAGE = ADMIN_URL + "/students";
@@ -29,12 +34,14 @@ public class ChangeBlockCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-        int id = getIdFromPathInfo();
+    int id = getIdFromPathInfo();
     try {
       studentService.changeBlockStatus(id);
-      resp.sendRedirect(JSP_PAGE + "?" + req.getQueryString());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(JSP_PAGE + "?" + req.getQueryString());
   }
+
 }

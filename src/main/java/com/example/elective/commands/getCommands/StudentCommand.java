@@ -17,9 +17,14 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class that renders student's main page
+ * @author Kirill Biliashov
+ */
+
 public class StudentCommand extends Command {
 
-    private static final String JSP_PAGE = "student.jsp";
+  private static final String JSP_PAGE = "student.jsp";
   private final RequestMapper<CourseSelection> selectionMapper =
       new CourseSelectionRequestMapper();
   private CourseService courseService;
@@ -41,17 +46,18 @@ public class StudentCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
         int studentId = getCurrentUserId();
+    CourseSelection courseSelection = selectionMapper.map(req);
+    req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     try {
-      CourseSelection courseSelection = selectionMapper.map(req);
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
       req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
-      req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

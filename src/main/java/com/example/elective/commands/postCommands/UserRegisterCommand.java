@@ -1,10 +1,11 @@
-package com.example.elective.commands.getCommands;
+package com.example.elective.commands.postCommands;
 
 import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
-import com.example.elective.selection.Pagination;
+import com.example.elective.mappers.requestMappers.AccountRequestMapper;
+import com.example.elective.mappers.requestMappers.RequestMapper;
+import com.example.elective.models.Account;
 import com.example.elective.services.interfaces.AccountService;
-import com.example.elective.utils.PaginationUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,11 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.example.elective.utils.Constants.*;
+import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
 
-public class TeachersCommand extends Command {
+/**
+ * Class with method that calls corresponding service method when
+ * teacher/student registration form is submitted
+ * @author Kirill Biliashov
+ */
+
+public class UserRegisterCommand extends Command {
+
+  private final String redirectUrl;
+  private final RequestMapper<Account> accountMapper = new AccountRequestMapper();
   private AccountService service;
-  private static final String JSP_PAGE = "/admin-teachers.jsp";
+
+  public UserRegisterCommand(String redirectUrl) {
+    this.redirectUrl = redirectUrl;
+  }
 
   @Override
   public void init(ServletContext context, HttpServletRequest req,
@@ -28,19 +41,14 @@ public class TeachersCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    int page = PaginationUtils.getPageNumber(req);
-    int displayCount = PaginationUtils.getItemsPerPage(req);
+    Account acc = accountMapper.map(req);
     try {
-      int total = service.getTotalCount(TEACHER_ROLE);
-      Pagination pagination = new Pagination(page, displayCount, total);
-      PaginationUtils.setPageAttributes(req, pagination.getPage());
-      req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      req.setAttribute(TEACHERS_ATTR,
-          service.getPaginated(TEACHER_ROLE, pagination));
-      forward(JSP_PAGE);
+      service.save(acc);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(redirectUrl);
   }
 
 }

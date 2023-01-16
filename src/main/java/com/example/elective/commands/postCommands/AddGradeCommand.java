@@ -12,6 +12,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class that adds student's grade for the course
+ * @author Kirill Biliashov
+ */
+
 public class AddGradeCommand extends Command {
 
   private static final String GRADE_PARAM = "grade";
@@ -31,13 +36,14 @@ public class AddGradeCommand extends Command {
     String gradeStr = req.getParameter(GRADE_PARAM);
     try {
       service.updateGrade(journalId, Integer.parseInt(gradeStr));
-      resp.sendRedirect(getRedirectUrl());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(getRedirectUrl());
   }
 
-    private String getRedirectUrl() {
+  private String getRedirectUrl() {
     return "/elective/teacher?page=" + req.getParameter(PAGE_ATTR) +
         "&display=" + req.getParameter(DISPLAY_PARAM);
   }

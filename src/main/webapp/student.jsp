@@ -48,7 +48,7 @@
             </div>
         </ul>
     </c:if>
-    <c:if test="${empty availableCourses}"><p><fmt:message key="student.no_available_courses"/></p></c:if>
+    <c:if test="${empty availableCourses}"><h5 class="no-items-msg"><fmt:message key="student.no_available_courses"/></h5></c:if>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

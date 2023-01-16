@@ -22,7 +22,7 @@ public class Pagination {
   }
 
   public int getFrom() {
-    return (page - 1) * displayCount;
+    return totalItems != 0 ? (page - 1) * displayCount : 0;
   }
 
   public int getDisplayCount() {

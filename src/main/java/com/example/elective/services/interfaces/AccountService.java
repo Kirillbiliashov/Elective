@@ -9,6 +9,11 @@ import com.example.elective.selection.Pagination;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface describing methods that account service should implement
+ * @author Kirill Biliashov
+ */
+
 public interface AccountService {
 
   Optional<Account> findByCredentials(String login, String password) throws ServiceException;

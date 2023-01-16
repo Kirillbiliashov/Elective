@@ -13,6 +13,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.COMPLETED_COURSES_ATTR;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 
+/**
+ * Class that renders student's completed courses
+ * @author Kirill Biliashov
+ */
+
 public class CompletedCoursesCommand extends Command {
 
   private static final String JSP_PAGE = "/student-completed-courses.jsp";
@@ -32,10 +37,11 @@ public class CompletedCoursesCommand extends Command {
     try {
       req.setAttribute(COMPLETED_COURSES_ATTR,
           service.getCompletedCourses(studentId));
-      forward(JSP_PAGE);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    forward(JSP_PAGE);
   }
 
 }

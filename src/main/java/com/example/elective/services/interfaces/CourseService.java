@@ -10,6 +10,11 @@ import com.example.elective.selection.CourseSelection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interface describing methods that course service should implement
+ * @author Kirill Biliashov
+ */
+
 public interface CourseService {
 
   void update(Course course) throws ServiceException;

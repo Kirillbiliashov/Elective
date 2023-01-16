@@ -8,6 +8,11 @@ import java.io.IOException;
 
 import static com.example.elective.utils.Constants.*;
 
+/**
+ * Class that logs current user out, redirecting him to login page
+ * @author Kirill Biliashov
+ */
+
 public class LogoutCommand extends Command {
 
   @Override

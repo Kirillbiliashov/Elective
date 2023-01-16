@@ -14,15 +14,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.example.elective.commands.postCommands.TeacherRegistrationPostCommand.REDIRECT_URL;
 import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+import static com.example.elective.utils.Constants.ADMIN_TEACHERS_URL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class TeacherRegistrationCommandTest {
 
-  private final TeacherRegistrationPostCommand command =
-      new TeacherRegistrationPostCommand();
+  private final UserRegisterCommand command =
+      new UserRegisterCommand(ADMIN_TEACHERS_URL);
   @Mock
   private HttpServletRequest req;
 
@@ -49,7 +49,7 @@ public class TeacherRegistrationCommandTest {
   void testRegisterTeacher() throws Exception {
     command.process();
     verify(accService, times(1)).save(any(Account.class));
-    verify(resp, times(1)).sendRedirect(REDIRECT_URL);
+    verify(resp, times(1)).sendRedirect(ADMIN_TEACHERS_URL);
   }
 
   @Test

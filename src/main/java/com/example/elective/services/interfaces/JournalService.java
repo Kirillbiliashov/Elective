@@ -7,6 +7,11 @@ import com.example.elective.models.Journal;
 
 import java.util.Optional;
 
+/**
+ * Interface describing methods that journal service should implement
+ * @author Kirill Biliashov
+ */
+
 public interface JournalService {
 
   void save(Journal journal) throws ServiceException;

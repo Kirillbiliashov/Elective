@@ -16,6 +16,11 @@ import java.io.IOException;
 import static com.example.elective.utils.Constants.ADMIN_URL;
 import static com.example.elective.utils.Constants.COURSE_SERVICE;
 
+/**
+ * Class that adds course after POST form was sent
+ * @author Kirill Biliashov
+ */
+
 public class AddCoursePostCommand extends Command {
 
   private final RequestMapper<Course> courseMapper = new CourseRequestMapper();
@@ -34,10 +39,11 @@ public class AddCoursePostCommand extends Command {
     Course course = courseMapper.map(req);
     try {
       service.save(course);
-      resp.sendRedirect(ADMIN_URL);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
+    resp.sendRedirect(ADMIN_URL);
   }
 
 }
