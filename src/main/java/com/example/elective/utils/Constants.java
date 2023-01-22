@@ -44,7 +44,7 @@ public class Constants {
   public static final String ACCOUNT_SERVICE = "accountService";
   public static final String COURSE_SERVICE = "courseService";
   public static final String JOURNAL_SERVICE = "journalService";
-  public static final String STUDENT_SERVICE = "studentService";
+  public static final String BLOCKLIST_SERVICE = "blocklistService";
   public static final String TEACHER_SERVICE = "teacherService";
   public static final String TOPIC_SERVICE = "topicService";
   public static final List<String> SORT_TYPES = Arrays.stream(SortType.values()).

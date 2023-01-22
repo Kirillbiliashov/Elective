@@ -38,7 +38,7 @@ public class AddCourseGetCommand extends Command {
   public void process() throws ServletException, IOException {
     try {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
-      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
+      req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return;

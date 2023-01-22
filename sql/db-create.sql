@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS journal;
+DROP TABLE IF EXISTS blocklist;
 DROP TABLE IF EXISTS course;
 DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS topic;
@@ -11,7 +12,6 @@ CREATE TABLE account
     password   VARCHAR(64)                          NOT NULL UNIQUE,
     first_name VARCHAR(20),
     last_name  VARCHAR(25),
-    is_blocked BOOLEAN                              NOT NULL DEFAULT FALSE,
     role       ENUM ('Admin', 'Student', 'Teacher') NOT NULL
 );
 
@@ -45,6 +45,13 @@ CREATE TABLE journal
     FOREIGN KEY (course_id) REFERENCES course (id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES account (id) ON DELETE CASCADE,
     UNIQUE (course_id, student_id)
+);
+
+CREATE TABLE blocklist
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES account (id) ON DELETE CASCADE
 );
 
 INSERT INTO topic(name) VALUES('History');

@@ -25,5 +25,6 @@ public abstract class DAOFactory {
   public abstract JournalDAO getJournalDAO();
 
   public abstract TopicDAO getTopicDAO();
+  public abstract BlocklistDAO getBlocklistDAO();
 
 }

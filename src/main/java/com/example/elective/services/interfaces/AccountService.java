@@ -1,6 +1,7 @@
 package com.example.elective.services.interfaces;
 
 import com.example.elective.dao.sql.TransactionManager;
+import com.example.elective.dto.StudentDTO;
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
@@ -18,9 +19,10 @@ public interface AccountService {
 
   Optional<Account> findByCredentials(String login, String password) throws ServiceException;
 
-  List<Account> getByRole(String roleName) throws ServiceException;
+  List<Account> getTeachers() throws ServiceException;
 
-  List<Account> getPaginated(String role, Pagination pagination) throws ServiceException;
+  List<Account> getPaginatedTeachers(Pagination pagination) throws ServiceException;
+  List<StudentDTO> getPaginatedStudents(Pagination pagination) throws ServiceException;
 
   List<String> getLogins() throws ServiceException;
 

@@ -2,6 +2,7 @@ package com.example.elective.listeners;
 
 import com.example.elective.services.impl.*;
 import com.example.elective.services.interfaces.*;
+import com.example.elective.utils.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,12 +22,13 @@ import static com.example.elective.utils.Constants.*;
 public class AppListener implements ServletContextListener {
 
   private static final Logger logger = LogManager.getLogger(AppListener.class);
-  private static final AccountService accService = new AccountServiceImpl();
+  private static final BlocklistService BLOCKLIST_SERVICE = new BlocklistServiceImpl();
+  private static final AccountService accService =
+      new AccountServiceImpl(BLOCKLIST_SERVICE);
   private static final JournalService journalService = new JournalServiceImpl();
   private static final TopicService topicService = new TopicServiceImpl();
   private static final TeacherService teacherService =
       new TeacherServiceImpl(accService);
-  private static final StudentService studentService = new StudentServiceImpl();
   private static final CourseService courseService =
       new CourseServiceImpl(topicService, accService, journalService);
 
@@ -41,7 +43,7 @@ public class AppListener implements ServletContextListener {
     context.setAttribute(ACCOUNT_SERVICE, accService);
     context.setAttribute(COURSE_SERVICE, courseService);
     context.setAttribute(JOURNAL_SERVICE, journalService);
-    context.setAttribute(STUDENT_SERVICE, studentService);
+    context.setAttribute(Constants.BLOCKLIST_SERVICE, BLOCKLIST_SERVICE);
     context.setAttribute(TEACHER_SERVICE, teacherService);
     context.setAttribute(TOPIC_SERVICE, topicService);
   }

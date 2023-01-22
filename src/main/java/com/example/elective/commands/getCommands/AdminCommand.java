@@ -49,7 +49,7 @@ public class AdminCommand extends Command {
     try {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(COURSES_ATTR, courseService.getBySelection(courseSelection));
-      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
+      req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
       req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

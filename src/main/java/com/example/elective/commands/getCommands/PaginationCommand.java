@@ -49,12 +49,20 @@ public class PaginationCommand extends Command {
       Pagination pagination = new Pagination(page, displayCount, total);
       PaginationUtils.setPageAttributes(req, pagination.getPage());
       req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      req.setAttribute(attrName, service.getPaginated(roleName, pagination));
+      setEntitiesAttribute(pagination);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return;
     }
     forward(jspPage);
+  }
+
+  private void setEntitiesAttribute(Pagination pagination) throws ServiceException {
+    if (roleName.equals(STUDENT_ROLE)) {
+      req.setAttribute(attrName, service.getPaginatedStudents(pagination));
+    } else {
+      req.setAttribute(attrName, service.getPaginatedTeachers(pagination));
+    }
   }
 
 }

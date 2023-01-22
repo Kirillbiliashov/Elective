@@ -4,6 +4,7 @@ import com.example.elective.commands.Command;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.services.interfaces.AccountService;
+import com.example.elective.services.interfaces.BlocklistService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,8 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
-import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+import static com.example.elective.utils.Constants.*;
 
 /**
  * Class with method that calls corresponding service method when user submits login form
@@ -27,36 +27,39 @@ public class LoginPostCommand extends Command {
   protected static final String REDIRECT_URL = "main";
   protected static final String LOGIN_PARAM = "login";
   protected static final String PASSWORD_PARAM = "password";
-  private AccountService service;
+  private AccountService accountService;
+  private BlocklistService blocklistService;
 
   @Override
   public void init(ServletContext context, HttpServletRequest req,
                    HttpServletResponse resp) {
     super.init(context, req, resp);
-    if (service == null) service =
+    if (accountService == null) accountService =
         (AccountService) context.getAttribute(ACCOUNT_SERVICE);
+    if (blocklistService == null) blocklistService =
+        (BlocklistService) context.getAttribute(BLOCKLIST_SERVICE);
   }
 
   @Override
   public void process() throws ServletException, IOException {
     String login = req.getParameter(LOGIN_PARAM);
     String password = req.getParameter(PASSWORD_PARAM);
-    Optional<Account> optAccount = null;
+    Optional<Account> optAccount;
     try {
-      optAccount = service.findByCredentials(login, password);
+      optAccount = accountService.findByCredentials(login, password);
+      handleOptionalAccount(optAccount);
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return;
     }
-    handleOptionalAccount(optAccount);
   }
 
   private void handleOptionalAccount(Optional<Account> optAccount)
-      throws ServletException, IOException {
+      throws ServletException, IOException, ServiceException {
     Account acc = optAccount.orElse(null);
     if (!optAccount.isPresent()) {
       handleAbsentAccount();
-    } else if (acc.isBlocked()) {
+    } else if (blocklistService.getBlockStatus(acc.getId()).isPresent()) {
       handleBlockedAccount();
     } else {
       addAccountToSession(acc);

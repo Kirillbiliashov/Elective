@@ -60,7 +60,7 @@ public class EditCoursesCommandTest {
     verify(req, times(1)).setAttribute(COURSE_ATTR, course);
     verify(req, times(1)).setAttribute(TOPICS_ATTR, topicService.getAll());
     verify(req, times(1)).setAttribute(TEACHERS_ATTR,
-        accService.getByRole(TEACHER_ROLE));
+        accService.getTeachers());
     verify(req, times(1)).getPathInfo();
     verify(dispatcher, times(1)).forward(req, resp);
   }

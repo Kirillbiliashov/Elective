@@ -30,4 +30,9 @@ public class MySQLDAOFactory extends SQLDAOFactory {
     return new TopicMySQLDAO();
   }
 
+  @Override
+  public BlocklistDAO getBlocklistDAO() {
+    return new BlocklistMySQLDAO();
+  }
+
 }

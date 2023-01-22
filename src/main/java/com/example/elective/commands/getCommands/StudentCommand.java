@@ -50,7 +50,7 @@ public class StudentCommand extends Command {
     req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     try {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
-      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
+      req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
       req.setAttribute(AVAILABLE_COURSES_ATTR,
           courseService.getAvailableBySelection(studentId, courseSelection));
     } catch (ServiceException e) {

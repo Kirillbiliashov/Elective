@@ -52,7 +52,7 @@ public class AdminCommandTest {
     verify(req, times(1)).setAttribute(COURSES_ATTR,
         courseService.getBySelection(any(CourseSelection.class)));
     verify(req, times(1)).setAttribute(TEACHERS_ATTR,
-        accService.getByRole(TEACHER_ROLE));
+        accService.getTeachers());
     verify(req, times(1)).setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     verify(dispatcher, times(1)).forward(req, resp);
   }

@@ -50,19 +50,6 @@ public class AccountDAOTest {
   }
 
   @Test
-  void testUpdate() throws Exception {
-    final boolean isBlocked = false;
-    Account acc = Account.newBuilder()
-        .setId(ACC_ID)
-        .setBlocked(isBlocked)
-        .build();
-    dao.update(acc);
-    verify(ps, times(1)).setObject(1, isBlocked);
-    verify(ps, times(1)).setObject(2, ACC_ID);
-    verify(ps, times(1)).executeUpdate();
-  }
-
-  @Test
   void testSaveSuccess() throws Exception {
     Account acc = getTestAccount();
     when(ps.getGeneratedKeys()).thenReturn(rs);

@@ -82,7 +82,9 @@ package com.example.elective.commands.postCommands;
 
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
+import com.example.elective.models.Blocklist;
 import com.example.elective.services.impl.AccountServiceImpl;
+import com.example.elective.services.impl.BlocklistServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -97,8 +99,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static com.example.elective.commands.postCommands.LoginPostCommand.*;
-import static com.example.elective.utils.Constants.ACCOUNT_ATTR;
-import static com.example.elective.utils.Constants.ACCOUNT_SERVICE;
+import static com.example.elective.utils.Constants.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -114,16 +115,21 @@ public class LoginCommandTest {
   @Mock
   private AccountServiceImpl accountService;
   @Mock
+  private BlocklistServiceImpl studentService;
+  @Mock
   private Account acc;
   @Mock
   private HttpSession session;
   @Mock
   private RequestDispatcher reqDispatcher;
+  @Mock
+  private Blocklist blocklist;
 
   @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
     when(context.getAttribute(ACCOUNT_SERVICE)).thenReturn(accountService);
+    when(context.getAttribute(BLOCKLIST_SERVICE)).thenReturn(studentService);
     when(req.getRequestDispatcher(anyString())).thenReturn(reqDispatcher);
   }
 
@@ -131,7 +137,7 @@ public class LoginCommandTest {
   void testSuccessfulLogin() throws Exception {
     when(req.getSession()).thenReturn(session);
     configureValidCredentialsReturn();
-    when(acc.isBlocked()).thenReturn(false);
+    when(studentService.getBlockStatus(acc.getId())).thenReturn(Optional.empty());
     when(accountService.findByCredentials(anyString(), anyString()))
         .thenReturn(Optional.of(acc));
     command.init(context, req, resp);
@@ -143,7 +149,9 @@ public class LoginCommandTest {
   @Test
   void testBlockedAccount() throws Exception {
     configureValidCredentialsReturn();
-    when(acc.isBlocked()).thenReturn(true);
+    when(studentService.getBlockStatus(acc.getId()))
+        .thenReturn(Optional.of(blocklist));
+
     when(accountService.findByCredentials(anyString(), anyString()))
         .thenReturn(Optional.of(acc));
     command.init(context, req, resp);

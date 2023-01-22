@@ -51,7 +51,7 @@ public class EditCourseGetCommand extends Command {
       }
       req.setAttribute(COURSE_ATTR, optCourse.get());
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
-      req.setAttribute(TEACHERS_ATTR, accService.getByRole(TEACHER_ROLE));
+      req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
     } catch (ServiceException e) {
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return;

@@ -18,7 +18,6 @@ public class AccountResultSetMapper extends ResultSetMapper<Account> {
   private static final String PASSWORD_COL_NAME = "password";
   private static final String FIRST_NAME_COL_NAME = "first_name";
   private static final String LAST_NAME_COL_NAME = "last_name";
-  private static final String IS_BLOCKED_COL_NAME = "is_blocked";
   private static final String ROLE_COL_NAME = "role";
 
   @Override
@@ -31,7 +30,6 @@ public class AccountResultSetMapper extends ResultSetMapper<Account> {
           .setPassword(rs.getString(PASSWORD_COL_NAME))
           .setFirstName(rs.getString(FIRST_NAME_COL_NAME))
           .setLastName(rs.getString(LAST_NAME_COL_NAME))
-          .setBlocked(rs.getBoolean(IS_BLOCKED_COL_NAME))
           .setRole(rs.getString(ROLE_COL_NAME))
           .build();
     } catch (SQLException e) {

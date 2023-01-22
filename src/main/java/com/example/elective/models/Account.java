@@ -13,7 +13,6 @@ public class Account extends Entity {
   private String password;
   private String firstName;
   private String lastName;
-  private boolean isBlocked;
   private String role;
 
   public Account(Builder builder) {
@@ -52,10 +51,6 @@ public class Account extends Entity {
     return firstName + " " + lastName;
   }
 
-  public boolean isBlocked() {
-    return isBlocked;
-  }
-
   public String getRole() {
     return role;
   }
@@ -90,11 +85,6 @@ public class Account extends Entity {
 
     public Builder setLastName(String lastName) {
       account.lastName = lastName;
-      return this;
-    }
-
-    public Builder setBlocked(boolean isBlocked) {
-      account.isBlocked = isBlocked;
       return this;
     }
 

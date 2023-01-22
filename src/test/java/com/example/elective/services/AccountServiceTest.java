@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 public class AccountServiceTest {
 
-  private static final AccountServiceImpl accService = new AccountServiceImpl();
+  private static final AccountServiceImpl accService = new AccountServiceImpl(null);
   private static final String login = "login";
   private static final String password = "password";
   private static final List<String> logins = Arrays.asList("login1", "login2",

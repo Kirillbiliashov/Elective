@@ -52,11 +52,10 @@ public class CourseServiceImpl extends AbstractService implements CourseService 
 
   @Override
   public void save(Course course) throws ServiceException {
-    throw new ServiceException(new Exception());
-//    CourseDAO dao = daoFactory.getCourseDAO();
-//    TransactionManager tm = TransactionManager.getInstance();
-//    tm.initTransaction(dao);
-//    write(tm, () -> dao.save(course));
+    CourseDAO dao = daoFactory.getCourseDAO();
+    TransactionManager tm = TransactionManager.getInstance();
+    tm.initTransaction(dao);
+    write(tm, () -> dao.save(course));
   }
 
   @Override

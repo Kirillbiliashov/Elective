@@ -1,4 +1,4 @@
-package com.example.elective.filters;
+package com.example.elective.exceptions.filters;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

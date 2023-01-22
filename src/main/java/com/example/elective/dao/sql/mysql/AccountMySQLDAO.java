@@ -22,8 +22,6 @@ public class AccountMySQLDAO extends MySQLDAO<Account> implements AccountDAO {
 
   private static final String SELECT_ALL = "SELECT * FROM account";
   private static final String FIND_BY_ID = SELECT_ALL + " WHERE id = ?";
-  private static final String UPDATE = "UPDATE account SET is_blocked = ?" +
-      " WHERE id = ?";
   private static final String GET_BY_ROLE = SELECT_ALL + " WHERE role = ?";
   private static final String GET_BY_ROLE_AT_PAGE = GET_BY_ROLE + " LIMIT ?,?";
   private static final String SAVE = "INSERT INTO account" +
@@ -53,13 +51,7 @@ public class AccountMySQLDAO extends MySQLDAO<Account> implements AccountDAO {
 
   @Override
   public void update(Account acc) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
-      addValuesToPreparedStatement(ps, acc.isBlocked(), acc.getId());
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to update account", e);
-    }
+    throw new UnsupportedOperationException();
   }
 
   @Override
