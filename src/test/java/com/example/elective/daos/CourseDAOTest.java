@@ -79,6 +79,18 @@ public class CourseDAOTest {
     verify(logger, times(1)).error(ERROR_MSG);
   }
 
+  @Test
+  void testGetCount() throws Exception {
+    final int TEACHER_ID = 5;
+    final int COUNT = 10;
+    when(conn.prepareStatement(anyString())).thenReturn(ps);
+    when(ps.executeQuery()).thenReturn(rs);
+    when(rs.next()).thenReturn(true);
+    when(rs.getInt(1)).thenReturn(COUNT);
+    Assertions.assertEquals(COUNT, dao.getCount(TEACHER_ID));
+    verify(ps, times(1)).setObject(1, TEACHER_ID);
+  }
+
   private static class CourseDAOTestClass extends CourseMySQLDAO {
     public void setMapper(Mapper<ResultSet, Course> mapper) {
       this.mapper = mapper;
