@@ -43,21 +43,16 @@ public class TeacherCommand extends Command {
     int id = getCurrentUserId();
     int page = PaginationUtils.getPageNumber(req);
     setPageAttributes(req, page);
-    try {
-      int total = service.getCoursesCount(id);
-      Pagination pagination = new CoursePagination(page, total);
-      setPageAttributes(req, pagination.getPage());
-      req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      Optional<Course> optCourse = service.findCourse(id, pagination);
-      if (optCourse.isPresent()) setAttributes(optCourse.get());
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    int total = service.getCoursesCount(id);
+    Pagination pagination = new CoursePagination(page, total);
+    setPageAttributes(req, pagination.getPage());
+    req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
+    Optional<Course> optCourse = service.findCourse(id, pagination);
+    if (optCourse.isPresent()) setAttributes(optCourse.get());
     forward(JSP_PAGE);
   }
 
-    private void setAttributes(Course course) throws ServiceException {
+    private void setAttributes(Course course) {
     List<JournalDTO> dtoList = service.getJournalList(course.getId());
     req.setAttribute(JOURNALS_ATTR, dtoList);
     req.setAttribute(COURSE_ATTR, course);

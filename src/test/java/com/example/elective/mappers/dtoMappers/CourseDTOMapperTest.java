@@ -30,7 +30,7 @@ public class CourseDTOMapperTest {
     when(course.getDescription()).thenReturn(DESCRIPTION);
     when(course.getStartDate()).thenReturn(START_DATE);
     when(course.getEndDate()).thenReturn(END_DATE);
-    CourseDTOMapper mapper = new CourseDTOMapper(TEACHER, TOPIC, STUDENTS_COUNT);
+    CourseDTOMapper mapper = new CourseDTOMapper();
     CourseDTO dto = mapper.map(course);
     Assertions.assertEquals(dto.getId(), ID);
     Assertions.assertEquals(dto.getName(), NAME);

@@ -1,5 +1,7 @@
 package com.example.elective.models;
 
+import jakarta.persistence.*;
+
 import java.sql.Date;
 
 /**
@@ -7,74 +9,68 @@ import java.sql.Date;
  * @author Kirill Biliashov
  */
 
-public class Journal extends Entity {
+@jakarta.persistence.Entity
+@Table(name = "journal")
+public class Journal {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  protected int id;
 
   private int grade;
+
+  @Column(name = "enrollment_date")
   private Date enrollmentDate;
-  private int courseId;
-  private int studentId;
-  private final Builder builder;
 
-  private Journal(Builder builder) {
-    this.builder = builder;
+  @ManyToOne
+  private Course course;
+
+  @ManyToOne
+  private Account student;
+
+  public int getId() {
+    return id;
   }
 
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
-  public Builder getBuilder() {
-    return builder;
+  public Journal setId(int id) {
+    this.id = id;
+    return this;
   }
 
   public int getGrade() {
     return grade;
   }
 
+  public Journal setGrade(int grade) {
+    this.grade = grade;
+    return this;
+  }
+
   public Date getEnrollmentDate() {
     return enrollmentDate;
   }
 
-  public int getCourseId() {
-    return courseId;
+  public Journal setEnrollmentDate(Date enrollmentDate) {
+    this.enrollmentDate = enrollmentDate;
+    return this;
   }
 
-  public int getStudentId() {
-    return studentId;
+  public Course getCourse() {
+    return course;
   }
 
-  public static class Builder {
-    private final Journal journal = new Journal(this);
+  public Journal setCourse(Course course) {
+    this.course = course;
+    return this;
+  }
 
-    public Builder setId(int id) {
-      if (journal.id == 0) journal.id = id;
-      return this;
-    }
+  public Account getStudent() {
+    return student;
+  }
 
-    public Builder setGrade(int grade) {
-      journal.grade = grade;
-      return this;
-    }
-
-    public Builder setEnrollmentDate(Date enrollmentDate) {
-      journal.enrollmentDate = enrollmentDate;
-      return this;
-    }
-
-    public Builder setCourseId(int courseId) {
-      journal.courseId = courseId;
-      return this;
-    }
-
-    public Builder setStudentId(int studentId) {
-      journal.studentId = studentId;
-      return this;
-    }
-
-    public Journal build() {
-      return journal;
-    }
-
+  public Journal setStudent(Account student) {
+    this.student = student;
+    return this;
   }
 
 }

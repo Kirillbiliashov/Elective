@@ -35,12 +35,7 @@ public class ChangeBlockCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     int id = getIdFromPathInfo();
-    try {
-      blocklistService.changeBlockStatus(id);
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    blocklistService.changeBlockStatus(id);
     resp.sendRedirect(JSP_PAGE + "?" + req.getQueryString());
   }
 

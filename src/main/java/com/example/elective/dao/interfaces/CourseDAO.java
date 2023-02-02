@@ -14,16 +14,16 @@ import java.util.Optional;
 
 public interface CourseDAO extends DAO<Course> {
 
-  Optional<Course> findByTeacherId(int teacherId, Pagination pagination) throws DAOException;
+  Optional<Course> findByTeacherId(int teacherId, Pagination pagination);
 
-  List<Course> getCompletedForStudent(int studentId) throws DAOException;
+  List<Course> getCompletedForStudent(int studentId);
 
-  List<Course> getInProgressForStudent(int studentId) throws DAOException;
+  List<Course> getInProgressForStudent(int studentId);
 
-  List<Course> getRegisteredForStudent(int studentId) throws DAOException;
+  List<Course> getRegisteredForStudent(int studentId);
 
-  List<Course> getAvailableForStudent(int studentId) throws DAOException;
+  List<Course> getAvailableForStudent(int studentId);
 
-  int getCount(int teacherId) throws DAOException;
+  int getCount(int teacherId);
 
 }

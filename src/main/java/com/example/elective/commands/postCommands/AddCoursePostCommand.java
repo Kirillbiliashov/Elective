@@ -37,12 +37,7 @@ public class AddCoursePostCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     Course course = courseMapper.map(req);
-    try {
-      service.save(course);
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    service.save(course);
     resp.sendRedirect(ADMIN_URL);
   }
 

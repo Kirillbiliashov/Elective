@@ -1,101 +1,113 @@
 package com.example.elective.models;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Model representation of course table
  * @author Kirill Biliashov
  */
 
-public class Course extends Entity {
+@Entity
+@Table(name = "course")
+public class Course {
 
-  private final Builder builder;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
   private String name;
   private String description;
+
+  @Column(name = "start_date")
   private Date startDate;
+
+  @Column(name = "last_name")
   private Date endDate;
-  private int topicId;
-  private int teacherId;
 
-  public Course(Builder builder) {
-    this.builder = builder;
+  @ManyToOne
+  @JoinColumn(name = "topic_id", referencedColumnName = "id")
+  private Topic topic;
+
+  @ManyToOne
+  @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+  private Account teacher;
+
+  @OneToMany(mappedBy = "course")
+  private List<Journal> students;
+
+  public int getId() {
+    return id;
   }
 
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
-  public Builder getBuilder() {
-    return builder;
+  public Course setId(int id) {
+    this.id = id;
+    return this;
   }
 
   public String getName() {
     return name;
   }
 
+  public Course setName(String name) {
+    this.name = name;
+    return this;
+  }
+
   public String getDescription() {
     return description;
   }
 
-  public Date getEndDate() {
-    return endDate;
+  public Course setDescription(String description) {
+    this.description = description;
+    return this;
   }
 
   public Date getStartDate() {
     return startDate;
   }
 
-  public int getTopicId() {
-    return topicId;
+  public Course setStartDate(Date startDate) {
+    this.startDate = startDate;
+    return this;
   }
 
-  public int getTeacherId() {
-    return teacherId;
+  public Date getEndDate() {
+    return endDate;
   }
 
-  public static class Builder {
+  public Course setEndDate(Date endDate) {
+    this.endDate = endDate;
+    return this;
+  }
 
-    private final Course course = new Course(this);
+  public Topic getTopic() {
+    return topic;
+  }
 
-    public Builder setId(int id) {
-      if (course.id == 0) course.id = id;
-      return this;
-    }
+  public Course setTopic(Topic topic) {
+    this.topic = topic;
+    return this;
+  }
 
-    public Builder setName(String name) {
-      course.name = name;
-      return this;
-    }
+  public Account getTeacher() {
+    return teacher;
+  }
 
-    public Builder setDescription(String description) {
-      course.description = description;
-      return this;
-    }
+  public Course setTeacher(Account teacher) {
+    this.teacher = teacher;
+    return this;
+  }
 
-    public Builder setStartDate(Date startDate) {
-      course.startDate = startDate;
-      return this;
-    }
+  public List<Journal> getStudents() {
+    return students;
+  }
 
-    public Builder setEndDate(Date endDate) {
-      course.endDate = endDate;
-      return this;
-    }
-
-    public Builder setTopicId(int topicId) {
-      course.topicId = topicId;
-      return this;
-    }
-
-    public Builder setTeacherId(int teacherId) {
-      course.teacherId = teacherId;
-      return this;
-    }
-
-    public Course build() {
-      return course;
-    }
-
+  public Course setStudents(List<Journal> students) {
+    this.students = students;
+    return this;
   }
 
 }

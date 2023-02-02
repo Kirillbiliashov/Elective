@@ -46,15 +46,10 @@ public class AdminCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     CourseSelection courseSelection = selectionMapper.map(req);
-    try {
       req.setAttribute(TOPICS_ATTR, topicService.getAll());
       req.setAttribute(COURSES_ATTR, courseService.getBySelection(courseSelection));
       req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
       req.setAttribute(SORT_TYPES_ATTR, SORT_TYPES);
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
     forward(JSP_PAGE);
   }
 

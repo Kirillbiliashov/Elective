@@ -2,15 +2,13 @@ package com.example.elective.services.impl;
 
 import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dao.interfaces.JournalDAO;
-import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.exceptions.ServiceException;
+import com.example.elective.dao.sql.SQLDAOFactory;
 import com.example.elective.models.Course;
-import com.example.elective.models.Journal;
 import com.example.elective.dto.JournalDTO;
 import com.example.elective.selection.Pagination;
 import com.example.elective.services.AbstractService;
-import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.TeacherService;
+import org.hibernate.Session;
 
 import java.util.*;
 
@@ -21,44 +19,50 @@ import java.util.*;
 
 public class TeacherServiceImpl extends AbstractService implements TeacherService {
 
-  private final AccountService accService;
-
-  public TeacherServiceImpl(AccountService accService) {
-    this.accService = accService;
-  }
-
   @Override
-  public Optional<Course> findCourse(int teacherId, Pagination pagination)
-      throws ServiceException {
+  public Optional<Course> findCourse(int teacherId, Pagination pagination) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, () -> dao.findByTeacherId(teacherId, pagination));
+    dao.setSession(session);
+    session.beginTransaction();
+    try {
+      return dao.findByTeacherId(teacherId, pagination);
+    } finally {
+      session.getTransaction().commit();
+    }
   }
 
   @Override
-  public int getCoursesCount(int teacherId) throws ServiceException {
+  public int getCoursesCount(int teacherId) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, () -> dao.getCount(teacherId));
+    dao.setSession(session);
+    session.beginTransaction();
+    try {
+      return dao.getCount(teacherId);
+    } finally {
+      session.getTransaction().commit();
+    }
   }
 
   @Override
-  public List<JournalDTO> getJournalList(int courseId) throws ServiceException {
+  public List<JournalDTO> getJournalList(int courseId) {
+    Session session = SQLDAOFactory.getSession();
     JournalDAO journalDao = daoFactory.getJournalDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(journalDao);
-    return read(tm, () -> {
-      List<Journal> journalList = journalDao.getByCourseId(courseId);
-      List<JournalDTO> list = new ArrayList<>();
-      String student;
-      for (Journal journal : journalList) {
-        student = accService.find(tm, journal.getStudentId()).get().getFullName();
-        list.add(new JournalDTO(journal.getId(), journal.getGrade(), student));
-      }
-      return list;
-    });
+    journalDao.setSession(session);
+    session.beginTransaction();
+    try {
+      return journalDao
+          .getByCourseId(courseId)
+          .stream()
+          .map(journal -> new JournalDTO()
+              .setId(journal.getId())
+              .setStudent(journal.getStudent().getFullName())
+              .setGrade(journal.getGrade()))
+          .toList();
+    } finally {
+      session.getTransaction().commit();
+    }
   }
 
 }

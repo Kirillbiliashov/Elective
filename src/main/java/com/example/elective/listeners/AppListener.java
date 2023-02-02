@@ -23,14 +23,11 @@ public class AppListener implements ServletContextListener {
 
   private static final Logger logger = LogManager.getLogger(AppListener.class);
   private static final BlocklistService BLOCKLIST_SERVICE = new BlocklistServiceImpl();
-  private static final AccountService accService =
-      new AccountServiceImpl(BLOCKLIST_SERVICE);
+  private static final AccountService accService = new AccountServiceImpl();
   private static final JournalService journalService = new JournalServiceImpl();
   private static final TopicService topicService = new TopicServiceImpl();
-  private static final TeacherService teacherService =
-      new TeacherServiceImpl(accService);
-  private static final CourseService courseService =
-      new CourseServiceImpl(topicService, accService, journalService);
+  private static final TeacherService teacherService = new TeacherServiceImpl();
+  private static final CourseService courseService = new CourseServiceImpl();
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {

@@ -43,19 +43,14 @@ public class EditCourseGetCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     int id = getIdFromPathInfo();
-    try {
-      Optional<Course> optCourse = courseService.findById(id);
-      if (!optCourse.isPresent()) {
-        resp.sendRedirect(ADMIN_URL);
-        return;
-      }
-      req.setAttribute(COURSE_ATTR, optCourse.get());
-      req.setAttribute(TOPICS_ATTR, topicService.getAll());
-      req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    Optional<Course> optCourse = courseService.findById(id);
+    if (!optCourse.isPresent()) {
+      resp.sendRedirect(ADMIN_URL);
       return;
     }
+    req.setAttribute(COURSE_ATTR, optCourse.get());
+    req.setAttribute(TOPICS_ATTR, topicService.getAll());
+    req.setAttribute(TEACHERS_ATTR, accService.getTeachers());
     forward(JSP_PAGE);
   }
 

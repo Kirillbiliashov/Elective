@@ -23,15 +23,12 @@ public class CourseRequestMapper implements RequestMapper<Course> {
   @Override
   public Course map(HttpServletRequest req) {
     String idStr = req.getParameter(ID);
-    return Course.newBuilder()
+    return new Course()
         .setId(idStr == null ? 0 : Integer.parseInt(idStr))
         .setName(req.getParameter(NAME))
         .setDescription(req.getParameter(DESCRIPTION))
         .setStartDate(Date.valueOf(req.getParameter(START_DATE)))
-        .setEndDate(Date.valueOf(req.getParameter(END_DATE)))
-        .setTopicId(Integer.parseInt(req.getParameter(TOPIC_ID)))
-        .setTeacherId(Integer.parseInt(req.getParameter(TEACHER_ID)))
-        .build();
+        .setEndDate(Date.valueOf(req.getParameter(END_DATE)));
   }
 
 }

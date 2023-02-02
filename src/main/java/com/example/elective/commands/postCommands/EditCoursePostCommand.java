@@ -36,12 +36,7 @@ public class EditCoursePostCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    try {
-      service.update(courseMapper.map(req));
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    service.update(courseMapper.map(req));
     resp.sendRedirect(ADMIN_URL);
   }
 

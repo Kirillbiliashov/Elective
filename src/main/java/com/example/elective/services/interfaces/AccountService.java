@@ -1,9 +1,6 @@
 package com.example.elective.services.interfaces;
 
-import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.dto.StudentDTO;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Account;
 import com.example.elective.selection.Pagination;
 
@@ -17,18 +14,16 @@ import java.util.Optional;
 
 public interface AccountService {
 
-  Optional<Account> findByCredentials(String login, String password) throws ServiceException;
+  Optional<Account> findByCredentials(String login, String password);
 
-  List<Account> getTeachers() throws ServiceException;
+  List<Account> getTeachers();
 
-  List<Account> getPaginatedTeachers(Pagination pagination) throws ServiceException;
-  List<StudentDTO> getPaginatedStudents(Pagination pagination) throws ServiceException;
+  List<Account> getPaginatedTeachers(Pagination pagination);
+  List<StudentDTO> getPaginatedStudents(Pagination pagination);
 
-  List<String> getLogins() throws ServiceException;
+  List<String> getLogins();
 
-  int getTotalCount(String roleName) throws ServiceException;
+  int getTotalCount(String roleName);
 
-  void save(Account acc) throws ServiceException;
-
-  Optional<Account> find(TransactionManager tm, int id) throws DAOException;
+  void save(Account acc);
 }

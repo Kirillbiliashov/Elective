@@ -20,10 +20,8 @@ public class JournalRequestMapper implements RequestMapper<Journal> {
   public Journal map(HttpServletRequest req) {
     HttpSession session = req.getSession();
     int studentId = ((Account) session.getAttribute(ACCOUNT_ATTR)).getId();
-    return Journal.newBuilder()
-        .setStudentId(studentId)
-        .setEnrollmentDate(Constants.CURRENT_DATE)
-        .build();
+    return new Journal()
+        .setEnrollmentDate(Constants.CURRENT_DATE);
   }
 
 }

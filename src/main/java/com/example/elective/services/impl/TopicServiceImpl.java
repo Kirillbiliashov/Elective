@@ -1,15 +1,14 @@
 package com.example.elective.services.impl;
 
 import com.example.elective.dao.interfaces.TopicDAO;
-import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.exceptions.DAOException;
+import com.example.elective.dao.sql.SQLDAOFactory;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Topic;
 import com.example.elective.services.AbstractService;
 import com.example.elective.services.interfaces.TopicService;
+import org.hibernate.Session;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Class containing business logic methods regarding topics
@@ -19,19 +18,16 @@ import java.util.Optional;
 public class TopicServiceImpl extends AbstractService implements TopicService {
 
   @Override
-  public List<Topic> getAll() throws ServiceException {
+  public List<Topic> getAll() {
+    Session session = SQLDAOFactory.getSession();
     TopicDAO dao = daoFactory.getTopicDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, dao::getAll);
-  }
-
-  @Override
-  public Optional<Topic> find(TransactionManager tm, int id)
-      throws DAOException {
-    TopicDAO dao = daoFactory.getTopicDAO();
-    tm.initTransaction(dao);
-    return dao.find(id);
+    dao.setSession(session);
+    session.beginTransaction();
+    try {
+      return dao.getAll();
+    } finally {
+      session.getTransaction().commit();
+    }
   }
 
 }

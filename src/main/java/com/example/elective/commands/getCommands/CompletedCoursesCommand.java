@@ -34,13 +34,8 @@ public class CompletedCoursesCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     int studentId = getCurrentUserId();
-    try {
-      req.setAttribute(COMPLETED_COURSES_ATTR,
-          service.getCompletedCourses(studentId));
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    req.setAttribute(COMPLETED_COURSES_ATTR,
+        service.getCompletedCourses(studentId));
     forward(JSP_PAGE);
   }
 

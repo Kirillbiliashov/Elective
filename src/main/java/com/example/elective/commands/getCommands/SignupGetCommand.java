@@ -33,12 +33,7 @@ public class SignupGetCommand extends Command {
 
   @Override
   public void process() throws ServletException, IOException {
-    try {
-      req.setAttribute(LOGINS_ATTR, service.getLogins());
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    req.setAttribute(LOGINS_ATTR, service.getLogins());
     forward(JSP_PAGE);
   }
 

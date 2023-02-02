@@ -34,13 +34,8 @@ public class CoursesInProgressCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     int studentId = getCurrentUserId();
-    try {
-      req.setAttribute(COURSES_IN_PROGRESS_ATTR,
-          service.getCoursesInProgress(studentId));
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    req.setAttribute(COURSES_IN_PROGRESS_ATTR,
+        service.getCoursesInProgress(studentId));
     forward(JSP_PAGE);
   }
 

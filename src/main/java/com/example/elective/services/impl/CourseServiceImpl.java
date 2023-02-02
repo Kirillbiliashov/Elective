@@ -1,23 +1,19 @@
 package com.example.elective.services.impl;
 
-import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.models.Account;
+import com.example.elective.dao.sql.SQLDAOFactory;
+import com.example.elective.models.Journal;
 import com.example.elective.selection.CourseSelection;
 
 import com.example.elective.dao.interfaces.CourseDAO;
 import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.MappingException;
 import com.example.elective.exceptions.ServiceException;
 import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.Course;
 import com.example.elective.dto.CourseDTO;
 import com.example.elective.services.AbstractService;
-import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.CourseService;
-import com.example.elective.services.interfaces.JournalService;
-import com.example.elective.services.interfaces.TopicService;
+import org.hibernate.Session;
 
 import java.sql.Date;
 import java.util.*;
@@ -30,143 +26,123 @@ import java.util.*;
 
 public class CourseServiceImpl extends AbstractService implements CourseService {
 
-  private final TopicService topicService;
-  private final AccountService accService;
-  private final JournalService journalService;
-
-  public CourseServiceImpl(TopicService topicService,
-                           AccountService accService,
-                           JournalService journalService) {
-    this.topicService = topicService;
-    this.accService = accService;
-    this.journalService = journalService;
-  }
+  private final CourseDTOMapper mapper = new CourseDTOMapper();
 
   @Override
-  public void update(Course course) throws ServiceException {
+  public void update(Course course) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    write(tm, () -> dao.update(course));
+    dao.setSession(session);
+    session.beginTransaction();
+    dao.update(course);
+    session.getTransaction().commit();
   }
 
   @Override
-  public void save(Course course) throws ServiceException {
+  public void save(Course course) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    write(tm, () -> dao.save(course));
+    dao.setSession(session);
+    session.beginTransaction();
+    dao.save(course);
+    session.getTransaction().commit();
   }
 
   @Override
-  public void delete(int id) throws ServiceException {
-    final CourseDAO dao = daoFactory.getCourseDAO();
-    final TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    write(tm, () -> dao.delete(id));
-  }
-
-  @Override
-  public Optional<Course> findById(int id) throws ServiceException {
+  public void delete(int id) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, () -> dao.find(id));
+    dao.setSession(session);
+    session.beginTransaction();
+    dao.delete(id);
+    session.getTransaction().commit();
   }
 
   @Override
-  public List<CourseDTO> getBySelection(CourseSelection selection)
-      throws ServiceException {
+  public Optional<Course> findById(int id) {
+    Session session  = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    List<CourseDTO> dtoList = read(tm, () -> {
-      List<Course> courses = dao.getAll();
-      List<CourseDTO> list = new ArrayList<>();
-      for (Course course : courses) list.add(getCourseDTO(tm, course));
-      return list;
-    });
-    return selection.getSelected(dtoList);
+    dao.setSession(session);
+    session.beginTransaction();
+    try {
+      return dao.find(id);
+    } finally {
+      session.getTransaction().commit();
+    }
   }
 
   @Override
-  public List<CourseDTO> getAvailableBySelection(int studentId,
-                                                 CourseSelection selection)
-      throws ServiceException {
+  public List<CourseDTO> getBySelection(CourseSelection selection) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    List<CourseDTO> dtoList = read(tm, () -> {
-      List<Course> courses = dao.getAvailableForStudent(studentId);
-      List<CourseDTO> list = new ArrayList<>();
-      for (Course course : courses) list.add(getCourseDTO(tm, course));
-      return list;
-    });
-    return selection.getSelected(dtoList);
+    dao.setSession(session);
+    session.beginTransaction();
+    List<Course> courses = dao.getAll();
+    session.getTransaction().commit();
+    return selection.getSelected(courses.stream().map(mapper::map).toList());
   }
 
   @Override
-  public List<CompletedCourseDTO> getCompletedCourses(int studentId)
-      throws ServiceException {
+  public List<CourseDTO> getAvailableBySelection(
+      int studentId, CourseSelection selection) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, () -> {
-      List<Course> courses = dao.getCompletedForStudent(studentId);
-      List<CompletedCourseDTO> list = new ArrayList<>();
-      for (Course course : courses) {
-        int grade = journalService
-            .findByCourseAndStudent(tm, course.getId(), studentId)
-            .get()
-            .getGrade();
-        CourseDTO dto = getCourseDTO(tm, course);
-        list.add(new CompletedCourseDTO(dto, grade));
-      }
-      return list;
-    });
+    dao.setSession(session);
+    session.beginTransaction();
+    List<Course> courses = dao.getAvailableForStudent(studentId);
+    session.getTransaction().commit();
+    return selection.getSelected(courses.stream().map(mapper::map).toList());
   }
 
   @Override
-  public List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
-      throws ServiceException {
+  public List<CompletedCourseDTO> getCompletedCourses(int studentId) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, () -> {
-      List<Course> courses = dao.getRegisteredForStudent(studentId);
-      List<RegisteredCourseDTO> list = new ArrayList<>();
-      for (Course course : courses) {
-        Date date = journalService
-            .findByCourseAndStudent(tm, course.getId(), studentId)
-            .get()
-            .getEnrollmentDate();
-        list.add(new RegisteredCourseDTO(getCourseDTO(tm, course), date));
-      }
-      return list;
-    });
+    dao.setSession(session);
+    session.beginTransaction();
+    List<Course> courses = dao.getCompletedForStudent(studentId);
+    session.getTransaction().commit();
+    return courses.stream().map(course -> {
+      int grade = course
+          .getStudents()
+          .stream()
+          .filter(e -> e.getStudent().getId() == studentId)
+          .findFirst()
+          .get()
+          .getGrade();
+      return new CompletedCourseDTO(mapper.map(course), grade);
+    }).toList();
   }
 
   @Override
-  public List<CourseDTO> getCoursesInProgress(int studentId)
-      throws ServiceException {
+  public List<RegisteredCourseDTO> getRegisteredCourses(int studentId) {
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    return read(tm, () -> {
-      List<Course> courses = dao.getInProgressForStudent(studentId);
-      List<CourseDTO> list = new ArrayList<>();
-      for (Course course : courses) list.add(getCourseDTO(tm, course));
-      return list;
-    });
+    dao.setSession(session);
+    session.beginTransaction();
+    List<Course> courses = dao.getRegisteredForStudent(studentId);
+    session.getTransaction().commit();
+    return courses.stream().map(course -> {
+      Journal studentCourse = course
+          .getStudents()
+          .stream()
+          .filter(e -> e.getStudent().getId() == studentId)
+          .findFirst()
+          .get();
+      Date registrationDate = studentCourse.getEnrollmentDate();
+      return new RegisteredCourseDTO(mapper.map(course), registrationDate);
+    }).toList();
   }
 
-  private CourseDTO getCourseDTO(TransactionManager tm, Course course)
-      throws DAOException, MappingException {
-    String topic = topicService.find(tm, course.getTopicId()).get().getName();
-    String name = accService.find(tm, course.getTeacherId()).get().getFullName();
-    int studentsCount = journalService.getStudentsCount(tm, course.getId());
-    CourseDTOMapper mapper = new CourseDTOMapper(name, topic, studentsCount);
-    return mapper.map(course);
+  @Override
+  public List<CourseDTO> getCoursesInProgress(int studentId) {
+    Session session = SQLDAOFactory.getSession();
+    CourseDAO dao = daoFactory.getCourseDAO();
+    dao.setSession(session);
+    session.beginTransaction();
+    List<Course> courses = dao.getInProgressForStudent(studentId);
+    session.getTransaction().commit();
+    return courses.stream().map(mapper::map).toList();
   }
 
 }

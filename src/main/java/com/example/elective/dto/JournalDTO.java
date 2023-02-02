@@ -7,26 +7,34 @@ package com.example.elective.dto;
 
 public class JournalDTO {
 
-  private final int id;
-  private final int grade;
-  private final String student;
-
-  public JournalDTO(int id, int grade, String student) {
-    this.id = id;
-    this.grade = grade;
-    this.student = student;
-  }
+  private int id;
+  private int grade;
+  private String student;
 
   public int getId() {
     return id;
+  }
+
+  public JournalDTO setId(int id) {
+    this.id = id;
+    return this;
   }
 
   public int getGrade() {
     return grade;
   }
 
+  public JournalDTO setGrade(int grade) {
+    this.grade = grade;
+    return this;
+  }
+
   public String getStudent() {
     return student;
   }
 
+  public JournalDTO setStudent(String student) {
+    this.student = student;
+    return this;
+  }
 }

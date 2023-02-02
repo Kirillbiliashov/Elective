@@ -1,71 +1,42 @@
 package com.example.elective.dao.sql.mysql;
 
 import com.example.elective.dao.interfaces.BlocklistDAO;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.MappingException;
-import com.example.elective.mappers.resultSetMappers.BlocklistResultSetMapper;
+import com.example.elective.dao.sql.AbstractDAO;
 import com.example.elective.models.Blocklist;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class BlocklistMySQLDAO extends MySQLDAO<Blocklist> implements BlocklistDAO {
-
-  private static final String FIND_BY_STUDENT = "SELECT * FROM blocklist WHERE student_id = ?";
-  private static final String SAVE = "INSERT INTO blocklist(student_id) VALUES(?)";
-  private static final String DELETE = "DELETE FROM blocklist WHERE student_id = ?";
-
-  public BlocklistMySQLDAO() {
-    this.mapper = new BlocklistResultSetMapper();
-  }
+public class BlocklistMySQLDAO extends AbstractDAO implements BlocklistDAO {
 
   @Override
-  public List<Blocklist> getAll() throws DAOException {
+  public List<Blocklist> getAll() {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public Optional<Blocklist> find(int id) throws DAOException {
-    try {
-      return getOptionalEntity(FIND_BY_STUDENT, id);
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to get blocklist entry", e);
-    }
+  public Optional<Blocklist> find(int id) {
+    return Optional.of(session.get(Blocklist.class, id));
   }
 
   @Override
-  public void save(Blocklist blocklist) throws DAOException {
+  public void save(Blocklist blocklist) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void update(Blocklist entity) throws DAOException {
+  public void update(Blocklist entity) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void delete(int studentId) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(DELETE)) {
-      addValuesToPreparedStatement(ps, studentId);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to remove blocklist entry", e);
-    }
+  public void delete(int studentId) {
+    session.remove(studentId);
   }
 
   @Override
-  public void save(int studentId) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(SAVE)) {
-      addValuesToPreparedStatement(ps, studentId);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to save to block list", e);
-    }
+  public void save(int studentId) {
+    session.persist(studentId);
   }
 
 }

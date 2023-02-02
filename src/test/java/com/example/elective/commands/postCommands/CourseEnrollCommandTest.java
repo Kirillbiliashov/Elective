@@ -43,7 +43,7 @@ public class CourseEnrollCommandTest {
     command.init(context, req, resp);
     when(req.getPathInfo()).thenReturn(PATH_INFO);
     when(session.getAttribute(ACCOUNT_ATTR))
-        .thenReturn(Account.newBuilder().setId(1).build());
+        .thenReturn(new Account().setId(1));
   }
 
   @Test

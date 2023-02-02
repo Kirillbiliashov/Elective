@@ -17,24 +17,22 @@ import java.util.Optional;
 
 public interface CourseService {
 
-  void update(Course course) throws ServiceException;
+  void update(Course course);
 
-  void save(Course course) throws ServiceException;
+  void save(Course course);
 
-  void delete(int id) throws ServiceException;
+  void delete(int id);
 
-  Optional<Course> findById(int id) throws ServiceException;
+  Optional<Course> findById(int id);
 
-  List<CourseDTO> getBySelection(CourseSelection selection) throws ServiceException;
+  List<CourseDTO> getBySelection(CourseSelection selection);
 
-  List<CourseDTO> getAvailableBySelection(int studentId, CourseSelection selection)
-      throws ServiceException;
+  List<CourseDTO> getAvailableBySelection(int studentId, CourseSelection selection);
 
-  List<CompletedCourseDTO> getCompletedCourses(int studentId) throws ServiceException;
+  List<CompletedCourseDTO> getCompletedCourses(int studentId);
 
-  List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
-      throws ServiceException;
+  List<RegisteredCourseDTO> getRegisteredCourses(int studentId);
 
-  List<CourseDTO> getCoursesInProgress(int studentId) throws ServiceException;
+  List<CourseDTO> getCoursesInProgress(int studentId);
 
 }

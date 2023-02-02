@@ -42,12 +42,7 @@ public class UserRegisterCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     Account acc = accountMapper.map(req);
-    try {
-      service.save(acc);
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    service.save(acc);
     resp.sendRedirect(redirectUrl);
   }
 

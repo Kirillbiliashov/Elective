@@ -44,20 +44,15 @@ public class PaginationCommand extends Command {
   public void process() throws ServletException, IOException {
     int page = PaginationUtils.getPageNumber(req);
     int displayCount = PaginationUtils.getItemsPerPage(req);
-    try {
-      int total = service.getTotalCount(roleName);
-      Pagination pagination = new Pagination(page, displayCount, total);
-      PaginationUtils.setPageAttributes(req, pagination.getPage());
-      req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-      setEntitiesAttribute(pagination);
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    int total = service.getTotalCount(roleName);
+    Pagination pagination = new Pagination(page, displayCount, total);
+    PaginationUtils.setPageAttributes(req, pagination.getPage());
+    req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
+    setEntitiesAttribute(pagination);
     forward(jspPage);
   }
 
-  private void setEntitiesAttribute(Pagination pagination) throws ServiceException {
+  private void setEntitiesAttribute(Pagination pagination) {
     if (roleName.equals(STUDENT_ROLE)) {
       req.setAttribute(attrName, service.getPaginatedStudents(pagination));
     } else {

@@ -7,20 +7,14 @@ import com.example.elective.models.Account;
 
 public class StudentDTOMapper implements Mapper<Account, StudentDTO> {
 
-  private final boolean isBlocked;
-
-  public StudentDTOMapper(boolean isBlocked) {
-    this.isBlocked = isBlocked;
-  }
-
   @Override
-  public StudentDTO map(Account account) throws MappingException {
+  public StudentDTO map(Account account) {
     return StudentDTO.newBuilder()
         .setId(account.getId())
-        .setFullName(account.getFullName())
+        .setFullName(account.getFirstName() + " " + account.getLastName())
         .setUsername(account.getUsername())
         .setEmail(account.getEmail())
-        .setBlocked(isBlocked)
+        .setBlocked(account.getBlock() != null)
         .build();
   }
 

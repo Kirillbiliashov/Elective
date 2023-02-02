@@ -34,13 +34,8 @@ public class RegisteredCoursesCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     int studentId = getCurrentUserId();
-    try {
-      req.setAttribute(REGISTERED_COURSES_ATTR,
-          service.getRegisteredCourses(studentId));
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    req.setAttribute(REGISTERED_COURSES_ATTR,
+        service.getRegisteredCourses(studentId));
     forward(JSP_PAGE);
   }
 
