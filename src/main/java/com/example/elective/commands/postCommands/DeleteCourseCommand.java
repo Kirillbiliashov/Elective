@@ -33,12 +33,7 @@ public class DeleteCourseCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     int id = getIdFromPathInfo();
-    try {
-      service.delete(id);
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    service.delete(id);
     resp.sendRedirect(ADMIN_URL);
   }
 

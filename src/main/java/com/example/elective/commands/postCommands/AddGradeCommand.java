@@ -34,12 +34,7 @@ public class AddGradeCommand extends Command {
   public void process() throws ServletException, IOException {
     int journalId = getIdFromPathInfo();
     String gradeStr = req.getParameter(GRADE_PARAM);
-    try {
-      service.updateGrade(journalId, Integer.parseInt(gradeStr));
-    } catch (ServiceException e) {
-      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
-    }
+    service.updateGrade(journalId, Integer.parseInt(gradeStr));
     resp.sendRedirect(getRedirectUrl());
   }
 

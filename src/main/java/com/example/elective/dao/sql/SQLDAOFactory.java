@@ -1,14 +1,13 @@
 package com.example.elective.dao.sql;
 
 import com.example.elective.dao.DAOFactory;
+import com.example.elective.models.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -18,24 +17,25 @@ import java.sql.SQLException;
 
 public abstract class SQLDAOFactory extends DAOFactory {
 
-  private static final Logger logger = LogManager.getLogger(SQLDAOFactory.class);
+  private static SessionFactory sessionFactory;
 
-  private static DataSource ds;
+  public static synchronized Session getSession() {
+    if (sessionFactory == null) configureDataSource();
+    return sessionFactory.getCurrentSession();
+  }
 
-  public static synchronized Connection getConnection() throws SQLException {
-    if (ds == null) configureDataSource();
-    return ds.getConnection();
+  public static void closeFactory() {
+    if (sessionFactory != null) sessionFactory.close();
   }
 
   private static void configureDataSource() {
-    try {
-      Context initContext = new InitialContext();
-      Context envContext = (Context) initContext.lookup("java:/comp/env");
-      ds = (DataSource) envContext.lookup("jdbc/elective");
-    } catch (NamingException e) {
-      logger.error("failed to retrieve data source: " + e.getMessage());
-      throw new RuntimeException(e);
-    }
+    Configuration conf = new Configuration()
+        .addAnnotatedClass(Account.class)
+        .addAnnotatedClass(Blocklist.class)
+        .addAnnotatedClass(Course.class)
+        .addAnnotatedClass(Journal.class)
+        .addAnnotatedClass(Topic.class);
+    sessionFactory = conf.buildSessionFactory();
   }
 
 }

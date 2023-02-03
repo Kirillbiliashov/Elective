@@ -32,13 +32,4 @@ public class DeleteCourseCommandTest extends CourseCommandTest {
     verify(resp, times(1)).sendRedirect(ADMIN_URL);
   }
 
-  @Override
-  @Test
-  void testNegativeScenario() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(courseService).delete(anyInt());
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  }
-
 }

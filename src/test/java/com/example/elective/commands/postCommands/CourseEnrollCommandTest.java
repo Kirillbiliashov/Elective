@@ -23,6 +23,7 @@ public class CourseEnrollCommandTest {
 
   private final static String REDIRECT_URL = "/elective/student";
   private final static String PATH_INFO = "/1";
+  private static final String COURSE_ID_PARAM = "1";
   private final CourseEnrollCommand command = new CourseEnrollCommand();
   @Mock
   private HttpServletRequest req;
@@ -42,23 +43,16 @@ public class CourseEnrollCommandTest {
     when(context.getAttribute(JOURNAL_SERVICE)).thenReturn(journalService);
     command.init(context, req, resp);
     when(req.getPathInfo()).thenReturn(PATH_INFO);
+    when(req.getParameter("courseId")).thenReturn(COURSE_ID_PARAM);
     when(session.getAttribute(ACCOUNT_ATTR))
-        .thenReturn(Account.newBuilder().setId(1).build());
+        .thenReturn(new Account().setId(1));
   }
 
   @Test
   void testCourseEnroll() throws Exception {
     command.process();
+    verify(journalService, times(1)).save(1, 1);
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
-  }
-
-  @Test
-  void testCourseEnrollNegative() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(journalService)
-        .save(any(Journal.class));
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
   }
 
 }

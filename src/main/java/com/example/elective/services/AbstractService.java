@@ -1,12 +1,12 @@
 package com.example.elective.services;
 
-import com.example.elective.dao.sql.TransactionManager;
 import com.example.elective.dao.DAOFactory;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.MappingException;
-import com.example.elective.exceptions.ServiceException;
-import com.example.elective.services.interfaces.DAOReader;
-import com.example.elective.services.interfaces.DAOWriter;
+import com.example.elective.dao.interfaces.DAO;
+import com.example.elective.dao.sql.AbstractDAO;
+import com.example.elective.dao.sql.SQLDAOFactory;
+import org.hibernate.Session;
+
+import java.util.function.Supplier;
 
 
 /**
@@ -18,32 +18,22 @@ public abstract class AbstractService {
 
   protected DAOFactory daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL);
 
-  protected <T> T read(TransactionManager tm, DAOReader<T> reader)
-      throws ServiceException {
-    try {
-      T res = reader.read();
-      tm.commitTransaction();
-      return res;
-    } catch (DAOException | MappingException e) {
-      e.printStackTrace();
-      tm.rollbackTransaction();
-      throw new ServiceException(e);
-    } finally {
-      tm.endTransaction();
-    }
+  protected void write(Runnable writeOperation, DAO... daos) {
+    Session session = SQLDAOFactory.getSession();
+    for (DAO dao: daos) dao.setSession(session);
+    session.beginTransaction();
+    writeOperation.run();
+    session.getTransaction().commit();
   }
 
-  protected void write(TransactionManager tm, DAOWriter writer)
-      throws ServiceException {
+  protected <T> T read(Supplier<T> readOperation, DAO... daos) {
+    Session session = SQLDAOFactory.getSession();
+    for (DAO dao: daos) dao.setSession(session);
+    session.beginTransaction();
     try {
-      writer.write();
-      tm.commitTransaction();
-    } catch (DAOException e) {
-      e.printStackTrace();
-      tm.rollbackTransaction();
-      throw new ServiceException(e);
+      return readOperation.get();
     } finally {
-      tm.endTransaction();
+      session.getTransaction().commit();
     }
   }
 

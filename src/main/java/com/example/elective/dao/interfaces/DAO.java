@@ -1,9 +1,7 @@
 package com.example.elective.dao.interfaces;
 
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.models.Entity;
+import org.hibernate.Session;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,18 +11,18 @@ import java.util.Optional;
  * @author Kirill Biliashov
  */
 
-public interface DAO<T extends Entity> {
+public interface DAO<T> {
 
-  void setConnection(Connection conn);
+  void setSession(Session session);
 
-  List<T> getAll() throws DAOException;
+  List<T> getAll();
 
-  Optional<T> find(int id) throws DAOException;
+  Optional<T> find(int id);
 
-  void save(T entity) throws DAOException;
+  void save(T entity);
 
-  void update(T entity) throws DAOException;
+  void update(T entity);
 
-  void delete(int id) throws DAOException;
+  void delete(int id);
 
 }

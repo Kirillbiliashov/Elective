@@ -20,14 +20,13 @@ public class AccountRequestMapper implements RequestMapper<Account> {
 
   @Override
   public Account map(HttpServletRequest req) {
-    return Account.newBuilder()
+    return new Account()
         .setUsername(req.getParameter(USERNAME))
         .setEmail(req.getParameter(EMAIL))
         .setPassword(req.getParameter(PASSWORD))
         .setFirstName(req.getParameter(FIRSTNAME))
         .setLastName(req.getParameter(LASTNAME))
-        .setRole(req.getParameter(ROLE))
-        .build();
+        .setRole(req.getParameter(ROLE));
   }
 
 }

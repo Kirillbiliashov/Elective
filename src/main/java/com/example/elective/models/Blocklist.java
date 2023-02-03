@@ -1,20 +1,34 @@
 package com.example.elective.models;
 
-public class Blocklist extends Entity {
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-  private int studentId;
+@Entity
+@Table(name = "blocklist")
+public class Blocklist {
 
-  public Blocklist(int id, int studentId) {
-    super.id = id;
-    this.studentId = studentId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  @OneToOne
+  @JoinColumn(name = "student_id", referencedColumnName = "id")
+  private Account student;
+
+  public int getId() {
+    return id;
   }
 
-  public int getStudentId() {
-    return studentId;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public void setStudentId(int studentId) {
-    this.studentId = studentId;
+  public Account getStudent() {
+    return student;
+  }
+
+  public void setStudent(Account student) {
+    this.student = student;
   }
 
 }

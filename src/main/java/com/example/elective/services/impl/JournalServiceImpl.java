@@ -1,14 +1,14 @@
 package com.example.elective.services.impl;
 
 import com.example.elective.dao.interfaces.JournalDAO;
-import com.example.elective.dao.sql.TransactionManager;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.ServiceException;
+import com.example.elective.dao.sql.SQLDAOFactory;
+import com.example.elective.models.Account;
+import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.services.AbstractService;
 import com.example.elective.services.interfaces.JournalService;
-
-import java.util.Optional;
+import com.example.elective.utils.Constants;
+import org.hibernate.Session;
 
 /**
  * Class containing business logic methods regarding journal
@@ -18,43 +18,24 @@ import java.util.Optional;
 public class JournalServiceImpl extends AbstractService implements JournalService {
 
   @Override
-  public void save(Journal journal) throws ServiceException {
+  public void save(int courseId, int studentId) {
+    Session session = SQLDAOFactory.getSession();
     JournalDAO dao = daoFactory.getJournalDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    write(tm, () -> dao.save(journal));
+    Journal journal = new Journal().setEnrollmentDate(Constants.CURRENT_DATE);
+    dao.setSession(session);
+    session.beginTransaction();
+    Course course = session.byId(Course.class).load(courseId);
+    Account student = session.byId(Account.class).load(studentId);
+    journal.setCourse(course);
+    journal.setStudent(student);
+    dao.save(journal);
+    session.getTransaction().commit();
   }
 
   @Override
-  public void updateGrade(int id, int grade) throws ServiceException {
+  public void updateGrade(int id, int grade) {
     JournalDAO dao = daoFactory.getJournalDAO();
-    TransactionManager tm = TransactionManager.getInstance();
-    tm.initTransaction(dao);
-    write(tm, () -> {
-      Optional<Journal> optJournal = dao.find(id);
-      if (optJournal.isPresent()) {
-        Journal journal = optJournal.get();
-        journal.getBuilder().setGrade(grade);
-        dao.update(journal);
-      }
-    });
-  }
-
-  @Override
-  public int getStudentsCount(TransactionManager tm, int courseId)
-      throws DAOException {
-    JournalDAO dao = daoFactory.getJournalDAO();
-    tm.initTransaction(dao);
-    return dao.getStudentsCount(courseId);
-  }
-
-  @Override
-  public Optional<Journal> findByCourseAndStudent(TransactionManager tm,
-                                                     int courseId, int studentId)
-      throws DAOException {
-    JournalDAO dao = daoFactory.getJournalDAO();
-    tm.initTransaction(dao);
-    return dao.findByCourseAndStudent(courseId, studentId);
+    write(() -> dao.find(id).ifPresent(journal -> journal.setGrade(grade)), dao);
   }
 
 }

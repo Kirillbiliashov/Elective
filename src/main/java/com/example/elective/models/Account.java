@@ -1,102 +1,108 @@
 package com.example.elective.models;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
+import javax.swing.*;
+import java.util.List;
+
 /**
  * Model representation of account table
  * @author Kirill Biliashov
  */
 
-public class Account extends Entity {
+@Entity
+@Table(name = "account")
+public class Account {
 
-  private final Builder builder;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
   private String username;
   private String email;
   private String password;
+  @Column(name = "first_name")
   private String firstName;
+  @Column(name = "last_name")
   private String lastName;
   private String role;
 
-  public Account(Builder builder) {
-    this.builder = builder;
+  @OneToOne(mappedBy = "student")
+  private Blocklist block;
+
+  public int getId() {
+    return id;
   }
 
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
-  public Builder getBuilder() {
-    return builder;
+  public Account setId(int id) {
+    this.id = id;
+    return this;
   }
 
   public String getUsername() {
     return username;
   }
 
+  public Account setUsername(String username) {
+    this.username = username;
+    return this;
+  }
+
   public String getEmail() {
     return email;
+  }
+
+  public Account setEmail(String email) {
+    this.email = email;
+    return this;
   }
 
   public String getPassword() {
     return password;
   }
 
+  public Account setPassword(String password) {
+    this.password = password;
+    return this;
+  }
+
   public String getFirstName() {
     return firstName;
+  }
+
+  public Account setFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
   }
 
   public String getLastName() {
     return lastName;
   }
 
+  public Account setLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
   public String getFullName() {
-    return firstName + " " + lastName;
+    return  this.firstName + " " + this.lastName;
   }
 
   public String getRole() {
     return role;
   }
 
-  public static class Builder {
-    private final Account account = new Account(this);
-
-    public Builder setId(int id) {
-      if (account.id == 0) account.id = id;
-      return this;
-    }
-
-    public Builder setUsername(String username) {
-      account.username = username;
-      return this;
-    }
-
-    public Builder setEmail(String email) {
-      account.email = email;
-      return this;
-    }
-
-    public Builder setPassword(String password) {
-      account.password = password;
-      return this;
-    }
-
-    public Builder setFirstName(String firstName) {
-      account.firstName = firstName;
-      return this;
-    }
-
-    public Builder setLastName(String lastName) {
-      account.lastName = lastName;
-      return this;
-    }
-
-    public Builder setRole(String role) {
-      account.role = role;
-      return this;
-    }
-
-    public Account build() {
-      return account;
-    }
-
+  public Account setRole(String role) {
+    this.role = role;
+    return this;
   }
 
+  public Blocklist getBlock() {
+    return block;
+  }
+
+  public Account setBlock(Blocklist block) {
+    this.block = block;
+    return this;
+  }
 }

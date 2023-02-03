@@ -1,14 +1,11 @@
 package com.example.elective.dao.sql.mysql;
 
 import com.example.elective.dao.interfaces.JournalDAO;
-import com.example.elective.exceptions.DAOException;
-import com.example.elective.exceptions.MappingException;
-import com.example.elective.mappers.resultSetMappers.JournalResultSetMapper;
+import com.example.elective.dao.sql.AbstractDAO;
+import com.example.elective.models.Account;
+import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,60 +14,26 @@ import java.util.Optional;
  * @author Kirill Biliashov
  */
 
-public class JournalMySQLDAO extends MySQLDAO<Journal> implements JournalDAO {
+public class JournalMySQLDAO extends AbstractDAO implements JournalDAO {
 
-  private static final String SELECT_ALL = "SELECT  * FROM journal";
-  private static final String WHERE_COURSE_ID = " WHERE course_id = ?";
-  private static final String UPDATE = "UPDATE journal SET grade = ?," +
-      " enrollment_date = ? WHERE id = ?";
-  private static final String FIND = SELECT_ALL + " WHERE id = ?";
-  private static final String FIND_BY_COURSE_AND_STUDENT = SELECT_ALL +
-      WHERE_COURSE_ID + " AND student_id = ?";
-  private static final String SAVE = "INSERT INTO journal(enrollment_date," +
-      " course_id, student_id) VALUES(?, ?, ?)";
-  private static final String GET_BY_COURSE_ID = SELECT_ALL + WHERE_COURSE_ID;
-  private static final String GET_STUDENTS_COUNT = "SELECT COUNT(*)" +
-      " FROM journal" + WHERE_COURSE_ID;
+  private static final String FIND_BY_STUDENT = "SELECT j FROM Journal j where " +
+      "j.course = :course AND j.student = :student";
+  private static final String FIND_BY_COURSE = "SELECT j FROM Journal j where j.course = :course";
+  private static final String GET_STUDENTS_COUNT = "SELECT COUNT(j) FROM Journal j WHERE j.course = :course";
 
-  public JournalMySQLDAO() {
-    this.mapper = new JournalResultSetMapper();
+  @Override
+  public Optional<Journal> find(int journalId) {
+    return Optional.ofNullable(session.get(Journal.class, journalId));
   }
 
   @Override
-  public Optional<Journal> find(int journalId) throws DAOException {
-    try {
-      return getOptionalEntity(FIND, journalId);
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find journal entry", e);
-    }
+  public void update(Journal journal) {
+    session.persist(journal);
   }
 
   @Override
-  public void update(Journal journal) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
-      addValuesToPreparedStatement(ps, journal.getGrade(),
-          journal.getEnrollmentDate(), journal.getId());
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to update journal entry", e);
-    }
-  }
-
-  @Override
-  public void save(Journal journal) throws DAOException {
-    try (PreparedStatement ps = conn.prepareStatement(SAVE,
-        PreparedStatement.RETURN_GENERATED_KEYS)) {
-      addValuesToPreparedStatement(ps, journal.getEnrollmentDate(),
-          journal.getCourseId(), journal.getStudentId());
-      ps.executeUpdate();
-      ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) journal.getBuilder().setId(rs.getInt(1));
-    } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to save journal entry", e);
-    }
+  public void save(Journal journal) {
+    session.persist(journal);
   }
 
   @Override
@@ -84,34 +47,32 @@ public class JournalMySQLDAO extends MySQLDAO<Journal> implements JournalDAO {
   }
 
   @Override
-  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId)
-      throws DAOException {
-    try {
-      return getOptionalEntity(FIND_BY_COURSE_AND_STUDENT, courseId, studentId);
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find journal entry for given course and student", e);
-    }
+  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
+    Course course = session.byId(Course.class).load(courseId);
+    Account student = session.byId(Account.class).load(studentId);
+    return Optional.ofNullable(session
+        .createQuery(FIND_BY_STUDENT, Journal.class)
+        .setParameter("course", course)
+        .setParameter("student", student)
+        .getSingleResult());
   }
 
   @Override
-  public List<Journal> getByCourseId(int courseId) throws DAOException {
-    try {
-      return getEntitiesList(GET_BY_COURSE_ID, courseId);
-    } catch (SQLException | MappingException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to find journal entries for course", e);
-    }
+  public List<Journal> getByCourseId(int courseId) {
+    Course course = session.byId(Course.class).load(courseId);
+    return session
+        .createQuery(FIND_BY_COURSE, Journal.class)
+        .setParameter("course", course)
+        .getResultList();
   }
 
   @Override
-  public int getStudentsCount(int courseId) throws DAOException {
-    try {
-      return getCount(GET_STUDENTS_COUNT, courseId);
-    } catch (SQLException e) {
-      logger.error(e.getMessage());
-      throw new DAOException("unable to get students count for the course", e);
-    }
+  public int getStudentsCount(int courseId) {
+    Course course = session.byId(Course.class).load(courseId);
+    return session
+        .createQuery(GET_STUDENTS_COUNT, Integer.class)
+        .setParameter("course", course)
+        .getSingleResult();
   }
 
 }

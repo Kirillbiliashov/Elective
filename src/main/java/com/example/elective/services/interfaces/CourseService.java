@@ -1,9 +1,5 @@
 package com.example.elective.services.interfaces;
 
-import com.example.elective.dto.CompletedCourseDTO;
-import com.example.elective.dto.CourseDTO;
-import com.example.elective.dto.RegisteredCourseDTO;
-import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
 import com.example.elective.selection.CourseSelection;
 
@@ -17,24 +13,22 @@ import java.util.Optional;
 
 public interface CourseService {
 
-  void update(Course course) throws ServiceException;
+  void update(Course course);
 
-  void save(Course course) throws ServiceException;
+  void save(Course course, int topicId, int teacherId);
 
-  void delete(int id) throws ServiceException;
+  void delete(int id);
 
-  Optional<Course> findById(int id) throws ServiceException;
+  Optional<Course> findById(int id);
 
-  List<CourseDTO> getBySelection(CourseSelection selection) throws ServiceException;
+  List<Course> getAll();
 
-  List<CourseDTO> getAvailableBySelection(int studentId, CourseSelection selection)
-      throws ServiceException;
+  List<Course> getAvailable(int studentId);
 
-  List<CompletedCourseDTO> getCompletedCourses(int studentId) throws ServiceException;
+  List<Course> getCompletedCourses(int studentId);
 
-  List<RegisteredCourseDTO> getRegisteredCourses(int studentId)
-      throws ServiceException;
+  List<Course> getRegisteredCourses(int studentId);
 
-  List<CourseDTO> getCoursesInProgress(int studentId) throws ServiceException;
+  List<Course> getCoursesInProgress(int studentId);
 
 }

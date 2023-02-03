@@ -1,21 +1,45 @@
 package com.example.elective.models;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
+import java.util.List;
+
 /**
  * Model representation of topic table
  * @author Kirill Biliashov
  */
 
-public class Topic extends Entity {
+@Entity
+@Table(name = "topic")
+public class Topic {
 
-  private final String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  private String name;
 
-  public Topic(int id, String name) {
+  @OneToMany(mappedBy = "topic")
+  private List<Course> courses;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
     this.id = id;
-    this.name = name;
   }
 
   public String getName() {
     return name;
+  }
+
+  public List<Course> getCourses() {
+    return courses;
+  }
+
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
   }
 
 }

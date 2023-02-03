@@ -14,9 +14,9 @@ import java.util.Optional;
  */
 
 public interface TeacherService {
-  Optional<Course> findCourse(int teacherId, Pagination pagination) throws ServiceException;
+  Optional<Course> findCourse(int teacherId, Pagination pagination);
 
-  int getCoursesCount(int teacherId) throws ServiceException;
+  int getCoursesCount(int teacherId);
 
-  List<JournalDTO> getJournalList(int courseId) throws ServiceException;
+  List<JournalDTO> getJournalList(int courseId);
 }

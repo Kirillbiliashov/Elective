@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
 
 /**
  * Abstract base class for DAOs containing logger and method for setting connection
@@ -12,12 +13,10 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class AbstractDAO {
 
-  protected Logger logger = LogManager.getLogger(AbstractDAO.class);
+  protected Session session;
 
-  protected Connection conn;
-
-  public void setConnection(Connection conn) {
-    this.conn = conn;
+  public void setSession(Session session) {
+    this.session = session;
   }
 
 }
