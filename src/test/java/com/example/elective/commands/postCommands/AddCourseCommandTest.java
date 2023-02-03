@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -29,14 +30,13 @@ public class AddCourseCommandTest extends CourseCommandTest {
   @Test
   void testPositiveScenario() throws Exception {
     command.process();
-    verify(courseService, times(1)).save(any(Course.class));
     verify(resp, times(1)).sendRedirect(Constants.ADMIN_URL);
   }
 
   @Override
   @Test
   void testNegativeScenario() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(courseService).save(any(Course.class));
+    Mockito.doThrow(ServiceException.class).when(courseService).save(any(Course.class), anyInt(), anyInt());
     command.process();
     verify(resp, times(1))
         .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

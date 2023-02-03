@@ -16,7 +16,7 @@ public class BlocklistMySQLDAO extends AbstractDAO implements BlocklistDAO {
 
   @Override
   public Optional<Blocklist> find(int id) {
-    return Optional.of(session.get(Blocklist.class, id));
+    return Optional.ofNullable(session.get(Blocklist.class, id));
   }
 
   @Override

@@ -16,16 +16,16 @@ import java.util.Optional;
 
 public class CourseMySQLDAO extends AbstractDAO implements CourseDAO {
 
-  private static final String GET_ALL = "SELECT c FROM Course c";
+  private static final String GET_ALL = "SELECT c FROM Course c LEFT JOIN FETCH c.students";
   private static final String GET_COMPLETED_FOR_STUDENT = "SELECT c FROM Course c " +
-      "WHERE c.students.student = :student AND c.endDate < CURRENT_DATE";
+      "WHERE c.students.student = :student AND c.endDate < CURRENT_DATE LEFT JOIN FETCH c.students";
   private static final String GET_IN_PROGRESS_FOR_STUDENT = "SELECT c FROM Course c" +
-      " WHERE c.students.student = :student AND CURRENT_DATE BETWEEN c.startDate AND c.endDate";
+      " WHERE c.students.student = :student AND CURRENT_DATE BETWEEN c.startDate AND c.endDate LEFT JOIN FETCH c.students";
   private static final String GET_REGISTERED_FOR_STUDENT = "SELECT c FROM Course c " +
-      "WHERE c.students.student = :student AND c.startDate > CURRENT_DATE";
+      "WHERE c.students.student = :student AND c.startDate > CURRENT_DATE LEFT JOIN FETCH c.students";
   private static final String GET_AVAILABLE_FOR_STUDENT = "SELECT c FROM Course c " +
       "WHERE c.id != ALL (SELECT c.id FROM Course c WHERE c.students.student = :student)" +
-      " AND c.startDate > CURRENT_DATE";
+      " AND c.startDate > CURRENT_DATE LEFT JOIN FETCH c.students";
   private static final String FIND_BY_TEACHER = "SELECT c FROM Course c " +
       "WHERE c.teacher = :teacher";
   private static final String GET_COUNT = "SELECT COUNT(c) FROM Course c";

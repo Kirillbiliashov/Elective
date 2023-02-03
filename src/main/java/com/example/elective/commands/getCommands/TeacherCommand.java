@@ -48,7 +48,7 @@ public class TeacherCommand extends Command {
     setPageAttributes(req, pagination.getPage());
     req.setAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
     Optional<Course> optCourse = service.findCourse(id, pagination);
-    if (optCourse.isPresent()) setAttributes(optCourse.get());
+    optCourse.ifPresent(this::setAttributes);
     forward(JSP_PAGE);
   }
 

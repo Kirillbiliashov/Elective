@@ -55,7 +55,7 @@ public class CourseEnrollCommandTest {
   @Test
   void testCourseEnrollNegative() throws Exception {
     Mockito.doThrow(ServiceException.class).when(journalService)
-        .save(any(Journal.class));
+        .save(anyInt(), anyInt());
     command.process();
     verify(resp, times(1))
         .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

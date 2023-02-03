@@ -13,8 +13,6 @@ import org.hibernate.Session;
 
 public abstract class AbstractDAO {
 
-  protected Logger logger = LogManager.getLogger(AbstractDAO.class);
-
   protected Session session;
 
   public void setSession(Session session) {

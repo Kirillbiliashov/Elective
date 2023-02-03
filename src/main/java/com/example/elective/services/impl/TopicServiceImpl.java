@@ -19,15 +19,8 @@ public class TopicServiceImpl extends AbstractService implements TopicService {
 
   @Override
   public List<Topic> getAll() {
-    Session session = SQLDAOFactory.getSession();
     TopicDAO dao = daoFactory.getTopicDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    try {
-      return dao.getAll();
-    } finally {
-      session.getTransaction().commit();
-    }
+    return read(dao::getAll, dao);
   }
 
 }

@@ -44,7 +44,7 @@ public class EditCourseGetCommand extends Command {
   public void process() throws ServletException, IOException {
     int id = getIdFromPathInfo();
     Optional<Course> optCourse = courseService.findById(id);
-    if (!optCourse.isPresent()) {
+    if (optCourse.isEmpty()) {
       resp.sendRedirect(ADMIN_URL);
       return;
     }

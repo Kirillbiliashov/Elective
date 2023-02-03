@@ -1,5 +1,6 @@
 package com.example.elective.listeners;
 
+import com.example.elective.dao.sql.SQLDAOFactory;
 import com.example.elective.services.impl.*;
 import com.example.elective.services.interfaces.*;
 import com.example.elective.utils.Constants;
@@ -47,6 +48,7 @@ public class AppListener implements ServletContextListener {
 
   @Override
   public void contextDestroyed(ServletContextEvent sce) {
+    SQLDAOFactory.closeFactory();
     logger.info("application has stopped");
   }
 

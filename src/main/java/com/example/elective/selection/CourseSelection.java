@@ -1,6 +1,7 @@
 package com.example.elective.selection;
 
 import com.example.elective.dto.CourseDTO;
+import com.example.elective.models.Course;
 
 import java.util.Arrays;
 import java.util.Comparator;

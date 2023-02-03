@@ -28,7 +28,6 @@ public class LoginPostCommand extends Command {
   protected static final String LOGIN_PARAM = "login";
   protected static final String PASSWORD_PARAM = "password";
   private AccountService accountService;
-  private BlocklistService blocklistService;
 
   @Override
   public void init(ServletContext context, HttpServletRequest req,
@@ -36,8 +35,6 @@ public class LoginPostCommand extends Command {
     super.init(context, req, resp);
     if (accountService == null) accountService =
         (AccountService) context.getAttribute(ACCOUNT_SERVICE);
-    if (blocklistService == null) blocklistService =
-        (BlocklistService) context.getAttribute(BLOCKLIST_SERVICE);
   }
 
   @Override
@@ -57,9 +54,9 @@ public class LoginPostCommand extends Command {
   private void handleOptionalAccount(Optional<Account> optAccount)
       throws ServletException, IOException, ServiceException {
     Account acc = optAccount.orElse(null);
-    if (!optAccount.isPresent()) {
+    if (optAccount.isEmpty()) {
       handleAbsentAccount();
-    } else if (blocklistService.getBlockStatus(acc.getId()).isPresent()) {
+    } else if (acc.getBlock() != null) {
       handleBlockedAccount();
     } else {
       addAccountToSession(acc);

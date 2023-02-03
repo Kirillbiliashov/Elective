@@ -37,7 +37,9 @@ public class AddCoursePostCommand extends Command {
   @Override
   public void process() throws ServletException, IOException {
     Course course = courseMapper.map(req);
-    service.save(course);
+    int topicId = Integer.parseInt(req.getParameter("topicId"));
+    int teacherId = Integer.parseInt(req.getParameter("teacherId"));
+    service.save(course, topicId, teacherId);
     resp.sendRedirect(ADMIN_URL);
   }
 

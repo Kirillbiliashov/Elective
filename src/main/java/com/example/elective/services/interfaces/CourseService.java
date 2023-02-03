@@ -1,9 +1,5 @@
 package com.example.elective.services.interfaces;
 
-import com.example.elective.dto.CompletedCourseDTO;
-import com.example.elective.dto.CourseDTO;
-import com.example.elective.dto.RegisteredCourseDTO;
-import com.example.elective.exceptions.ServiceException;
 import com.example.elective.models.Course;
 import com.example.elective.selection.CourseSelection;
 
@@ -19,20 +15,20 @@ public interface CourseService {
 
   void update(Course course);
 
-  void save(Course course);
+  void save(Course course, int topicId, int teacherId);
 
   void delete(int id);
 
   Optional<Course> findById(int id);
 
-  List<CourseDTO> getBySelection(CourseSelection selection);
+  List<Course> getAll();
 
-  List<CourseDTO> getAvailableBySelection(int studentId, CourseSelection selection);
+  List<Course> getAvailable(int studentId);
 
-  List<CompletedCourseDTO> getCompletedCourses(int studentId);
+  List<Course> getCompletedCourses(int studentId);
 
-  List<RegisteredCourseDTO> getRegisteredCourses(int studentId);
+  List<Course> getRegisteredCourses(int studentId);
 
-  List<CourseDTO> getCoursesInProgress(int studentId);
+  List<Course> getCoursesInProgress(int studentId);
 
 }

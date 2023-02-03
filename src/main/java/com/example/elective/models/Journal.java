@@ -9,7 +9,7 @@ import java.sql.Date;
  * @author Kirill Biliashov
  */
 
-@jakarta.persistence.Entity
+@Entity
 @Table(name = "journal")
 public class Journal {
 

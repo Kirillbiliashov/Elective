@@ -26,8 +26,6 @@ public class Account {
   @Column(name = "last_name")
   private String lastName;
   private String role;
-  @OneToMany(mappedBy = "student")
-  private List<Journal> courses;
 
   @OneToOne(mappedBy = "student")
   private Blocklist block;

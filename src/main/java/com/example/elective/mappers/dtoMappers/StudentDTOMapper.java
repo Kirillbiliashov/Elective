@@ -11,7 +11,7 @@ public class StudentDTOMapper implements Mapper<Account, StudentDTO> {
   public StudentDTO map(Account account) {
     return StudentDTO.newBuilder()
         .setId(account.getId())
-        .setFullName(account.getFirstName() + " " + account.getLastName())
+        .setFullName(account.getFullName())
         .setUsername(account.getUsername())
         .setEmail(account.getEmail())
         .setBlocked(account.getBlock() != null)

@@ -17,13 +17,15 @@ import java.sql.SQLException;
 
 public abstract class SQLDAOFactory extends DAOFactory {
 
-  private static final Logger logger = LogManager.getLogger(SQLDAOFactory.class);
-
   private static SessionFactory sessionFactory;
 
   public static synchronized Session getSession() {
     if (sessionFactory == null) configureDataSource();
     return sessionFactory.getCurrentSession();
+  }
+
+  public static void closeFactory() {
+    if (sessionFactory != null) sessionFactory.close();
   }
 
   private static void configureDataSource() {

@@ -26,12 +26,8 @@ public class AccountServiceImpl extends AbstractService implements AccountServic
 
   @Override
   public Optional<Account> findByCredentials(String login, String password) {
-    Session session = SQLDAOFactory.getSession();
     AccountDAO dao = daoFactory.getAccountDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    Optional<Account> optAcc = dao.findByLogin(login);
-    session.getTransaction().commit();
+    Optional<Account> optAcc = read(() -> dao.findByLogin(login), dao);
     if (optAcc.isEmpty()) return Optional.empty();
     Account acc = optAcc.get();
     return findByPassword(acc, password);
@@ -45,75 +41,38 @@ public class AccountServiceImpl extends AbstractService implements AccountServic
 
   @Override
   public List<Account> getTeachers() {
-    Session session = SQLDAOFactory.getSession();
     AccountDAO dao = daoFactory.getAccountDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    try {
-      return dao.getByRole(TEACHER_ROLE);
-    } finally {
-      session.getTransaction().commit();
-    }
+    return read(() -> dao.getByRole(TEACHER_ROLE), dao);
   }
 
   @Override
   public List<Account> getPaginatedTeachers(Pagination pagination) {
-    Session session = SQLDAOFactory.getSession();
     AccountDAO dao = daoFactory.getAccountDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    try {
-      return dao.getByRole(TEACHER_ROLE, pagination);
-    } finally {
-      session.getTransaction().commit();
-    }
+    return read(() -> dao.getByRole(TEACHER_ROLE, pagination), dao);
   }
 
   @Override
-  public List<StudentDTO> getPaginatedStudents(Pagination pagination) {
-    Session session = SQLDAOFactory.getSession();
+  public List<Account> getPaginatedStudents(Pagination pagination) {
     AccountDAO dao = daoFactory.getAccountDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    List<Account> accountList = dao.getByRole(STUDENT_ROLE, pagination);
-    session.getTransaction().commit();
-    StudentDTOMapper mapper = new StudentDTOMapper();
-    return accountList.stream().map(mapper::map).toList();
+    return read(() -> dao.getByRole(STUDENT_ROLE, pagination), dao);
   }
 
   @Override
   public List<String> getLogins() {
     AccountDAO dao = daoFactory.getAccountDAO();
-    Session session = SQLDAOFactory.getSession();
-    dao.setSession(session);
-    session.beginTransaction();
-    try {
-      return dao.getLogins();
-    } finally {
-      session.getTransaction().commit();
-    }
+    return read(dao::getLogins, dao);
   }
 
   @Override
   public int getTotalCount(String roleName) {
     AccountDAO dao = daoFactory.getAccountDAO();
-    Session session = SQLDAOFactory.getSession();
-    session.beginTransaction();
-    try {
-      return dao.getCountByRole(roleName);
-    } finally {
-      session.getTransaction().commit();
-    }
+    return read(() -> dao.getCountByRole(roleName), dao);
   }
 
   @Override
   public void save(Account acc) {
-    Session session = SQLDAOFactory.getSession();
     AccountDAO dao = daoFactory.getAccountDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    dao.save(acc);
-    session.getTransaction().commit();
+    write(() -> dao.save(acc), dao);
   }
 
 }

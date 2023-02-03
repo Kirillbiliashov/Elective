@@ -19,7 +19,7 @@ public interface AccountService {
   List<Account> getTeachers();
 
   List<Account> getPaginatedTeachers(Pagination pagination);
-  List<StudentDTO> getPaginatedStudents(Pagination pagination);
+  List<Account> getPaginatedStudents(Pagination pagination);
 
   List<String> getLogins();
 
