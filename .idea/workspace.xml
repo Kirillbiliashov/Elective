@@ -9,42 +9,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Hibernate was added instead of jdbc">
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Numerous code improvements were made">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/AdminCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/AdminCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/CompletedCoursesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/CompletedCoursesCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/CoursesInProgressCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/CoursesInProgressCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/EditCourseGetCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/EditCourseGetCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/PaginationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/PaginationCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/RegisteredCoursesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/RegisteredCoursesCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/StudentCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/StudentCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/TeacherCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/getCommands/TeacherCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/postCommands/AddCoursePostCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/postCommands/AddCoursePostCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/postCommands/CourseEnrollCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/postCommands/CourseEnrollCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/postCommands/LoginPostCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/commands/postCommands/LoginPostCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/AbstractDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SQLDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SQLDAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/BlocklistMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/BlocklistMySQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/listeners/AppListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/dtoMappers/StudentDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/dtoMappers/StudentDTOMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/JournalRequestMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CourseSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CourseSelection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/AccountServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/BlocklistServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/BlocklistServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/CourseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/JournalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/JournalServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TeacherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TeacherServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TopicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TopicServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/JournalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/getCommands/AdminCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/getCommands/AdminCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/getCommands/TeacherRegistrationCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/getCommands/TeacherRegistrationCommandTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/AddCourseCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/AddCourseCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/AddGradeCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/AddGradeCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/CourseCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/CourseCommandTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/CourseEnrollCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/CourseEnrollCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/DeleteCourseCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/DeleteCourseCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/EditCourseCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/EditCourseCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/LoginCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/LoginCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/TeacherRegistrationCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/commands/postCommands/TeacherRegistrationCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/elective/mappers/dtoMappers/CourseDTOMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/elective/mappers/dtoMappers/CourseDTOMapperTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,35 +121,78 @@
       <recent name="com.example.elective.servlets" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.68">
-    <configuration name="All in Elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Elective" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.com.example.elective in elective">
+    <configuration name="CourseDTOMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="elective" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CourseDAOTest.testGetCount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Elective" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.elective.daos.*" />
+          <option name="PATTERN" value="com.example.elective.mappers.dtoMappers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.elective.daos" />
-      <option name="MAIN_CLASS_NAME" value="com.example.elective.daos.CourseDAOTest" />
-      <option name="METHOD_NAME" value="testGetCount" />
+      <option name="PACKAGE_NAME" value="com.example.elective.mappers.dtoMappers" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.mappers.dtoMappers.CourseDTOMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseDTOMapperTest.testMapping" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.mappers.dtoMappers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.mappers.dtoMappers" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.mappers.dtoMappers.CourseDTOMapperTest" />
+      <option name="METHOD_NAME" value="testMapping" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseEnrollCommandTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.commands.postCommands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.commands.postCommands" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.commands.postCommands.CourseEnrollCommandTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginCommandTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.commands.postCommands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective.commands.postCommands" />
+      <option name="MAIN_CLASS_NAME" value="com.example.elective.commands.postCommands.LoginCommandTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.example.elective in elective" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="elective" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.elective.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.elective" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -190,56 +209,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="elective [clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <configuration name="elective [install]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="install" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
     </configuration>
     <configuration name="Tomcat 9.0.68" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.68" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/elective" />
@@ -331,20 +300,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.All in elective" />
-      <item itemvalue="JUnit.CourseDAOTest.testGetCount" />
-      <item itemvalue="JUnit.All in Elective" />
-      <item itemvalue="Maven.elective [clean]" />
-      <item itemvalue="Maven.elective [install]" />
+      <item itemvalue="JUnit.CourseDTOMapperTest" />
+      <item itemvalue="JUnit.CourseDTOMapperTest.testMapping" />
+      <item itemvalue="JUnit.CourseEnrollCommandTest" />
+      <item itemvalue="JUnit.LoginCommandTest" />
+      <item itemvalue="JUnit.com.example.elective in elective" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.68" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in elective" />
-        <item itemvalue="Maven.elective [install]" />
-        <item itemvalue="Maven.elective [clean]" />
-        <item itemvalue="JUnit.All in Elective" />
-        <item itemvalue="JUnit.CourseDAOTest.testGetCount" />
+        <item itemvalue="JUnit.com.example.elective in elective" />
+        <item itemvalue="JUnit.LoginCommandTest" />
+        <item itemvalue="JUnit.CourseDTOMapperTest" />
+        <item itemvalue="JUnit.CourseDTOMapperTest.testMapping" />
+        <item itemvalue="JUnit.CourseEnrollCommandTest" />
       </list>
     </recent_temporary>
   </component>
@@ -397,14 +366,7 @@
       <workItem from="1674332320049" duration="11065000" />
       <workItem from="1675252363573" duration="277000" />
       <workItem from="1675252672630" duration="11430000" />
-      <workItem from="1675335791559" duration="18920000" />
-    </task>
-    <task id="LOCAL-00086" summary="Service instantiation process was detached from servlets">
-      <created>1671277687905</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1671277687905</updated>
+      <workItem from="1675335791559" duration="20664000" />
     </task>
     <task id="LOCAL-00087" summary="Minor code improvements were made">
       <created>1671277724194</created>
@@ -742,7 +704,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675360574498</updated>
     </task>
-    <option name="localTasksCounter" value="135" />
+    <task id="LOCAL-00135" summary="Numerous code improvements were made">
+      <created>1675425025543</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1675425025544</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -782,7 +751,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pagination helper methods were encapsulated into PaginationUtils class" />
     <MESSAGE value="course selection was added for available courses" />
     <MESSAGE value="pagination was added for students and teachers table" />
     <MESSAGE value="Strings were moved to constants" />
@@ -807,7 +775,8 @@
     <MESSAGE value="Multiple refactorings were made" />
     <MESSAGE value="Blocklist entity was added" />
     <MESSAGE value="Hibernate was added instead of jdbc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hibernate was added instead of jdbc" />
+    <MESSAGE value="Numerous code improvements were made" />
+    <option name="LAST_COMMIT_MESSAGE" value="Numerous code improvements were made" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

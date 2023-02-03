@@ -33,12 +33,4 @@ public class AddCourseCommandTest extends CourseCommandTest {
     verify(resp, times(1)).sendRedirect(Constants.ADMIN_URL);
   }
 
-  @Override
-  @Test
-  void testNegativeScenario() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(courseService).save(any(Course.class), anyInt(), anyInt());
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  }
 }

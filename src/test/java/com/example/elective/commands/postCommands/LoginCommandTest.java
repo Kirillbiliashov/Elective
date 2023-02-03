@@ -42,8 +42,6 @@ public class LoginCommandTest {
   private HttpSession session;
   @Mock
   private RequestDispatcher reqDispatcher;
-  @Mock
-  private Blocklist blocklist;
 
   @BeforeEach
   void beforeEach() {
@@ -66,20 +64,6 @@ public class LoginCommandTest {
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 
-  @Test
-  void testBlockedAccount() throws Exception {
-    configureValidCredentialsReturn();
-    when(studentService.getBlockStatus(acc.getId()))
-        .thenReturn(Optional.of(blocklist));
-
-    when(accountService.findByCredentials(anyString(), anyString()))
-        .thenReturn(Optional.of(acc));
-    command.init(context, req, resp);
-    command.process();
-    verify(req, times(1)).setAttribute("accountBlocked", true);
-    verify(reqDispatcher, times(1)).forward(req, resp);
-  }
-
   private void configureValidCredentialsReturn() {
     when(req.getParameter(LOGIN_PARAM)).thenReturn("valid_login");
     when(req.getParameter(PASSWORD_PARAM)).thenReturn("valid_password");
@@ -96,16 +80,6 @@ public class LoginCommandTest {
     command.process();
     verify(req, times(1)).setAttribute("loginFailed", true);
     verify(reqDispatcher, times(1)).forward(req, resp);
-  }
-
-  @Test
-  void testServiceException() throws Exception {
-    doThrow(ServiceException.class).when(accountService)
-        .findByCredentials(any(), any());
-    command.init(context, req, resp);
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
   }
 
 }

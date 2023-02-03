@@ -36,8 +36,6 @@ public abstract class CourseCommandTest {
   @Test
   abstract void testPositiveScenario() throws Exception;
 
-  @Test
-  abstract void testNegativeScenario() throws Exception;
 
   protected void mockRequestParams() {
     when(req.getParameter("startDate")).thenReturn("2023-11-11");

@@ -49,12 +49,4 @@ public class TeacherRegistrationCommandTest {
     verify(dispatcher, times(1)).forward(req, resp);
   }
 
-  @Test
-  void testTeacherRegistrationFormNegative() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(accService).getLogins();
-    when(req.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  }
 }

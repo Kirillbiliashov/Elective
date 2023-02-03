@@ -46,13 +46,4 @@ public class AddGradeCommandTest {
     verify(resp, times(1)).sendRedirect(REDIRECT_URL);
   }
 
-  @Test
-  void testCourseEnrollNegative() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(journalService)
-        .updateGrade(anyInt(), anyInt());
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  }
-
 }

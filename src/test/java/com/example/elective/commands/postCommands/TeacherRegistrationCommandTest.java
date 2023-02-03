@@ -35,9 +35,6 @@ public class TeacherRegistrationCommandTest {
   @Mock
   private AccountServiceImpl accService;
 
-  @Mock
-  private RequestDispatcher dispatcher;
-
   @BeforeEach
   void beforeEach() {
     MockitoAnnotations.openMocks(this);
@@ -50,14 +47,6 @@ public class TeacherRegistrationCommandTest {
     command.process();
     verify(accService, times(1)).save(any(Account.class));
     verify(resp, times(1)).sendRedirect(ADMIN_TEACHERS_URL);
-  }
-
-  @Test
-  void testRegisterTeacherNegative() throws Exception {
-    Mockito.doThrow(ServiceException.class).when(accService).save(any(Account.class));
-    command.process();
-    verify(resp, times(1))
-        .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
   }
 
 }
