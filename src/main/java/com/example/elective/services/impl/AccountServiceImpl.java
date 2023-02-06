@@ -1,28 +1,28 @@
 package com.example.elective.services.impl;
 
 import com.example.elective.dao.interfaces.AccountDAO;
-import com.example.elective.dao.sql.SQLDAOFactory;
-import com.example.elective.dto.StudentDTO;
-import com.example.elective.mappers.dtoMappers.StudentDTOMapper;
 import com.example.elective.models.Account;
+import com.example.elective.models.Role;
 import com.example.elective.selection.Pagination;
 import com.example.elective.services.AbstractService;
 import com.example.elective.services.interfaces.AccountService;
-import org.hibernate.Session;
+import com.example.elective.utils.PasswordUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import static com.example.elective.utils.Constants.STUDENT_ROLE;
-import static com.example.elective.utils.Constants.TEACHER_ROLE;
-import static com.example.elective.utils.PasswordUtils.passwordsMatch;
 
 /**
  * Class containing business logic methods regarding accounts
  * @author Kirill Biliashov
  */
 
+@Service
 public class AccountServiceImpl extends AbstractService implements AccountService {
+
+  @Autowired
+  private PasswordUtils passwordUtils;
 
   @Override
   public Optional<Account> findByCredentials(String login, String password) {
@@ -35,26 +35,26 @@ public class AccountServiceImpl extends AbstractService implements AccountServic
 
   private Optional<Account> findByPassword(Account acc, String password) {
     String hashedPassword = acc.getPassword();
-    return passwordsMatch(password, hashedPassword) ?
+    return passwordUtils.match(password, hashedPassword) ?
         Optional.of(acc) : Optional.empty();
   }
 
   @Override
   public List<Account> getTeachers() {
     AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getByRole(TEACHER_ROLE), dao);
+    return read(() -> dao.getByRole(Role.TEACHER), dao);
   }
 
   @Override
   public List<Account> getPaginatedTeachers(Pagination pagination) {
     AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getByRole(TEACHER_ROLE, pagination), dao);
+    return read(() -> dao.getByRole(Role.TEACHER, pagination), dao);
   }
 
   @Override
   public List<Account> getPaginatedStudents(Pagination pagination) {
     AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getByRole(STUDENT_ROLE, pagination), dao);
+    return read(() -> dao.getByRole(Role.STUDENT, pagination), dao);
   }
 
   @Override
@@ -64,15 +64,9 @@ public class AccountServiceImpl extends AbstractService implements AccountServic
   }
 
   @Override
-  public int getTotalCount(String roleName) {
+  public long getTotalCount(Role role) {
     AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getCountByRole(roleName), dao);
-  }
-
-  @Override
-  public void save(Account acc) {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    write(() -> dao.save(acc), dao);
+    return read(() -> dao.getCountByRole(role), dao);
   }
 
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface CourseService {
 
-  void update(Course course);
+  void update(Course course, int teacherId, int topicId);
 
   void save(Course course, int topicId, int teacherId);
 

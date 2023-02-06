@@ -2,6 +2,7 @@ package com.example.elective.dao.sql.mysql;
 
 import com.example.elective.dao.interfaces.BlocklistDAO;
 import com.example.elective.dao.sql.AbstractDAO;
+import com.example.elective.models.Account;
 import com.example.elective.models.Blocklist;
 
 import java.util.List;
@@ -16,12 +17,18 @@ public class BlocklistMySQLDAO extends AbstractDAO implements BlocklistDAO {
 
   @Override
   public Optional<Blocklist> find(int id) {
-    return Optional.ofNullable(session.get(Blocklist.class, id));
+    Account student = session.byId(Account.class).load(id);
+    return session
+        .createQuery("SELECT b FROM Blocklist b WHERE b.student = :student", Blocklist.class)
+        .setParameter("student", student)
+        .getResultList()
+        .stream()
+        .findFirst();
   }
 
   @Override
   public void save(Blocklist blocklist) {
-    throw new UnsupportedOperationException();
+    session.persist(blocklist);
   }
 
   @Override
@@ -30,13 +37,9 @@ public class BlocklistMySQLDAO extends AbstractDAO implements BlocklistDAO {
   }
 
   @Override
-  public void delete(int studentId) {
-    session.remove(studentId);
-  }
-
-  @Override
-  public void save(int studentId) {
-    session.persist(studentId);
+  public void delete(int id) {
+    Blocklist blocklist = session.byId(Blocklist.class).load(id);
+    session.delete(blocklist);
   }
 
 }

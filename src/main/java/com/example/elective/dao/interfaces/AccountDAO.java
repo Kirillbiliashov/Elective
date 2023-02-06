@@ -2,6 +2,7 @@ package com.example.elective.dao.interfaces;
 
 import com.example.elective.exceptions.DAOException;
 import com.example.elective.models.Account;
+import com.example.elective.models.Role;
 import com.example.elective.selection.Pagination;
 
 import java.util.List;
@@ -14,14 +15,14 @@ import java.util.Optional;
 
 public interface AccountDAO extends DAO<Account> {
 
-  List<Account> getByRole(String roleName);
+  List<Account> getByRole(Role role);
 
-  List<Account> getByRole(String roleName, Pagination pagination);
+  List<Account> getByRole(Role role, Pagination pagination);
 
   List<String> getLogins();
 
   Optional<Account> findByLogin(String login);
 
-  int getCountByRole(String roleName);
+  long getCountByRole(Role role);
 
 }

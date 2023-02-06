@@ -1,8 +1,6 @@
 package com.example.elective.models;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class Course {
   @Column(name = "start_date")
   private Date startDate;
 
-  @Column(name = "last_name")
+  @Column(name = "end_date")
   private Date endDate;
 
   @ManyToOne

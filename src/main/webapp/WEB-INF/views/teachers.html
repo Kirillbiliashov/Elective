@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="page-container">
+    <div class="admin-teachers-header">
+        <h2>Teachers</h2>
+        <a th:href="@{/teachers/register}" class="register-teacher-ref">Register teacher</a>
+    </div>
+    <div class="display-container">
+        <form method="get">
+            <input type="hidden" name="page" value="1"/>
+            <div class="form-group">
+                <label for="display">Records per page</label>
+                <input class="form-control display-field" type="number" id="display" name="display" min="1"
+                       value="${not empty param.display ? param.display : 5}"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Display" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    <div th:if="${!teachers.isEmpty()}" class="table-container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="teacher: ${teachers}">
+                <td th:text="${teacher.fullName}"/>
+                <td th:text="${teacher.username}"/>
+                <td th:text="${teacher.email}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--        <nav>-->
+    <!--            <ul class="pagination justify-content-center">-->
+    <!--                <page:prev/>-->
+    <!--                <page:current/>-->
+    <!--                <page:next/>-->
+    <!--            </ul>-->
+    <!--        </nav>-->
+    <h5 th:if="${teachers.isEmpty()}" class="no-items-msg">There are no teachers</h5>
+</div>
+</body>
+</html>

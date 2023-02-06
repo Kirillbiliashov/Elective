@@ -11,6 +11,7 @@ import com.example.elective.models.Course;
 import com.example.elective.services.AbstractService;
 import com.example.elective.services.interfaces.CourseService;
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -20,12 +21,23 @@ import java.util.*;
  * @author Kirill Biliashov
  */
 
+@Service
 public class CourseServiceImpl extends AbstractService implements CourseService {
 
   @Override
-  public void update(Course course) {
+  public void update(Course course, int teacherId, int topicId) {
+    System.out.println("teacher id: " + teacherId);
+    System.out.println("topic id: " + topicId);
+    Session session = SQLDAOFactory.getSession();
     CourseDAO dao = daoFactory.getCourseDAO();
-    write(() -> dao.update(course), dao);
+    dao.setSession(session);
+    session.beginTransaction();
+    Account teacher = session.byId(Account.class).load(teacherId);
+    Topic topic = session.byId(Topic.class).load(topicId);
+    course.setTeacher(teacher);
+    course.setTopic(topic);
+    dao.update(course);
+    session.getTransaction().commit();
   }
 
   @Override

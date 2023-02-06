@@ -16,10 +16,7 @@ import java.util.Optional;
 
 public class JournalMySQLDAO extends AbstractDAO implements JournalDAO {
 
-  private static final String FIND_BY_STUDENT = "SELECT j FROM Journal j where " +
-      "j.course = :course AND j.student = :student";
   private static final String FIND_BY_COURSE = "SELECT j FROM Journal j where j.course = :course";
-  private static final String GET_STUDENTS_COUNT = "SELECT COUNT(j) FROM Journal j WHERE j.course = :course";
 
   @Override
   public Optional<Journal> find(int journalId) {
@@ -47,32 +44,12 @@ public class JournalMySQLDAO extends AbstractDAO implements JournalDAO {
   }
 
   @Override
-  public Optional<Journal> findByCourseAndStudent(int courseId, int studentId) {
-    Course course = session.byId(Course.class).load(courseId);
-    Account student = session.byId(Account.class).load(studentId);
-    return Optional.ofNullable(session
-        .createQuery(FIND_BY_STUDENT, Journal.class)
-        .setParameter("course", course)
-        .setParameter("student", student)
-        .getSingleResult());
-  }
-
-  @Override
   public List<Journal> getByCourseId(int courseId) {
     Course course = session.byId(Course.class).load(courseId);
     return session
         .createQuery(FIND_BY_COURSE, Journal.class)
         .setParameter("course", course)
         .getResultList();
-  }
-
-  @Override
-  public int getStudentsCount(int courseId) {
-    Course course = session.byId(Course.class).load(courseId);
-    return session
-        .createQuery(GET_STUDENTS_COUNT, Integer.class)
-        .setParameter("course", course)
-        .getSingleResult();
   }
 
 }

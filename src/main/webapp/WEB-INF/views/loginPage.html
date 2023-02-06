@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <title>Login</title>
+</head>
+<body>
+<div class="login-page-container">
+    <h1 class="form-header">Login</h1>
+    <div>
+        <form th:method="POST" th:action="@{/auth/login}">
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" id="login" required minlength="8" maxlength="50"
+                       placeholder="Login" name="login">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required minlength="8" maxlength="64"
+                       placeholder="Password" name="password">
+            </div>
+            <div class="form-btn-container">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+    <div class="form-btn-container">
+        <a th:href="@{/auth/signup}">Signup</a>
+    </div>
+    <div th:if="${loginFailed}" class="alert alert-danger" role="alert">
+        Incorrect login or password
+    </div>
+    <div th:if="${accountBlocked}" class="alert alert-danger" role="alert">
+        Your account is blocked
+    </div>
+</div>
+</body>
+</html>

@@ -24,6 +24,6 @@ public interface CourseDAO extends DAO<Course> {
 
   List<Course> getAvailableForStudent(int studentId);
 
-  int getCount(int teacherId);
+  long getCount(int teacherId);
 
 }

@@ -4,12 +4,14 @@ import com.example.elective.dto.CourseDTO;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Course;
+import org.springframework.stereotype.Component;
 
 /**
  * Class that map Course to CourseDTO
  * @author Kirill Biliashov
  */
 
+@Component
 public class CourseDTOMapper implements Mapper<Course, CourseDTO> {
 
   @Override

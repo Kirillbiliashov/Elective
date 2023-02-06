@@ -1,19 +1,21 @@
 package com.example.elective.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Component;
 
 /**
  * Class with utility methods regarding password hashing
  * @author Kirill Biliashov
  */
 
+@Component
 public class PasswordUtils {
 
-  public static String hashPassword(String password) {
+  public String hash(String password) {
     return BCrypt.hashpw(password, BCrypt.gensalt());
   }
 
-  public static boolean passwordsMatch(String password, String hashedPassword) {
+  public boolean match(String password, String hashedPassword) {
     return BCrypt.checkpw(password, hashedPassword);
   }
 

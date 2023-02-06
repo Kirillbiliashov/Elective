@@ -9,9 +9,9 @@ public class Pagination {
 
   protected final int page;
   protected final int displayCount;
-  protected final int totalItems;
+  protected final long totalItems;
 
-  public Pagination(int page, int displayCount, int totalItems) {
+  public Pagination(int page, int displayCount, long totalItems) {
     this.displayCount = displayCount;
     this.totalItems = totalItems;
     this.page = Math.min(page, getPagesCount());

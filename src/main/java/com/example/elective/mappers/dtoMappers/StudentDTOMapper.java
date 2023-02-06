@@ -4,7 +4,9 @@ import com.example.elective.dto.StudentDTO;
 import com.example.elective.exceptions.MappingException;
 import com.example.elective.mappers.Mapper;
 import com.example.elective.models.Account;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StudentDTOMapper implements Mapper<Account, StudentDTO> {
 
   @Override

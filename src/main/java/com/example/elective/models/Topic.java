@@ -1,8 +1,6 @@
 package com.example.elective.models;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-
+import javax.persistence.*;
 import java.util.List;
 
 /**

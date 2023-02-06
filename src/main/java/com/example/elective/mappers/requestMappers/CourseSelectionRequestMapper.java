@@ -1,6 +1,7 @@
 package com.example.elective.mappers.requestMappers;
 
 import com.example.elective.selection.CourseSelection;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Kirill Biliashov
  */
 
+@Component
 public class CourseSelectionRequestMapper implements RequestMapper<CourseSelection> {
 
   private static final String TEACHER = "teacher";

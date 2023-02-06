@@ -3,6 +3,8 @@ package com.example.elective.dao.sql.mysql;
 import com.example.elective.dao.interfaces.AccountDAO;
 import com.example.elective.dao.sql.AbstractDAO;
 import com.example.elective.models.Account;
+import com.example.elective.models.Blocklist;
+import com.example.elective.models.Role;
 import com.example.elective.selection.Pagination;
 
 import java.util.List;
@@ -50,7 +52,7 @@ public class AccountMySQLDAO extends AbstractDAO implements AccountDAO {
   }
 
   @Override
-  public List<Account> getByRole(String role) {
+  public List<Account> getByRole(Role role) {
     return session
         .createQuery(GET_BY_ROLE, Account.class)
         .setParameter("role", role)
@@ -58,9 +60,9 @@ public class AccountMySQLDAO extends AbstractDAO implements AccountDAO {
   }
 
   @Override
-  public List<Account> getByRole(String roleName, Pagination pagination) {
+  public List<Account> getByRole(Role role, Pagination pagination) {
     return session.createQuery(GET_BY_ROLE, Account.class)
-        .setParameter("role", roleName)
+        .setParameter("role", role)
         .setFirstResult(pagination.getFrom())
         .setMaxResults(pagination.getDisplayCount())
         .getResultList();
@@ -77,14 +79,15 @@ public class AccountMySQLDAO extends AbstractDAO implements AccountDAO {
   public Optional<Account> findByLogin(String login) {
     return Optional.ofNullable(session
         .createQuery(FIND_BY_LOGIN, Account.class)
+        .setParameter("login", login)
         .getSingleResult());
   }
 
   @Override
-  public int getCountByRole(String roleName) {
+  public long getCountByRole(Role role) {
     return session
-        .createQuery(GET_COUNT, Integer.class)
-        .setParameter("role", roleName)
+        .createQuery(GET_COUNT, Long.class)
+        .setParameter("role", role)
         .getSingleResult();
   }
 

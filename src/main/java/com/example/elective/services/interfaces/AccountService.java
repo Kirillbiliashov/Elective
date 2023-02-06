@@ -2,6 +2,7 @@ package com.example.elective.services.interfaces;
 
 import com.example.elective.dto.StudentDTO;
 import com.example.elective.models.Account;
+import com.example.elective.models.Role;
 import com.example.elective.selection.Pagination;
 
 import java.util.List;
@@ -23,7 +24,6 @@ public interface AccountService {
 
   List<String> getLogins();
 
-  int getTotalCount(String roleName);
+  long getTotalCount(Role role);
 
-  void save(Account acc);
 }

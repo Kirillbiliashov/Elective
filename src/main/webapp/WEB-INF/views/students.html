@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="page-container">
+    <h2>Students</h2>
+    <div class="display-container">
+        <form method="get">
+            <input type="hidden" name="page" value="1"/>
+            <div class="form-group">
+                <label for="display">Records per page</label>
+                <input class="form-control display-field" type="number" id="display" name="display" min="1"
+                       value="5"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Display" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    <div th:if="${!students.isEmpty()}" class="table-container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student: ${students}">
+                <td th:text="${student.fullName}"/>
+                <td th:text="${student.username}"/>
+                <td th:text="${student.email}"/>
+                <td>
+                    <p th:if="${student.blocked}">Blocked</p>
+                    <p th:if="${!student.blocked}">Active</p>
+                </td>
+                <td>
+                    <form th:action="@{/admin/students/changeBlock/{id}(id=${student.id})}"
+                          th:method="POST">
+                        <input th:if="${student.blocked}" type="submit" class="btn btn-secondary btn-sm"
+                               value="Unlock">
+                        <input th:if="${!student.blocked}" type="submit" class="btn btn-dark btn-sm"
+                               value="Block">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    <nav>-->
+<!--        <ul class="pagination justify-content-center">-->
+<!--            <page:prev/>-->
+<!--            <page:current/>-->
+<!--            <page:next/>-->
+<!--        </ul>-->
+<!--    </nav>-->
+    <h5 th:if="${students.isEmpty()}" class="no-items-msg">There are no students</h5>
+</div>
+</body>
+</html>

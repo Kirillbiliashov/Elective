@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="page-container">
+    <h2>Ongoing courses</h2>
+    <ul th:if="${!coursesInProgress.isEmpty()}" class="list-group">
+        <div class="grid-container">
+            <div th:each="course: ${coursesInProgress}" class="card">
+                <div class="card-body">
+                    <h4 th:text="${course.name}"/>
+                    <p th:text="'Topic: ' + ${course.topic}"/>
+                    <p th:text="'Teacher ' + ${course.teacher}"/>
+                    <p th:text="'Start date: ' + ${course.startDate}"/>
+                    <p th:text="'End date: ' + ${course.endDate}"/>
+                    <p th:text="'Students count: ' + ${course.studentsCount} "/>
+                    <button type="button" class="btn btn-link description-btn" data-toggle="modal"
+                            data-target="#descModal/${course.id}">
+                        Description
+                    </button>
+                    <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle" th:text="${course.name}"/>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" th:text="${course.description}"/>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ul>
+    <h5 th:if="${coursesInProgress.isEmpty()}" class="no-items-msg">There are no ongoing courses</h5>
+</div>
+</body>
+</html>

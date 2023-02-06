@@ -1,8 +1,8 @@
 package com.example.elective.models;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Entity;
 
+
+import javax.persistence.*;
 import javax.swing.*;
 import java.util.List;
 
@@ -25,7 +25,9 @@ public class Account {
   private String firstName;
   @Column(name = "last_name")
   private String lastName;
-  private String role;
+
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
   @OneToOne(mappedBy = "student")
   private Blocklist block;
@@ -88,15 +90,6 @@ public class Account {
     return  this.firstName + " " + this.lastName;
   }
 
-  public String getRole() {
-    return role;
-  }
-
-  public Account setRole(String role) {
-    this.role = role;
-    return this;
-  }
-
   public Blocklist getBlock() {
     return block;
   }
@@ -105,4 +98,14 @@ public class Account {
     this.block = block;
     return this;
   }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public Account setRole(Role role) {
+    this.role = role;
+    return this;
+  }
+
 }

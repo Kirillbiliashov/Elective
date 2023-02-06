@@ -7,6 +7,7 @@ import com.example.elective.models.Topic;
 import com.example.elective.services.AbstractService;
 import com.example.elective.services.interfaces.TopicService;
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Kirill Biliashov
  */
 
+@Service
 public class TopicServiceImpl extends AbstractService implements TopicService {
 
   @Override
