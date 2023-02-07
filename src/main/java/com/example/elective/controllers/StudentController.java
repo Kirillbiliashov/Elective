@@ -21,7 +21,7 @@ import java.util.List;
 import static com.example.elective.utils.Constants.*;
 
 @Controller
-@RequestMapping("/admin/students")
+@RequestMapping("/students")
 public class StudentController {
 
   @Autowired
@@ -47,8 +47,9 @@ public class StudentController {
 
   @PostMapping("/changeBlock/{id}")
   public String changeBlock(@PathVariable("id") int id) {
+    System.out.println("id: " + id);
     studentService.changeBlockStatus(id);
-    return "redirect:students";
+    return "redirect:../";
   }
 
 }

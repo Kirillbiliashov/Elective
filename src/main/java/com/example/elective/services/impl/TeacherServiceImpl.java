@@ -1,19 +1,21 @@
 package com.example.elective.services.impl;
 
-import com.example.elective.dao.interfaces.AccountDAO;
-import com.example.elective.dao.interfaces.CourseDAO;
-import com.example.elective.dao.interfaces.JournalDAO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.dto.JournalDTO;
 import com.example.elective.models.Journal;
 import com.example.elective.models.Role;
+import com.example.elective.repository.AccountRepository;
+import com.example.elective.repository.CourseRepository;
+import com.example.elective.repository.JournalRepository;
 import com.example.elective.selection.Pagination;
-import com.example.elective.services.AbstractService;
 import com.example.elective.services.interfaces.TeacherService;
 import com.example.elective.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -23,35 +25,44 @@ import java.util.*;
  */
 
 @Service
-public class TeacherServiceImpl extends AbstractService implements TeacherService {
+@Transactional(readOnly = true)
+public class TeacherServiceImpl implements TeacherService {
 
   @Autowired
   private PasswordUtils passwordUtils;
+  @Autowired
+  private AccountRepository accountRepository;
+  @Autowired
+  private CourseRepository courseRepository;
+  @Autowired
+  private JournalRepository journalRepository;
 
   @Override
   public Optional<Course> findCourse(int teacherId, Pagination pagination) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.findByTeacherId(teacherId, pagination), dao);
+    Account teacher = accountRepository.getReferenceById(teacherId);
+    Pageable pageable = PageRequest.of(pagination.getPage() - 1,
+        pagination.getDisplayCount());
+    return courseRepository.findByTeacher(teacher, pageable).stream().findFirst();
   }
 
   @Override
   public long getCoursesCount(int teacherId) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.getCount(teacherId), dao);
+    Account teacher = accountRepository.getReferenceById(teacherId);
+    return courseRepository.countByTeacher(teacher);
   }
 
   @Override
+  @Transactional
   public void save(Account teacher) {
-    AccountDAO dao = daoFactory.getAccountDAO();
     teacher.setRole(Role.TEACHER);
     teacher.setPassword(passwordUtils.hash(teacher.getPassword()));
-    write(() -> dao.save(teacher), dao);
+    accountRepository.save(teacher);
   }
 
   @Override
   public List<JournalDTO> getJournalList(int courseId) {
-    JournalDAO dao = daoFactory.getJournalDAO();
-    List<Journal> studentCourseList = read(() -> dao.getByCourseId(courseId), dao);
+    Course course = courseRepository.getReferenceById(courseId);
+    List<Journal> studentCourseList = journalRepository.getByCourse(course);
     return studentCourseList.stream()
         .map(journal -> new JournalDTO()
             .setId(journal.getId())

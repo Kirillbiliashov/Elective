@@ -44,7 +44,7 @@
                     <p th:if="${!student.blocked}">Active</p>
                 </td>
                 <td>
-                    <form th:action="@{/admin/students/changeBlock/{id}(id=${student.id})}"
+                    <form th:action="@{/students/changeBlock/{id}(id=${student.id})}"
                           th:method="POST">
                         <input th:if="${student.blocked}" type="submit" class="btn btn-secondary btn-sm"
                                value="Unlock">
