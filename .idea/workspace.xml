@@ -9,39 +9,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Spring core was integrated into the project">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/BlocklistRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/CourseRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/JournalRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/TopicRepository.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="DAOs were replaced by JPA repositories">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/config/SpringConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/CourseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/StudentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/DAOFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/AccountDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/BlocklistDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/CourseDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/DAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/JournalDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/interfaces/TopicDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/AbstractDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/SQLDAOFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/AccountMySQLDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/BlocklistMySQLDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/CourseMySQLDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/JournalMySQLDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/MySQLDAOFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/dao/sql/mysql/TopicMySQLDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/AbstractService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/AccountServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/CourseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/JournalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/JournalServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/StudentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TeacherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TeacherServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TopicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TopicServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/JournalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/JournalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addCourse.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/allCourses.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/all.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/availableCourses.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/available.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/completedCourses.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/completed.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/course.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/course.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/loginPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/ongoingCourses.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/ongoing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/registeredCourses.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/registered.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signupForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students/all.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/teacher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teacherRegistration.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/all.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,11 +121,11 @@
       <recent name="com.example.elective.dao.sql.mysql" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/css" />
-      <recent name="$PROJECT_DIR$/src/main/resources/static" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
-      <recent name="$PROJECT_DIR$/images" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/errors" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/auth" />
     </key>
     <key name="IntroduceConstantDialog.RECENTS_KEY">
       <recent name="com.example.elective.utils.Constants" />
@@ -381,14 +375,7 @@
       <workItem from="1675252363573" duration="277000" />
       <workItem from="1675252672630" duration="11430000" />
       <workItem from="1675335791559" duration="20664000" />
-      <workItem from="1675445619046" duration="57446000" />
-    </task>
-    <task id="LOCAL-00088" summary="course servlet tests were added">
-      <created>1671307868997</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1671307868997</updated>
+      <workItem from="1675445619046" duration="59686000" />
     </task>
     <task id="LOCAL-00089" summary="Various servlet test classes were added">
       <created>1671651476921</created>
@@ -726,7 +713,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675685329636</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="DAOs were replaced by JPA repositories">
+      <created>1675784710638</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1675784710638</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -766,7 +760,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pagination was added for students and teachers table" />
     <MESSAGE value="Strings were moved to constants" />
     <MESSAGE value="Composition instead of inheritance was applied to course dtos" />
     <MESSAGE value="DAO layer was refactored" />
@@ -791,7 +784,8 @@
     <MESSAGE value="Hibernate was added instead of jdbc" />
     <MESSAGE value="Numerous code improvements were made" />
     <MESSAGE value="Spring core was integrated into the project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spring core was integrated into the project" />
+    <MESSAGE value="DAOs were replaced by JPA repositories" />
+    <option name="LAST_COMMIT_MESSAGE" value="DAOs were replaced by JPA repositories" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -808,7 +802,7 @@
     <SUITE FILE_PATH="coverage/elective$com_example_elective_in_elective.ic" NAME="com.example.elective in elective Coverage Results" MODIFIED="1671829624991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Elective$All_in_elective.ic" NAME="All in elective Coverage Results" MODIFIED="1675716182940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Elective$All_in_elective.ic" NAME="All in elective Coverage Results" MODIFIED="1675785692090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/elective$AccountDAOTest_testSave.ic" NAME="AccountDAOTest.testSave Coverage Results" MODIFIED="1671707885951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.daos.*</FILTER>
     </SUITE>

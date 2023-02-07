@@ -4,10 +4,7 @@ import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
-import com.example.elective.models.Account;
-import com.example.elective.models.Course;
-import com.example.elective.models.Journal;
-import com.example.elective.models.Topic;
+import com.example.elective.models.*;
 import com.example.elective.selection.CourseSelection;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.CourseService;
@@ -51,23 +48,23 @@ public class CourseController {
   @GetMapping("/{id}")
   public String course(@PathVariable("id") int id, Model model) {
     Optional<Course> optCourse = courseService.findById(id);
-    if (optCourse.isEmpty()) return "allCourses";
+    if (optCourse.isEmpty()) return "courses/all";
     model.addAttribute(COURSE_ATTR, optCourse.get());
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
-    model.addAttribute(TEACHERS_ATTR, accountService.getTeachers());
-    return "course";
+    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
+    return "courses/course";
   }
 
   @GetMapping("/all")
   public String allCourses(HttpServletRequest req, Model model) {
     CourseSelection selection = selectionMapper.map(req);
     List<Course> courses = courseService.getAll();
-    model.addAttribute(TEACHERS_ATTR, accountService.getTeachers());
+    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     model.addAttribute(COURSES_ATTR,
         selection.getSelected(courses.stream().map(dtoMapper::map).toList()));
-    return "allCourses";
+    return "courses/all";
   }
 
   @GetMapping("/available")
@@ -76,11 +73,11 @@ public class CourseController {
     CourseSelection selection = selectionMapper.map(req);
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
-    model.addAttribute(TEACHERS_ATTR, accService.getTeachers());
+    model.addAttribute(TEACHERS_ATTR, accService.getAll(Role.TEACHER));
     List<Course> courses = courseService.getAvailable(studentId);
     model.addAttribute(AVAILABLE_COURSES_ATTR,
         selection.getSelected(courses.stream().map(dtoMapper::map).toList()));
-    return "availableCourses";
+    return "courses/available";
   }
 
   @GetMapping("/registered")
@@ -88,7 +85,7 @@ public class CourseController {
     int studentId = utils.getCurrentUserId(req);
     List<Course> courses = courseService.getRegisteredCourses(studentId);
     model.addAttribute(REGISTERED_COURSES_ATTR, getDTOList(courses, studentId));
-    return "registeredCourses";
+    return "courses/registered";
   }
 
   private List<RegisteredCourseDTO> getDTOList(List<Course> courses, int studentId) {
@@ -112,7 +109,7 @@ public class CourseController {
         .stream()
         .map(dtoMapper::map)
         .toList());
-    return "ongoingCourses";
+    return "courses/ongoing";
   }
 
   @GetMapping("/completed")
@@ -121,7 +118,7 @@ public class CourseController {
     List<Course> courses = courseService.getCompletedCourses(studentId);
     model.addAttribute(COMPLETED_COURSES_ATTR,
         getCompletedCourseDTOList(courses, studentId));
-    return "completedCourses";
+    return "courses/completed";
   }
 
   private List<CompletedCourseDTO> getCompletedCourseDTOList(
@@ -141,19 +138,19 @@ public class CourseController {
   @GetMapping("/add")
   public String addCourseForm(Model model) {
    model.addAttribute(TOPICS_ATTR, topicService.getAll());
-   model.addAttribute(TEACHERS_ATTR, accountService.getTeachers());
+   model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
    model.addAttribute("topic", new Topic());
    model.addAttribute("teacher", new Account());
    model.addAttribute(COURSE_ATTR, new Course());
-    return "addCourse";
+    return "courses/add";
   }
 
   @PostMapping("/edit")
   public String editCourse(@ModelAttribute(COURSE_ATTR) Course course,
                            @RequestParam("teacherId") int teacherId,
                            @RequestParam("topicId") int topicId) {
-    courseService.update(course, teacherId, topicId);
-    return "redirect:all";
+    courseService.persist(course, teacherId, topicId);
+    return "redirect:../all";
   }
 
   @PostMapping("/delete/{id}")
@@ -167,8 +164,8 @@ public class CourseController {
   public String addCourse(@ModelAttribute(COURSE_ATTR) Course course,
                           @RequestParam("topicId") int topicId,
                           @RequestParam("teacherId") int teacherId) {
-    courseService.save(course, topicId, teacherId);
-    return "redirect:all";
+    courseService.persist(course, teacherId, topicId);
+    return "redirect:../all";
   }
 
   @PostMapping("/enroll/{id}")

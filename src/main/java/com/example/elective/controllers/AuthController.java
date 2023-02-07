@@ -24,7 +24,7 @@ public class AuthController {
 
   @GetMapping("/login")
   public String loginPage() {
-    return "loginPage";
+    return "auth/login";
   }
 
   @PostMapping("/login")
@@ -45,16 +45,14 @@ public class AuthController {
   }
 
   @GetMapping("/signup")
-  public String signupForm(Model model) {
-    model.addAttribute(LOGINS_ATTR, accountService.getLogins());
-    model.addAttribute("student", new Account());
-    return "signupForm";
+  public String signupForm(@ModelAttribute("student") Account student) {
+    return "auth/signup";
   }
 
   @PostMapping("/signup")
   public String signup(@ModelAttribute("student") Account student) {
     studentService.save(student);
-    return "redirect:login";
+    return "redirect:../login";
   }
 
   @PostMapping("/logout")
@@ -62,7 +60,7 @@ public class AuthController {
     HttpSession session = req.getSession();
     session.setAttribute(ACCOUNT_ATTR, null);
     session.setAttribute(HOME_URL_ATTR, LOGIN_URL);
-    return "redirect:login";
+    return "redirect:../login";
   }
 
 }

@@ -9,7 +9,6 @@ import com.example.elective.models.Journal;
  */
 
 public interface JournalService {
-
   void save(int courseId, int studentId);
   void updateGrade(int id, int grade);
 }

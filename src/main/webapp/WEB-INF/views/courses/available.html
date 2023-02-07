@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="page-container">
+    <h2>Available courses</h2>
+    <div class="selection-form-container">
+        <form th:method="GET">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="sort">Sort by</label>
+                    <select class="form-control" name="sort" id="sort">
+                        <option th:each="type: ${sortTypes}" th:text="${type}" th:value="${type}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="teacher">Teacher</label>
+                    <select class="form-control" name="teacher" id="teacher">
+                        <option selected value="Any">Any</option>
+                        <option th:each="teacher: ${teachers}" th:text="${teacher.fullName}"
+                                th:value="${teacher.fullName}"></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="topic">Topic</label>
+                    <select class="form-control" name="topic" id="topic">
+                        <option selected value="Any">Any</option>
+                        <option th:each="topic: ${topics}" th:text="${topic.name}" th:value="${topic.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Apply selection</button>
+        </form>
+    </div>
+    <ul th:if="${!availableCourses.isEmpty()}" class="list-group">
+        <div class="grid-container">
+            <div th:each="course: ${availableCourses}" class="card">
+                <div class="card-body">
+                    <h4 th:text="${course.name}"/>
+                    <p th:text="'Topic: ' + ${course.topic}"/>
+                    <p th:text="'Teacher ' + ${course.teacher}"/>
+                    <p th:text="'Start date: ' + ${course.startDate}"/>
+                    <p th:text="'End date ' + ${course.endDate}"/>
+                    <p th:text="'Students count: ' + ${course.studentsCount} "/>
+                    <button type="button" class="btn btn-link description-btn" data-toggle="modal"
+                            data-target="#descModal/${course.id}">
+                        Description
+                    </button>
+                    <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle" th:text="${course.name}"/>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" th:text="${course.description}"/>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form th:action="@{/courses/enroll/{id}(id=${course.id})}" th:method="POST">
+                        <div class="enroll-btn-container">
+                            <input type="submit" class="btn btn-primary" value="Enroll">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ul>
+    <h5 th:if="${availableCourses.isEmpty()}" class="no-items-msg">There are no available courses</h5>
+</div>
+</body>
+</html>

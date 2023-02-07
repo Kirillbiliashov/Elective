@@ -8,7 +8,6 @@ import com.example.elective.models.Account;
  */
 
 public interface StudentService {
-
   void changeBlockStatus(int id);
   void save(Account student);
 }

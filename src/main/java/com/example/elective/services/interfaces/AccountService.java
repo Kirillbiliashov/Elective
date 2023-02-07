@@ -1,6 +1,5 @@
 package com.example.elective.services.interfaces;
 
-import com.example.elective.dto.StudentDTO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.selection.Pagination;
@@ -14,16 +13,9 @@ import java.util.Optional;
  */
 
 public interface AccountService {
-
   Optional<Account> findByCredentials(String login, String password);
-
-  List<Account> getTeachers();
-
-  List<Account> getPaginatedTeachers(Pagination pagination);
-  List<Account> getPaginatedStudents(Pagination pagination);
-
+  List<Account> getAll(Role role);
+  List<Account> getPaginated(Role role, Pagination pagination);
   List<String> getLogins();
-
   long getTotalCount(Role role);
-
 }

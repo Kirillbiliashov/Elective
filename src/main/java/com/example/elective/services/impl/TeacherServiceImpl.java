@@ -60,15 +60,9 @@ public class TeacherServiceImpl implements TeacherService {
   }
 
   @Override
-  public List<JournalDTO> getJournalList(int courseId) {
+  public List<Journal> getStudents(int courseId) {
     Course course = courseRepository.getReferenceById(courseId);
-    List<Journal> studentCourseList = journalRepository.getByCourse(course);
-    return studentCourseList.stream()
-        .map(journal -> new JournalDTO()
-            .setId(journal.getId())
-            .setStudent(journal.getStudent().getFullName())
-            .setGrade(journal.getGrade()))
-        .toList();
+    return journalRepository.getByCourse(course);
   }
 
 }

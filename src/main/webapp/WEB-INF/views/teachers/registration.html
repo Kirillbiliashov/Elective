@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
-    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <title>Title</title>
 </head>
 <body>
 <div class="post-form">
     <h1 class="form-header">Teacher registration</h1>
-    <form th:method="POST" th:action="@{/auth/signup}" th:object="${student}">
+    <form th:method="POST" th:action="@{/teachers/register}" th:object="${teacher}">
         <div class="form-group">
             <label for="fname">First name</label>
             <input type="text" id="fname" th:field="*{firstName}" class="form-control" placeholder="First name"
@@ -37,7 +37,7 @@
                    minlength="8" maxlength="64" placeholder="Password">
         </div>
         <div class="form-btn-container">
-            <button type="submit" class="btn btn-primary">Sign up</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </div>
     </form>
 </div>

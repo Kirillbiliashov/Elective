@@ -33,21 +33,11 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   @Transactional
-  public void update(Course course, int teacherId, int topicId) {
+  public void persist(Course course, int teacherId, int topicId) {
     Account teacher = accountRepository.getReferenceById(teacherId);
     Topic topic = topicRepository.getReferenceById(topicId);
     course.setTeacher(teacher);
     course.setTopic(topic);
-    courseRepository.save(course);
-  }
-
-  @Override
-  @Transactional
-  public void save(Course course, int topicId, int teacherId) {
-    Topic topic = topicRepository.getReferenceById(topicId);
-    Account teacher = accountRepository.getReferenceById(teacherId);
-    course.setTopic(topic);
-    course.setTeacher(teacher);
     courseRepository.save(course);
   }
 

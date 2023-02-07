@@ -32,9 +32,8 @@ public class AccountServiceImpl implements AccountService {
   @Override
   public Optional<Account> findByCredentials(String login, String password) {
     Optional<Account> optAcc = repository.findByLogin(login);
-    if (optAcc.isEmpty()) return Optional.empty();
-    Account acc = optAcc.get();
-    return findByPassword(acc, password);
+    return optAcc.isEmpty() ? Optional.empty() :
+        findByPassword(optAcc.get(), password);
   }
 
   private Optional<Account> findByPassword(Account acc, String password) {
@@ -44,22 +43,15 @@ public class AccountServiceImpl implements AccountService {
   }
 
   @Override
-  public List<Account> getTeachers() {
-    return repository.getByRole(Role.TEACHER);
+  public List<Account> getAll(Role role) {
+    return repository.getByRole(role);
   }
 
   @Override
-  public List<Account> getPaginatedTeachers(Pagination pagination) {
+  public List<Account> getPaginated(Role role, Pagination pagination) {
     Pageable pageable = PageRequest.of(pagination.getPage() - 1,
         pagination.getDisplayCount());
-    return repository.getByRole(Role.TEACHER, pageable);
-  }
-
-  @Override
-  public List<Account> getPaginatedStudents(Pagination pagination) {
-    Pageable pageable = PageRequest.of(pagination.getPage() - 1,
-        pagination.getDisplayCount());
-    return repository.getByRole(Role.TEACHER, pageable);
+    return repository.getByRole(role, pageable);
   }
 
   @Override

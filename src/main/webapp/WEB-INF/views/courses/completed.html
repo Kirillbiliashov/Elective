@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
     <title>Title</title>
 </head>
 <body>
 <div class="page-container">
-    <h2>Ongoing courses</h2>
-    <ul th:if="${!coursesInProgress.isEmpty()}" class="list-group">
+    <h2>Completed courses</h2>
+    <ul th:if="${!completedCourses.isEmpty()}" class="list-group">
         <div class="grid-container">
-            <div th:each="course: ${coursesInProgress}" class="card">
+            <div th:each="course: ${completedCourses}" class="card">
                 <div class="card-body">
                     <h4 th:text="${course.name}"/>
                     <p th:text="'Topic: ' + ${course.topic}"/>
                     <p th:text="'Teacher ' + ${course.teacher}"/>
                     <p th:text="'Start date: ' + ${course.startDate}"/>
-                    <p th:text="'End date: ' + ${course.endDate}"/>
+                    <p th:text="'End date ' + ${course.endDate}"/>
                     <p th:text="'Students count: ' + ${course.studentsCount} "/>
+                    <p th:if="${course.grade == -1}">No grade</p>
+                    <p th:if="${course.grade != -1}" th:text="'Grade: ' + ${course.grade}"/>
                     <button type="button" class="btn btn-link description-btn" data-toggle="modal"
-                            data-target="#descModal/${course.id}">
-                        Description
-                    </button>
+                            data-target="#descModal/${course.id}">Description</button>
                     <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -45,7 +45,7 @@
             </div>
         </div>
     </ul>
-    <h5 th:if="${coursesInProgress.isEmpty()}" class="no-items-msg">There are no ongoing courses</h5>
+    <h5 th:if="${completedCourses.isEmpty()}" class="no-items-msg">There are no completed courses</h5>
 </div>
 </body>
 </html>

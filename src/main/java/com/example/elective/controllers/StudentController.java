@@ -39,15 +39,14 @@ public class StudentController {
     Pagination pagination = new Pagination(page, displayCount, total);
     PaginationUtils.setPageAttributes(req, pagination.getPage());
     model.addAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-    List<Account> students = accountService.getPaginatedStudents(pagination);
+    List<Account> students = accountService.getPaginated(Role.STUDENT, pagination);
     model.addAttribute(STUDENTS_ATTR,
         students.stream().map(studentMapper::map).toList());
-    return "students";
+    return "students/all";
   }
 
   @PostMapping("/changeBlock/{id}")
   public String changeBlock(@PathVariable("id") int id) {
-    System.out.println("id: " + id);
     studentService.changeBlockStatus(id);
     return "redirect:../";
   }

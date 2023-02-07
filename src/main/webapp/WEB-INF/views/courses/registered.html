@@ -4,44 +4,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
     <title>Title</title>
 </head>
 <body>
 <div class="page-container">
-    <h2>Available courses</h2>
-    <div class="selection-form-container">
-        <form th:method="GET">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="sort">Sort by</label>
-                    <select class="form-control" name="sort" id="sort">
-                        <option th:each="type: ${sortTypes}" th:text="${type}" th:value="${type}">
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="teacher">Teacher</label>
-                    <select class="form-control" name="teacher" id="teacher">
-                        <option selected value="Any">Any</option>
-                        <option th:each="teacher: ${teachers}" th:text="${teacher.fullName}"
-                                th:value="${teacher.fullName}"></option>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="topic">Topic</label>
-                    <select class="form-control" name="topic" id="topic">
-                        <option selected value="Any">Any</option>
-                        <option th:each="topic: ${topics}" th:text="${topic.name}" th:value="${topic.name}"></option>
-                    </select>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Apply selection</button>
-        </form>
-    </div>
-    <ul th:if="${!availableCourses.isEmpty()}" class="list-group">
+    <h2>Registered courses</h2>
+    <ul th:if="${!registeredCourses.isEmpty()}" class="list-group">
         <div class="grid-container">
-            <div th:each="course: ${availableCourses}" class="card">
+            <div th:each="course: ${registeredCourses}" class="card">
                 <div class="card-body">
                     <h4 th:text="${course.name}"/>
                     <p th:text="'Topic: ' + ${course.topic}"/>
@@ -70,16 +41,11 @@
                             </div>
                         </div>
                     </div>
-                    <form th:action="@{/courses/enroll/{id}(id=${course.id})}" th:method="POST">
-                        <div class="enroll-btn-container">
-                            <input type="submit" class="btn btn-primary" value="Enroll">
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </ul>
-    <h5 th:if="${availableCourses.isEmpty()}" class="no-items-msg">There are no available courses</h5>
+    <h5 th:if="${registeredCourses.isEmpty()}" class="no-items-msg">There are no registered courses</h5>
 </div>
 </body>
 </html>

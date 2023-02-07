@@ -1,7 +1,6 @@
 package com.example.elective.services.interfaces;
 
 import com.example.elective.models.Course;
-import com.example.elective.selection.CourseSelection;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,23 +11,12 @@ import java.util.Optional;
  */
 
 public interface CourseService {
-
-  void update(Course course, int teacherId, int topicId);
-
-  void save(Course course, int topicId, int teacherId);
-
+  void persist(Course course, int teacherId, int topicId);
   void delete(int id);
-
   Optional<Course> findById(int id);
-
   List<Course> getAll();
-
   List<Course> getAvailable(int studentId);
-
   List<Course> getCompletedCourses(int studentId);
-
   List<Course> getRegisteredCourses(int studentId);
-
   List<Course> getCoursesInProgress(int studentId);
-
 }

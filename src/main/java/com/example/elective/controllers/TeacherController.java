@@ -3,6 +3,7 @@ package com.example.elective.controllers;
 import com.example.elective.dto.JournalDTO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
+import com.example.elective.models.Journal;
 import com.example.elective.models.Role;
 import com.example.elective.selection.CoursePagination;
 import com.example.elective.selection.Pagination;
@@ -42,8 +43,8 @@ public class TeacherController {
     PaginationUtils.setPageAttributes(req, pagination.getPage());
     model.addAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
     model.addAttribute(TEACHERS_ATTR,
-        accountService.getPaginatedTeachers(pagination));
-    return "teachers";
+        accountService.getPaginated(Role.TEACHER, pagination));
+    return "teachers/all";
   }
 
   @GetMapping("/{id}")
@@ -57,20 +58,30 @@ public class TeacherController {
     model.addAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
     Optional<Course> optCourse = teacherService.findCourse(id, pagination);
     optCourse.ifPresent(course -> setAttributes(course, model));
-    return "teacher";
+    return "teachers/teacher";
   }
 
   private void setAttributes(Course course, Model model) {
-    List<JournalDTO> dtoList = teacherService.getJournalList(course.getId());
+    List<Journal> journalList = teacherService.getStudents(course.getId());
+    List<JournalDTO> dtoList = getJournalDTOList(journalList);
     model.addAttribute(JOURNALS_ATTR, dtoList);
     model.addAttribute(COURSE_ATTR, course);
     model.addAttribute(CURR_DATE_ATTR, CURRENT_DATE);
   }
 
+  private List<JournalDTO> getJournalDTOList(List<Journal> journalList) {
+    return journalList
+        .stream()
+        .map(journal -> new JournalDTO()
+            .setId(journal.getId())
+            .setStudent(journal.getStudent().getFullName())
+            .setGrade(journal.getGrade()))
+        .toList();
+  }
+
   @GetMapping("/register")
-  public String teacherRegistrationForm(Model model) {
-    model.addAttribute("teacher", new Account());
-    return "teacherRegistration";
+  public String teacherRegistrationForm(@ModelAttribute("teacher") Account teacher) {
+    return "teachers/registration";
   }
 
   @PostMapping("/register")
@@ -83,7 +94,7 @@ public class TeacherController {
   public String addGrade(@PathVariable("id") int id,
                          @RequestParam("grade") int grade) {
     journalService.updateGrade(id, grade);
-    return "redirect:teacher";
+    return "teachers/teacher";
   }
 
 }
