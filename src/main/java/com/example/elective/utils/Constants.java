@@ -1,7 +1,5 @@
 package com.example.elective.utils;
 
-import com.example.elective.selection.SortType;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;

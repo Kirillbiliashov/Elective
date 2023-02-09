@@ -1,22 +1,23 @@
 package com.example.elective.controllers;
 
 import com.example.elective.dto.JournalDTO;
+import com.example.elective.dto.TeacherCourseDTO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
 import com.example.elective.models.Role;
-import com.example.elective.selection.CoursePagination;
-import com.example.elective.selection.Pagination;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
 import com.example.elective.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,38 +36,41 @@ public class TeacherController {
   private AccountService accountService;
 
   @GetMapping()
-  public String teachersList(HttpServletRequest req, Model model) {
-    int page = PaginationUtils.getPageNumber(req);
-    int displayCount = PaginationUtils.getItemsPerPage(req);
-    long total = accountService.getTotalCount(Role.TEACHER);
-    Pagination pagination = new Pagination(page, displayCount, total);
-    PaginationUtils.setPageAttributes(req, pagination.getPage());
-    model.addAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-    model.addAttribute(TEACHERS_ATTR,
-        accountService.getPaginated(Role.TEACHER, pagination));
+  public String teachersList(Model model,
+                             @RequestParam(value = "page", required = false) Integer page,
+                             @RequestParam(value = "size", required = false) Integer size) {
+    Page<Account> pageInfo =  accountService.getAll(Role.TEACHER, page, size);
+    model.addAttribute("pages", pageInfo.getTotalPages());
+    model.addAttribute("page", pageInfo.getNumber());
+    model.addAttribute("size", pageInfo.getTotalElements());
+    model.addAttribute(TEACHERS_ATTR, pageInfo.getContent());
     return "teachers/all";
   }
 
   @GetMapping("/{id}")
   public String teacherPage(@PathVariable("id") int id,
-                            Model model, HttpServletRequest req) {
-    int page = PaginationUtils.getPageNumber(req);
-    setPageAttributes(req, page);
-    long total = teacherService.getCoursesCount(id);
-    Pagination pagination = new CoursePagination(page, total);
-    setPageAttributes(req, pagination.getPage());
-    model.addAttribute(PAGES_COUNT_ATTR, pagination.getPagesCount());
-    Optional<Course> optCourse = teacherService.findCourse(id, pagination);
-    optCourse.ifPresent(course -> setAttributes(course, model));
+                            Model model,
+                            @RequestParam(value = "page",
+                                required = false) Integer page) {
+    Page<Course> pageInfo = teacherService.findCourse(id, page);
+    model.addAttribute("courses",
+        getTeacherCourseDTOList(pageInfo.getContent()));
+    model.addAttribute("page", pageInfo.getNumber());
+    model.addAttribute("pages", pageInfo.getTotalElements());
+    model.addAttribute(CURR_DATE_ATTR, CURRENT_DATE);
     return "teachers/teacher";
   }
 
-  private void setAttributes(Course course, Model model) {
-    List<Journal> journalList = teacherService.getStudents(course.getId());
-    List<JournalDTO> dtoList = getJournalDTOList(journalList);
-    model.addAttribute(JOURNALS_ATTR, dtoList);
-    model.addAttribute(COURSE_ATTR, course);
-    model.addAttribute(CURR_DATE_ATTR, CURRENT_DATE);
+  private List<TeacherCourseDTO> getTeacherCourseDTOList(List<Course> courses) {
+    return courses
+        .stream()
+        .map(course -> new TeacherCourseDTO()
+            .setName(course.getName())
+            .setStartDate(course.getStartDate())
+            .setEndDate(course.getEndDate())
+            .setTeacherId(course.getTeacher().getId())
+            .setJournalList(getJournalDTOList(course.getStudents())))
+        .toList();
   }
 
   private List<JournalDTO> getJournalDTOList(List<Journal> journalList) {

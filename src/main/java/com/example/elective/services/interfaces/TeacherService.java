@@ -4,7 +4,7 @@ import com.example.elective.dto.JournalDTO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Course;
 import com.example.elective.models.Journal;
-import com.example.elective.selection.Pagination;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +15,6 @@ import java.util.Optional;
  */
 
 public interface TeacherService {
-  Optional<Course> findCourse(int teacherId, Pagination pagination);
-  long getCoursesCount(int teacherId);
+  Page<Course> findCourse(int teacherId, Integer page);
   void save(Account teacher);
-  List<Journal> getStudents(int courseId);
 }

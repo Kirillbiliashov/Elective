@@ -8,10 +8,10 @@ import com.example.elective.models.Role;
 import com.example.elective.repository.AccountRepository;
 import com.example.elective.repository.CourseRepository;
 import com.example.elective.repository.JournalRepository;
-import com.example.elective.selection.Pagination;
 import com.example.elective.services.interfaces.TeacherService;
 import com.example.elective.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,18 +38,13 @@ public class TeacherServiceImpl implements TeacherService {
   private JournalRepository journalRepository;
 
   @Override
-  public Optional<Course> findCourse(int teacherId, Pagination pagination) {
+  public Page<Course> findCourse(int teacherId, Integer page) {
     Account teacher = accountRepository.getReferenceById(teacherId);
-    Pageable pageable = PageRequest.of(pagination.getPage() - 1,
-        pagination.getDisplayCount());
-    return courseRepository.findByTeacher(teacher, pageable).stream().findFirst();
+    Pageable pageable = page != null ?
+        PageRequest.of(page, 1) : Pageable.unpaged();
+    return courseRepository.findByTeacher(teacher, pageable);
   }
 
-  @Override
-  public long getCoursesCount(int teacherId) {
-    Account teacher = accountRepository.getReferenceById(teacherId);
-    return courseRepository.countByTeacher(teacher);
-  }
 
   @Override
   @Transactional
@@ -57,12 +52,6 @@ public class TeacherServiceImpl implements TeacherService {
     teacher.setRole(Role.TEACHER);
     teacher.setPassword(passwordUtils.hash(teacher.getPassword()));
     accountRepository.save(teacher);
-  }
-
-  @Override
-  public List<Journal> getStudents(int courseId) {
-    Course course = courseRepository.getReferenceById(courseId);
-    return journalRepository.getByCourse(course);
   }
 
 }

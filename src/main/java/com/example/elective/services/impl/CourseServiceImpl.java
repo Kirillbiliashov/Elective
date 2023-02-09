@@ -8,7 +8,13 @@ import com.example.elective.repository.CourseRepository;
 import com.example.elective.models.Course;
 import com.example.elective.repository.TopicRepository;
 import com.example.elective.services.interfaces.CourseService;
+import com.example.elective.utils.CourseSelection;
+import com.example.elective.utils.SortType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,14 +59,25 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public List<Course> getAll() {
-    return courseRepository.findAll();
+  public List<Course> getAll(CourseSelection selection) {
+    Sort sort = getSort(selection.getSort());
+    Topic topic = topicRepository.getByName(selection.getTopic());
+    Account teacher = accountRepository.getByUsername(selection.getTeacher());
+    return courseRepository.findAll(sort, teacher, topic);
   }
 
   @Override
-  public List<Course> getAvailable(int studentId) {
+  public List<Course> getAvailable(int studentId, CourseSelection selection) {
     Account student = accountRepository.getReferenceById(studentId);
-    return courseRepository.getAvailable(student);
+    Sort sort = getSort(selection.getSort());
+    Topic topic = topicRepository.getByName(selection.getTopic());
+    Account teacher = accountRepository.getByUsername(selection.getTeacher());
+    return courseRepository.getAvailable(sort, student, teacher, topic);
+  }
+
+  private Sort getSort(String sortStr) {
+    return sortStr != null ?
+        SortType.valueOf(sortStr).getSort() : Sort.unsorted();
   }
 
   @Override

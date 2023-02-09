@@ -15,7 +15,7 @@ public class Course {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
   private String name;
   private String description;
 
@@ -36,11 +36,11 @@ public class Course {
   @OneToMany(mappedBy = "course")
   private List<Journal> students;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public Course setId(int id) {
+  public Course setId(Integer id) {
     this.id = id;
     return this;
   }

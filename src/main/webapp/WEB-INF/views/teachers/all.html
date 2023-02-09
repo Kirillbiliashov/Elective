@@ -15,11 +15,11 @@
     </div>
     <div class="display-container">
         <form method="get">
-            <input type="hidden" name="page" value="1"/>
+            <input type="hidden" name="page" value="0"/>
             <div class="form-group">
                 <label for="display">Records per page</label>
-                <input class="form-control display-field" type="number" id="display" name="display" min="1"
-                       value="${not empty param.display ? param.display : 5}"/>
+                <input class="form-control display-field" type="number" id="display" name="size" min="1"
+                       th:value="${param.get('size') != null ? param.get('size') : size}"/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Display" class="btn btn-primary">
@@ -44,13 +44,25 @@
             </tbody>
         </table>
     </div>
-    <!--        <nav>-->
-    <!--            <ul class="pagination justify-content-center">-->
-    <!--                <page:prev/>-->
-    <!--                <page:current/>-->
-    <!--                <page:next/>-->
-    <!--            </ul>-->
-    <!--        </nav>-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li th:class="${'page-item' + (page >= 1 ? '' : ' disabled')}">
+                <a class="page-link" th:href="@{/students(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}">Previous</a>
+            </li>
+            <li th:if="${page >= 1}" class="page-item"><a class="page-link"
+                                                          th:href="@{/students(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}"
+                                                          th:text="${page}"/></li>
+            <li class="page-item"><a class="page-link"
+                                     th:href="@{/students(page=${page}, size=${param.get('size') != null ? param.get('size') : size})}"
+                                     th:text="${page + 1}"/></li>
+            <li th:if="${page < pages - 1}" class="page-item"><a class="page-link"
+                                                                 th:href="@{/students(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}"
+                                                                 th:text="${page + 2}"/></li>
+            <li th:class="${'page-item' + (page < pages - 1 ? '' : ' disabled')}"><a class="page-link"
+                                                                                     th:href="@{/students(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}">Next</a>
+            </li>
+        </ul>
+    </nav>
     <h5 th:if="${teachers.isEmpty()}" class="no-items-msg">There are no teachers</h5>
 </div>
 </body>

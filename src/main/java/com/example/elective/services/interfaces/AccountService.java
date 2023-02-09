@@ -2,7 +2,7 @@ package com.example.elective.services.interfaces;
 
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
-import com.example.elective.selection.Pagination;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,5 @@ import java.util.Optional;
 public interface AccountService {
   Optional<Account> findByCredentials(String login, String password);
   List<Account> getAll(Role role);
-  List<Account> getPaginated(Role role, Pagination pagination);
-  List<String> getLogins();
-  long getTotalCount(Role role);
+  Page<Account> getAll(Role role, Integer page, Integer size);
 }

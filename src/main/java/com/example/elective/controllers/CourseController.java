@@ -3,13 +3,12 @@ package com.example.elective.controllers;
 import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
-import com.example.elective.mappers.requestMappers.CourseSelectionRequestMapper;
 import com.example.elective.models.*;
-import com.example.elective.selection.CourseSelection;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.CourseService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TopicService;
+import com.example.elective.utils.CourseSelection;
 import com.example.elective.utils.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +36,6 @@ public class CourseController {
   @Autowired
   private HttpUtils utils;
   @Autowired
-  private CourseSelectionRequestMapper selectionMapper;
-  @Autowired
   private AccountService accService;
   @Autowired
   private CourseDTOMapper dtoMapper;
@@ -56,27 +53,32 @@ public class CourseController {
   }
 
   @GetMapping("/all")
-  public String allCourses(HttpServletRequest req, Model model) {
-    CourseSelection selection = selectionMapper.map(req);
-    List<Course> courses = courseService.getAll();
+  public String allCourses(Model model,
+                           @RequestParam(value = "sort", required = false) String sort,
+                           @RequestParam(value = "teacher", required = false) String teacher,
+                           @RequestParam(value = "topic", required = false) String topic) {
+    CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
+    List<Course> courses = courseService.getAll(selection);
     model.addAttribute(COURSES_ATTR,
-        selection.getSelected(courses.stream().map(dtoMapper::map).toList()));
+        courses.stream().map(dtoMapper::map).toList());
     return "courses/all";
   }
 
   @GetMapping("/available")
-  public String availableCourses(HttpServletRequest req, Model model) {
+  public String availableCourses(Model model, HttpServletRequest req,
+                                 @RequestParam(value = "sort", required = false) String sort,
+                                 @RequestParam(value = "teacher", required = false) String teacher,
+                                 @RequestParam(value = "topic", required = false) String topic) {
     int studentId = utils.getCurrentUserId(req);
-    CourseSelection selection = selectionMapper.map(req);
+    CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accService.getAll(Role.TEACHER));
-    List<Course> courses = courseService.getAvailable(studentId);
-    model.addAttribute(AVAILABLE_COURSES_ATTR,
-        selection.getSelected(courses.stream().map(dtoMapper::map).toList()));
+    List<Course> courses = courseService.getAvailable(studentId, selection);
+    model.addAttribute(AVAILABLE_COURSES_ATTR, courses.stream().map(dtoMapper::map).toList());
     return "courses/available";
   }
 

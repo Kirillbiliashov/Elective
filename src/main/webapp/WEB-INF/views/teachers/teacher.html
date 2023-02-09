@@ -9,12 +9,12 @@
 </head>
 <body>
 <div class="page-container">
-    <div th:if="${course != null}">
+    <div th:each="course: ${courses}">
         <h2 th:text="'Course: ' + ${course.name}"/>
         <p th:text="'Start date: ' + ${course.startDate}"/>
         <p th:text="'End date: ' + ${course.endDate}"/>
         <div class="table-container">
-            <table th:if="${!journals.isEmpty()}" class="table table-bordered course-table">
+            <table th:if="${!course.journalList.isEmpty()}" class="table table-bordered course-table">
                 <thead>
                 <tr>
                     <th scope="col">Student</th>
@@ -22,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="journal: ${journals}">
+                <tr th:each="journal: ${course.journalList}">
                     <td th:text="${journal.student}"/>
                     <td>
                         <div th:if="${journal.grade == -1}">
@@ -41,10 +41,29 @@
                 </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li th:class="${'page-item' + (page >= 1 ? '' : ' disabled')}">
+                        <a class="page-link" th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page - 1})}">Previous</a>
+                    </li>
+                    <li th:if="${page >= 1}" class="page-item"><a class="page-link"
+                                                                  th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page - 1})}"
+                                                                  th:text="${page}"/></li>
+                    <li class="page-item"><a class="page-link"
+                                             th:href="@{/teachers/{id}(id=${course.teacherId})(page=${page})}"
+                                             th:text="${page + 1}"/></li>
+                    <li th:if="${page < pages - 1}" class="page-item"><a class="page-link"
+                                                                         th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page + 1})}"
+                                                                         th:text="${page + 2}"/></li>
+                    <li th:class="${'page-item' + (page < pages - 1 ? '' : ' disabled')}"><a class="page-link"
+                                                                                             th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page + 1})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
             <h5 th:if="${journals.isEmpty()}" class="no-items-msg">There are no students</h5>
         </div>
     </div>
-    <h3 th:if="${course == null}" class="no-items-msg">
+    <h3 th:if="${courses.isEmpty()}" class="no-items-msg">
         No courses
     </h3>
 </div>

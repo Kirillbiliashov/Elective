@@ -16,7 +16,12 @@
                 <div class="form-group col-md-4">
                     <label for="sort">Sort by</label>
                     <select class="form-control" name="sort" id="sort">
-                        <option th:each="type: ${sortTypes}" th:text="${type}" th:value="${type}">
+                        <option value="NAME" th:selected="${param.get('sort') == 'NAME'}">Name (A-Z)</option>
+                        <option value="NAME_DESC" th:selected="${param.get('sort') == 'NAME_DESC'}">Name (Z-A)</option>
+                        <option value="DURATION" th:selected="${param.get('sort') == 'DURATION'}">Duration (from shortest)</option>
+                        <option value="DURATION_DESC" th:selected="${param.get('sort') == 'DURATION_DESC'}">Duration (from longest)</option>
+                        <option value="STUDENTS_COUNT" th:selected="${param.get('sort') == 'STUDENTS_COUNT'}">Students (least to most)</option>
+                        <option value="STUDENTS_COUNT_DESC" th:selected="${param.get('sort') == 'STUDENTS_COUNT_DESC'}">Students (most to least)</option>
                         </option>
                     </select>
                 </div>
@@ -25,7 +30,7 @@
                     <select class="form-control" name="teacher" id="teacher">
                         <option selected value="Any">Any</option>
                         <option th:each="teacher: ${teachers}" th:text="${teacher.fullName}"
-                                th:value="${teacher.fullName}"></option>
+                                th:value="${teacher.username}"></option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
