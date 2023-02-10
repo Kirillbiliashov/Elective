@@ -20,36 +20,37 @@ import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s WHERE" +
+  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s " +
+      "LEFT JOIN FETCH c.topic LEFT JOIN FETCH c.teacher WHERE" +
       " s.student = :student AND c.endDate < CURRENT_DATE")
   List<Course> getCompleted(@Param("student") Account student);
   @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s " +
+      "LEFT JOIN FETCH c.teacher LEFT JOIN FETCH c.topic " +
       "WHERE c.id <> ALL (SELECT c.id FROM Course c WHERE s.student = :student)" +
       " AND c.startDate > CURRENT_DATE AND (:teacher IS NULL OR c.teacher = :teacher)" +
       " AND (:topic IS NULL OR c.topic = :topic)")
-  List<Course> getAvailable(Sort sort, @Param("student") Account student, @Param("teacher") Account teacher, @Param("topic") Topic topic);
-  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s" +
+  List<Course> getAvailable(Sort sort, @Param("student") Account student,
+                            @Param("teacher") Account teacher,
+                            @Param("topic") Topic topic);
+  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s " +
+      "LEFT JOIN FETCH c.teacher LEFT JOIN FETCH c.topic" +
       " WHERE s.student = :student AND CURRENT_DATE BETWEEN c.startDate AND c.endDate")
   List<Course> getOngoing(@Param("student") Account student);
   @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s " +
+      "LEFT JOIN FETCH c.teacher LEFT JOIN FETCH c.topic " +
       "WHERE s.student = :student AND c.startDate > CURRENT_DATE")
   List<Course> getRegistered(@Param("student") Account student);
 
-  @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.students WHERE c.teacher = :teacher",
+  @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.students  " +
+      " WHERE c.teacher = :teacher",
       countQuery = "SELECT COUNT(c) FROM Course c")
   Page<Course> findByTeacher(@Param("teacher") Account teacher, Pageable pageable);
 
-  @Override
-  @EntityGraph(attributePaths = {"students", "topic", "teacher"})
-  List<Course> findAll();
-
-  @EntityGraph(attributePaths = {"students", "topic", "teacher"})
-  @Query("SELECT c FROM Course c")
-  List<Course> findAll(Sort sort);
-
-  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students WHERE" +
+  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students " +
+      "LEFT JOIN FETCH c.topic LEFT JOIN FETCH c.teacher WHERE" +
       " (:teacher IS NULL OR c.teacher = :teacher) " +
       "AND (:topic IS NULL OR c.topic = :topic)")
-  List<Course> findAll(Sort sort, @Param("teacher") Account teacher, @Param("topic") Topic topic);
+  List<Course> findAll(Sort sort, @Param("teacher") Account teacher,
+                       @Param("topic") Topic topic);
 
 }

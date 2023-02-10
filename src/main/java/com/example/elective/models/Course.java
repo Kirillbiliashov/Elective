@@ -25,11 +25,11 @@ public class Course {
   @Column(name = "end_date")
   private Date endDate;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "topic_id", referencedColumnName = "id")
   private Topic topic;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "teacher_id", referencedColumnName = "id")
   private Account teacher;
 

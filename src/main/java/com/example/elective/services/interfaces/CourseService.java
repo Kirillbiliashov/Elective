@@ -19,5 +19,5 @@ public interface CourseService {
   List<Course> getAvailable(int studentId, CourseSelection selection);
   List<Course> getCompletedCourses(int studentId);
   List<Course> getRegisteredCourses(int studentId);
-  List<Course> getCoursesInProgress(int studentId);
+  List<Course> getOngoingCourses(int studentId);
 }

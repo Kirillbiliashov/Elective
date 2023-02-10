@@ -43,14 +43,14 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   public List<Account> getAll(Role role) {
-    repository.findAll();
     return repository.getByRole(role);
   }
 
   @Override
   public Page<Account> getAll(Role role, Integer page, Integer size) {
-    if (page == null || size == null) return repository.getByRole(role, Pageable.unpaged());
-    return repository.getByRole(role, PageRequest.of(page, size));
+    boolean isPaginated = page != null && size != null;
+    return repository.getByRole(role,
+        isPaginated ? PageRequest.of(page, size) : Pageable.unpaged());
   }
 
 }

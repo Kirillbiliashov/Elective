@@ -34,8 +34,6 @@ public class TeacherServiceImpl implements TeacherService {
   private AccountRepository accountRepository;
   @Autowired
   private CourseRepository courseRepository;
-  @Autowired
-  private JournalRepository journalRepository;
 
   @Override
   public Page<Course> findCourse(int teacherId, Integer page) {
@@ -44,7 +42,6 @@ public class TeacherServiceImpl implements TeacherService {
         PageRequest.of(page, 1) : Pageable.unpaged();
     return courseRepository.findByTeacher(teacher, pageable);
   }
-
 
   @Override
   @Transactional

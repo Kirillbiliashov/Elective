@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
@@ -17,10 +18,14 @@ import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
-  List<Account> getByRole(Role role);
-  Page<Account> getByRole(Role role, Pageable pageable);
-  long countByRole(Role role);
-  @Query("SELECT a FROM Account a WHERE a.username = ?1 OR a.email = ?1")
+
+  @Query("SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.role = :role")
+  List<Account> getByRole(@Param("role") Role role);
+
+  @Query(value = "SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.role = :role",
+      countQuery = "SELECT COUNT(a) FROM Account a")
+  Page<Account> getByRole(@Param("role") Role role, Pageable pageable);
+  @Query("SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.username = ?1 OR a.email = ?1")
   Optional<Account> findByLogin(String login);
   @Query("SELECT CONCAT(a.username, ',', a.email) FROM Account a ")
   List<String> getLogins();

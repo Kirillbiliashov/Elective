@@ -106,7 +106,7 @@ public class CourseController {
   @GetMapping("/ongoing")
   public String ongoingCourses(Model model, HttpServletRequest req) {
     int studentId = utils.getCurrentUserId(req);
-    List<Course> courses = courseService.getCoursesInProgress(studentId);
+    List<Course> courses = courseService.getOngoingCourses(studentId);
     model.addAttribute(COURSES_IN_PROGRESS_ATTR, courses
         .stream()
         .map(dtoMapper::map)

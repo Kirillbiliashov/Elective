@@ -9,38 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Slight architectural changes were made">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/dto/TeacherCourseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/utils/CourseSelection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/utils/SortType.java" afterDir="false" />
+    <list default="true" id="68d50832-13a5-46bb-9c97-8224455dd435" name="Changes" comment="Pagination and sorting were added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/controllers/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/CourseSelectionRequestMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/mappers/requestMappers/RequestMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/models/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/BlocklistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/BlocklistRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/TopicRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/repository/TopicRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CoursePagination.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/CourseSelection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/Pagination.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/selection/SortType.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/AccountServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/CourseServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TeacherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/impl/TeacherServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/services/interfaces/TeacherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/elective/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/elective/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/all.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/all.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/available.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/courses/available.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students/all.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/students/all.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/all.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/all.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/teachers/teacher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -380,14 +359,7 @@
       <workItem from="1675252363573" duration="277000" />
       <workItem from="1675252672630" duration="11430000" />
       <workItem from="1675335791559" duration="20664000" />
-      <workItem from="1675445619046" duration="90902000" />
-    </task>
-    <task id="LOCAL-00090" summary="Remaining test classes were added">
-      <created>1671785481093</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1671785481094</updated>
+      <workItem from="1675445619046" duration="98341000" />
     </task>
     <task id="LOCAL-00091" summary="Tests were refactored">
       <created>1671790528787</created>
@@ -725,7 +697,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675790606235</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="Pagination and sorting were added">
+      <created>1675975148003</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1675975148004</updated>
+    </task>
+    <option name="localTasksCounter" value="140" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -765,7 +744,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Composition instead of inheritance was applied to course dtos" />
     <MESSAGE value="DAO layer was refactored" />
     <MESSAGE value="Minor code improvements were made" />
     <MESSAGE value="App architecture was refactored" />
@@ -790,7 +768,8 @@
     <MESSAGE value="Spring core was integrated into the project" />
     <MESSAGE value="DAOs were replaced by JPA repositories" />
     <MESSAGE value="Slight architectural changes were made" />
-    <option name="LAST_COMMIT_MESSAGE" value="Slight architectural changes were made" />
+    <MESSAGE value="Pagination and sorting were added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pagination and sorting were added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -807,7 +786,7 @@
     <SUITE FILE_PATH="coverage/elective$com_example_elective_in_elective.ic" NAME="com.example.elective in elective Coverage Results" MODIFIED="1671829624991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Elective$All_in_elective.ic" NAME="All in elective Coverage Results" MODIFIED="1675946153634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Elective$All_in_elective.ic" NAME="All in elective Coverage Results" MODIFIED="1675975168971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/elective$AccountDAOTest_testSave.ic" NAME="AccountDAOTest.testSave Coverage Results" MODIFIED="1671707885951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.elective.daos.*</FILTER>
     </SUITE>

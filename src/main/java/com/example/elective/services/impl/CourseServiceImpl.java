@@ -11,10 +11,7 @@ import com.example.elective.services.interfaces.CourseService;
 import com.example.elective.utils.CourseSelection;
 import com.example.elective.utils.SortType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,7 +90,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public List<Course> getCoursesInProgress(int studentId) {
+  public List<Course> getOngoingCourses(int studentId) {
     Account student = accountRepository.getReferenceById(studentId);
     return courseRepository.getOngoing(student);
   }

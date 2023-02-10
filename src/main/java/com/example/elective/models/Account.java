@@ -2,6 +2,9 @@ package com.example.elective.models;
 
 
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import javax.persistence.*;
 import javax.swing.*;
 import java.util.List;
