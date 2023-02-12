@@ -6,8 +6,8 @@ import com.example.elective.models.Role;
 import com.example.elective.repository.AccountRepository;
 import com.example.elective.repository.BlocklistRepository;
 import com.example.elective.services.interfaces.StudentService;
-import com.example.elective.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StudentServiceImpl implements StudentService {
 
   @Autowired
-  private PasswordUtils passwordUtils;
+  private PasswordEncoder encoder;
   @Autowired
   private AccountRepository accountRepository;
   @Autowired
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public void save(Account student) {
     student.setRole(Role.STUDENT);
-    student.setPassword(passwordUtils.hash(student.getPassword()));
+    student.setPassword(encoder.encode(student.getPassword()));
     accountRepository.save(student);
   }
 

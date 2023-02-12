@@ -9,11 +9,11 @@ import com.example.elective.repository.AccountRepository;
 import com.example.elective.repository.CourseRepository;
 import com.example.elective.repository.JournalRepository;
 import com.example.elective.services.interfaces.TeacherService;
-import com.example.elective.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +29,7 @@ import java.util.*;
 public class TeacherServiceImpl implements TeacherService {
 
   @Autowired
-  private PasswordUtils passwordUtils;
+  private PasswordEncoder encoder;
   @Autowired
   private AccountRepository accountRepository;
   @Autowired
@@ -47,7 +47,7 @@ public class TeacherServiceImpl implements TeacherService {
   @Transactional
   public void save(Account teacher) {
     teacher.setRole(Role.TEACHER);
-    teacher.setPassword(passwordUtils.hash(teacher.getPassword()));
+    teacher.setPassword(encoder.encode(teacher.getPassword()));
     accountRepository.save(teacher);
   }
 

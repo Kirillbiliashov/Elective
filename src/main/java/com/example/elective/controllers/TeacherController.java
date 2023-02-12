@@ -9,7 +9,6 @@ import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
-import com.example.elective.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.example.elective.utils.Constants.*;
-import static com.example.elective.utils.PaginationUtils.setPageAttributes;
 
 @Controller
 @RequestMapping("/teachers")
@@ -36,9 +34,9 @@ public class TeacherController {
   private AccountService accountService;
 
   @GetMapping()
-  public String teachersList(Model model,
-                             @RequestParam(value = "page", required = false) Integer page,
-                             @RequestParam(value = "size", required = false) Integer size) {
+  public String teachersList(
+      @RequestParam(value = "page", required = false) Integer page,
+      @RequestParam(value = "size", required = false) Integer size, Model model) {
     Page<Account> pageInfo =  accountService.getAll(Role.TEACHER, page, size);
     model.addAttribute("pages", pageInfo.getTotalPages());
     model.addAttribute("page", pageInfo.getNumber());

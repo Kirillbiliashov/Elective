@@ -4,18 +4,23 @@ import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.*;
+import com.example.elective.security.AccountDetails;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.CourseService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TopicService;
 import com.example.elective.utils.CourseSelection;
-import com.example.elective.utils.HttpUtils;
+import com.example.elective.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,13 +39,13 @@ public class CourseController {
   @Autowired
   private TopicService topicService;
   @Autowired
-  private HttpUtils utils;
-  @Autowired
   private AccountService accService;
   @Autowired
   private CourseDTOMapper dtoMapper;
   @Autowired
   private JournalService journalService;
+  @Autowired
+  private SecurityUtils securityUtils;
 
   @GetMapping("/{id}")
   public String course(@PathVariable("id") int id, Model model) {
@@ -53,10 +58,10 @@ public class CourseController {
   }
 
   @GetMapping("/all")
-  public String allCourses(Model model,
-                           @RequestParam(value = "sort", required = false) String sort,
-                           @RequestParam(value = "teacher", required = false) String teacher,
-                           @RequestParam(value = "topic", required = false) String topic) {
+  public String allCourses(
+      @RequestParam(value = "sort", required = false) String sort,
+      @RequestParam(value = "teacher", required = false) String teacher,
+      @RequestParam(value = "topic", required = false) String topic, Model model) {
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
@@ -68,23 +73,24 @@ public class CourseController {
   }
 
   @GetMapping("/available")
-  public String availableCourses(Model model, HttpServletRequest req,
-                                 @RequestParam(value = "sort", required = false) String sort,
-                                 @RequestParam(value = "teacher", required = false) String teacher,
-                                 @RequestParam(value = "topic", required = false) String topic) {
-    int studentId = utils.getCurrentUserId(req);
+  public String availableCourses(
+      @RequestParam(value = "sort", required = false) String sort,
+      @RequestParam(value = "teacher", required = false) String teacher,
+      @RequestParam(value = "topic", required = false) String topic, Model model) {
+    int studentId = securityUtils.getUserId();
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accService.getAll(Role.TEACHER));
     List<Course> courses = courseService.getAvailable(studentId, selection);
-    model.addAttribute(AVAILABLE_COURSES_ATTR, courses.stream().map(dtoMapper::map).toList());
+    model.addAttribute(AVAILABLE_COURSES_ATTR,
+        courses.stream().map(dtoMapper::map).toList());
     return "courses/available";
   }
 
   @GetMapping("/registered")
-  public String registeredCourses(Model model, HttpServletRequest req) {
-    int studentId = utils.getCurrentUserId(req);
+  public String registeredCourses(Model model) {
+    int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getRegisteredCourses(studentId);
     model.addAttribute(REGISTERED_COURSES_ATTR, getDTOList(courses, studentId));
     return "courses/registered";
@@ -104,8 +110,8 @@ public class CourseController {
   }
 
   @GetMapping("/ongoing")
-  public String ongoingCourses(Model model, HttpServletRequest req) {
-    int studentId = utils.getCurrentUserId(req);
+  public String ongoingCourses(Model model) {
+    int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getOngoingCourses(studentId);
     model.addAttribute(COURSES_IN_PROGRESS_ATTR, courses
         .stream()
@@ -115,8 +121,8 @@ public class CourseController {
   }
 
   @GetMapping("/completed")
-  public String completedCourses(Model model, HttpServletRequest req) {
-    int studentId = utils.getCurrentUserId(req);
+  public String completedCourses(Model model) {
+    int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getCompletedCourses(studentId);
     model.addAttribute(COMPLETED_COURSES_ATTR,
         getCompletedCourseDTOList(courses, studentId));
@@ -171,8 +177,9 @@ public class CourseController {
   }
 
   @PostMapping("/enroll/{id}")
-  public String enroll(@PathVariable("id") int courseId, HttpServletRequest req) {
-    journalService.save(courseId, utils.getCurrentUserId(req));
+  public String enroll(@PathVariable("id") int courseId) {
+    int id = securityUtils.getUserId();
+    journalService.save(courseId, id);
     return "redirect:../available";
   }
 

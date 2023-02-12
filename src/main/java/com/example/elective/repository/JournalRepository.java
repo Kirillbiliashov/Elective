@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface JournalRepository extends JpaRepository<Journal, Integer> {
-  List<Journal> getByCourse(Course course);
 }

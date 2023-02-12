@@ -27,23 +27,6 @@ public class AuthController {
     return "auth/login";
   }
 
-  @PostMapping("/login")
-  public String login(HttpServletRequest req, Model model) {
-    String login = req.getParameter("login");
-    String password = req.getParameter("password");
-    accountService.findByCredentials(login, password).ifPresentOrElse(account -> {
-      if (account.getBlock() != null) {
-        model.addAttribute("accountBlocked", true);
-        return;
-      }
-      HttpSession session = req.getSession();
-      session.setAttribute(ACCOUNT_ATTR, account);
-      String homeUrl = account.getRole().toString().toLowerCase();
-      session.setAttribute(HOME_URL_ATTR, homeUrl);
-    }, () -> model.addAttribute("loginFailed", true));
-    return "redirect:../courses/all";
-  }
-
   @GetMapping("/signup")
   public String signupForm(@ModelAttribute("student") Account student) {
     return "auth/signup";
@@ -52,14 +35,6 @@ public class AuthController {
   @PostMapping("/signup")
   public String signup(@ModelAttribute("student") Account student) {
     studentService.save(student);
-    return "redirect:../login";
-  }
-
-  @PostMapping("/logout")
-  public String logout(HttpServletRequest req) {
-    HttpSession session = req.getSession();
-    session.setAttribute(ACCOUNT_ATTR, null);
-    session.setAttribute(HOME_URL_ATTR, LOGIN_URL);
     return "redirect:../login";
   }
 

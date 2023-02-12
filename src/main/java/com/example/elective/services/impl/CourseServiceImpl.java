@@ -57,18 +57,18 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public List<Course> getAll(CourseSelection selection) {
-    Sort sort = getSort(selection.getSort());
-    Topic topic = topicRepository.getByName(selection.getTopic());
-    Account teacher = accountRepository.getByUsername(selection.getTeacher());
+    Sort sort = getSort(selection.sort());
+    Topic topic = topicRepository.getByName(selection.topic());
+    Account teacher = accountRepository.getByUsername(selection.teacher());
     return courseRepository.findAll(sort, teacher, topic);
   }
 
   @Override
   public List<Course> getAvailable(int studentId, CourseSelection selection) {
     Account student = accountRepository.getReferenceById(studentId);
-    Sort sort = getSort(selection.getSort());
-    Topic topic = topicRepository.getByName(selection.getTopic());
-    Account teacher = accountRepository.getByUsername(selection.getTeacher());
+    Sort sort = getSort(selection.sort());
+    Topic topic = topicRepository.getByName(selection.topic());
+    Account teacher = accountRepository.getByUsername(selection.teacher());
     return courseRepository.getAvailable(sort, student, teacher, topic);
   }
 

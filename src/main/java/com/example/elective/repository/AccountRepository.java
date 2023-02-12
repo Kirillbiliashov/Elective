@@ -27,6 +27,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
   Page<Account> getByRole(@Param("role") Role role, Pageable pageable);
   @Query("SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.username = ?1 OR a.email = ?1")
   Optional<Account> findByLogin(String login);
+  @Query("SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.username = ?1 OR a.email = ?1")
+  Account getByLogin(String login);
   @Query("SELECT CONCAT(a.username, ',', a.email) FROM Account a ")
   List<String> getLogins();
   Account getByUsername(String username);

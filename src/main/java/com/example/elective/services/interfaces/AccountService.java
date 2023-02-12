@@ -13,7 +13,6 @@ import java.util.Optional;
  */
 
 public interface AccountService {
-  Optional<Account> findByCredentials(String login, String password);
   List<Account> getAll(Role role);
   Page<Account> getAll(Role role, Integer page, Integer size);
 }
