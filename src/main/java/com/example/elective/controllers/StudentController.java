@@ -11,9 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
 import static com.example.elective.utils.Constants.*;
 
 @Controller
@@ -31,7 +28,7 @@ public class StudentController {
   public String studentsList(Model model,
                              @RequestParam(value = "page", required = false) Integer page,
                              @RequestParam(value = "size", required = false) Integer size) {
-    Page<Account> pageInfo = accountService.getAll(Role.STUDENT, page, size);
+    Page<Account> pageInfo = accountService.getAll(Role.ROLE_STUDENT, page, size);
     model.addAttribute("pages", pageInfo.getTotalPages());
     model.addAttribute("page", pageInfo.getNumber());
     model.addAttribute(STUDENTS_ATTR,

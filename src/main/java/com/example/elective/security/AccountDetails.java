@@ -2,15 +2,18 @@ package com.example.elective.security;
 
 import com.example.elective.models.Account;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public record AccountDetails(Account account) implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    String role = account.getRole().toString();
+    return Collections.singletonList(new SimpleGrantedAuthority(role));
   }
 
   @Override

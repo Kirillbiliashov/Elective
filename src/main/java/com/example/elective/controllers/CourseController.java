@@ -4,7 +4,6 @@ import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
 import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.*;
-import com.example.elective.security.AccountDetails;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.CourseService;
 import com.example.elective.services.interfaces.JournalService;
@@ -12,15 +11,10 @@ import com.example.elective.services.interfaces.TopicService;
 import com.example.elective.utils.CourseSelection;
 import com.example.elective.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +47,7 @@ public class CourseController {
     if (optCourse.isEmpty()) return "courses/all";
     model.addAttribute(COURSE_ATTR, optCourse.get());
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
-    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
+    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     return "courses/course";
   }
 
@@ -63,7 +57,7 @@ public class CourseController {
       @RequestParam(value = "teacher", required = false) String teacher,
       @RequestParam(value = "topic", required = false) String topic, Model model) {
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
-    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
+    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     List<Course> courses = courseService.getAll(selection);
@@ -81,7 +75,7 @@ public class CourseController {
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
-    model.addAttribute(TEACHERS_ATTR, accService.getAll(Role.TEACHER));
+    model.addAttribute(TEACHERS_ATTR, accService.getAll(Role.ROLE_TEACHER));
     List<Course> courses = courseService.getAvailable(studentId, selection);
     model.addAttribute(AVAILABLE_COURSES_ATTR,
         courses.stream().map(dtoMapper::map).toList());
@@ -146,7 +140,7 @@ public class CourseController {
   @GetMapping("/add")
   public String addCourseForm(Model model) {
    model.addAttribute(TOPICS_ATTR, topicService.getAll());
-   model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.TEACHER));
+   model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
    model.addAttribute("topic", new Topic());
    model.addAttribute("teacher", new Account());
    model.addAttribute(COURSE_ATTR, new Course());
@@ -179,6 +173,8 @@ public class CourseController {
   @PostMapping("/enroll/{id}")
   public String enroll(@PathVariable("id") int courseId) {
     int id = securityUtils.getUserId();
+    System.out.println("id: " + id);
+    System.out.println("course id: " + courseId);
     journalService.save(courseId, id);
     return "redirect:../available";
   }

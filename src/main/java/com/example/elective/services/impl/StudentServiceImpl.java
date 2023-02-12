@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public void save(Account student) {
-    student.setRole(Role.STUDENT);
+    student.setRole(Role.ROLE_STUDENT);
     student.setPassword(encoder.encode(student.getPassword()));
     accountRepository.save(student);
   }

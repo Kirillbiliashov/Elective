@@ -9,16 +9,14 @@ import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
+import com.example.elective.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.example.elective.utils.Constants.*;
 
@@ -32,12 +30,14 @@ public class TeacherController {
   private JournalService journalService;
   @Autowired
   private AccountService accountService;
+  @Autowired
+  private SecurityUtils securityUtils;
 
   @GetMapping()
   public String teachersList(
       @RequestParam(value = "page", required = false) Integer page,
       @RequestParam(value = "size", required = false) Integer size, Model model) {
-    Page<Account> pageInfo =  accountService.getAll(Role.TEACHER, page, size);
+    Page<Account> pageInfo =  accountService.getAll(Role.ROLE_TEACHER, page, size);
     model.addAttribute("pages", pageInfo.getTotalPages());
     model.addAttribute("page", pageInfo.getNumber());
     model.addAttribute("size", pageInfo.getTotalElements());
@@ -45,11 +45,11 @@ public class TeacherController {
     return "teachers/all";
   }
 
-  @GetMapping("/{id}")
-  public String teacherPage(@PathVariable("id") int id,
-                            Model model,
+  @GetMapping("/teacher")
+  public String teacherPage(Model model,
                             @RequestParam(value = "page",
                                 required = false) Integer page) {
+    int id = securityUtils.getUserId();
     Page<Course> pageInfo = teacherService.findCourse(id, page);
     model.addAttribute("courses",
         getTeacherCourseDTOList(pageInfo.getContent()));
