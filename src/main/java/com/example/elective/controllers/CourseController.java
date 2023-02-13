@@ -10,11 +10,14 @@ import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TopicService;
 import com.example.elective.utils.CourseSelection;
 import com.example.elective.utils.SecurityUtils;
+import com.example.elective.validator.CourseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +43,8 @@ public class CourseController {
   private JournalService journalService;
   @Autowired
   private SecurityUtils securityUtils;
+  @Autowired
+  private CourseValidator courseValidator;
 
   @GetMapping("/{id}")
   public String course(@PathVariable("id") int id, Model model) {
@@ -148,9 +153,18 @@ public class CourseController {
   }
 
   @PostMapping("/edit")
-  public String editCourse(@ModelAttribute(COURSE_ATTR) Course course,
-                           @RequestParam("teacherId") int teacherId,
-                           @RequestParam("topicId") int topicId) {
+  public String editCourse(@RequestParam("teacherId") int teacherId,
+                           @RequestParam("topicId") int topicId,
+                           @ModelAttribute(COURSE_ATTR) @Valid Course course,
+                           BindingResult result, Model model) {
+    courseValidator.validate(course, result);
+    if (result.hasErrors()) {
+      model.addAttribute(TOPICS_ATTR, topicService.getAll());
+      model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
+      course.setTopic(topicService.get(topicId));
+      course.setTeacher(accountService.get(teacherId));
+      return "courses/course";
+    }
     courseService.persist(course, teacherId, topicId);
     return "redirect:../all";
   }
@@ -163,9 +177,16 @@ public class CourseController {
 
 
   @PostMapping("/add")
-  public String addCourse(@ModelAttribute(COURSE_ATTR) Course course,
-                          @RequestParam("topicId") int topicId,
-                          @RequestParam("teacherId") int teacherId) {
+  public String addCourse(@RequestParam("topicId") int topicId,
+                          @RequestParam("teacherId") int teacherId,
+                          @ModelAttribute(COURSE_ATTR) @Valid Course course,
+                          BindingResult result, Model model) {
+    courseValidator.validate(course, result);
+    if (result.hasErrors()) {
+      model.addAttribute(TOPICS_ATTR, topicService.getAll());
+      model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
+      return "courses/add";
+    }
     courseService.persist(course, teacherId, topicId);
     return "redirect:../all";
   }
@@ -173,8 +194,6 @@ public class CourseController {
   @PostMapping("/enroll/{id}")
   public String enroll(@PathVariable("id") int courseId) {
     int id = securityUtils.getUserId();
-    System.out.println("id: " + id);
-    System.out.println("course id: " + courseId);
     journalService.save(courseId, id);
     return "redirect:../available";
   }

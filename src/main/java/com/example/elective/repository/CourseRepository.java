@@ -53,5 +53,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
       "AND (:topic IS NULL OR c.topic = :topic)")
   List<Course> findAll(Sort sort, @Param("teacher") Account teacher,
                        @Param("topic") Topic topic);
+  Optional<Course> findByName(String name);
 
 }

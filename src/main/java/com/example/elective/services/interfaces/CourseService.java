@@ -14,7 +14,8 @@ import java.util.Optional;
 public interface CourseService {
   void persist(Course course, int teacherId, int topicId);
   void delete(int id);
-  Optional<Course> findById(int id);
+  Optional<Course> findById(Integer id);
+  Optional<Course> findByName(String name);
   List<Course> getAll(CourseSelection selection);
   List<Course> getAvailable(int studentId, CourseSelection selection);
   List<Course> getCompletedCourses(int studentId);

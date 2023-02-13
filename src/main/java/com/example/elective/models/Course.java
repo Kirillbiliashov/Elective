@@ -1,6 +1,8 @@
 package com.example.elective.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -16,9 +18,13 @@ public class Course {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+
+  @Size(min = 2, max = 50, message = "Name should be 2 to 50 characters long")
   private String name;
+  @Size(min = 10, max = 1024, message = "description should be 10 to 1024 characters long")
   private String description;
 
+  @FutureOrPresent(message = "start date can't be in the past")
   @Column(name = "start_date")
   private Date startDate;
 

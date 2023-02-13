@@ -26,4 +26,9 @@ public class TopicServiceImpl implements TopicService {
     return topicRepository.findAll();
   }
 
+  @Override
+  public Topic get(int id) {
+    return topicRepository.findById(id).orElse(null);
+  }
+
 }

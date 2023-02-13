@@ -10,12 +10,15 @@ import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
 import com.example.elective.utils.SecurityUtils;
+import com.example.elective.validator.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.example.elective.utils.Constants.*;
@@ -32,6 +35,8 @@ public class TeacherController {
   private AccountService accountService;
   @Autowired
   private SecurityUtils securityUtils;
+  @Autowired
+  private AccountValidator accountValidator;
 
   @GetMapping()
   public String teachersList(
@@ -87,7 +92,10 @@ public class TeacherController {
   }
 
   @PostMapping("/register")
-  public String registerTeacher(@ModelAttribute("teacher") Account teacher) {
+  public String registerTeacher(@ModelAttribute("teacher") @Valid Account teacher,
+                                BindingResult result) {
+    accountValidator.validate(teacher, result);
+    if (result.hasErrors()) return "teachers/registration";
     teacherService.save(teacher);
     return "redirect:../";
   }

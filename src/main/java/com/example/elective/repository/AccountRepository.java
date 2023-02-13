@@ -32,5 +32,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
   @Query("SELECT CONCAT(a.username, ',', a.email) FROM Account a ")
   List<String> getLogins();
   Account getByUsername(String username);
+  Optional<Account> findByUsername(String username);
+  Optional<Account> findByEmail(String email);
 
 }

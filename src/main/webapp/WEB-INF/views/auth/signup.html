@@ -13,28 +13,28 @@
     <form th:method="POST" th:action="@{/auth/signup}" th:object="${student}">
         <div class="form-group">
             <label for="fname">First name</label>
-            <input type="text" id="fname" th:field="*{firstName}" class="form-control" placeholder="First name"
-                   minlength="2" maxlength="20" required>
+            <input type="text" id="fname" th:field="*{firstName}" class="form-control" placeholder="First name" required>
+            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</div>
         </div>
         <div class="form-group">
             <label for="lname">Last name</label>
-            <input type="text" id="lname" th:field="*{lastName}" class="form-control" placeholder="Last name"
-                   minlength="2" maxlength="20" required>
+            <input type="text" id="lname" th:field="*{lastName}" class="form-control" placeholder="Last name" required>
+            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</div>
         </div>
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" th:field="*{username}" required minlength="8"
-                   maxlength="50" placeholder="Username">
+            <input type="text" class="form-control" id="username" th:field="*{username}" required placeholder="Username">
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" required minlength="8"
-                   maxlength="50" placeholder="Email">
+            <input type="email" class="form-control" id="email" th:field="*{email}" required placeholder="Email">
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}" required
-                   minlength="8" maxlength="64" placeholder="Password">
+            <input type="password" class="form-control" id="password" th:field="*{password}" required placeholder="Password">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
         </div>
         <div class="form-btn-container">
             <button type="submit" class="btn btn-primary">Sign up</button>

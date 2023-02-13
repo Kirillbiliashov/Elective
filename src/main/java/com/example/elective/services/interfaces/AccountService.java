@@ -15,4 +15,7 @@ import java.util.Optional;
 public interface AccountService {
   List<Account> getAll(Role role);
   Page<Account> getAll(Role role, Integer page, Integer size);
+  Optional<Account> findByUsername(String username);
+  Optional<Account> findByEmail(String email);
+  Account get(int id);
 }

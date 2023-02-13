@@ -37,4 +37,19 @@ public class AccountServiceImpl implements AccountService {
         isPaginated ? PageRequest.of(page, size) : Pageable.unpaged());
   }
 
+  @Override
+  public Optional<Account> findByUsername(String username) {
+    return repository.findByUsername(username);
+  }
+
+  @Override
+  public Optional<Account> findByEmail(String email) {
+    return repository.findByEmail(email);
+  }
+
+  @Override
+  public Account get(int id) {
+    return repository.findById(id).orElse(null);
+  }
+
 }

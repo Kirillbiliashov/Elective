@@ -12,21 +12,24 @@
 <form th:method="POST" th:action="@{/courses/add}" th:object="${course}">
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" maxlength="50" th:field="*{name}" required
-               placeholder="Enter name">
+        <input type="text" class="form-control" id="name" th:field="*{name}" required placeholder="Enter name">
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     </div>
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" id="description" th:field="*{description}" rows="3"
                   placeholder="Description"/>
+        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</div>
     </div>
     <div class="form-group">
         <label for="startDate">Start date</label>
         <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+        <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start date error</div>
     </div>
     <div class="form-group">
         <label for="endDate">End date</label>
         <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+        <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End date error</div>
     </div>
     <div class="form-group">
         <label for="topicSelect">Topic</label>
