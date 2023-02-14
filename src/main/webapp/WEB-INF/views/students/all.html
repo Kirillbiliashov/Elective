@@ -9,17 +9,17 @@
 </head>
 <body>
 <div class="page-container">
-    <h2>Students</h2>
+    <h2 th:text="#{students}"/>
     <div class="display-container">
         <form method="get">
             <input type="hidden" name="page" value="0"/>
             <div class="form-group">
-                <label for="display">Records per page</label>
+                <label for="display" th:text="#{records_per_page}"/>
                 <input class="form-control display-field" type="number" id="display" name="size" min="1"
                        th:value="${param.get('size') != null ? param.get('size') : size}"/>
             </div>
             <div class="form-group">
-                <input type="submit" value="Display" class="btn btn-primary">
+                <input type="submit" th:value="#{display}" class="btn btn-primary">
             </div>
         </form>
     </div>
@@ -27,11 +27,11 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Status</th>
-                <th>Action</th>
+                <th scope="col" th:text="#{user.full_name}"/>
+                <th scope="col" th:text="#{user.username}"/>
+                <th scope="col" th:text="#{user.email}"/>
+                <th scope="col" th:text="#{student.status}"/>
+                <th th:text="#{student.action}"/>
             </tr>
             </thead>
             <tbody>
@@ -40,16 +40,16 @@
                 <td th:text="${student.username}"/>
                 <td th:text="${student.email}"/>
                 <td>
-                    <p th:if="${student.blocked}">Blocked</p>
-                    <p th:if="${!student.blocked}">Active</p>
+                    <p th:if="${student.blocked}" th:text="#{student.blocked}"/>
+                    <p th:if="${!student.blocked}"th:text="#{student.active}"/>
                 </td>
                 <td>
                     <form th:action="@{/students/changeBlock/{id}(id=${student.id})}"
                           th:method="POST">
                         <input th:if="${student.blocked}" type="submit" class="btn btn-secondary btn-sm"
-                               value="Unlock">
+                               th:value="#{students.unlock}">
                         <input th:if="${!student.blocked}" type="submit" class="btn btn-dark btn-sm"
-                               value="Block">
+                               th:value="#{students.block}">
                     </form>
                 </td>
             </tr>
@@ -59,7 +59,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li th:class="${'page-item' + (page >= 1 ? '' : ' disabled')}">
-                <a class="page-link" th:href="@{/students(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}">Previous</a>
+                <a class="page-link" th:href="@{/students(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}" th:text="#{previous}"/>
             </li>
             <li th:if="${page >= 1}" class="page-item"><a class="page-link"
                                                           th:href="@{/students(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}"
@@ -70,12 +70,12 @@
             <li th:if="${page < pages - 1}" class="page-item"><a class="page-link"
                                                              th:href="@{/students(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}"
                                                              th:text="${page + 2}"/></li>
-            <li th:class="${'page-item' + (page < pages - 1 ? '' : ' disabled')}"><a class="page-link"
-                                                                                 th:href="@{/students(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}">Next</a>
+            <li th:class="${'page-item' + (page < pages - 1 ? '' : ' disabled')}">
+                <a class="page-link" th:href="@{/students(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}" th:text="#{next}"/>
             </li>
         </ul>
     </nav>
-    <h5 th:if="${students.isEmpty()}" class="no-items-msg">There are no students</h5>
+    <h5 th:if="${students.isEmpty()}" class="no-items-msg" th:text="#{no_students}"/>
 </div>
 </body>
 </html>

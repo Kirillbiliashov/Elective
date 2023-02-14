@@ -10,58 +10,57 @@
 <body>
 <div class="page-container">
     <div class="admin-heading-container">
-        <h2>Courses</h2>
-        <a th:href="@{/courses/add}" class="add-course-ref">Add course</a>
+        <h2 th:text="#{courses}"></h2>
+        <a th:href="@{/courses/add}" class="add-course-ref" th:text="#{add_course}"></a>
     </div>
-    <div class="selection-form-container">
+    <div class="selection-form-container" th:fragment="selection">
         <form th:method="GET">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="sort">Sort by</label>
+                    <label for="sort" th:text="#{sort.sort_by}"></label>
                     <select class="form-control" name="sort" id="sort">
-                        <option selected value="NONE">None</option>
-<!--                        <option th:each="type: ${sortTypes}" th:text="${type}" th:value="${type}">-->
-                        <option value="NAME" th:selected="${param.get('sort') == 'NAME'}">Name (A-Z)</option>
-                        <option value="NAME_DESC" th:selected="${param.get('sort') == 'NAME_DESC'}">Name (Z-A)</option>
-                        <option value="DURATION" th:selected="${param.get('sort') == 'DURATION'}">Duration (from shortest)</option>
-                        <option value="DURATION_DESC" th:selected="${param.get('sort') == 'DURATION_DESC'}">Duration (from longest)</option>
-                        <option value="STUDENTS_COUNT" th:selected="${param.get('sort') == 'STUDENTS_COUNT'}">Students (least to most)</option>
-                        <option value="STUDENTS_COUNT_DESC" th:selected="${param.get('sort') == 'STUDENTS_COUNT_DESC'}">Students (most to least)</option>
+                        <option selected value="NONE" th:text="#{sort.none}"></option>
+                        <!--                        <option th:each="type: ${sortTypes}" th:text="${type}" th:value="${type}">-->
+                        <option value="NAME" th:selected="${param.get('sort') == 'NAME'}" th:text="#{sort.name}"/>
+                        <option value="NAME_DESC" th:selected="${param.get('sort') == 'NAME_DESC'}" th:text="#{sort.name_desc}"/>
+                        <option value="DURATION" th:selected="${param.get('sort') == 'DURATION'}" th:text="#{sort.duration}"/>
+                        <option value="DURATION_DESC" th:selected="${param.get('sort') == 'DURATION_DESC'}" th:text="#{sort.duration_desc}"/>
+                        <option value="STUDENTS_COUNT" th:selected="${param.get('sort') == 'STUDENTS_COUNT'}" th:text="#{sort.students_desc}"/>
+                        <option value="STUDENTS_COUNT_DESC" th:selected="${param.get('sort') == 'STUDENTS_COUNT_DESC'}" th:text="#{sort.students}"/>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="teacher">Teacher</label>
+                    <label for="teacher" th:text="#{teacher}"/>
                     <select class="form-control" name="teacher" id="teacher">
-                        <option selected>Any</option>
+                        <option selected th:text="#{teacher.any}"/>
                         <option th:each="teacher: ${teachers}" th:text="${teacher.fullName}"
                                 th:value="${teacher.username}"></option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="topic">Topic</label>
+                    <label for="topic" th:text="#{topic}"/>
                     <select class="form-control" name="topic" id="topic">
-                        <option selected>Any</option>
+                        <option selected th:text="#{topic.any}"/>
                         <option th:each="topic: ${topics}" th:text="${topic.name}" th:value="${topic.name}"></option>
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Apply selection</button>
+            <button type="submit" class="btn btn-primary" th:text="#{selection.apply}"/>
         </form>
     </div>
-    <h5 th:if="${courses.isEmpty()}">No courses</h5>
+    <h5 th:if="${courses.isEmpty()}" th:text="#{no_courses}"/>
     <ul class="list-group">
         <div class="grid-container">
             <div th:each="course: ${courses}" class="card">
                 <div class="card-body">
                     <h3 class="card-title" th:text="${course.name}"/>
-                    <p th:text="'Teacher: ' + ${course.teacher}"/>
-                    <p th:text="'Topic: ' + ${course.topic}"/>
-                    <p th:text="'Start date: ' + ${course.startDate}"/>
-                    <p th:text="'End date: ' + ${course.endDate}"/>
-                    <p th:text="'Students count: ' + ${course.studentsCount}"/>
+                    <p th:text="#{teacher} + ': ' + ${course.teacher}"/>
+                    <p th:text="#{topic} + ': ' + ${course.topic}"/>
+                    <p th:text="#{course.start_date} + ': ' + ${course.startDate}"/>
+                    <p th:text="#{course.end_date} + ': ' + ${course.endDate}"/>
+                    <p th:text="#{course.students_count} + ': ' + ${course.studentsCount}"/>
                     <button type="button" class="btn btn-link description-btn" data-toggle="modal"
-                            data-target="#descModal/${course.id}">
-                        Description
+                            data-target="#descModal/${course.id}" th:text="#{course.description}">
                     </button>
                     <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -81,9 +80,9 @@
                         </div>
                     </div>
                     <div class="course-btn-container">
-                        <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-light">Edit</a>
+                        <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-light" th:text="#{course.edit}"/>
                         <form th:action="@{/courses/delete/{id}(id=${course.id})}" th:method="POST">
-                            <input type="submit" class="btn btn-danger delete-course-btn" value="Delete">
+                            <input type="submit" class="btn btn-danger delete-course-btn" th:value="#{course.delete}">
                         </form>
                     </div>
                 </div>

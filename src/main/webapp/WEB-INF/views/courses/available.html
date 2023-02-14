@@ -9,55 +9,58 @@
 </head>
 <body>
 <div class="page-container">
-    <h2>Available courses</h2>
+    <h2 th:text="#{student.available_courses}"/>
     <div class="selection-form-container">
         <form th:method="GET">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="sort">Sort by</label>
+                    <label for="sort" th:text="#{sort.sort_by}"></label>
                     <select class="form-control" name="sort" id="sort">
-                        <option value="NAME" th:selected="${param.get('sort') == 'NAME'}">Name (A-Z)</option>
-                        <option value="NAME_DESC" th:selected="${param.get('sort') == 'NAME_DESC'}">Name (Z-A)</option>
-                        <option value="DURATION" th:selected="${param.get('sort') == 'DURATION'}">Duration (from shortest)</option>
-                        <option value="DURATION_DESC" th:selected="${param.get('sort') == 'DURATION_DESC'}">Duration (from longest)</option>
-                        <option value="STUDENTS_COUNT" th:selected="${param.get('sort') == 'STUDENTS_COUNT'}">Students (least to most)</option>
-                        <option value="STUDENTS_COUNT_DESC" th:selected="${param.get('sort') == 'STUDENTS_COUNT_DESC'}">Students (most to least)</option>
-                        </option>
+                        <option selected value="NONE" th:text="#{sort.none}"></option>
+                        <option value="NAME" th:selected="${param.get('sort') == 'NAME'}" th:text="#{sort.name}"/>
+                        <option value="NAME_DESC" th:selected="${param.get('sort') == 'NAME_DESC'}"
+                                th:text="#{sort.name_desc}"/>
+                        <option value="DURATION" th:selected="${param.get('sort') == 'DURATION'}"
+                                th:text="#{sort.duration}"/>
+                        <option value="DURATION_DESC" th:selected="${param.get('sort') == 'DURATION_DESC'}"
+                                th:text="#{sort.duration_desc}"/>
+                        <option value="STUDENTS_COUNT" th:selected="${param.get('sort') == 'STUDENTS_COUNT'}"
+                                th:text="#{sort.students_desc}"/>
+                        <option value="STUDENTS_COUNT_DESC" th:selected="${param.get('sort') == 'STUDENTS_COUNT_DESC'}"
+                                th:text="#{sort.students}"/>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="teacher">Teacher</label>
+                    <label for="teacher" th:text="#{teacher}"/>
                     <select class="form-control" name="teacher" id="teacher">
-                        <option selected value="Any">Any</option>
+                        <option selected th:text="#{teacher.any}"/>
                         <option th:each="teacher: ${teachers}" th:text="${teacher.fullName}"
                                 th:value="${teacher.username}"></option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="topic">Topic</label>
+                    <label for="topic" th:text="#{topic}"/>
                     <select class="form-control" name="topic" id="topic">
-                        <option selected value="Any">Any</option>
+                        <option selected th:text="#{topic.any}"/>
                         <option th:each="topic: ${topics}" th:text="${topic.name}" th:value="${topic.name}"></option>
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Apply selection</button>
+            <button type="submit" class="btn btn-primary" th:text="#{selection.apply}"/>
         </form>
     </div>
     <ul th:if="${!availableCourses.isEmpty()}" class="list-group">
         <div class="grid-container">
             <div th:each="course: ${availableCourses}" class="card">
                 <div class="card-body">
-                    <h4 th:text="${course.name}"/>
-                    <p th:text="'Topic: ' + ${course.topic}"/>
-                    <p th:text="'Teacher ' + ${course.teacher}"/>
-                    <p th:text="'Start date: ' + ${course.startDate}"/>
-                    <p th:text="'End date ' + ${course.endDate}"/>
-                    <p th:text="'Students count: ' + ${course.studentsCount} "/>
+                    <h3 class="card-title" th:text="${course.name}"/>
+                    <p th:text="#{teacher} + ': ' + ${course.teacher}"/>
+                    <p th:text="#{topic} + ': ' + ${course.topic}"/>
+                    <p th:text="#{course.start_date} + ': ' + ${course.startDate}"/>
+                    <p th:text="#{course.end_date} + ': ' + ${course.endDate}"/>
+                    <p th:text="#{course.students_count} + ': ' + ${course.studentsCount}"/>
                     <button type="button" class="btn btn-link description-btn" data-toggle="modal"
-                            data-target="#descModal/${course.id}">
-                        Description
-                    </button>
+                            data-target="#descModal/${course.id}" th:text="#{course.description}"/>
                     <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -77,14 +80,14 @@
                     </div>
                     <form th:action="@{/courses/enroll/{id}(id=${course.id})}" th:method="POST">
                         <div class="enroll-btn-container">
-                            <input type="submit" class="btn btn-primary" value="Enroll">
+                            <input type="submit" class="btn btn-primary" th:value="#{student.enroll}">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </ul>
-    <h5 th:if="${availableCourses.isEmpty()}" class="no-items-msg">There are no available courses</h5>
+    <h5 th:if="${availableCourses.isEmpty()}" class="no-items-msg" th:text="#{student.no_available_courses}"/>
 </div>
 </body>
 </html>
