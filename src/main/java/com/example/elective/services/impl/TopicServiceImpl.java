@@ -18,8 +18,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class TopicServiceImpl implements TopicService {
 
+  private final TopicRepository topicRepository;
+
   @Autowired
-  private TopicRepository topicRepository;
+  public TopicServiceImpl(TopicRepository topicRepository) {
+    this.topicRepository = topicRepository;
+  }
 
   @Override
   public List<Topic> getAll() {

@@ -20,12 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class StudentServiceImpl implements StudentService {
 
+  private final PasswordEncoder encoder;
+  private final AccountRepository accountRepository;
+  private final BlocklistRepository blocklistRepository;
+
   @Autowired
-  private PasswordEncoder encoder;
-  @Autowired
-  private AccountRepository accountRepository;
-  @Autowired
-  private BlocklistRepository blocklistRepository;
+  public StudentServiceImpl(PasswordEncoder encoder,
+                            AccountRepository accountRepository,
+                            BlocklistRepository blocklistRepository) {
+    this.encoder = encoder;
+    this.accountRepository = accountRepository;
+    this.blocklistRepository = blocklistRepository;
+  }
 
   @Override
   public void changeBlockStatus(int id) {

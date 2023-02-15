@@ -32,8 +32,12 @@ import java.io.IOException;
 @ComponentScan("com.example.elective")
 public class SecurityConfig {
 
+  private final UserDetailsService accountDetailsService;
+
   @Autowired
-  private UserDetailsService accountDetailsService;
+  public SecurityConfig(UserDetailsService accountDetailsService) {
+    this.accountDetailsService = accountDetailsService;
+  }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {

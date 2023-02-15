@@ -10,8 +10,12 @@ import org.springframework.validation.Validator;
 @Component
 public class AccountValidator implements Validator {
 
+  private final AccountService accountService;
+
   @Autowired
-  private AccountService accountService;
+  public AccountValidator(AccountService accountService) {
+    this.accountService = accountService;
+  }
 
   @Override
   public boolean supports(Class<?> clazz) {

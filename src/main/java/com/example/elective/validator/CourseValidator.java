@@ -13,8 +13,12 @@ import java.util.Optional;
 @Component
 public class CourseValidator implements Validator {
 
-  @Autowired
   private CourseService courseService;
+
+  @Autowired
+  public CourseValidator(CourseService courseService) {
+    this.courseService = courseService;
+  }
 
   @Override
   public boolean supports(Class<?> clazz) {

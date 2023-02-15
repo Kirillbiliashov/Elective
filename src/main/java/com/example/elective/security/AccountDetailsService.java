@@ -15,8 +15,12 @@ import java.util.Optional;
 @Service
 public class AccountDetailsService implements UserDetailsService {
 
+  private final AccountRepository accountRepository;
+
   @Autowired
-  private AccountRepository accountRepository;
+  public AccountDetailsService(AccountRepository accountRepository) {
+    this.accountRepository = accountRepository;
+  }
 
   @Override
   @Transactional

@@ -39,10 +39,14 @@ import static java.util.Objects.requireNonNull;
 @EnableJpaRepositories("com.example.elective.repository")
 public class SpringConfig implements WebMvcConfigurer {
 
+  private final ApplicationContext context;
+  private final Environment env;
+
   @Autowired
-  private ApplicationContext context;
-  @Autowired
-  private Environment env;
+  public SpringConfig(ApplicationContext context, Environment env) {
+    this.context = context;
+    this.env = env;
+  }
 
   @Bean
   public SpringResourceTemplateResolver templateResolver() {

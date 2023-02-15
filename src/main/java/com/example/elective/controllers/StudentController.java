@@ -17,12 +17,18 @@ import static com.example.elective.utils.Constants.*;
 @RequestMapping("/students")
 public class StudentController {
 
+  private final AccountService accountService;
+  private final StudentDTOMapper studentMapper;
+  private final StudentService studentService;
+
   @Autowired
-  private AccountService accountService;
-  @Autowired
-  private StudentDTOMapper studentMapper;
-  @Autowired
-  private StudentService studentService;
+  public StudentController(AccountService accountService, StudentDTOMapper studentMapper,
+                           StudentService studentService) {
+    this.accountService = accountService;
+    this.studentMapper = studentMapper;
+    this.studentService = studentService;
+
+  }
 
   @GetMapping
   public String studentsList(Model model,

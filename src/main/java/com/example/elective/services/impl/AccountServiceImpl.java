@@ -22,8 +22,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
 
+  private final AccountRepository repository;
+
   @Autowired
-  private AccountRepository repository;
+  public AccountServiceImpl(AccountRepository repository) {
+    this.repository = repository;
+  }
 
   @Override
   public List<Account> getAll(Role role) {

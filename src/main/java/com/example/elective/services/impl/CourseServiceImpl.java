@@ -27,12 +27,18 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class CourseServiceImpl implements CourseService {
 
+  private final CourseRepository courseRepository;
+  private final AccountRepository accountRepository;
+  private final TopicRepository topicRepository;
+
   @Autowired
-  private CourseRepository courseRepository;
-  @Autowired
-  private AccountRepository accountRepository;
-  @Autowired
-  private TopicRepository topicRepository;
+  public CourseServiceImpl(CourseRepository courseRepository,
+                           AccountRepository accountRepository,
+                           TopicRepository topicRepository) {
+    this.courseRepository = courseRepository;
+    this.accountRepository = accountRepository;
+    this.topicRepository = topicRepository;
+  }
 
   @Override
   @Transactional

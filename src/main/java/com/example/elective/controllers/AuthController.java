@@ -20,10 +20,15 @@ import static com.example.elective.utils.Constants.*;
 @RequestMapping("/auth")
 public class AuthController {
 
+  private final StudentService studentService;
+  private final AccountValidator accountValidator;
+
   @Autowired
-  private StudentService studentService;
-  @Autowired
-  private AccountValidator accountValidator;
+  public AuthController(StudentService studentService,
+                        AccountValidator accountValidator) {
+    this.studentService = studentService;
+    this.accountValidator = accountValidator;
+  }
 
   @GetMapping("/login")
   public String loginPage() {

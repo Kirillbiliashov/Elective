@@ -27,16 +27,24 @@ import static com.example.elective.utils.Constants.*;
 @RequestMapping("/teachers")
 public class TeacherController {
 
+  private final TeacherService teacherService;
+  private final JournalService journalService;
+  private final AccountService accountService;
+  private final SecurityUtils securityUtils;
+  private final AccountValidator accountValidator;
+
   @Autowired
-  private TeacherService teacherService;
-  @Autowired
-  private JournalService journalService;
-  @Autowired
-  private AccountService accountService;
-  @Autowired
-  private SecurityUtils securityUtils;
-  @Autowired
-  private AccountValidator accountValidator;
+  public TeacherController(TeacherService teacherService,
+                           JournalService journalService,
+                           AccountService accountService,
+                           SecurityUtils securityUtils,
+                           AccountValidator accountValidator) {
+    this.teacherService = teacherService;
+    this.journalService = journalService;
+    this.accountService = accountService;
+    this.securityUtils = securityUtils;
+    this.accountValidator = accountValidator;
+  }
 
   @GetMapping()
   public String teachersList(

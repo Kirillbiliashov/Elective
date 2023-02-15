@@ -29,22 +29,27 @@ import static com.example.elective.utils.Constants.TEACHERS_ATTR;
 @RequestMapping("/courses")
 public class CourseController {
 
+  private final CourseService courseService;
+  private final AccountService accountService;
+  private final TopicService topicService;
+  private final CourseDTOMapper dtoMapper;
+  private final JournalService journalService;
+  private final SecurityUtils securityUtils;
+  private final CourseValidator courseValidator;
+
   @Autowired
-  private CourseService courseService;
-  @Autowired
-  private AccountService accountService;
-  @Autowired
-  private TopicService topicService;
-  @Autowired
-  private AccountService accService;
-  @Autowired
-  private CourseDTOMapper dtoMapper;
-  @Autowired
-  private JournalService journalService;
-  @Autowired
-  private SecurityUtils securityUtils;
-  @Autowired
-  private CourseValidator courseValidator;
+  public CourseController(CourseService courseService, AccountService accountService,
+                          TopicService topicService, CourseDTOMapper mapper,
+                          CourseValidator courseValidator, SecurityUtils securityUtils,
+                          JournalService journalService) {
+    this.courseService = courseService;
+    this.accountService = accountService;
+    this.topicService = topicService;
+    this.dtoMapper = mapper;
+    this.courseValidator = courseValidator;
+    this.securityUtils = securityUtils;
+    this.journalService = journalService;
+  }
 
   @GetMapping("/{id}")
   public String course(@PathVariable("id") int id, Model model) {
@@ -64,7 +69,6 @@ public class CourseController {
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
-    model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     List<Course> courses = courseService.getAll(selection);
     model.addAttribute(COURSES_ATTR,
         courses.stream().map(dtoMapper::map).toList());
@@ -78,9 +82,8 @@ public class CourseController {
       @RequestParam(value = "topic", required = false) String topic, Model model) {
     int studentId = securityUtils.getUserId();
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
-    model.addAttribute(SORT_TYPES_ATTR, SORT_TYPES);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
-    model.addAttribute(TEACHERS_ATTR, accService.getAll(Role.ROLE_TEACHER));
+    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     List<Course> courses = courseService.getAvailable(studentId, selection);
     model.addAttribute(AVAILABLE_COURSES_ATTR,
         courses.stream().map(dtoMapper::map).toList());
@@ -112,7 +115,7 @@ public class CourseController {
   public String ongoingCourses(Model model) {
     int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getOngoingCourses(studentId);
-    model.addAttribute(COURSES_IN_PROGRESS_ATTR, courses
+    model.addAttribute(ONGOING_COURSES_ATTR, courses
         .stream()
         .map(dtoMapper::map)
         .toList());

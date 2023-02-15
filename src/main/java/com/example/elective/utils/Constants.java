@@ -26,7 +26,7 @@ public class Constants {
   public static final String CURR_DATE_ATTR = "currDate";
   public static final String AVAILABLE_COURSES_ATTR = "availableCourses";
   public static final String REGISTERED_COURSES_ATTR = "registeredCourses";
-  public static final String COURSES_IN_PROGRESS_ATTR = "coursesInProgress";
+  public static final String ONGOING_COURSES_ATTR = "coursesInProgress";
   public static final String COMPLETED_COURSES_ATTR = "completedCourses";
   public static final String HOME_URL_ATTR = "homeUrl";
   public static final String ACCOUNT_ATTR = "account";

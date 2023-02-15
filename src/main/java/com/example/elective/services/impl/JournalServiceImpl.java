@@ -21,12 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class JournalServiceImpl implements JournalService {
 
+  private final JournalRepository journalRepository;
+  private final CourseRepository courseRepository;
+  private final AccountRepository accountRepository;
+
   @Autowired
-  private JournalRepository journalRepository;
-  @Autowired
-  private CourseRepository courseRepository;
-  @Autowired
-  private AccountRepository accountRepository;
+  public JournalServiceImpl(JournalRepository journalRepository,
+                            CourseRepository courseRepository,
+                            AccountRepository accountRepository) {
+    this.journalRepository = journalRepository;
+    this.courseRepository = courseRepository;
+    this.accountRepository = accountRepository;
+  }
 
   @Override
   public void save(int courseId, int studentId) {

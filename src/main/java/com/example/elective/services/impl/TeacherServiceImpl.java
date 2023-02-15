@@ -23,12 +23,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class TeacherServiceImpl implements TeacherService {
 
+  private final PasswordEncoder encoder;
+  private final AccountRepository accountRepository;
+  private final CourseRepository courseRepository;
+
   @Autowired
-  private PasswordEncoder encoder;
-  @Autowired
-  private AccountRepository accountRepository;
-  @Autowired
-  private CourseRepository courseRepository;
+  public TeacherServiceImpl(PasswordEncoder encoder,
+                            AccountRepository accountRepository,
+                            CourseRepository courseRepository) {
+    this.encoder = encoder;
+    this.accountRepository = accountRepository;
+    this.courseRepository = courseRepository;
+  }
 
   @Override
   public Page<Course> findCourse(int teacherId, Integer page) {
