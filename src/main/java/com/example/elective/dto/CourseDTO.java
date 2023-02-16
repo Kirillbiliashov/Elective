@@ -18,10 +18,6 @@ public class CourseDTO {
   protected String teacher;
   protected int studentsCount;
 
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
   public int getId() {
     return id;
   }
@@ -58,54 +54,43 @@ public class CourseDTO {
     return endDate.getTime() - startDate.getTime();
   }
 
-  public static class Builder {
-
-    private final CourseDTO courseDTO = new CourseDTO();
-
-    public Builder setId(int id) {
-      courseDTO.id = id;
-      return this;
-    }
-
-    public Builder setName(String name) {
-      courseDTO.name = name;
-      return this;
-    }
-
-    public Builder setDescription(String description) {
-      courseDTO.description = description;
-      return this;
-    }
-
-    public Builder setStartDate(Date startDate) {
-      courseDTO.startDate = startDate;
-      return this;
-    }
-
-    public Builder setEndDate(Date endDate) {
-      courseDTO.endDate = endDate;
-      return this;
-    }
-
-    public Builder setTopic(String topic) {
-      courseDTO.topic = topic;
-      return this;
-    }
-
-    public Builder setTeacher(String teacher) {
-      courseDTO.teacher = teacher;
-      return this;
-    }
-
-    public Builder setStudentsCount(int studentsCount) {
-      courseDTO.studentsCount = studentsCount;
-      return this;
-    }
-
-    public CourseDTO build() {
-      return courseDTO;
-    }
-
+  public CourseDTO setId(int id) {
+    this.id = id;
+    return this;
   }
 
+  public CourseDTO setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public CourseDTO setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public CourseDTO setStartDate(Date startDate) {
+    this.startDate = startDate;
+    return this;
+  }
+
+  public CourseDTO setEndDate(Date endDate) {
+    this.endDate = endDate;
+    return this;
+  }
+
+  public CourseDTO setTopic(String topic) {
+    this.topic = topic;
+    return this;
+  }
+
+  public CourseDTO setTeacher(String teacher) {
+    this.teacher = teacher;
+    return this;
+  }
+
+  public CourseDTO setStudentsCount(int studentsCount) {
+    this.studentsCount = studentsCount;
+    return this;
+  }
 }

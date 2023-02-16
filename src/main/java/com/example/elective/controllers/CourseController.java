@@ -1,8 +1,8 @@
 package com.example.elective.controllers;
 
 import com.example.elective.dto.CompletedCourseDTO;
+import com.example.elective.dto.CourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
-import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.*;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.CourseService;
@@ -11,6 +11,7 @@ import com.example.elective.services.interfaces.TopicService;
 import com.example.elective.utils.CourseSelection;
 import com.example.elective.utils.SecurityUtils;
 import com.example.elective.validator.CourseValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,23 +33,24 @@ public class CourseController {
   private final CourseService courseService;
   private final AccountService accountService;
   private final TopicService topicService;
-  private final CourseDTOMapper dtoMapper;
   private final JournalService journalService;
   private final SecurityUtils securityUtils;
   private final CourseValidator courseValidator;
+  private final ModelMapper modelMapper;
+
 
   @Autowired
   public CourseController(CourseService courseService, AccountService accountService,
-                          TopicService topicService, CourseDTOMapper mapper,
-                          CourseValidator courseValidator, SecurityUtils securityUtils,
-                          JournalService journalService) {
+                          TopicService topicService, CourseValidator courseValidator,
+                          SecurityUtils securityUtils, JournalService journalService,
+                          ModelMapper modelMapper) {
     this.courseService = courseService;
     this.accountService = accountService;
     this.topicService = topicService;
-    this.dtoMapper = mapper;
     this.courseValidator = courseValidator;
     this.securityUtils = securityUtils;
     this.journalService = journalService;
+    this.modelMapper = modelMapper;
   }
 
   @GetMapping("/{id}")
@@ -70,8 +72,7 @@ public class CourseController {
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     List<Course> courses = courseService.getAll(selection);
-    model.addAttribute(COURSES_ATTR,
-        courses.stream().map(dtoMapper::map).toList());
+    model.addAttribute(COURSES_ATTR, convertToCourseDTO(courses));
     return "courses/all";
   }
 
@@ -85,8 +86,7 @@ public class CourseController {
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     List<Course> courses = courseService.getAvailable(studentId, selection);
-    model.addAttribute(AVAILABLE_COURSES_ATTR,
-        courses.stream().map(dtoMapper::map).toList());
+    model.addAttribute(AVAILABLE_COURSES_ATTR, convertToCourseDTO(courses));
     return "courses/available";
   }
 
@@ -94,11 +94,13 @@ public class CourseController {
   public String registeredCourses(Model model) {
     int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getRegisteredCourses(studentId);
-    model.addAttribute(REGISTERED_COURSES_ATTR, getDTOList(courses, studentId));
+    model.addAttribute(REGISTERED_COURSES_ATTR,
+        convertToRegisteredCourseDTO(courses, studentId));
     return "courses/registered";
   }
 
-  private List<RegisteredCourseDTO> getDTOList(List<Course> courses, int studentId) {
+  private List<RegisteredCourseDTO> convertToRegisteredCourseDTO(
+      List<Course> courses, int studentId) {
     return courses.stream().map(course -> {
       Journal studentCourse = course
           .getStudents()
@@ -107,7 +109,8 @@ public class CourseController {
           .findFirst()
           .get();
       Date registrationDate = studentCourse.getEnrollmentDate();
-      return new RegisteredCourseDTO(dtoMapper.map(course), registrationDate);
+      CourseDTO courseDTO = modelMapper.map(course, CourseDTO.class);
+      return new RegisteredCourseDTO(courseDTO, registrationDate);
     }).toList();
   }
 
@@ -115,11 +118,15 @@ public class CourseController {
   public String ongoingCourses(Model model) {
     int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getOngoingCourses(studentId);
-    model.addAttribute(ONGOING_COURSES_ATTR, courses
-        .stream()
-        .map(dtoMapper::map)
-        .toList());
+    model.addAttribute(ONGOING_COURSES_ATTR, convertToCourseDTO(courses));
     return "courses/ongoing";
+  }
+
+  private List<CourseDTO> convertToCourseDTO(List<Course> courses) {
+    return courses
+        .stream()
+        .map(course -> modelMapper.map(course, CourseDTO.class))
+        .toList();
   }
 
   @GetMapping("/completed")
@@ -127,31 +134,31 @@ public class CourseController {
     int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getCompletedCourses(studentId);
     model.addAttribute(COMPLETED_COURSES_ATTR,
-        getCompletedCourseDTOList(courses, studentId));
+        convertToCompletedCourseDTO(courses, studentId));
     return "courses/completed";
   }
 
-  private List<CompletedCourseDTO> getCompletedCourseDTOList(
+  private List<CompletedCourseDTO> convertToCompletedCourseDTO(
       List<Course> courses, int studentId) {
     return courses.stream().map(course -> {
-      int grade = course
-          .getStudents()
+      int grade = course.getStudents()
           .stream()
           .filter(e -> e.getStudent().getId() == studentId)
           .findFirst()
           .get()
           .getGrade();
-      return new CompletedCourseDTO(dtoMapper.map(course), grade);
+      CourseDTO courseDTO = modelMapper.map(course, CourseDTO.class);
+      return new CompletedCourseDTO(courseDTO, grade);
     }).toList();
   }
 
   @GetMapping("/add")
   public String addCourseForm(Model model) {
-   model.addAttribute(TOPICS_ATTR, topicService.getAll());
-   model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
-   model.addAttribute("topic", new Topic());
-   model.addAttribute("teacher", new Account());
-   model.addAttribute(COURSE_ATTR, new Course());
+    model.addAttribute(TOPICS_ATTR, topicService.getAll());
+    model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
+    model.addAttribute("topic", new Topic());
+    model.addAttribute("teacher", new Account());
+    model.addAttribute(COURSE_ATTR, new Course());
     return "courses/add";
   }
 

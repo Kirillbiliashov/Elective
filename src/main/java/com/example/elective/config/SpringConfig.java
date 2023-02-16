@@ -1,5 +1,13 @@
 package com.example.elective.config;
 
+import com.example.elective.dto.CourseDTO;
+import com.example.elective.dto.JournalDTO;
+import com.example.elective.dto.StudentDTO;
+import com.example.elective.dto.TeacherCourseDTO;
+import com.example.elective.models.Account;
+import com.example.elective.models.Course;
+import com.example.elective.models.Journal;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -141,6 +149,21 @@ public class SpringConfig implements WebMvcConfigurer {
     ms.setBasename("messages");
     ms.setDefaultEncoding("UTF-8");
     return ms;
+  }
+
+  @Bean
+  public ModelMapper modelMapper() {
+    ModelMapper modelMapper = new ModelMapper();
+    modelMapper.createTypeMap(Course.class, CourseDTO.class)
+        .addMapping(src -> src.getTeacher().getFullName(), CourseDTO::setTeacher)
+        .addMapping(src -> src.getTopic().getName(), CourseDTO::setTopic);
+    modelMapper.createTypeMap(Account.class, StudentDTO.class)
+        .addMapping(src -> src.getBlock() != null, StudentDTO::setBlocked);
+    modelMapper.createTypeMap(Journal.class, JournalDTO.class)
+        .addMapping(src -> src.getStudent().getFullName(), JournalDTO::setStudent);
+    modelMapper.createTypeMap(Course.class, TeacherCourseDTO.class)
+        .addMapping(Course::getId, TeacherCourseDTO::setTeacherId);
+    return modelMapper;
   }
 
 

@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -55,6 +56,8 @@ public class TeacherControllerTest {
   private Page<Account> accountPage;
   @Mock
   private Page<Course> coursePage;
+  @Mock
+  private ModelMapper modelMapper;
   private MockMvc mockMvc;
 
   @Before
@@ -62,7 +65,7 @@ public class TeacherControllerTest {
     MockitoAnnotations.openMocks(this);
     this.mockMvc = MockMvcBuilders.standaloneSetup(new TeacherController(
         teacherService, journalService, accountService, securityUtils,
-        accountValidator)).build();
+        accountValidator, modelMapper)).build();
   }
 
   @Test

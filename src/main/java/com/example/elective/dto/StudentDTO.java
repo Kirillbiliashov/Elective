@@ -8,10 +8,6 @@ public class StudentDTO {
   private String email;
   private boolean isBlocked;
 
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
   public int getId() {
     return id;
   }
@@ -33,37 +29,29 @@ public class StudentDTO {
     return isBlocked;
   }
 
-  public static class Builder {
-    private final StudentDTO dto = new StudentDTO();
-
-    public Builder setId(int id) {
-      dto.id = id;
-      return this;
-    }
-
-    public Builder setFullName(String fullName) {
-      dto.fullName = fullName;
-      return this;
-    }
-
-    public Builder setUsername(String username) {
-      dto.username = username;
-      return this;
-    }
-
-    public Builder setEmail(String email) {
-      dto.email = email;
-      return this;
-    }
-
-    public Builder setBlocked(boolean isBlocked) {
-      dto.isBlocked = isBlocked;
-      return this;
-    }
-
-    public StudentDTO build() {
-      return dto;
-    }
-
+  public StudentDTO setId(int id) {
+    this.id = id;
+    return this;
   }
+
+  public StudentDTO setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public StudentDTO setUsername(String username) {
+    this.username = username;
+    return this;
+  }
+
+  public StudentDTO setEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public StudentDTO setBlocked(boolean blocked) {
+    isBlocked = blocked;
+    return this;
+  }
+
 }

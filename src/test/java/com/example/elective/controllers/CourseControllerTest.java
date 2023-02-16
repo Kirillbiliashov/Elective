@@ -2,7 +2,6 @@ package com.example.elective.controllers;
 
 import com.example.elective.config.SecurityConfig;
 import com.example.elective.config.SpringConfig;
-import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.Course;
 import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
@@ -18,27 +17,18 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.modelmapper.ModelMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 
-import javax.persistence.criteria.Selection;
-
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 import static com.example.elective.utils.Constants.*;
@@ -65,21 +55,21 @@ public class CourseControllerTest {
   @Mock
   private TopicService topicService;
   @Mock
-  private CourseDTOMapper mapper;
-  @Mock
   private CourseValidator courseValidator;
   @Mock
   private SecurityUtils securityUtils;
   @Mock
   private JournalService journalService;
+  @Mock
+  private ModelMapper modelMapper;
   private Course course;
 
   @Before
   public void setup() {
     MockitoAnnotations.openMocks(this);
     this.mockMvc = MockMvcBuilders.standaloneSetup(new CourseController(
-        courseService, accountService, topicService, mapper, courseValidator,
-            securityUtils, journalService)).build();
+        courseService, accountService, topicService, courseValidator,
+            securityUtils, journalService, modelMapper)).build();
     when(securityUtils.getUserId()).thenReturn(TEST_STUDENT_ID);
   }
 

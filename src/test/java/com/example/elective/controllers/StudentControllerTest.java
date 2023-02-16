@@ -2,7 +2,6 @@ package com.example.elective.controllers;
 
 import com.example.elective.config.SecurityConfig;
 import com.example.elective.config.SpringConfig;
-import com.example.elective.mappers.dtoMappers.StudentDTOMapper;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
@@ -12,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -38,7 +38,7 @@ public class StudentControllerTest {
   @Mock
   private AccountService accountService;
   @Mock
-  private StudentDTOMapper studentMapper;
+  private ModelMapper modelMapper;
   @Mock
   private Page<Account> page;
   private MockMvc mockMvc;
@@ -47,7 +47,8 @@ public class StudentControllerTest {
   public void setup() {
     MockitoAnnotations.openMocks(this);
     this.mockMvc = MockMvcBuilders
-        .standaloneSetup(new StudentController(accountService, studentMapper, studentService))
+        .standaloneSetup(new StudentController(accountService,
+            studentService, modelMapper))
         .build();
   }
 

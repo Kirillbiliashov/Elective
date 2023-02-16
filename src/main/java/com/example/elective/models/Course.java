@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,6 +113,10 @@ public class Course {
   public Course setStudents(List<Journal> students) {
     this.students = students;
     return this;
+  }
+
+  public int getStudentsCount() {
+    return students != null ? students.size() : 0;
   }
 
 }

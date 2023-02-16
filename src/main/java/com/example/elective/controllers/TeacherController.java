@@ -11,6 +11,7 @@ import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
 import com.example.elective.utils.SecurityUtils;
 import com.example.elective.validator.AccountValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -32,18 +33,21 @@ public class TeacherController {
   private final AccountService accountService;
   private final SecurityUtils securityUtils;
   private final AccountValidator accountValidator;
+  private final ModelMapper modelMapper;
 
   @Autowired
   public TeacherController(TeacherService teacherService,
                            JournalService journalService,
                            AccountService accountService,
                            SecurityUtils securityUtils,
-                           AccountValidator accountValidator) {
+                           AccountValidator accountValidator,
+                           ModelMapper modelMapper) {
     this.teacherService = teacherService;
     this.journalService = journalService;
     this.accountService = accountService;
     this.securityUtils = securityUtils;
     this.accountValidator = accountValidator;
+    this.modelMapper = modelMapper;
   }
 
   @GetMapping()
@@ -64,8 +68,7 @@ public class TeacherController {
                                 required = false) Integer page) {
     int id = securityUtils.getUserId();
     Page<Course> pageInfo = teacherService.findCourse(id, page);
-    model.addAttribute("courses",
-        getTeacherCourseDTOList(pageInfo.getContent()));
+    model.addAttribute("courses", getTeacherCourseDTOList(pageInfo.getContent()));
     model.addAttribute("page", pageInfo.getNumber());
     model.addAttribute("pages", pageInfo.getTotalElements());
     model.addAttribute(CURR_DATE_ATTR, CURRENT_DATE);
@@ -75,11 +78,7 @@ public class TeacherController {
   private List<TeacherCourseDTO> getTeacherCourseDTOList(List<Course> courses) {
     return courses
         .stream()
-        .map(course -> new TeacherCourseDTO()
-            .setName(course.getName())
-            .setStartDate(course.getStartDate())
-            .setEndDate(course.getEndDate())
-            .setTeacherId(course.getTeacher().getId())
+        .map(course -> modelMapper.map(course, TeacherCourseDTO.class)
             .setJournalList(getJournalDTOList(course.getStudents())))
         .toList();
   }
@@ -87,10 +86,7 @@ public class TeacherController {
   private List<JournalDTO> getJournalDTOList(List<Journal> journalList) {
     return journalList
         .stream()
-        .map(journal -> new JournalDTO()
-            .setId(journal.getId())
-            .setStudent(journal.getStudent().getFullName())
-            .setGrade(journal.getGrade()))
+        .map(journal -> modelMapper.map(journal, JournalDTO.class))
         .toList();
   }
 

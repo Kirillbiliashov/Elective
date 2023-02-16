@@ -1,10 +1,11 @@
 package com.example.elective.controllers;
 
-import com.example.elective.mappers.dtoMappers.StudentDTOMapper;
+import com.example.elective.dto.StudentDTO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.StudentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,16 +19,16 @@ import static com.example.elective.utils.Constants.*;
 public class StudentController {
 
   private final AccountService accountService;
-  private final StudentDTOMapper studentMapper;
   private final StudentService studentService;
+  private final ModelMapper modelMapper;
 
   @Autowired
-  public StudentController(AccountService accountService, StudentDTOMapper studentMapper,
-                           StudentService studentService) {
+  public StudentController(AccountService accountService,
+                           StudentService studentService,
+                           ModelMapper modelMapper) {
     this.accountService = accountService;
-    this.studentMapper = studentMapper;
     this.studentService = studentService;
-
+    this.modelMapper = modelMapper;
   }
 
   @GetMapping
@@ -38,7 +39,7 @@ public class StudentController {
     model.addAttribute("pages", pageInfo.getTotalPages());
     model.addAttribute("page", pageInfo.getNumber());
     model.addAttribute(STUDENTS_ATTR,
-        pageInfo.getContent().stream().map(studentMapper::map).toList());
+        pageInfo.getContent().stream().map(st -> modelMapper.map(st, StudentDTO.class)).toList());
     return "students/all";
   }
 
