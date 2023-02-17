@@ -1,47 +1,55 @@
 package com.example.elective.services.impl;
 
-import com.example.elective.dao.interfaces.CourseDAO;
-import com.example.elective.dao.interfaces.JournalDAO;
-import com.example.elective.dao.sql.SQLDAOFactory;
+import com.example.elective.models.Account;
 import com.example.elective.models.Course;
-import com.example.elective.dto.JournalDTO;
-import com.example.elective.models.Journal;
-import com.example.elective.selection.Pagination;
-import com.example.elective.services.AbstractService;
+import com.example.elective.models.Role;
+import com.example.elective.repository.AccountRepository;
+import com.example.elective.repository.CourseRepository;
 import com.example.elective.services.interfaces.TeacherService;
-import org.hibernate.Session;
-
-import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Class containing business logic methods regarding teachers
  * @author Kirill Biliashov
  */
 
-public class TeacherServiceImpl extends AbstractService implements TeacherService {
+@Service
+@Transactional(readOnly = true)
+public class TeacherServiceImpl implements TeacherService {
 
-  @Override
-  public Optional<Course> findCourse(int teacherId, Pagination pagination) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.findByTeacherId(teacherId, pagination), dao);
+  private final PasswordEncoder encoder;
+  private final AccountRepository accountRepository;
+  private final CourseRepository courseRepository;
+
+  @Autowired
+  public TeacherServiceImpl(PasswordEncoder encoder,
+                            AccountRepository accountRepository,
+                            CourseRepository courseRepository) {
+    this.encoder = encoder;
+    this.accountRepository = accountRepository;
+    this.courseRepository = courseRepository;
   }
 
   @Override
-  public int getCoursesCount(int teacherId) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.getCount(teacherId), dao);
+  public Page<Course> findCourse(int teacherId, Integer page) {
+    Account teacher = accountRepository.getReferenceById(teacherId);
+    Pageable pageable = page != null ?
+        PageRequest.of(page, 1) : Pageable.unpaged();
+    return courseRepository.findByTeacher(teacher, pageable);
   }
 
   @Override
-  public List<JournalDTO> getJournalList(int courseId) {
-    JournalDAO dao = daoFactory.getJournalDAO();
-    List<Journal> studentCourseList = read(() -> dao.getByCourseId(courseId), dao);
-    return studentCourseList.stream()
-        .map(journal -> new JournalDTO()
-            .setId(journal.getId())
-            .setStudent(journal.getStudent().getFullName())
-            .setGrade(journal.getGrade()))
-        .toList();
+  @Transactional
+  public void save(Account teacher) {
+    teacher.setRole(Role.ROLE_TEACHER);
+    teacher.setPassword(encoder.encode(teacher.getPassword()));
+    accountRepository.save(teacher);
   }
 
 }

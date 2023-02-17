@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="page-container">
+    <div class="admin-teachers-header">
+        <h2 th:text="#{teachers}"/>
+        <a th:href="@{/teachers/register}" class="register-teacher-ref" th:text="#{teacher.register}"/>
+    </div>
+    <div class="display-container">
+        <form method="get">
+            <input type="hidden" name="page" value="0"/>
+            <div class="form-group">
+                <label for="display" th:text="#{records_per_page}"/>
+                <input class="form-control display-field" type="number" id="display" name="size" min="1"
+                       th:value="${param.get('size') != null ? param.get('size') : size}"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" th:value="#{display}" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    <div th:if="${!teachers.isEmpty()}" class="table-container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{user.full_name}"/>
+                <th scope="col" th:text="#{user.username}"/>
+                <th scope="col" th:text="#{user.email}"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="teacher: ${teachers}">
+                <td th:text="${teacher.fullName}"/>
+                <td th:text="${teacher.username}"/>
+                <td th:text="${teacher.email}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li th:class="${'page-item' + (isFirst ? ' disabled' : '')}">
+                <a class="page-link" th:href="@{/teachers(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}" th:text="#{previous}"/>
+            </li>
+            <li th:if="${!isFirst}" class="page-item"><a class="page-link"
+                                                          th:href="@{/teachers(page=${page - 1}, size=${param.get('size') != null ? param.get('size') : size})}"
+                                                          th:text="${page}"/></li>
+            <li class="page-item active"><a class="page-link"
+                                     th:href="@{/teachers(page=${page}, size=${param.get('size') != null ? param.get('size') : size})}"
+                                     th:text="${page + 1}"/></li>
+            <li th:if="${!isLast}" class="page-item"><a class="page-link"
+                                                                 th:href="@{/teachers(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}"
+                                                                 th:text="${page + 2}"/></li>
+            <li th:class="${'page-item' + (isLast ? ' disabled' : '')}"><a class="page-link"
+                                                                                     th:href="@{/teachers(page=${page + 1}, size=${param.get('size') != null ? param.get('size') : size})}" th:text="#{next}"/>
+            </li>
+        </ul>
+    </nav>
+    <h5 th:if="${teachers.isEmpty()}" class="no-items-msg"  th:text="#{no_teachers}"/>
+</div>
+</body>
+</html>

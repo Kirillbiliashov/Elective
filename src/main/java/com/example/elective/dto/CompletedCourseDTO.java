@@ -1,5 +1,7 @@
 package com.example.elective.dto;
 
+import org.modelmapper.AbstractConverter;
+
 import java.sql.Date;
 
 /**

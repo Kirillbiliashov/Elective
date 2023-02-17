@@ -1,16 +1,19 @@
 package com.example.elective.services.impl;
 
-import com.example.elective.dao.sql.SQLDAOFactory;
 import com.example.elective.models.Account;
 import com.example.elective.models.Topic;
-import com.example.elective.selection.CourseSelection;
+import com.example.elective.repository.AccountRepository;
+import com.example.elective.repository.CourseRepository;
 
-import com.example.elective.dao.interfaces.CourseDAO;
-import com.example.elective.mappers.dtoMappers.CourseDTOMapper;
 import com.example.elective.models.Course;
-import com.example.elective.services.AbstractService;
+import com.example.elective.repository.TopicRepository;
 import com.example.elective.services.interfaces.CourseService;
-import org.hibernate.Session;
+import com.example.elective.utils.CourseSelection;
+import com.example.elective.utils.SortType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -20,68 +23,87 @@ import java.util.*;
  * @author Kirill Biliashov
  */
 
-public class CourseServiceImpl extends AbstractService implements CourseService {
+@Service
+@Transactional(readOnly = true)
+public class CourseServiceImpl implements CourseService {
 
-  @Override
-  public void update(Course course) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    write(() -> dao.update(course), dao);
+  private final CourseRepository courseRepository;
+  private final AccountRepository accountRepository;
+  private final TopicRepository topicRepository;
+
+  @Autowired
+  public CourseServiceImpl(CourseRepository courseRepository,
+                           AccountRepository accountRepository,
+                           TopicRepository topicRepository) {
+    this.courseRepository = courseRepository;
+    this.accountRepository = accountRepository;
+    this.topicRepository = topicRepository;
   }
 
   @Override
-  public void save(Course course, int topicId, int teacherId) {
-    Session session = SQLDAOFactory.getSession();
-    CourseDAO dao = daoFactory.getCourseDAO();
-    dao.setSession(session);
-    session.beginTransaction();
-    Topic topic = session.byId(Topic.class).load(topicId);
-    Account teacher = session.byId(Account.class).load(teacherId);
-    course.setTopic(topic);
+  @Transactional
+  public void persist(Course course, int teacherId, int topicId) {
+    Account teacher = accountRepository.getReferenceById(teacherId);
+    Topic topic = topicRepository.getReferenceById(topicId);
     course.setTeacher(teacher);
-    dao.save(course);
-    session.getTransaction().commit();
+    course.setTopic(topic);
+    courseRepository.save(course);
   }
 
   @Override
+  @Transactional
   public void delete(int id) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    write(() -> dao.delete(id), dao);
+    courseRepository.deleteById(id);
   }
 
   @Override
-  public Optional<Course> findById(int id) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.find(id), dao);
+  public Optional<Course> findById(Integer id) {
+    return courseRepository.findById(id);
   }
 
   @Override
-  public List<Course> getAll() {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(dao::getAll, dao);
+  public Optional<Course> findByName(String name) {
+    return courseRepository.findByName(name);
   }
 
   @Override
-  public List<Course> getAvailable(int studentId) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.getAvailableForStudent(studentId), dao);
+  public List<Course> getAll(CourseSelection selection) {
+    Sort sort = getSort(selection.sort());
+    Topic topic = topicRepository.getByName(selection.topic());
+    Account teacher = accountRepository.getByUsername(selection.teacher());
+    return courseRepository.findAll(sort, teacher, topic);
+  }
+
+  @Override
+  public List<Course> getAvailable(int studentId, CourseSelection selection) {
+    Account student = accountRepository.getReferenceById(studentId);
+    Sort sort = getSort(selection.sort());
+    Topic topic = topicRepository.getByName(selection.topic());
+    Account teacher = accountRepository.getByUsername(selection.teacher());
+    return courseRepository.getAvailable(sort, student, teacher, topic);
+  }
+
+  private Sort getSort(String sortStr) {
+    return sortStr != null ?
+        SortType.valueOf(sortStr).getSort() : Sort.unsorted();
   }
 
   @Override
   public List<Course> getCompletedCourses(int studentId) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.getCompletedForStudent(studentId), dao);
+    Account student = accountRepository.getReferenceById(studentId);
+    return courseRepository.getCompleted(student);
   }
 
   @Override
   public List<Course> getRegisteredCourses(int studentId) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.getRegisteredForStudent(studentId), dao);
+    Account student = accountRepository.getReferenceById(studentId);
+    return courseRepository.getRegistered(student);
   }
 
   @Override
-  public List<Course> getCoursesInProgress(int studentId) {
-    CourseDAO dao = daoFactory.getCourseDAO();
-    return read(() -> dao.getInProgressForStudent(studentId), dao);
+  public List<Course> getOngoingCourses(int studentId) {
+    Account student = accountRepository.getReferenceById(studentId);
+    return courseRepository.getOngoing(student);
   }
 
 }

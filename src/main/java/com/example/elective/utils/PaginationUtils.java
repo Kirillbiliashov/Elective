@@ -1,36 +1,20 @@
 package com.example.elective.utils;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import static com.example.elective.utils.Constants.*;
+import static com.example.elective.utils.Constants.SIZE_PARAM;
 
-/**
- * Class with utility methods related to pagination
- * @author Kirill Biliashov
- */
+@Component
 public class PaginationUtils {
 
-  private static final int DEFAULT_PAGE = 1;
-  private static final int DEFAULT_DISPLAY = 5;
-
-  public static void setPageAttributes(HttpServletRequest req, int currPage) {
-    int nextPage = currPage + 1;
-    int prevPage = currPage - 1;
-    req.setAttribute(PAGE_ATTR, currPage);
-    req.setAttribute(NEXT_ATTR, nextPage);
-    req.setAttribute(PREV_ATTR, prevPage);
-  }
-
-  public static int getPageNumber(HttpServletRequest request) {
-    String pageParam = request.getParameter(PAGE_ATTR);
-    if (!RegexUtils.isNumeric(pageParam)) return DEFAULT_PAGE;
-    return Integer.parseInt(pageParam);
-  }
-
-  public static int getItemsPerPage(HttpServletRequest request) {
-    String pageParam = request.getParameter(DISPLAY_PARAM);
-    if (!RegexUtils.isNumeric(pageParam)) return DEFAULT_DISPLAY;
-    return Integer.parseInt(pageParam);
+  public void setPaginationAttributes(Model model, Page<?> pageInfo) {
+    model.addAttribute(IS_LAST_ATTR, pageInfo.isLast());
+    model.addAttribute(IS_FIRST_ATTR, pageInfo.isFirst());
+    model.addAttribute(PAGE_PARAM, pageInfo.getNumber());
+    model.addAttribute(SIZE_PARAM, pageInfo.getTotalElements());
   }
 
 }

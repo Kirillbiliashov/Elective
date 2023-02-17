@@ -1,9 +1,10 @@
 package com.example.elective.models;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-
+import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,32 +18,36 @@ public class Course {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
+
+  @Size(min = 2, max = 50, message = "Name should be 2 to 50 characters long")
   private String name;
+  @Size(min = 10, max = 1024, message = "description should be 10 to 1024 characters long")
   private String description;
 
+  @FutureOrPresent(message = "start date can't be in the past")
   @Column(name = "start_date")
   private Date startDate;
 
-  @Column(name = "last_name")
+  @Column(name = "end_date")
   private Date endDate;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "topic_id", referencedColumnName = "id")
   private Topic topic;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "teacher_id", referencedColumnName = "id")
   private Account teacher;
 
   @OneToMany(mappedBy = "course")
   private List<Journal> students;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public Course setId(int id) {
+  public Course setId(Integer id) {
     this.id = id;
     return this;
   }
@@ -108,6 +113,10 @@ public class Course {
   public Course setStudents(List<Journal> students) {
     this.students = students;
     return this;
+  }
+
+  public int getStudentsCount() {
+    return students != null ? students.size() : 0;
   }
 
 }

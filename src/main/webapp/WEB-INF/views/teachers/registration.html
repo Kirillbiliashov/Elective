@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="post-form">
+    <h1 class="form-header" th:text="#{teacher.register}"/>
+    <form th:method="POST" th:action="@{/teachers/register}" th:object="${teacher}">
+        <div class="form-group">
+            <label for="fname" th:text="#{user.first_name}"/>
+            <input type="text" id="fname" th:field="*{firstName}" class="form-control" th:placeholder="#{user.first_name}"
+                   minlength="2" maxlength="20" required>
+        </div>
+        <div class="form-group">
+            <label for="lname" th:text="#{user.last_name}"/>
+            <input type="text" id="lname" th:field="*{lastName}" class="form-control" th:placeholder="#{user.last_name}"
+                   minlength="2" maxlength="20" required>
+        </div>
+        <div class="form-group">
+            <label for="username" th:text="#{user.username}"/>
+            <input type="text" class="form-control" id="username" th:field="*{username}" required minlength="8"
+                   maxlength="50" th:placeholder="#{user.username}">
+        </div>
+        <div class="form-group">
+            <label for="email" th:text="#{user.email}"/>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required minlength="8"
+                   maxlength="50" th:placeholder="#{user.email}">
+        </div>
+        <div class="form-group">
+            <label for="password" th:text="#{user.password}"/>
+            <input type="password" class="form-control" id="password" th:field="*{password}" required
+                   minlength="8" maxlength="64" th:placeholder="#{user.password}">
+        </div>
+        <div class="form-btn-container">
+            <button type="submit" class="btn btn-primary" th:text="#{teacher.register.btn}"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

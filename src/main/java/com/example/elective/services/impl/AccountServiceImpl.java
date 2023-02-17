@@ -1,78 +1,59 @@
 package com.example.elective.services.impl;
 
-import com.example.elective.dao.interfaces.AccountDAO;
-import com.example.elective.dao.sql.SQLDAOFactory;
-import com.example.elective.dto.StudentDTO;
-import com.example.elective.mappers.dtoMappers.StudentDTOMapper;
 import com.example.elective.models.Account;
-import com.example.elective.selection.Pagination;
-import com.example.elective.services.AbstractService;
+import com.example.elective.models.Role;
+import com.example.elective.repository.AccountRepository;
 import com.example.elective.services.interfaces.AccountService;
-import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
 import java.util.List;
 import java.util.Optional;
-
-import static com.example.elective.utils.Constants.STUDENT_ROLE;
-import static com.example.elective.utils.Constants.TEACHER_ROLE;
-import static com.example.elective.utils.PasswordUtils.passwordsMatch;
 
 /**
  * Class containing business logic methods regarding accounts
  * @author Kirill Biliashov
  */
 
-public class AccountServiceImpl extends AbstractService implements AccountService {
+@Service
+@Transactional(readOnly = true)
+public class AccountServiceImpl implements AccountService {
 
-  @Override
-  public Optional<Account> findByCredentials(String login, String password) {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    Optional<Account> optAcc = read(() -> dao.findByLogin(login), dao);
-    if (optAcc.isEmpty()) return Optional.empty();
-    Account acc = optAcc.get();
-    return findByPassword(acc, password);
-  }
+  private final AccountRepository repository;
 
-  private Optional<Account> findByPassword(Account acc, String password) {
-    String hashedPassword = acc.getPassword();
-    return passwordsMatch(password, hashedPassword) ?
-        Optional.of(acc) : Optional.empty();
+  @Autowired
+  public AccountServiceImpl(AccountRepository repository) {
+    this.repository = repository;
   }
 
   @Override
-  public List<Account> getTeachers() {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getByRole(TEACHER_ROLE), dao);
+  public List<Account> getAll(Role role) {
+    return repository.getByRole(role);
   }
 
   @Override
-  public List<Account> getPaginatedTeachers(Pagination pagination) {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getByRole(TEACHER_ROLE, pagination), dao);
+  public Page<Account> getAll(Role role, Integer page, Integer size) {
+    boolean isPaginated = page != null && size != null;
+    return repository.getByRole(role,
+        isPaginated ? PageRequest.of(page, size) : Pageable.unpaged());
   }
 
   @Override
-  public List<Account> getPaginatedStudents(Pagination pagination) {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getByRole(STUDENT_ROLE, pagination), dao);
+  public Optional<Account> findByUsername(String username) {
+    return repository.findByUsername(username);
   }
 
   @Override
-  public List<String> getLogins() {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    return read(dao::getLogins, dao);
+  public Optional<Account> findByEmail(String email) {
+    return repository.findByEmail(email);
   }
 
   @Override
-  public int getTotalCount(String roleName) {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    return read(() -> dao.getCountByRole(roleName), dao);
-  }
-
-  @Override
-  public void save(Account acc) {
-    AccountDAO dao = daoFactory.getAccountDAO();
-    write(() -> dao.save(acc), dao);
+  public Account get(int id) {
+    return repository.findById(id).orElse(null);
   }
 
 }

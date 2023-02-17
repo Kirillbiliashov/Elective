@@ -1,8 +1,8 @@
 package com.example.elective.services.interfaces;
 
-import com.example.elective.dto.StudentDTO;
 import com.example.elective.models.Account;
-import com.example.elective.selection.Pagination;
+import com.example.elective.models.Role;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,17 +13,9 @@ import java.util.Optional;
  */
 
 public interface AccountService {
-
-  Optional<Account> findByCredentials(String login, String password);
-
-  List<Account> getTeachers();
-
-  List<Account> getPaginatedTeachers(Pagination pagination);
-  List<Account> getPaginatedStudents(Pagination pagination);
-
-  List<String> getLogins();
-
-  int getTotalCount(String roleName);
-
-  void save(Account acc);
+  List<Account> getAll(Role role);
+  Page<Account> getAll(Role role, Integer page, Integer size);
+  Optional<Account> findByUsername(String username);
+  Optional<Account> findByEmail(String email);
+  Account get(int id);
 }

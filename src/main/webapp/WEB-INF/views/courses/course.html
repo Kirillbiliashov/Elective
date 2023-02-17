@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="edit-course-form">
+    <h1 th:text="#{course.edit}"/>
+    <form th:method="POST" th:object="${course}" th:action="@{/courses/edit}">
+        <input type="hidden" th:field="*{id}" th:value="${course.id}">
+        <div class="form-group">
+            <label for="name" th:text="#{course.name}"/>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required
+                   th:placeholder="#{course.name}">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+        </div>
+        <div class="form-group">
+            <label for="description" th:text="#{course.description}"/>
+            <textarea class="form-control" id="description" th:field="*{description}" rows="3"
+                      th:placeholder="#{course.description}"/>
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</div>
+        </div>
+        <div class="form-group">
+            <label for="startDate" th:text="#{course.start_date}"/>
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+            <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start date error</div>
+        </div>
+        <div class="form-group">
+            <label for="endDate" th:text="#{course.end_date}"/>
+            <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+            <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End date error</div>
+        </div>
+        <div class="form-group">
+            <label for="topicSelect" th:text="#{topic}"/>
+            <select class="form-control" id="topicSelect" name="topicId">
+                <option th:each="topic: ${topics}" th:value="${topic.id}"
+                        th:text="${topic.name}"
+                        th:selected="${topic.id == course.topic.id}"
+                />
+            </select>
+        </div>
+        <label for="teacherSelect" th:text="#{teacher}"/>
+        <select class="form-control" id="teacherSelect" name="teacherId">
+            <option th:each="teacher: ${teachers}" th:value="${teacher.id}"
+                    th:text="${teacher.fullName}" th:selected="${teacher.id == course.teacher.id}"/>
+        </select>
+        <div class="form-btn-container">
+            <button type="submit" class="btn btn-primary" th:text="#{course.edit}"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

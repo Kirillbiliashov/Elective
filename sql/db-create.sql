@@ -38,10 +38,10 @@ CREATE TABLE course
 CREATE TABLE journal
 (
     id              INT PRIMARY KEY AUTO_INCREMENT,
-    grade           INT(100) DEFAULT -1,
-    enrollment_date DATE NOT NULL,
-    course_id       INT  NOT NULL,
-    student_id      INT  NOT NULL,
+    grade           INT(100) NOT NULL,
+    enrollment_date DATE     NOT NULL,
+    course_id       INT      NOT NULL,
+    student_id      INT      NOT NULL,
     FOREIGN KEY (course_id) REFERENCES course (id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES account (id) ON DELETE CASCADE,
     UNIQUE (course_id, student_id)

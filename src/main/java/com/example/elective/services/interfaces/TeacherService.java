@@ -1,9 +1,10 @@
 package com.example.elective.services.interfaces;
 
 import com.example.elective.dto.JournalDTO;
-import com.example.elective.exceptions.ServiceException;
+import com.example.elective.models.Account;
 import com.example.elective.models.Course;
-import com.example.elective.selection.Pagination;
+import com.example.elective.models.Journal;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +15,6 @@ import java.util.Optional;
  */
 
 public interface TeacherService {
-  Optional<Course> findCourse(int teacherId, Pagination pagination);
-
-  int getCoursesCount(int teacherId);
-
-  List<JournalDTO> getJournalList(int courseId);
+  Page<Course> findCourse(int teacherId, Integer page);
+  void save(Account teacher);
 }
