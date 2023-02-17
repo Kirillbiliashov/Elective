@@ -111,6 +111,10 @@ public class Account {
     return block;
   }
 
+  public boolean isBlocked() {
+    return block != null;
+  }
+
   public Account setBlock(Blocklist block) {
     this.block = block;
     return this;

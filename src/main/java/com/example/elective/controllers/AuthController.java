@@ -32,19 +32,19 @@ public class AuthController {
 
   @GetMapping("/login")
   public String loginPage() {
-    return "auth/login";
+    return LOGIN_PAGE;
   }
 
   @GetMapping("/signup")
-  public String signupForm(@ModelAttribute("student") Account student) {
-    return "auth/signup";
+  public String signupForm(@ModelAttribute(STUDENT_ATTR) Account student) {
+    return SIGNUP_PAGE;
   }
 
   @PostMapping("/signup")
-  public String signup(@ModelAttribute("student") @Valid Account student,
+  public String signup(@ModelAttribute(STUDENT_ATTR) @Valid Account student,
                        BindingResult result) {
     accountValidator.validate(student, result);
-    if (result.hasErrors()) return "auth/signup";
+    if (result.hasErrors()) return SIGNUP_PAGE;
     studentService.save(student);
     return "redirect:../login";
   }

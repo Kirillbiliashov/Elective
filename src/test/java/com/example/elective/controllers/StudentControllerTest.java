@@ -6,12 +6,14 @@ import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.StudentService;
+import com.example.elective.utils.PaginationUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -41,6 +43,8 @@ public class StudentControllerTest {
   private ModelMapper modelMapper;
   @Mock
   private Page<Account> page;
+  @Autowired
+  private PaginationUtils paginationUtils;
   private MockMvc mockMvc;
 
   @Before
@@ -48,7 +52,7 @@ public class StudentControllerTest {
     MockitoAnnotations.openMocks(this);
     this.mockMvc = MockMvcBuilders
         .standaloneSetup(new StudentController(accountService,
-            studentService, modelMapper))
+            studentService, modelMapper, paginationUtils))
         .build();
   }
 
@@ -56,13 +60,14 @@ public class StudentControllerTest {
   public void testStudentsList() throws Exception {
     when(accountService.getAll(any(), any(), any())).thenReturn(page);
     mockMvc.perform(get("/students")
-            .param("page", String.valueOf(PAGE))
-            .param("size", String.valueOf(SIZE)))
+            .param(PAGE_PARAM, String.valueOf(PAGE))
+            .param(SIZE_PARAM, String.valueOf(SIZE)))
         .andExpect(status().isOk())
-        .andExpect(model().attributeExists("page"))
-        .andExpect(model().attributeExists("pages"))
+        .andExpect(model().attributeExists(PAGE_PARAM))
+        .andExpect(model().attributeExists(IS_FIRST_ATTR))
+        .andExpect(model().attributeExists(IS_LAST_ATTR))
         .andExpect(model().attributeExists(STUDENTS_ATTR))
-        .andExpect(view().name("students/all"));
+        .andExpect(view().name(STUDENTS_PAGE));
     verify(accountService, times(1)).getAll(Role.ROLE_STUDENT, PAGE, SIZE);
   }
 

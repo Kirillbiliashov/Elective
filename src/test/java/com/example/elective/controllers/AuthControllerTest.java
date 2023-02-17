@@ -17,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static com.example.elective.utils.Constants.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -42,27 +43,27 @@ public class AuthControllerTest {
 
   @Test
   public void testLoginPage() throws Exception {
-    mockMvc.perform(get("/auth/login"))
+    mockMvc.perform(get(LOGIN_URL))
         .andExpect(status().isOk())
         .andExpect(model().size(0))
-        .andExpect(view().name("auth/login"));
+        .andExpect(view().name(LOGIN_PAGE));
   }
 
   @Test
   public void testSignupForm() throws Exception {
-    mockMvc.perform(get("/auth/signup"))
+    mockMvc.perform(get(SIGNUP_URL))
         .andExpect(status().isOk())
-        .andExpect(model().attributeExists("student"))
-        .andExpect(view().name("auth/signup"));
+        .andExpect(model().attributeExists(STUDENT_ATTR))
+        .andExpect(view().name(SIGNUP_PAGE));
   }
 
   @Test
   public void testSignup() throws Exception {
     Account student = new Account();
-    mockMvc.perform(post("/auth/signup").flashAttr("student", student))
+    mockMvc.perform(post(SIGNUP_URL).flashAttr(STUDENT_ATTR, student))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("../login"))
-        .andExpect(model().attributeExists("student"));
+        .andExpect(model().attributeExists(STUDENT_ATTR));
     verify(studentService, times(1)).save(student);
   }
 

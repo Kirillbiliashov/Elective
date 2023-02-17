@@ -8,14 +8,17 @@ import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
+import com.example.elective.utils.PaginationUtils;
 import com.example.elective.utils.SecurityUtils;
 import com.example.elective.validator.AccountValidator;
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -58,6 +61,8 @@ public class TeacherControllerTest {
   private Page<Course> coursePage;
   @Mock
   private ModelMapper modelMapper;
+  @Autowired
+  private PaginationUtils paginationUtils;
   private MockMvc mockMvc;
 
   @Before
@@ -65,19 +70,20 @@ public class TeacherControllerTest {
     MockitoAnnotations.openMocks(this);
     this.mockMvc = MockMvcBuilders.standaloneSetup(new TeacherController(
         teacherService, journalService, accountService, securityUtils,
-        accountValidator, modelMapper)).build();
+        accountValidator, modelMapper, paginationUtils)).build();
   }
 
   @Test
   public void testTeachersList() throws Exception {
     when(accountService.getAll(any(), any(), any())).thenReturn(accountPage);
     mockMvc.perform(get("/teachers")
-            .param("page", String.valueOf(PAGE))
-            .param("size", String.valueOf(SIZE)))
-        .andExpect(view().name("teachers/all"))
-        .andExpect(model().attributeExists("page"))
-        .andExpect(model().attributeExists("pages"))
-        .andExpect(model().attributeExists("size"))
+            .param(PAGE_PARAM, String.valueOf(PAGE))
+            .param(SIZE_PARAM, String.valueOf(SIZE)))
+        .andExpect(view().name(TEACHERS_PAGE))
+        .andExpect(model().attributeExists(PAGE_PARAM))
+        .andExpect(model().attributeExists(IS_FIRST_ATTR))
+        .andExpect(model().attributeExists(IS_LAST_ATTR))
+        .andExpect(model().attributeExists(SIZE_PARAM))
         .andExpect(model().attributeExists(TEACHERS_ATTR));
     verify(accountService, times(1)).getAll(Role.ROLE_TEACHER, PAGE, SIZE);
   }
@@ -87,13 +93,14 @@ public class TeacherControllerTest {
     when(securityUtils.getUserId()).thenReturn(TEST_ID);
     when(teacherService.findCourse(TEST_ID, PAGE)).thenReturn(coursePage);
     mockMvc.perform(get("/teachers/teacher")
-        .param("page", String.valueOf(PAGE)))
+        .param(PAGE_PARAM, String.valueOf(PAGE)))
         .andExpect(status().isOk())
-        .andExpect(model().attributeExists("courses"))
-        .andExpect(model().attributeExists("page"))
-        .andExpect(model().attributeExists("pages"))
+        .andExpect(model().attributeExists(COURSES_ATTR))
+        .andExpect(model().attributeExists(PAGE_PARAM))
+        .andExpect(model().attributeExists(IS_FIRST_ATTR))
+        .andExpect(model().attributeExists(IS_LAST_ATTR))
         .andExpect(model().attributeExists(CURR_DATE_ATTR))
-        .andExpect(view().name("teachers/teacher"));
+        .andExpect(view().name(TEACHER_PAGE));
     verify(securityUtils, times(1)).getUserId();
     verify(teacherService, times(1)).findCourse(TEST_ID, PAGE);
   }
@@ -102,28 +109,28 @@ public class TeacherControllerTest {
   public void testTeacherRegistrationForm() throws Exception {
     mockMvc.perform(get("/teachers/register"))
         .andExpect(status().isOk())
-        .andExpect(model().attributeExists("teacher"))
-        .andExpect(view().name("teachers/registration"));
+        .andExpect(model().attributeExists(TEACHER_PARAM))
+        .andExpect(view().name(TEACHER_REGISTRATION_PAGE));
   }
 
   @Test
   public void testRegisterTeacher() throws Exception {
     Account teacher = new Account();
     mockMvc.perform(post("/teachers/register")
-            .flashAttr("teacher", teacher))
+            .flashAttr(TEACHER_PARAM, teacher))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("../"))
-        .andExpect(model().attributeExists("teacher"));
+        .andExpect(model().attributeExists(TEACHER_PARAM));
     verify(teacherService, times(1)).save(teacher);
   }
 
   @Test
   public void testAddGrade() throws Exception {
     mockMvc.perform(post("/teachers/addGrade/{id}", TEST_JOURNAL_ID)
-        .param("grade", String.valueOf(TEST_GRADE)))
-        .andExpect(status().isOk())
-        .andExpect(model().size(0))
-        .andExpect(view().name("teachers/teacher"));
+        .param(GRADE_PARAM, String.valueOf(TEST_GRADE)))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("../teacher"))
+        .andExpect(model().size(0));
     verify(journalService, times(1)).updateGrade(TEST_JOURNAL_ID, TEST_GRADE);
   }
 

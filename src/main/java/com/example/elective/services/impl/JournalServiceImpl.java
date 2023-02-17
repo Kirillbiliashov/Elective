@@ -36,11 +36,13 @@ public class JournalServiceImpl implements JournalService {
 
   @Override
   public void save(int courseId, int studentId) {
-    Journal journal = new Journal().setEnrollmentDate(Constants.CURRENT_DATE);
     Course course = courseRepository.getReferenceById(courseId);
     Account student = accountRepository.getReferenceById(studentId);
-    journal.setCourse(course);
-    journal.setStudent(student);
+    Journal journal = new Journal()
+        .setEnrollmentDate(Constants.CURRENT_DATE)
+        .setGrade(-1)
+        .setCourse(course)
+        .setStudent(student);
     journalRepository.save(journal);
   }
 

@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.exceptions.misusing.CannotVerifyStubOnlyMock;
 import org.modelmapper.ModelMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -82,7 +83,7 @@ public class CourseControllerTest {
         .andExpect(model().attributeExists(COURSE_ATTR))
         .andExpect(model().attributeExists(TOPICS_ATTR))
         .andExpect(model().attributeExists(TEACHERS_ATTR))
-        .andExpect(view().name("courses/course"));
+        .andExpect(view().name(COURSE_PAGE));
     verifyTopicAndTeacherServiceCall();
   }
 
@@ -90,7 +91,7 @@ public class CourseControllerTest {
   public void testGetAll() throws Exception {
     mockMvc.perform(get("/courses/all"))
         .andExpect(status().isOk())
-        .andExpect(view().name("courses/all"))
+        .andExpect(view().name(ALL_COURSES_PAGE))
         .andExpect(model().attributeExists(COURSES_ATTR))
         .andExpect(model().attributeExists(TEACHERS_ATTR))
         .andExpect(model().attributeExists(TOPICS_ATTR));
@@ -106,7 +107,7 @@ public class CourseControllerTest {
         .andExpect(model().attributeExists(COURSE_ATTR))
         .andExpect(model().attributeDoesNotExist(TOPICS_ATTR))
         .andExpect(model().attributeDoesNotExist(TEACHERS_ATTR))
-        .andExpect(redirectedUrl("../all"));
+        .andExpect(redirectedUrl("all"));
     verify(courseService, times(1)).persist(course, TEST_TEACHER_ID, TEST_TOPIC_ID);
   }
 
@@ -119,7 +120,7 @@ public class CourseControllerTest {
       return null;
     }).when(courseValidator).validate(any(), any());
     mockMvc.perform(getAddCoursePostRequest(course))
-        .andExpect(view().name("courses/add"))
+        .andExpect(view().name(ADD_COURSE_PAGE))
         .andExpect(model().attributeExists(TOPICS_ATTR))
         .andExpect(model().attributeExists(TEACHERS_ATTR));
     verifyTopicAndTeacherServiceCall();
@@ -127,9 +128,9 @@ public class CourseControllerTest {
 
   private MockHttpServletRequestBuilder getAddCoursePostRequest(Course course) {
     return post("/courses/add")
-        .flashAttr("course", course)
-        .param("topicId", String.valueOf(TEST_TOPIC_ID))
-        .param("teacherId", String.valueOf(TEST_TEACHER_ID));
+        .flashAttr(COURSE_ATTR, course)
+        .param(TOPIC_ID_PARAM, String.valueOf(TEST_TOPIC_ID))
+        .param(TEACHER_ID_PARAM, String.valueOf(TEST_TEACHER_ID));
   }
 
   private Course getPostCourse() {
@@ -154,12 +155,12 @@ public class CourseControllerTest {
   public void testAddCourseForm() throws Exception {
     mockMvc.perform(get("/courses/add"))
         .andExpect(status().isOk())
-        .andExpect(view().name("courses/add"))
+        .andExpect(view().name(ADD_COURSE_PAGE))
         .andExpect(model().attributeExists(TOPICS_ATTR))
         .andExpect(model().attributeExists(TEACHERS_ATTR))
         .andExpect(model().attributeExists(COURSE_ATTR))
-        .andExpect(model().attributeExists("topic"))
-        .andExpect(model().attributeExists("teacher"));
+        .andExpect(model().attributeExists(TOPIC_PARAM))
+        .andExpect(model().attributeExists(TEACHER_PARAM));
     verifyTopicAndTeacherServiceCall();
   }
 
@@ -170,14 +171,14 @@ public class CourseControllerTest {
     String topic = "topic";
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     mockMvc.perform(get("/courses/available").
-            param("sort", sort)
-            .param("teacher", teacher)
-            .param("topic", topic))
+            param(SORT_PARAM, sort)
+            .param(TEACHER_PARAM, teacher)
+            .param(TOPIC_PARAM, topic))
         .andExpect(status().isOk())
         .andExpect(model().attributeExists(TEACHERS_ATTR))
         .andExpect(model().attributeExists(TOPICS_ATTR))
         .andExpect(model().attributeExists(AVAILABLE_COURSES_ATTR))
-        .andExpect(view().name("courses/available"));
+        .andExpect(view().name(AVAILABLE_COURSES_PAGE));
     verifyTopicAndTeacherServiceCall();
     verify(courseService, times(1)).getAvailable(TEST_STUDENT_ID, selection);
   }
@@ -185,21 +186,21 @@ public class CourseControllerTest {
   @Test
   public void testRegisteredCourses() throws Exception {
     performGetCoursesRequest("/courses/registered", REGISTERED_COURSES_ATTR,
-        "courses/registered");
+        REGISTERED_COURSES_PAGE);
     verify(courseService, times(1)).getRegisteredCourses(TEST_STUDENT_ID);
   }
 
   @Test
   public void testGetOngoingCourses() throws Exception {
     performGetCoursesRequest("/courses/ongoing", ONGOING_COURSES_ATTR,
-        "courses/ongoing");
+        ONGOING_COURSES_PAGE);
     verify(courseService, times(1)).getOngoingCourses(TEST_STUDENT_ID);
   }
 
   @Test
   public void testGetCompletedCourses() throws Exception {
     performGetCoursesRequest("/courses/completed", COMPLETED_COURSES_ATTR,
-        "courses/completed");
+        COMPLETED_COURSES_PAGE);
     verify(courseService, times(1)).getCompletedCourses(TEST_STUDENT_ID);
   }
 

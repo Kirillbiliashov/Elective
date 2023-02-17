@@ -41,7 +41,7 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
-    return security.csrf().disable()
+    return security
         .authorizeHttpRequests(authorize ->
             authorize.antMatchers("/auth/login", "/auth/signup").permitAll()
                 .antMatchers("/courses/enroll/**",

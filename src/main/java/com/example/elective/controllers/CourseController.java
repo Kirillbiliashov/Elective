@@ -38,7 +38,6 @@ public class CourseController {
   private final CourseValidator courseValidator;
   private final ModelMapper modelMapper;
 
-
   @Autowired
   public CourseController(CourseService courseService, AccountService accountService,
                           TopicService topicService, CourseValidator courseValidator,
@@ -60,34 +59,34 @@ public class CourseController {
     model.addAttribute(COURSE_ATTR, optCourse.get());
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
-    return "courses/course";
+    return COURSE_PAGE;
   }
 
   @GetMapping("/all")
   public String allCourses(
-      @RequestParam(value = "sort", required = false) String sort,
-      @RequestParam(value = "teacher", required = false) String teacher,
-      @RequestParam(value = "topic", required = false) String topic, Model model) {
+      @RequestParam(value = SORT_PARAM, required = false) String sort,
+      @RequestParam(value = TEACHER_PARAM, required = false) String teacher,
+      @RequestParam(value = TOPIC_PARAM, required = false) String topic, Model model) {
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     List<Course> courses = courseService.getAll(selection);
     model.addAttribute(COURSES_ATTR, convertToCourseDTO(courses));
-    return "courses/all";
+    return ALL_COURSES_PAGE;
   }
 
   @GetMapping("/available")
   public String availableCourses(
-      @RequestParam(value = "sort", required = false) String sort,
-      @RequestParam(value = "teacher", required = false) String teacher,
-      @RequestParam(value = "topic", required = false) String topic, Model model) {
+      @RequestParam(value = SORT_PARAM, required = false) String sort,
+      @RequestParam(value = TEACHER_PARAM, required = false) String teacher,
+      @RequestParam(value = TOPIC_PARAM, required = false) String topic, Model model) {
     int studentId = securityUtils.getUserId();
     CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     List<Course> courses = courseService.getAvailable(studentId, selection);
     model.addAttribute(AVAILABLE_COURSES_ATTR, convertToCourseDTO(courses));
-    return "courses/available";
+    return AVAILABLE_COURSES_PAGE;
   }
 
   @GetMapping("/registered")
@@ -96,7 +95,7 @@ public class CourseController {
     List<Course> courses = courseService.getRegisteredCourses(studentId);
     model.addAttribute(REGISTERED_COURSES_ATTR,
         convertToRegisteredCourseDTO(courses, studentId));
-    return "courses/registered";
+    return REGISTERED_COURSES_PAGE;
   }
 
   private List<RegisteredCourseDTO> convertToRegisteredCourseDTO(
@@ -119,7 +118,7 @@ public class CourseController {
     int studentId = securityUtils.getUserId();
     List<Course> courses = courseService.getOngoingCourses(studentId);
     model.addAttribute(ONGOING_COURSES_ATTR, convertToCourseDTO(courses));
-    return "courses/ongoing";
+    return ONGOING_COURSES_PAGE;
   }
 
   private List<CourseDTO> convertToCourseDTO(List<Course> courses) {
@@ -135,7 +134,7 @@ public class CourseController {
     List<Course> courses = courseService.getCompletedCourses(studentId);
     model.addAttribute(COMPLETED_COURSES_ATTR,
         convertToCompletedCourseDTO(courses, studentId));
-    return "courses/completed";
+    return COMPLETED_COURSES_PAGE;
   }
 
   private List<CompletedCourseDTO> convertToCompletedCourseDTO(
@@ -156,15 +155,15 @@ public class CourseController {
   public String addCourseForm(Model model) {
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
-    model.addAttribute("topic", new Topic());
-    model.addAttribute("teacher", new Account());
+    model.addAttribute(TOPIC_PARAM, new Topic());
+    model.addAttribute(TEACHER_PARAM, new Account());
     model.addAttribute(COURSE_ATTR, new Course());
-    return "courses/add";
+    return ADD_COURSE_PAGE;
   }
 
   @PostMapping("/edit")
-  public String editCourse(@RequestParam("teacherId") int teacherId,
-                           @RequestParam("topicId") int topicId,
+  public String editCourse(@RequestParam(TEACHER_ID_PARAM) int teacherId,
+                           @RequestParam(TOPIC_ID_PARAM) int topicId,
                            @ModelAttribute(COURSE_ATTR) @Valid Course course,
                            BindingResult result, Model model) {
     courseValidator.validate(course, result);
@@ -173,10 +172,10 @@ public class CourseController {
       model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
       course.setTopic(topicService.get(topicId));
       course.setTeacher(accountService.get(teacherId));
-      return "courses/course";
+      return COURSE_PAGE;
     }
     courseService.persist(course, teacherId, topicId);
-    return "redirect:../all";
+    return "redirect:all";
   }
 
   @PostMapping("/delete/{id}")
@@ -187,18 +186,18 @@ public class CourseController {
 
 
   @PostMapping("/add")
-  public String addCourse(@RequestParam("topicId") int topicId,
-                          @RequestParam("teacherId") int teacherId,
+  public String addCourse(@RequestParam(TOPIC_ID_PARAM) int topicId,
+                          @RequestParam(TEACHER_ID_PARAM) int teacherId,
                           @ModelAttribute(COURSE_ATTR) @Valid Course course,
                           BindingResult result, Model model) {
     courseValidator.validate(course, result);
     if (result.hasErrors()) {
       model.addAttribute(TOPICS_ATTR, topicService.getAll());
       model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
-      return "courses/add";
+      return ADD_COURSE_PAGE;
     }
     courseService.persist(course, teacherId, topicId);
-    return "redirect:../all";
+    return "redirect:all";
   }
 
   @PostMapping("/enroll/{id}")

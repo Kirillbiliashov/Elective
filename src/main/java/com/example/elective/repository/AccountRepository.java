@@ -23,7 +23,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
   List<Account> getByRole(@Param("role") Role role);
 
   @Query(value = "SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.role = :role",
-      countQuery = "SELECT COUNT(a) FROM Account a")
+      countQuery = "SELECT COUNT(a) FROM Account a WHERE role = :role")
   Page<Account> getByRole(@Param("role") Role role, Pageable pageable);
   @Query("SELECT a FROM Account a LEFT JOIN FETCH a.block WHERE a.username = ?1 OR a.email = ?1")
   Account getByLogin(String login);

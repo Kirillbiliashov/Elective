@@ -13,6 +13,7 @@
         <h2 th:text="#{course} + ': ' + ${course.name}"/>
         <p th:text="#{course.start_date} + ': ' + ${course.startDate}"/>
         <p th:text="#{course.end_date} + ': ' + ${course.endDate}"/>
+        <h4 th:if="${course.journalList.isEmpty()}" th:text="#{no_students_enrolled}"/>
         <div class="table-container">
             <table th:if="${!course.journalList.isEmpty()}" class="table table-bordered course-table">
                 <thead>
@@ -43,20 +44,20 @@
             </table>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li th:class="${'page-item' + (page >= 1 ? '' : ' disabled')}">
-                        <a class="page-link" th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page - 1})}" th:text="#{previous}"/>
+                    <li th:class="${'page-item' + (isFirst ? ' disabled' : '')}">
+                        <a class="page-link" th:href="@{/teachers/teacher(page=${page - 1})}" th:text="#{previous}"/>
                     </li>
-                    <li th:if="${page >= 1}" class="page-item"><a class="page-link"
-                                                                  th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page - 1})}"
+                    <li th:if="${!isFirst}" class="page-item"><a class="page-link"
+                                                                  th:href="@{/teachers/teacher(page=${page - 1})}"
                                                                   th:text="${page}"/></li>
-                    <li class="page-item"><a class="page-link"
-                                             th:href="@{/teachers/{id}(id=${course.teacherId})(page=${page})}"
+                    <li class="page-item active"><a class="page-link"
+                                             th:href="@{/teachers/teacher(page=${page})}"
                                              th:text="${page + 1}"/></li>
-                    <li th:if="${page < pages - 1}" class="page-item"><a class="page-link"
-                                                                         th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page + 1})}"
+                    <li th:if="${!isLast}" class="page-item"><a class="page-link"
+                                                                         th:href="@{/teachers/teacher(page=${page + 1})}"
                                                                          th:text="${page + 2}"/></li>
-                    <li th:class="${'page-item' + (page < pages - 1 ? '' : ' disabled')}"><a class="page-link"
-                                                                                             th:href="@{/teachers/{id}(id=${course.teacherId}, page=${page + 1})}" th:text="#{next}"/>
+                    <li th:class="${'page-item' + (isLast ? ' disabled' : '')}"><a class="page-link"
+                                                                                             th:href="@{/teachers/teacher(page=${page + 1})}" th:text="#{next}"/>
                     </li>
                 </ul>
             </nav>

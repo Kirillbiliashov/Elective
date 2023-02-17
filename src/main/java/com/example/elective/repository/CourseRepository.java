@@ -22,24 +22,25 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
   @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.students s " +
       "LEFT JOIN FETCH c.topic LEFT JOIN FETCH c.teacher WHERE" +
-      " s.student = :student AND c.endDate < CURRENT_DATE")
+      " :student IN (SELECT s1 FROM s s1) AND c.endDate < CURRENT_DATE")
   List<Course> getCompleted(@Param("student") Account student);
-  @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.students s LEFT JOIN FETCH c.topic " +
-      "LEFT JOIN FETCH c.teacher " +
+  @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.students s " +
+      "LEFT JOIN FETCH c.topic LEFT JOIN FETCH c.teacher " +
       "WHERE (SELECT j FROM Journal j WHERE j.student = :student AND j.course = c) IS NULL" +
-      " AND c.startDate > CURRENT_DATE" +
-      " AND (:teacher IS NULL OR c.teacher = :teacher)" +
-      " AND (:topic IS NULL OR c.topic = :topic)")
+      " AND c.startDate > CURRENT_DATE AND" +
+      " (:teacher IS NULL OR c.teacher = :teacher) " +
+      "AND (:topic IS NULL OR c.topic = :topic)")
   List<Course> getAvailable(Sort sort, @Param("student") Account student,
                             @Param("teacher") Account teacher,
                             @Param("topic") Topic topic);
-  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s " +
+  @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.students s " +
       "LEFT JOIN FETCH c.teacher LEFT JOIN FETCH c.topic" +
-      " WHERE s.student = :student AND CURRENT_DATE BETWEEN c.startDate AND c.endDate")
+      " WHERE :student IN (SELECT s1 FROM s s1) AND CURRENT_DATE " +
+      "BETWEEN c.startDate AND c.endDate")
   List<Course> getOngoing(@Param("student") Account student);
-  @Query("SELECT c FROM Course c LEFT JOIN FETCH c.students s " +
+  @Query("SELECT DISTINCT c FROM Course c LEFT JOIN FETCH c.students s " +
       "LEFT JOIN FETCH c.teacher LEFT JOIN FETCH c.topic " +
-      "WHERE s.student = :student AND c.startDate > CURRENT_DATE")
+      "WHERE :student IN (SELECT s1 FROM s s1) AND c.startDate > CURRENT_DATE")
   List<Course> getRegistered(@Param("student") Account student);
 
   @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.students  " +

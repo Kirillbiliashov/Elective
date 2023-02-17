@@ -157,8 +157,6 @@ public class SpringConfig implements WebMvcConfigurer {
     modelMapper.createTypeMap(Course.class, CourseDTO.class)
         .addMapping(src -> src.getTeacher().getFullName(), CourseDTO::setTeacher)
         .addMapping(src -> src.getTopic().getName(), CourseDTO::setTopic);
-    modelMapper.createTypeMap(Account.class, StudentDTO.class)
-        .addMapping(src -> src.getBlock() != null, StudentDTO::setBlocked);
     modelMapper.createTypeMap(Journal.class, JournalDTO.class)
         .addMapping(src -> src.getStudent().getFullName(), JournalDTO::setStudent);
     modelMapper.createTypeMap(Course.class, TeacherCourseDTO.class)

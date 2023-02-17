@@ -9,15 +9,6 @@
 </head>
 <body>
 <div class="login-page-container">
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" th:href="@{/(lang='en')}">English</a>
-            <a class="dropdown-item" th:href="@{/(lang='ru')}">Russian</a>
-        </div>
-    </div>
     <h1 class="form-header" th:text="#{user.login}"></h1>
     <div>
         <form th:method="POST" th:action="@{/auth/login}">
@@ -34,6 +25,7 @@
             <div class="form-btn-container">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </form>
     </div>
     <div class="form-btn-container">

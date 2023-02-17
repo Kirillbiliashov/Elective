@@ -9,6 +9,7 @@ import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
+import com.example.elective.utils.PaginationUtils;
 import com.example.elective.utils.SecurityUtils;
 import com.example.elective.validator.AccountValidator;
 import org.modelmapper.ModelMapper;
@@ -34,6 +35,7 @@ public class TeacherController {
   private final SecurityUtils securityUtils;
   private final AccountValidator accountValidator;
   private final ModelMapper modelMapper;
+  private final PaginationUtils paginationUtils;
 
   @Autowired
   public TeacherController(TeacherService teacherService,
@@ -41,41 +43,39 @@ public class TeacherController {
                            AccountService accountService,
                            SecurityUtils securityUtils,
                            AccountValidator accountValidator,
-                           ModelMapper modelMapper) {
+                           ModelMapper modelMapper,
+                           PaginationUtils paginationUtils) {
     this.teacherService = teacherService;
     this.journalService = journalService;
     this.accountService = accountService;
     this.securityUtils = securityUtils;
     this.accountValidator = accountValidator;
     this.modelMapper = modelMapper;
+    this.paginationUtils = paginationUtils;
   }
 
   @GetMapping()
   public String teachersList(
-      @RequestParam(value = "page", required = false) Integer page,
-      @RequestParam(value = "size", required = false) Integer size, Model model) {
-    Page<Account> pageInfo =  accountService.getAll(Role.ROLE_TEACHER, page, size);
-    model.addAttribute("pages", pageInfo.getTotalPages());
-    model.addAttribute("page", pageInfo.getNumber());
-    model.addAttribute("size", pageInfo.getTotalElements());
+      @RequestParam(value = PAGE_PARAM, required = false) Integer page,
+      @RequestParam(value = SIZE_PARAM, required = false) Integer size, Model model) {
+    Page<Account> pageInfo = accountService.getAll(Role.ROLE_TEACHER, page, size);
+    paginationUtils.setPaginationAttributes(model, pageInfo);
     model.addAttribute(TEACHERS_ATTR, pageInfo.getContent());
-    return "teachers/all";
+    return TEACHERS_PAGE;
   }
 
   @GetMapping("/teacher")
-  public String teacherPage(Model model,
-                            @RequestParam(value = "page",
-                                required = false) Integer page) {
+  public String teacherPage(
+      @RequestParam(value = PAGE_PARAM, required = false) Integer page, Model model) {
     int id = securityUtils.getUserId();
     Page<Course> pageInfo = teacherService.findCourse(id, page);
-    model.addAttribute("courses", getTeacherCourseDTOList(pageInfo.getContent()));
-    model.addAttribute("page", pageInfo.getNumber());
-    model.addAttribute("pages", pageInfo.getTotalElements());
+    model.addAttribute(COURSES_ATTR, convert(pageInfo.getContent()));
+    paginationUtils.setPaginationAttributes(model, pageInfo);
     model.addAttribute(CURR_DATE_ATTR, CURRENT_DATE);
-    return "teachers/teacher";
+    return TEACHER_PAGE;
   }
 
-  private List<TeacherCourseDTO> getTeacherCourseDTOList(List<Course> courses) {
+  private List<TeacherCourseDTO> convert(List<Course> courses) {
     return courses
         .stream()
         .map(course -> modelMapper.map(course, TeacherCourseDTO.class)
@@ -91,24 +91,24 @@ public class TeacherController {
   }
 
   @GetMapping("/register")
-  public String teacherRegistrationForm(@ModelAttribute("teacher") Account teacher) {
-    return "teachers/registration";
+  public String teacherRegistrationForm(@ModelAttribute(TEACHER_PARAM) Account teacher) {
+    return TEACHER_REGISTRATION_PAGE;
   }
 
   @PostMapping("/register")
-  public String registerTeacher(@ModelAttribute("teacher") @Valid Account teacher,
+  public String registerTeacher(@ModelAttribute(TEACHER_PARAM) @Valid Account teacher,
                                 BindingResult result) {
     accountValidator.validate(teacher, result);
-    if (result.hasErrors()) return "teachers/registration";
+    if (result.hasErrors()) return TEACHER_REGISTRATION_PAGE;
     teacherService.save(teacher);
     return "redirect:../";
   }
 
   @PostMapping("/addGrade/{id}")
   public String addGrade(@PathVariable("id") int id,
-                         @RequestParam("grade") int grade) {
+                         @RequestParam(GRADE_PARAM) int grade) {
     journalService.updateGrade(id, grade);
-    return "teachers/teacher";
+    return "redirect:../teacher";
   }
 
 }

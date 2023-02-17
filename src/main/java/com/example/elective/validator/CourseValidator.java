@@ -33,13 +33,15 @@ public class CourseValidator implements Validator {
       return;
     }
     boolean isNameTaken = courseService.findByName(course.getName()).isPresent();
-    Optional<Course> optCourse = courseService.findById(course.getId());
-    optCourse.ifPresentOrElse(c -> {
-      if (!Objects.equals(c.getName(), course.getName()) && isNameTaken) {
+    if (course.getId() == null) {
+      if (isNameTaken) {
         errors.rejectValue("name", "", "Course name is taken");
       }
-    }, () -> {
-      if (isNameTaken) {
+      return;
+    }
+    Optional<Course> optCourse = courseService.findById(course.getId());
+    optCourse.ifPresent(c -> {
+      if (!Objects.equals(c.getName(), course.getName()) && isNameTaken) {
         errors.rejectValue("name", "", "Course name is taken");
       }
     });

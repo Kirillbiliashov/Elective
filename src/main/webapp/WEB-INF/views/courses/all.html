@@ -8,6 +8,9 @@
     <title>Courses</title>
 </head>
 <body>
+<form th:method="POST" th:action="@{/auth/logout}" class="btn btn-primary" style="margin-left: 85%">
+    <input type="submit" th:value="#{logout}"/>
+</form>
 <div class="page-container">
     <div class="admin-heading-container">
         <h2 th:text="#{courses}"></h2>
@@ -20,7 +23,6 @@
                     <label for="sort" th:text="#{sort.sort_by}"></label>
                     <select class="form-control" name="sort" id="sort">
                         <option selected value="NONE" th:text="#{sort.none}"></option>
-                        <!--                        <option th:each="type: ${sortTypes}" th:text="${type}" th:value="${type}">-->
                         <option value="NAME" th:selected="${param.get('sort') == 'NAME'}" th:text="#{sort.name}"/>
                         <option value="NAME_DESC" th:selected="${param.get('sort') == 'NAME_DESC'}" th:text="#{sort.name_desc}"/>
                         <option value="DURATION" th:selected="${param.get('sort') == 'DURATION'}" th:text="#{sort.duration}"/>
@@ -60,9 +62,9 @@
                     <p th:text="#{course.end_date} + ': ' + ${course.endDate}"/>
                     <p th:text="#{course.students_count} + ': ' + ${course.studentsCount}"/>
                     <button type="button" class="btn btn-link description-btn" data-toggle="modal"
-                            data-target="#descModal/${course.id}" th:text="#{course.description}">
+                            th:attr="data-target=${'#descModal' + course.id}" th:text="#{course.description}">
                     </button>
-                    <div class="modal fade" id="descModal/${course.id}" tabindex="-1" role="dialog"
+                    <div class="modal fade" th:attr="id=${'descModal' + course.id}" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
