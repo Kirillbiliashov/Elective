@@ -6,6 +6,7 @@ import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.StudentService;
+import com.example.elective.utils.Pagination;
 import com.example.elective.utils.PaginationUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,8 @@ public class StudentControllerTest {
   private ModelMapper modelMapper;
   @Mock
   private Page<Account> page;
+  @Mock
+  private Pagination pagination;
   @Autowired
   private PaginationUtils paginationUtils;
   private MockMvc mockMvc;
@@ -58,7 +61,7 @@ public class StudentControllerTest {
 
   @Test
   public void testStudentsList() throws Exception {
-    when(accountService.getAll(any(), any(), any())).thenReturn(page);
+    when(accountService.getAll(any(), any())).thenReturn(page);
     mockMvc.perform(get("/students")
             .param(PAGE_PARAM, String.valueOf(PAGE))
             .param(SIZE_PARAM, String.valueOf(SIZE)))
@@ -68,7 +71,7 @@ public class StudentControllerTest {
         .andExpect(model().attributeExists(IS_LAST_ATTR))
         .andExpect(model().attributeExists(STUDENTS_ATTR))
         .andExpect(view().name(STUDENTS_PAGE));
-    verify(accountService, times(1)).getAll(Role.ROLE_STUDENT, PAGE, SIZE);
+    verify(accountService, times(1)).getAll(Role.ROLE_STUDENT, pagination);
   }
 
   @Test

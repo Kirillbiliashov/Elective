@@ -8,6 +8,7 @@ import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
+import com.example.elective.utils.Pagination;
 import com.example.elective.utils.PaginationUtils;
 import com.example.elective.utils.SecurityUtils;
 import com.example.elective.validator.AccountValidator;
@@ -61,6 +62,8 @@ public class TeacherControllerTest {
   private Page<Course> coursePage;
   @Mock
   private ModelMapper modelMapper;
+  @Mock
+  private Pagination pagination;
   @Autowired
   private PaginationUtils paginationUtils;
   private MockMvc mockMvc;
@@ -75,7 +78,7 @@ public class TeacherControllerTest {
 
   @Test
   public void testTeachersList() throws Exception {
-    when(accountService.getAll(any(), any(), any())).thenReturn(accountPage);
+    when(accountService.getAll(any(), any())).thenReturn(accountPage);
     mockMvc.perform(get("/teachers")
             .param(PAGE_PARAM, String.valueOf(PAGE))
             .param(SIZE_PARAM, String.valueOf(SIZE)))
@@ -85,7 +88,7 @@ public class TeacherControllerTest {
         .andExpect(model().attributeExists(IS_LAST_ATTR))
         .andExpect(model().attributeExists(SIZE_PARAM))
         .andExpect(model().attributeExists(TEACHERS_ATTR));
-    verify(accountService, times(1)).getAll(Role.ROLE_TEACHER, PAGE, SIZE);
+    verify(accountService, times(1)).getAll(Role.ROLE_TEACHER, pagination);
   }
 
   @Test

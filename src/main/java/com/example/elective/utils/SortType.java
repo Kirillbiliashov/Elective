@@ -24,13 +24,13 @@ public enum SortType {
   DURATION {
     @Override
     public Sort getSort() {
-      return JpaSort.unsafe("(endDate - startDate)");
+      return JpaSort.unsafe("(c.endDate - c.startDate)");
     }
   },
   DURATION_DESC {
     @Override
     public Sort getSort() {
-      return JpaSort.unsafe(Sort.Direction.DESC, "(endDate - startDate)");
+      return JpaSort.unsafe(Sort.Direction.DESC, "(c.endDate - c.startDate)");
     }
   },
   STUDENTS_COUNT {

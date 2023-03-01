@@ -1,10 +1,12 @@
 package com.example.elective.controllers;
 
+import com.example.elective.annotations.PageParam;
 import com.example.elective.dto.StudentDTO;
 import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.StudentService;
+import com.example.elective.utils.Pagination;
 import com.example.elective.utils.PaginationUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +39,8 @@ public class StudentController {
   }
 
   @GetMapping
-  public String studentsList(
-      @RequestParam(value = PAGE_PARAM, required = false) Integer page,
-      @RequestParam(value = SIZE_PARAM, required = false) Integer size, Model model) {
-    Page<Account> pageInfo = accountService.getAll(Role.ROLE_STUDENT, page, size);
+  public String studentsList(@PageParam Pagination pagination, Model model) {
+    Page<Account> pageInfo = accountService.getAll(Role.ROLE_STUDENT, pagination);
     utils.setPaginationAttributes(model, pageInfo);
     model.addAttribute(STUDENTS_ATTR, convert(pageInfo.getContent()));
     return STUDENTS_PAGE;

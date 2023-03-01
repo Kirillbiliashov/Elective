@@ -1,5 +1,7 @@
 package com.example.elective.config;
 
+import com.example.elective.argumentResolvers.CourseRequestParamsArgumentResolver;
+import com.example.elective.argumentResolvers.PaginationRequestParamsArgumentResolver;
 import com.example.elective.dto.CourseDTO;
 import com.example.elective.dto.JournalDTO;
 import com.example.elective.dto.StudentDTO;
@@ -24,6 +26,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -34,6 +37,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -164,5 +168,10 @@ public class SpringConfig implements WebMvcConfigurer {
     return modelMapper;
   }
 
+  @Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    resolvers.add(new CourseRequestParamsArgumentResolver());
+    resolvers.add(new PaginationRequestParamsArgumentResolver());
+  }
 
 }

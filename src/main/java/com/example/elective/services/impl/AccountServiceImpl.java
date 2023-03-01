@@ -4,6 +4,7 @@ import com.example.elective.models.Account;
 import com.example.elective.models.Role;
 import com.example.elective.repository.AccountRepository;
 import com.example.elective.services.interfaces.AccountService;
+import com.example.elective.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -35,10 +36,10 @@ public class AccountServiceImpl implements AccountService {
   }
 
   @Override
-  public Page<Account> getAll(Role role, Integer page, Integer size) {
-    boolean isPaginated = page != null && size != null;
-    return repository.getByRole(role,
-        isPaginated ? PageRequest.of(page, size) : Pageable.unpaged());
+  public Page<Account> getAll(Role role, Pagination pagination) {
+    return repository.getByRole(role, pagination.isPaginated() ?
+        PageRequest.of(pagination.getPage(), pagination.getSize()) :
+        Pageable.unpaged());
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.example.elective.controllers;
 
+import com.example.elective.annotations.Selection;
 import com.example.elective.dto.CompletedCourseDTO;
 import com.example.elective.dto.CourseDTO;
 import com.example.elective.dto.RegisteredCourseDTO;
@@ -63,11 +64,7 @@ public class CourseController {
   }
 
   @GetMapping("/all")
-  public String allCourses(
-      @RequestParam(value = SORT_PARAM, required = false) String sort,
-      @RequestParam(value = TEACHER_PARAM, required = false) String teacher,
-      @RequestParam(value = TOPIC_PARAM, required = false) String topic, Model model) {
-    CourseSelection selection = new CourseSelection(sort, teacher, topic);
+  public String allCourses(@Selection CourseSelection selection, Model model) {
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     List<Course> courses = courseService.getAll(selection);
@@ -76,12 +73,8 @@ public class CourseController {
   }
 
   @GetMapping("/available")
-  public String availableCourses(
-      @RequestParam(value = SORT_PARAM, required = false) String sort,
-      @RequestParam(value = TEACHER_PARAM, required = false) String teacher,
-      @RequestParam(value = TOPIC_PARAM, required = false) String topic, Model model) {
+  public String availableCourses(@Selection CourseSelection selection, Model model) {
     int studentId = securityUtils.getUserId();
-    CourseSelection selection = new CourseSelection(sort, teacher, topic);
     model.addAttribute(TOPICS_ATTR, topicService.getAll());
     model.addAttribute(TEACHERS_ATTR, accountService.getAll(Role.ROLE_TEACHER));
     List<Course> courses = courseService.getAvailable(studentId, selection);

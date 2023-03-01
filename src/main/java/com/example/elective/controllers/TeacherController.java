@@ -1,5 +1,6 @@
 package com.example.elective.controllers;
 
+import com.example.elective.annotations.PageParam;
 import com.example.elective.dto.JournalDTO;
 import com.example.elective.dto.TeacherCourseDTO;
 import com.example.elective.models.Account;
@@ -9,6 +10,7 @@ import com.example.elective.models.Role;
 import com.example.elective.services.interfaces.AccountService;
 import com.example.elective.services.interfaces.JournalService;
 import com.example.elective.services.interfaces.TeacherService;
+import com.example.elective.utils.Pagination;
 import com.example.elective.utils.PaginationUtils;
 import com.example.elective.utils.SecurityUtils;
 import com.example.elective.validator.AccountValidator;
@@ -55,10 +57,8 @@ public class TeacherController {
   }
 
   @GetMapping()
-  public String teachersList(
-      @RequestParam(value = PAGE_PARAM, required = false) Integer page,
-      @RequestParam(value = SIZE_PARAM, required = false) Integer size, Model model) {
-    Page<Account> pageInfo = accountService.getAll(Role.ROLE_TEACHER, page, size);
+  public String teachersList(@PageParam Pagination pagination, Model model) {
+    Page<Account> pageInfo = accountService.getAll(Role.ROLE_TEACHER, pagination);
     paginationUtils.setPaginationAttributes(model, pageInfo);
     model.addAttribute(TEACHERS_ATTR, pageInfo.getContent());
     return TEACHERS_PAGE;
